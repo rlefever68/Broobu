@@ -1,0 +1,422 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ include file="DbmlHelper.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-02
+// Author          : Marnix De Groote
+// Updated 2010-05-10 [FilipS]: Changed the column name generation to remove
+// leading and trailing square brackets for special column names like user.
+// --------------------------------------------------------------------------
+
+public class RepositoryDomainClassTemplate : Template
+{
+    public TableInfo TableInfo; 
+    public string    Namespace; 
+
+    public override string TransformText()
+    {
+        bool hasCompositePk = TableInfo.PkColumnInfos.Count > 1;
+        bool first;
+#>
+//========================================================================================
+// INFO: This file is generated from t4 template <#= this.GetType().Name #>.tt
+// !!! Any changes made manually will be lost next time this file is generated !!!
+//========================================================================================
+using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Runtime.Serialization;
+using Pms.Framework.Validation;
+using System.Collections.Generic;
+using Pms.Framework.Domain;
+using Pms.Framework.Interfaces;
+
+
+namespace <#= Namespace #>.Contract.Domain
+{
+    //[DataContract(Namesp ace="http://pms/domain/repository/<#= Namespace #>")]
+    [DataContract]
+    public partial class <#= TableInfo.EntityName #> : DomainObject<<#= TableInfo.EntityName #>>, IDataErrorInfo<#= (TableInfo.HasPk) ? ", IIdentityInfo<" + TableInfo.IdLanguageType + ">" : string.Empty #> 
+    {
+        // Object Initialize Sample:
+        // new <#= TableInfo.EntityName #>{<#= TableInfo.FieldInitializerList #>}
+        
+<#+
+        if (TableInfo.HasCompositePk)
+        {
+#>
+        /// <summary>
+        /// Implements composite primary key of <#= TableInfo.TableName #>.
+        /// </summary>
+        public class <#= TableInfo.InnerCompositePkLanguageType #> : DomainObject<<#= TableInfo.InnerCompositePkLanguageType #>>
+        {
+<#+
+            first = true;
+            foreach (ColumnInfo columnInfo in TableInfo.PkColumnInfos)
+            {
+                if (first == false) WriteLine(string.Empty);
+#>
+            /// <summary>
+            /// Gets or sets <#= TableInfo.TableName #>.<#= columnInfo.Name #>, DbType: <#= columnInfo.FullTSqlDbType #>.
+            /// </summary>
+            /// <value></value>
+            [DataMember]
+            public <#= columnInfo.IsBinaryType ? "byte[]": columnInfo.LanguageType #> <#= columnInfo.Name #> { get; set; }
+<#+
+                first = false;
+            }
+#>
+
+            public override bool Equals(object obj)
+            {
+                if (obj == null || GetType() != obj.GetType()) return false;
+                PrimaryKey target = (PrimaryKey)obj;
+                return 
+<#+
+            first = true;
+            foreach (ColumnInfo columnInfo in TableInfo.PkColumnInfos)
+            {
+                if(!columnInfo.IsBinaryType)
+                {
+                    string prefix = (first) ? "(" : "&&";			
+#>
+                <#= prefix #>  (<#= columnInfo.Name #> == target.<#= columnInfo.Name #>)
+<#+
+                first = false;
+                }
+            }
+#>
+                );
+            }
+
+            public override int GetHashCode()
+            {
+                return
+<#+
+            first = true;
+            foreach (ColumnInfo columnInfo in TableInfo.PkColumnInfos)
+            {
+                if(!columnInfo.IsBinaryType)
+                {
+                    string prefix = (first) ? "(" : "^";
+                
+                    if (columnInfo.LanguageType == "string")
+                    {
+#>
+                <#= prefix #> ((<#= columnInfo.Name #> == null) ? 0 : <#= columnInfo.Name #>.GetHashCode())
+<#+
+                    }
+                    else if (columnInfo.CanBeNull)
+                    {
+#>
+                <#= prefix #> ((<#= columnInfo.Name #> == null) ? 0 : <#= columnInfo.Name #>.Value.GetHashCode())
+<#+
+                    }
+                    else
+                    {
+#>
+                <#= prefix #> <#= columnInfo.Name #>.GetHashCode()
+<#+
+                    }
+                
+                    first = false;
+                }
+            }
+#>
+                );
+            }
+
+
+	        #region Implementation of IDataErrorInfo
+
+	        /// <summary>
+	        /// Implement this method using 
+	        /// DataErrorInfoValidator<Your-Type-Comes-here>.Validate(this,columname);
+	        /// </summary>
+	        /// <param name="columnName"></param>
+	        /// <returns></returns>
+	        protected override string Validate(string columnName)
+			{
+			   return DataErrorInfoValidator<<#= TableInfo.InnerCompositePkLanguageType #>>.Validate(this,columnName);
+			}
+
+	        /// <summary>
+	        /// Implement this method using 
+	        /// DataErrorInfoValidator<Your-Type-Comes-here>.Validate(this);
+	        /// </summary>
+	        /// <returns></returns>
+	        protected override ICollection<string> Validate()
+			{
+			  return DataErrorInfoValidator<<#= TableInfo.InnerCompositePkLanguageType #>>.Validate(this);
+			}
+
+	        #endregion
+
+            public override string ToString()
+            {
+                string result = string.Empty;
+        
+<#+
+            foreach (ColumnInfo columnInfo in TableInfo.PkColumnInfos)
+            {
+                if(!columnInfo.IsBinaryType)
+                {
+#>
+                result += "<#= columnInfo.Name #> = " + <#= columnInfo.Name #> + "; ";
+<#+
+                }
+            }
+#>
+        
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the composite primary key.
+        /// </summary>
+        /// <value></value>
+        [DataMember]
+        public <#= TableInfo.InnerCompositePkLanguageType #> <#= TableInfo.IdName #> { get; set; }
+
+<#+
+        } // End of composite Pk
+        
+        first = true;
+        bool hasFieldNamedId = false;
+        const string nameOfId = "Id";
+        foreach (ColumnInfo columnInfo in TableInfo.ColumnInfos)
+        {
+            if (TableInfo.HasCompositePk && columnInfo.IsInPrimaryKey) continue; // Skip composite keys
+            if (first == false) WriteLine(string.Empty);
+            if (columnInfo.Name == nameOfId) hasFieldNamedId = true;
+#>
+        /// <summary>
+        /// Gets or sets <#= TableInfo.TableName #>.<#= columnInfo.Name #>, DbType: <#= columnInfo.FullTSqlDbType #>.
+        /// </summary>
+        /// <value></value>
+        [DataMember]
+<#+
+            if ((columnInfo.IsValueType) == false && (columnInfo.CanBeNull == false))
+            {
+#>
+        [Required(ErrorMessage = "The value in column <#= columnInfo.Name #> must not be NULL")]
+<#+
+            }
+            if (columnInfo.IsDbStringType)
+            {
+#>
+        [StringLength(<#= columnInfo.DbStringLength #>, ErrorMessage = "The string length in column <#= columnInfo.Name #> must not exceed <#= columnInfo.DbStringLength #>")]
+<#+
+            }
+			if ((TableInfo.HasCompositePk == false) && columnInfo.IsInPrimaryKey)
+			{
+				string newModifier = (columnInfo.Name == nameOfId) ? "new " : string.Empty;
+				// PK has NOT the name Id
+				if (columnInfo.LanguageType != "string")
+				{
+					// Map the primary key to the field Id in the base class (DomainObject.Id)
+#>
+        public <#= newModifier #><#= columnInfo.LanguageType #> <#= columnInfo.Name #>
+        {
+            get { return (base.Id != null) ? <#= columnInfo.LanguageType #>.Parse(base.Id) : 0; }
+            set { base.Id = value.ToString(); }
+        }
+<#+
+				}
+				else // The PK has NOT the name Id but the type string
+				{
+#>
+        public <#= newModifier #><#= columnInfo.LanguageType #> <#= columnInfo.Name #>
+        {
+            get { return base.Id; }
+            set { base.Id = value; }
+        }
+<#+
+				}
+			}
+			else // Not a primary key
+			{
+#>
+        public <#= columnInfo.IsBinaryType ? "byte[]" : columnInfo.LanguageType #> <#= columnInfo.Name #> { get; set; }
+<#+
+            }
+            first = false;
+		}
+#>
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType()) return false;
+            <#= TableInfo.EntityName #> target = (<#= TableInfo.EntityName #>)obj;
+            return 
+<#+
+            first = true;
+            foreach (ColumnInfo columnInfo in TableInfo.ColumnInfos)
+            {
+                if(!columnInfo.IsBinaryType)
+                {
+                    string prefix = (first) ? "(" : "&&";			
+#>
+            <#= prefix #>  (<#= columnInfo.ReferenceName #> == target.<#= columnInfo.ReferenceName #>)
+<#+
+                    first = false;
+                }
+            }
+#>
+            );
+        }
+
+        public override int GetHashCode()
+        {
+            return
+<#+
+            first = true;
+            foreach (ColumnInfo columnInfo in TableInfo.ColumnInfos)
+            {
+                if(!columnInfo.IsBinaryType)
+                {
+                    string prefix = (first) ? "(" : "^";
+                
+                if (columnInfo.LanguageType == "string")
+                {
+#>
+            <#= prefix #> ((<#= columnInfo.ReferenceName #> == null) ? 0 : <#= columnInfo.ReferenceName #>.GetHashCode())
+<#+
+                }
+                else if (columnInfo.CanBeNull)
+                {
+#>
+            <#= prefix #> ((<#= columnInfo.ReferenceName #> == null) ? 0 : <#= columnInfo.ReferenceName #>.Value.GetHashCode())
+<#+
+                }
+                else
+                {
+#>
+            <#= prefix #> <#= columnInfo.ReferenceName #>.GetHashCode()
+<#+
+                }
+                
+                first = false;
+            }
+        }		
+#>
+            );
+        }
+
+        public override string ToString()
+        {
+            string result = string.Empty;
+        
+<#+
+        first = true;
+        string separator;
+        foreach (ColumnInfo columnInfo in TableInfo.ColumnInfos)
+        {
+            if(!columnInfo.IsBinaryType)
+            {
+                if (first)
+                {
+                    separator = string.Empty;
+                    first = false;
+                }
+                else
+                {
+                    separator = " ";
+                }
+#>
+            result += "<#= separator #><#= columnInfo.ReferenceName #> = " + <#= columnInfo.ReferenceName #> + ";";
+<#+
+
+            }
+        }
+#>
+        
+            return result;
+        }
+
+        #region Implementation of IDataErrorInfo
+
+//		/// <summary>
+//		/// Gets the error for property called [columnName]
+//		/// </summary>
+//    	public string this[string columnName]
+//    	{
+//    		get
+//    		{
+//				return DataErrorInfoValidator<<#= TableInfo.EntityName #>>.Validate(this, columnName); 
+//			}
+//    	}
+//
+//		/// <summary>
+//        /// if Null no errors, empty strings means there are errors but no description
+//        /// </summary>
+//        public string Error
+//        {
+//            get
+//            {
+//                var errorMessages = DataErrorInfoValidator<<#= TableInfo.EntityName #>>.Validate(this);
+//                if (errorMessages.Count == 0)
+//                    return null;
+
+//                return string.Join(Environment.NewLine, errorMessages.ToArray());
+//            }
+//        }
+
+
+        /// <summary>
+        /// Implement this method using 
+        /// DataErrorInfoValidator<Your-Type-Comes-here>.Validate(this,columname);
+        /// </summary>
+        /// <param name="columnName"></param>
+        /// <returns></returns>
+        protected override string Validate(string columnName)
+		{
+		   return DataErrorInfoValidator<<#= TableInfo.EntityName #>>.Validate(this,columnName);
+		}
+
+        /// <summary>
+        /// Implement this method using 
+        /// DataErrorInfoValidator<Your-Type-Comes-here>.Validate(this);
+        /// </summary>
+        /// <returns></returns>
+        protected override ICollection<string> Validate()
+		{
+		  return DataErrorInfoValidator<<#= TableInfo.EntityName #>>.Validate(this);
+		}
+
+        #endregion
+<#+
+        if (TableInfo.HasPk) 
+        {
+            
+            string idName = TableInfo.IdName;
+            string idLanguageType = (TableInfo.HasCompositePk) ? TableInfo.InnerCompositePkLanguageType : TableInfo.IdLanguageType;
+			
+            if (idLanguageType != "string" && (idName != nameOfId))
+            {
+#>
+
+        #region Implementation of IIdentityInfo<<#= TableInfo.IdLanguageType #>>
+
+		// Redefining property Id with a type different from string
+        public new <#= idLanguageType #> Id
+        {
+            get { return <#= idName #>; }
+            set { <#= idName #> = value; }
+        }
+
+        #endregion
+<#+
+            }
+        }
+#>
+
+    }
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>

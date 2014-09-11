@@ -1,0 +1,10 @@
+﻿<controls:AppletWindow x:Class="Iris.MonitorSession.UI.MonitorSessionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:iris = "http://schemas.iris/ui/monitorsession" xmlns:UI="clr-namespace:Iris.Fx.UI;assembly=Iris.Fx.UI" 
+        xmlns:controls="clr-namespace:Iris.Shell.UI.Controls;assembly=Iris.Shell.UI.Controls" Height="350" Width="525"
+        ApplicationName="Broobu - Session Monitor">
+    <Grid>
+        <iris:SessionViewItemListView/>
+    </Grid>
+</controls:AppletWindow>

@@ -1,0 +1,194 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:xcdg="clr-namespace:Xceed.Wpf.DataGrid.Converters;assembly=Xceed.Wpf.DataGrid" 
+    xmlns:DataGrid="clr-namespace:Xceed.Wpf.DataGrid;assembly=Xceed.Wpf.DataGrid" 
+    xmlns:Views="clr-namespace:Xceed.Wpf.DataGrid.Views;assembly=Xceed.Wpf.DataGrid" xmlns:Markup="clr-namespace:Xceed.Wpf.DataGrid.Markup;assembly=Xceed.Wpf.DataGrid">
+
+
+    <Style TargetType="{x:Type DataGrid:DataCell}">
+        <!--<Setter Property="FontWeight" Value="Bold"></Setter>-->
+        <Setter Property="Foreground" Value="#383737"></Setter>
+        <Setter Property="FontSize" Value="10"></Setter>
+        <Setter Property="FontFamily" Value="Verdana"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+    </Style>
+    <!--************************** STYLE: GroupLevelIndicatorPane ************************** -->
+    <Style TargetType="{x:Type DataGrid:GroupLevelIndicatorPane}">
+        <Setter Property="Visibility" Value="Collapsed" />
+    </Style>
+
+    <DataTemplate DataType="{x:Type DataGrid:Group}">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding Value}" />
+            <TextBlock Text=" "></TextBlock>
+            <!--<TextBlock Text="{Binding Items.Count}" FontWeight="Bold"/>
+            <TextBlock Text=" items." FontWeight="Bold"/>-->
+        </StackPanel>
+    </DataTemplate>
+
+    <LinearGradientBrush x:Key="RowSelectionHoverBackground" StartPoint="0,0" EndPoint="0,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#fafbfd" Offset="0.1" />
+                <GradientStop Color="#c7def1" Offset="1" />
+                <GradientStop Color="#bccce3" Offset="1" />
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="GroupRowSelectionHoverBackground" StartPoint="0,0" EndPoint="0,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#fafbfd" Offset="0.1" />
+                <GradientStop Color="#c8def1" Offset="1" />
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+
+    <!-- GroupHeaderControl -->
+    <Style x:Key="{x:Type DataGrid:GroupHeaderControl}" TargetType="{x:Type DataGrid:GroupHeaderControl}">
+        <!--<Setter Property="Background"  Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />-->
+        <Setter Property="Background" Value="{StaticResource RowSelectionHoverBackground}">
+        </Setter>
+        <Setter Property="Foreground" Value="#608AA8" />
+        <!--<Setter Property="FontFamily"  Value="Verdana" />
+        <Setter Property="FontSize"  Value="10" />-->
+        <Setter Property="BorderBrush" Value="#dadbdc" />
+        <Setter Property="Views:TableView.CanScrollHorizontally" Value="False" />
+        <Setter Property="BorderThickness" Value="0,0,0,0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <!-- The GroupHeaderControl itself must not be focusable. The main Border inside its Template will be made Focusable because it is holding the various InputBindings that make the  GroupHeaderControl work. -->
+        <Setter Property="Focusable" Value="False" />
+    </Style>
+
+    <!-- column header - ColumnManagerCell  -->
+    <Style TargetType="DataGrid:ColumnManagerCell">
+        <Setter Property="Template">
+            <Setter.Value>
+                <!--************************** TEMPLATE: ColumnManagerCell ************************** -->
+                <ControlTemplate TargetType="DataGrid:ColumnManagerCell">
+                    <!-- We don't use the base Cell Template for the ColumnManagerCell because it need more elements to function properly: a Thumb named "PART_ColumnResizerThumb" that is used to resize the ColumnManagerCells's ParentColumn.Width and a glyph that represents the Column's SortDirection. -->
+                    <!--Tab Control in ColumnManagerCell-->
+                    <Border Name="border">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#ccdcec" Offset="0.2" />
+                                <GradientStop Color="#ccdcec" Offset="1" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <!-- This Grid is used to position the resizer Thumb over the ColumnManagerCell -->
+
+                        <Grid>
+                            <Rectangle Fill="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="0" Margin="0,2,0,2" />
+                            <Rectangle Fill="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="0" Margin="0,2,0,2" />
+                            <DockPanel>
+                                <Border Background="{TemplateBinding Background}">
+                                    <!-- This Grid is used to layout the delimiter lines on top of the ContentPresenter -->
+                                    <Grid>
+                                        <Border Padding="{TemplateBinding Padding}" HorizontalAlignment="Center">
+                                            <!-- This StackPanel is used to layout the ContentPresenter and the Sort Glyph (when present). -->
+                                            <StackPanel x:Name="contentPanel" Orientation="Horizontal">
+                                                <!-- Same ContentPresenter as in the base Cell Template. -->
+                                                <DataGrid:CellContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                                <!-- ContentPresenter that is used to display the sort glyph.We explicitly set its Content property to Null to prevent the XAML parser from implicitly setting it to its TemplatedParent's Content. -->
+                                                <ContentPresenter x:Name="sortGlyphPresenter" Content="{x:Null}" ContentTemplate="{x:Null}" />
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </DockPanel>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <!--Alternate Row Style-->
+    <xcdg:IndexToOddConverter x:Key="TableViewXceedDataGridThemeDataRow" />
+    <Style TargetType="{x:Type DataGrid:DataRow}">
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <!--<Setter Property="Height" Value="28"></Setter>-->
+        <Setter Property="NavigationBehavior" Value="RowOnly"></Setter>
+        <Setter Property="Background" Value="White" />
+        <!--Odd Rows-->
+        <Setter Property="Foreground" Value="#4e4e4e" />
+        <Setter Property="FontFamily" Value="verdana" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="SelectionBackground" Value="{StaticResource RowSelectionHoverBackground}" />
+        <Setter Property="SelectionForeground" Value="#383737" />
+        <Setter Property="InactiveSelectionBackground" Value="{StaticResource RowSelectionHoverBackground}" />
+        <Setter Property="InactiveSelectionForeground" Value="#383737" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderBrush" Value="#ffffff" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=(DataGrid:DataGridVirtualizingPanel.ItemIndex),  Converter={StaticResource TableViewXceedDataGridThemeDataRow}, RelativeSource={RelativeSource Self}}" Value="True">
+                <Setter Property="Background" Value="white" />
+                <!--Even Rows-->
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--DataGridControl background colour-->
+
+    <Style x:Key="{x:Type DataGrid:DataGridControl}" TargetType="{x:Type DataGrid:DataGridControl}">
+        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+    </Style>
+
+    <!--baseSplitterStyle -->
+    <Style x:Key="baseFixedColumnSplitterStyle" TargetType="Views:FixedColumnSplitter"></Style>
+
+    <!--rowSplitterStyle -->
+    <Style x:Key="rowSplitterStyle" TargetType="Views:FixedColumnSplitter" BasedOn="{StaticResource baseFixedColumnSplitterStyle}">
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+    </Style>
+
+    <!-- StatRowSplitterStyle -->
+    <Style x:Key="statRowSplitterStyle" TargetType="Views:FixedColumnSplitter" BasedOn="{StaticResource baseFixedColumnSplitterStyle}">
+        <!-- For aesthetic reasons, the FixedColumnSplitter is not shown in the StatRow. -->
+        <Setter Property="Template" Value="{x:Null}" />
+    </Style>
+
+
+    <!--Table view used For Horizontal and vertical grid lines , ColumnStretch -->
+    <Style x:Key="{x:Type Views:TableView}" TargetType="{x:Type Views:TableView}">
+        <Setter Property="ColumnStretchMode" Value="All"></Setter>
+        <Setter Property="ColumnStretchMinWidth" Value="100"></Setter>
+        <Setter Property="ShowRowSelectorPane" Value="false" />
+        <Setter Property="UseDefaultHeadersFooters" Value="False" />
+        <Setter Property="FixedColumnSplitterWidth" Value="0"></Setter>
+        <Setter Property="HorizontalGridLineThickness" Value="0" />
+        <Setter Property="VerticalGridLineThickness" Value="0" />
+    </Style>
+
+    <!-- RowSelectorPane  -->
+    <Style x:Key="{x:Type DataGrid:RowSelectorPane}" TargetType="{x:Type DataGrid:RowSelectorPane}">
+        <Setter Property="Background" Value="#003f70" />
+        <Setter Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+    </Style>
+
+    <!-- STYLE: RowSelector-->
+    <xcdg:TypeToBooleanConverter x:Key="insertionRowTypeConverter" />
+    <Style TargetType="{x:Type DataGrid:RowSelector}">
+        <!-- Set the RowSelector's background to Transparent to make it hit-testable while preserving the background drawn by the underlying RowSelectorPane. -->
+        <Setter Property="Background" Value="blue" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="Padding" Value="2" />
+    </Style>
+    <Views:TableView x:Key="tableViewPropertyInstance" ShowFixedColumnSplitter="False" UseDefaultHeadersFooters="False" ColumnStretchMode="All">
+        <Views:TableView.FixedHeaders>
+            <DataTemplate>
+                <DataGrid:ColumnManagerRow>
+                </DataGrid:ColumnManagerRow>
+            </DataTemplate>
+        </Views:TableView.FixedHeaders>
+        <Views:TableView.FixedFooters>
+        </Views:TableView.FixedFooters>
+    </Views:TableView>
+</ResourceDictionary>

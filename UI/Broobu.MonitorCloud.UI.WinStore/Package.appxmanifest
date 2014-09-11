@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="2cabec54-c07e-4ff0-abd2-86ae002df10a"
+            Publisher="CN=DevExpress"
+            Version="1.0.0.0"/>
+  <Properties>
+    <DisplayName>App</DisplayName>
+    <PublisherDisplayName>DevExpress</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.3.0</OSMinVersion>
+    <OSMaxVersionTested>6.3.0</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="SlideView.App">
+      <VisualElements DisplayName="SlideView" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="SlideView" ForegroundText="light" BackgroundColor="#464646">
+        <DefaultTile ShowName="allLogos"/>
+        <SplashScreen Image="Assets\SplashScreen.png"/>
+      </VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient"/>
+  </Capabilities>
+</Package>

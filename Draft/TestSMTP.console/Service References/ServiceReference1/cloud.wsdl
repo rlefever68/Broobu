@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://docs.oasis-open.org/ws-dd/ns/discovery/2009/01" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://docs.oasis-open.org/ws-dd/ns/discovery/2009/01" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://docs.oasis-open.org/ws-dd/ns/discovery/2009/01/Imports">
+      <xsd:import schemaLocation="http://engine.broobu.com:1800/cloud?xsd=xsd1" namespace="http://docs.oasis-open.org/ws-dd/ns/discovery/2009/01" />
+      <xsd:import schemaLocation="http://engine.broobu.com:1800/cloud?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://engine.broobu.com:1800/cloud?xsd=xsd2" namespace="http://www.w3.org/2005/08/addressing" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ProbeMessage11">
+    <wsdl:part name="Probe" element="tns:Probe" />
+  </wsdl:message>
+  <wsdl:message name="ProbeMatchesMessage11">
+    <wsdl:part name="ProbeMatches" element="tns:ProbeMatches" />
+  </wsdl:message>
+  <wsdl:message name="ProbeMatchesMessage11_Headers">
+    <wsdl:part name="MessageSequence" element="tns:AppSequence" />
+  </wsdl:message>
+  <wsdl:message name="ResolveMessage11">
+    <wsdl:part name="Resolve" element="tns:Resolve" />
+  </wsdl:message>
+  <wsdl:message name="ResolveMatchesMessage11">
+    <wsdl:part name="ResolveMatches" element="tns:ResolveMatches" />
+  </wsdl:message>
+  <wsdl:message name="ResolveMatchesMessage11_Headers">
+    <wsdl:part name="MessageSequence" element="tns:AppSequence" />
+  </wsdl:message>
+  <wsdl:message name="HelloMessage11">
+    <wsdl:part name="Hello" element="tns:Hello" />
+  </wsdl:message>
+  <wsdl:message name="HelloMessage11_Headers">
+    <wsdl:part name="MessageSequence" element="tns:AppSequence" />
+  </wsdl:message>
+  <wsdl:message name="ByeMessage11">
+    <wsdl:part name="Bye" element="tns:Bye" />
+  </wsdl:message>
+  <wsdl:message name="ByeMessage11_Headers">
+    <wsdl:part name="MessageSequence" element="tns:AppSequence" />
+  </wsdl:message>
+  <wsdl:portType name="DiscoveryProxy">
+    <wsdl:operation name="ProbeOperation">
+      <wsdl:input wsaw:Action="http://docs.oasis-open.org/ws-dd/ns/discovery/2009/01/Probe" name="ProbeMessage11" message="tns:ProbeMessage11" />
+      <wsdl:output wsaw:Action="http://docs.oasis-open.org/ws-dd/ns/discovery/2009/01/ProbeMatches" name="ProbeMatchesMessage11" message="tns:ProbeMatchesMessage11" />
+    </wsdl:operation>
+    <wsdl:operation name="ResolveOperation">
+      <wsdl:input wsaw:Action="http://docs.oasis-open.org/ws-dd/ns/discovery/2009/01/Resolve" name="ResolveMessage11" message="tns:ResolveMessage11" />
+      <wsdl:output wsaw:Action="http://docs.oasis-open.org/ws-dd/ns/discovery/2009/01/ResolveMatches" name="ResolveMatchesMessage11" message="tns:ResolveMatchesMessage11" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="Client">
+    <wsdl:operation name="HelloOperation">
+      <wsdl:input wsaw:Action="http://docs.oasis-open.org/ws-dd/ns/discovery/2009/01/Hello" name="HelloMessage11" message="tns:HelloMessage11" />
+    </wsdl:operation>
+    <wsdl:operation name="ByeOperation">
+      <wsdl:input wsaw:Action="http://docs.oasis-open.org/ws-dd/ns/discovery/2009/01/Bye" name="ByeMessage11" message="tns:ByeMessage11" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1a2b50b1-65ae-45dc-9419-dc2b436b7b60" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://engine.broobu.com:1800/cloud" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CloudEngine.wsdl" MetadataType="Wsdl" ID="4d123323-e766-477d-b2cf-8f7f141be849" SourceId="1" SourceUrl="http://engine.broobu.com:1800/cloud?wsdl" />
+    <MetadataFile FileName="cloud.xsd" MetadataType="Schema" ID="0c9e2a69-bd8a-4751-ac0e-e634da257b8e" SourceId="1" SourceUrl="http://engine.broobu.com:1800/cloud?xsd=xsd3" />
+    <MetadataFile FileName="cloud1.xsd" MetadataType="Schema" ID="6c01c0ca-9602-4c6c-b00a-bbdc02a8a315" SourceId="1" SourceUrl="http://engine.broobu.com:1800/cloud?xsd=xsd1" />
+    <MetadataFile FileName="cloud2.xsd" MetadataType="Schema" ID="80267f57-3288-4a70-bfb4-a0b88615baa2" SourceId="1" SourceUrl="http://engine.broobu.com:1800/cloud?xsd=xsd4" />
+    <MetadataFile FileName="cloud3.xsd" MetadataType="Schema" ID="2709f496-4528-4840-85ff-5328d759107e" SourceId="1" SourceUrl="http://engine.broobu.com:1800/cloud?xsd=xsd2" />
+    <MetadataFile FileName="cloud.disco" MetadataType="Disco" ID="79b8c88f-87b4-44d8-a1e8-942bc5f1cbae" SourceId="1" SourceUrl="http://engine.broobu.com:1800/cloud?disco" />
+    <MetadataFile FileName="cloud4.xsd" MetadataType="Schema" ID="999f12f2-a3ca-452b-b540-ec87f0593756" SourceId="1" SourceUrl="http://engine.broobu.com:1800/cloud?xsd=xsd0" />
+    <MetadataFile FileName="cloud.wsdl" MetadataType="Wsdl" ID="5afdc557-d227-4610-bf77-6a976cd01ae7" SourceId="1" SourceUrl="http://engine.broobu.com:1800/cloud?wsdl=wsdl0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

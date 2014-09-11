@@ -1,0 +1,50 @@
+﻿<ui:ViewUserControl xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ui="clr-namespace:Iris.Fx.UI;assembly=Iris.Fx"
+             xmlns:viewModels="clr-namespace:Broobu.Taxonomy.UI.Controls.ViewModels"
+             xmlns:domain="clr-namespace:Broobu.Taxonomy.Contract.Domain;assembly=Broobu.Taxonomy.Contract"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             x:Class="Broobu.Taxonomy.UI.Controls.Fragments.DescriptionsFragment"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="700">
+    <ui:ViewUserControl.Resources>
+        <dx:IEnumerableDataSource x:Key="IEnumerableDescriptionType">
+            <dx:DesignDataManager.DesignData>
+                <dx:DesignDataSettings DataObjectType="{x:Type domain:Enumeration}" RowCount="5"/>
+            </dx:DesignDataManager.DesignData>
+        </dx:IEnumerableDataSource>
+    </ui:ViewUserControl.Resources>
+    <ui:ViewUserControl.DataContext>
+        <viewModels:DescriptionsViewModel/>
+    </ui:ViewUserControl.DataContext>
+    <Grid>
+        <dxg:GridControl AutoGenerateColumns="AddNew" 
+			EnableSmartColumnsGeneration="True" 
+			ItemsSource="{Binding Documents}" 
+			DesignTimeDataObjectType="{x:Type domain:Description}" 
+			DesignTimeDataSourceRowCount="2">
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="Type" IsSmart="True" VisibleIndex="0"/>
+                <dxg:GridColumn FieldName="TypeId" VisibleIndex="1">
+                    <dxg:GridColumn.EditSettings>
+                        <dxg:LookUpEditSettings ItemsSource="{Binding DescriptionTypes, Source={StaticResource IEnumerableDescriptionType}}"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="CultureId" IsSmart="True" VisibleIndex="2"/>
+                <dxg:GridColumn FieldName="Url" IsSmart="True" VisibleIndex="3"/>
+                <dxg:GridColumn FieldName="Blob" IsSmart="True" VisibleIndex="4"/>
+                <dxg:GridColumn FieldName="Title" IsSmart="True" VisibleIndex="5"/>
+                <dxg:GridColumn FieldName="DisplayName" IsSmart="True" VisibleIndex="6"/>
+                <dxg:GridColumn FieldName="AdditionalInfoUri" IsSmart="True" VisibleIndex="7"/>
+            </dxg:GridControl.Columns>
+            <dxg:GridControl.View>
+                <dxg:TableView/>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+
+    </Grid>
+</ui:ViewUserControl>

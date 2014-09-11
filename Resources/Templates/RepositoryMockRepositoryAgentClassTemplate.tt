@@ -1,0 +1,122 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ output extension="txt"  #>
+<#@ include file="DbmlHelper.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-12-02
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryMockRepositoryAgentClassTemplate : Template
+{
+ 	public TableInfo TableInfo;
+    public string Namespace; 
+	public bool	HasDynamicSchema;
+	public bool NeedsBulkCrud;
+
+	private StringHelper _strH = new StringHelper();
+
+    public override string TransformText()
+    {
+		string databaseLogicalName = TableInfo.DatabaseLogicalName;
+		string tableName = TableInfo.TableName;
+		string schemaName = (HasDynamicSchema) ? string.Empty : TableInfo.Schema;
+		string entityName = TableInfo.EntityName; // UpperCamelCase
+		string entityNameAsParam = _strH.ToLowerCamelCase(TableInfo.EntityName); // lowerCamelCase
+		string idNameAsParam = _strH.ToLowerCamelCase(TableInfo.IdName); // lowerCamelCase
+		string idLanguageType = TableInfo.IdLanguageType; 
+		string optionalSingleSchemaParam = (HasDynamicSchema) ? "string schema" : string.Empty;
+		string optionalFirstSchemaParam = (HasDynamicSchema) ? optionalSingleSchemaParam + ", " : string.Empty;
+		string optionalSingleSchemaValue = (HasDynamicSchema) ? "schema" : string.Empty;
+		string optionalFirstSchemaValue = (HasDynamicSchema) ? optionalSingleSchemaValue + ", " : string.Empty;
+		string baseClassDeclaration = string.Empty;
+		if (TableInfo.HasCrudFunctions)
+		{
+			string crudBaseClass;
+			if (NeedsBulkCrud)
+			{
+				crudBaseClass = (HasDynamicSchema) ? "MockRepositoryBulkCrudWithSchemaAgentBase" : "MockRepositoryBulkCrudAgentBase";	
+			}
+			else
+			{
+				crudBaseClass = (HasDynamicSchema) ? "MockRepositoryCrudWithSchemaAgentBase" : "MockRepositoryCrudAgentBase";	
+			}
+			baseClassDeclaration = crudBaseClass + "<" + entityName + ", " + idLanguageType + ">, ";
+		}
+#>
+//========================================================================================
+// INFO: This file is generated from t4 template <#= this.GetType().Name #>.tt
+// !!! Any changes made manually will be lost next time this file is generated !!!
+//========================================================================================
+using System;
+using Pms.Framework.Test.Mock;
+using <#= Namespace #>.Repository.Contract.Interfaces;
+using <#= Namespace #>.Repository.Contract.Domain;
+using <#= Namespace #>.Repository.Domain.Test;
+
+namespace <#= Namespace #>.Repository.Domain.Test
+{
+    public partial class <#= entityName #>MockRepositoryAgent : <#= baseClassDeclaration #>I<#= entityName #>RepositoryAgent
+    {
+<#+
+        if (TableInfo.HasCrudFunctions)
+		{
+#>
+        public <#= entityName #>MockRepositoryAgent(string dataKey)
+            : base(MockRepositoryFactory.Get<#= entityName #>MockRepository(dataKey)) // Inject mock repository
+        {
+        }
+<#+
+		}
+		else
+		{
+#>
+		private object MockRepository { get; set; }
+
+        public <#= entityName #>MockRepositoryAgent(string dataKey)
+        {
+			MockRepository = MockRepositoryFactory.Get<#= entityName #>MockRepository(dataKey);
+        }
+<#+
+		}
+		
+		if (TableInfo.HasExtraFunctions)
+		{
+#>
+
+        #region Extra Functions (map to handwritten stored procedures)
+
+        public I<#= entityName #>RepositoryAgent <#= entityName #>MockRepository { get { return (I<#= entityName #>RepositoryAgent)MockRepository; } }
+<#+
+			foreach(FunctionInfo functionInfo in TableInfo.FunctionInfos)
+			{
+				string methodName = functionInfo.MethodName;
+				string methodDbName = functionInfo.DbName;
+				string paramDeclarationList = functionInfo.ParamDeclarationList;
+				string paramReferenceList = functionInfo.ParamReferenceList;
+				string arraysuffix = functionInfo.ReturnsSingleInstance ? string.Empty : "[]";
+			    string returnValueLanguageType = functionInfo.ReturnValueLanguageType;
+				string returnStatement = functionInfo.HasReturnType ? "return " : string.Empty;
+#>
+
+        public <#= returnValueLanguageType #><#= arraysuffix #> <#= methodName #>(
+			<#= paramDeclarationList #>)
+        {
+            <#= returnStatement #><#= entityName #>MockRepository.<#= methodName #>(<#= paramReferenceList #>);
+        }
+<#+
+			} // End foreach functionInfo
+#>
+
+        #endregion
+
+<#+
+		}
+#>
+    }
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>

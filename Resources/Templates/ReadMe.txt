@@ -1,0 +1,2 @@
+In order to use the templates in this folder, you need to register the folder path in the registry, as indicated by the registry file SetTemplateIncludeFolder.reg.
+You have to adapt the path in the registry file to fit the position of the template folder on your machine.

@@ -1,0 +1,121 @@
+﻿<?xml version='1.0'?>
+<DESCRIPTIONS xmlns='urn:BASE_TYPE_TRANSLATIONS-schema'>
+  <ITEMS CultureId='nl-BE' TypeId='BASE_TYPE_LANGUAGES'>
+    <ITEM Id ='C794D8C9-4101-4482-822E-45E09A973105' ObjectId='nl-BE'>Nederlands (België)</ITEM>
+    <ITEM Id ='73152EB9-5959-49DF-A677-06DF8A007602' ObjectId='nl-NL'>Nederlands (Nederland)</ITEM>
+    <ITEM Id ='41D34C5E-89AF-483D-9270-0290E09A56CA' ObjectId='fr-BE'>Frans (België)</ITEM>
+    <ITEM Id ='DDC2B34E-1E87-4C11-B4DC-16B210AA4C65' ObjectId='fr-FR'>Frans (Frankrijk)</ITEM>
+    <ITEM Id ='6FB2467A-D2BD-468C-9650-E1C8B1032ECE' ObjectId='en-GB'>Engels (Verenigd Koninkrijk)</ITEM>
+    <ITEM Id ='73B0CC1E-78BD-4062-9715-FB2A081988A2' ObjectId='en-PH'>Engels (Republiek der Filipijnen)</ITEM>
+    <ITEM Id ='9CB9D69C-742F-429B-B019-C45E9A93AC2D' ObjectId='en-US'>Engels (Verenigde Staten)</ITEM>
+    <ITEM Id ='7A43A0EF-E040-49E6-A4BD-F7689FD662A6' ObjectId='en'>Engels</ITEM>
+    <ITEM Id ='AE692C76-1402-4D4F-BD30-B68CE8C023E5' ObjectId='en-ZA'>Engels (Zuid-Afrika)</ITEM>
+    <ITEM Id ='CE0F518F-F4AB-4261-BB9D-03B57BC49CFB' ObjectId='de-DE'>Duits (Duitsland)</ITEM>
+    <ITEM Id ='CA67A07F-FC77-4A80-9191-61DE936B5A87' ObjectId='de-DE'>Portugees (Brazilië)</ITEM>
+    <ITEM Id ='9D5691CF-1BBD-4C62-ACF2-5BA8CF5A154E' ObjectId='ru-RU'>Russisch (Rusland)</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='fr-BE' TypeId='BASE_TYPE_LANGUAGES'>
+    <ITEM Id ='5C1E459A-2D51-4E79-BFCD-707CB1E7D137' ObjectId='nl-BE'>Néerlandais (Belgique)</ITEM>
+    <ITEM Id ='73321489-6A5C-49D2-A3BD-691C04C467FF' ObjectId='nl-NL'>Néerlandais (Hollande)</ITEM>
+    <ITEM Id ='6C7ED983-0FC7-41A3-9F10-90BBAC140575' ObjectId='fr-BE'>Français (Belgique)</ITEM>
+    <ITEM Id ='0999632B-513C-41BE-A649-1365459739FB' ObjectId='fr-FR'>Français (France)</ITEM>
+    <ITEM Id ='7AB660A2-2B16-420B-8F8E-7AEEAB492B1A' ObjectId='en-GB'>Englais (Royaume-Uni)</ITEM>
+    <ITEM Id ='9D2991F9-318E-47EC-BE19-6309AA196621' ObjectId='en-PH'>Englais (République des Philippines)</ITEM>
+    <ITEM Id ='D1AF5C3F-B8DB-4512-B669-D337F62B094C' ObjectId='en-US'>Englais (États-Unis)</ITEM>
+    <ITEM Id ='55FA3116-2E78-41DA-9264-F3AF8F3F9757' ObjectId='en'>Englais</ITEM>
+    <ITEM Id ='EA625A3F-9142-4126-A7A7-107E54D48CD0' ObjectId='en-ZA'>Englais (Afrique du Sud)</ITEM>
+    <ITEM Id ='30EB513D-98CC-4570-A1BB-6BC1017C8D53' ObjectId='de-DE'>German (Germany)</ITEM>
+    <ITEM Id ='A67135B4-E3AB-40D3-AF5D-9CD8FB623431' ObjectId='de-DE'>Portugais (Brésil)</ITEM>
+    <ITEM Id ='7C239DC3-22A2-434B-9CCB-46A500C8DF89' ObjectId='ru-RU'>Russe (Russie)</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='nl-BE' TypeId='BASE'>
+    <ITEM Id ='336E174E-06FB-4283-A5F2-DB54569074A6' ObjectId='BASE'>Basis</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='fr-BE' TypeId='BASE'>
+    <ITEM Id ='F2E31476-BB25-4479-BA29-B6510296D5B5' ObjectId='BASE'>Base</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='nl-BE' TypeId='BASE_TYPE'>
+    <ITEM Id ='C9548FAC-4A53-468A-8268-57047292297C' ObjectId='BASE_TYPE'>Basis types</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='fr-BE' TypeId='BASE_TYPE'>
+    <ITEM Id ='A4DE88E7-F902-4216-A8E9-34F79DF1E3C3' ObjectId='BASE_TYPE'>Type base</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='nl-BE' TypeId='BASE_TYPE_ENUM'>
+    <ITEM Id ='B5ABB56A-F6FB-4EFB-A3D9-865B3BE62922' ObjectId='BASE_TYPE_ENUM'>Basis type enumeraties</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='fr-BE' TypeId='BASE_TYPE_ENUM'>
+    <ITEM Id ='995C2452-044A-4FA7-BD32-5F3FB4051C7B' ObjectId='BASE_TYPE_ENUM'>Type base énumération</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='nl-BE' TypeId='BASE_TYPE_TRANSLATIONS'>
+    <ITEM Id ='EF6EEA33-87C6-4C57-AE2A-B9459876DFCB' ObjectId='BASE_TYPE_TRANSLATIONS'>Basis type vertalingen</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='fr-BE' TypeId='BASE_TYPE_TRANSLATIONS'>
+    <ITEM Id ='8FA86B4A-3918-40BA-A174-F3C8FC5DF8FD' ObjectId='BASE_TYPE_TRANSLATIONS'>Type base traduction</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='nl-BE' TypeId='BASE_TYPE_UI'>
+    <ITEM Id ='21A416FF-ED3C-4889-815D-519CFA75A329' ObjectId='BASE_TYPE_UI'>Basis type gebruikers interface</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='fr-BE' TypeId='BASE_TYPE_UI'>
+    <ITEM Id ='6736C95F-1791-46C0-B182-A6A5252F3F53' ObjectId='BASE_TYPE_UI'>Type base interface utilisateur </ITEM>
+  </ITEMS>
+  <ITEMS CultureId='nl-BE' TypeId='BASE_TYPE_UI_TRV'>
+    <ITEM Id ='2D25BE57-4D4D-4E20-A436-F4489953F62F' ObjectId='BASE_TYPE_UI_TRV'>Basis type gebruikers interface boom structuur</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='fr-BE' TypeId='BASE_TYPE_UI_TRV'>
+    <ITEM Id ='9DDBF5C9-6719-4BAB-BA8B-3BF2C3E815DD' ObjectId='BASE_TYPE_UI_TRV'>Type base interface utilisateur vue arbre</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='nl-BE' TypeId='BASE_TYPE_UI_TRV_FOLDER'>
+    <ITEM Id ='2885E640-8651-447A-A0BC-5DD29C5A6482' ObjectId='BASE_TYPE_UI_TRV_FOLDER'>Basis type gebruikers interface boom structuur tak</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='fr-BE' TypeId='BASE_TYPE_UI_TRV_FOLDER'>
+    <ITEM Id ='15BF45E7-DD3D-4693-9CBF-512F02C8FCDF' ObjectId='BASE_TYPE_UI_TRV_FOLDER'>Type base interface utilisateur vue arbre dossier</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='nl-BE' TypeId='BASE_TYPE_UI_TRV_LEAF'>
+    <ITEM Id ='3E2E8521-FAFC-4945-959B-A6152A48B69E' ObjectId='BASE_TYPE_UI_TRV_LEAF'>Basis type gebruikers interface boom structuur blad</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='fr-BE' TypeId='BASE_TYPE_UI_TRV_LEAF'>
+    <ITEM Id ='AFD8EFD2-1B0B-496A-B824-C7471F374918' ObjectId='BASE_TYPE_UI_TRV_LEAF'>Type base interface utilisateur vue arbre feuille</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='nl-BE' TypeId='BASE_TYPE_UI_TRV_NODE'>
+    <ITEM Id ='81D9828E-C192-4107-A4D6-B568EE8F9443' ObjectId='BASE_TYPE_UI_TRV_NODE'>Basis type gebruikers interface boom structuur node</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='fr-BE' TypeId='BASE_TYPE_UI_TRV_NODE'>
+    <ITEM Id ='62284917-DF94-46B2-9E10-DD9BEBA5B657' ObjectId='BASE_TYPE_UI_TRV_NODE'>Type base interface utilisateur vue arbre nœud</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='nl-BE' TypeId='BASE_TYPE_UI_TRV_NODE_TEXT'>
+    <ITEM Id ='5A28B206-328A-4FBF-85A7-1E105FA1C0F7' ObjectId='BASE_TYPE_UI_TRV_NODE_TEXT'>Basis type gebruikers interface boom structuur node tekst</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='fr-BE' TypeId='BASE_TYPE_UI_TRV_NODE_TEXT'>
+    <ITEM Id ='22481E9B-FC81-489F-9CCC-2679EDD4F244' ObjectId='BASE_TYPE_UI_TRV_NODE_TEXT'>Type base interface utilisateur vue arbre nœud texte</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='nl-BE' TypeId='BASE_TYPE_WP'>
+    <ITEM Id ='B887FBB3-F204-49CA-9DC0-AEDB0E450ABA' ObjectId='BASE_TYPE_WP'>Basis type werk omgeving</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='fr-BE' TypeId='BASE_TYPE_WP'>
+    <ITEM Id ='858AF3F5-0F62-4983-9046-86B2FE697645' ObjectId='BASE_TYPE_WP'>Type base environnement travail</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='nl-BE' TypeId='BASE_TYPE_WPI'>
+    <ITEM Id ='9C2B64EA-7EE0-476D-B899-8011979C0CB6' ObjectId='BASE_TYPE_WPI'>Basis type werk omgeving onderdeel</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='fr-BE' TypeId='BASE_TYPE_WPI'>
+    <ITEM Id ='C21E5E2E-710D-4B75-A3B0-901ED64BF35E' ObjectId='BASE_TYPE_WPI'>Type base environnement travail article</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='nl-BE' TypeId='BASE_TYPE_WPI_DESCRIPTION'>
+    <ITEM Id ='F20574B4-BCF4-4585-BA13-5D0E8F821F7F' ObjectId='BASE_TYPE_WPI_DESCRIPTION'>Basis type werk omgeving onderdeel vertaling</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='fr-BE' TypeId='BASE_TYPE_WPI_DESCRIPTION'>
+    <ITEM Id ='6B6B0708-93E0-4DD9-81B1-73B17FC4F58E' ObjectId='BASE_TYPE_WPI'>Type base environnement travail article traduction</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='nl-BE' TypeId='BASE_TYPE_WPI_ITEM'>
+    <ITEM Id ='88A32F20-2708-4B2F-91C6-7DFB6873D388' ObjectId='BASE_TYPE_WPI_ITEM'>Basis type werk omgeving onderdeel omschrijving</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='fr-BE' TypeId='BASE_TYPE_WPI_ITEM'>
+    <ITEM Id ='D1FC43D5-0E8F-4EA1-8BC1-F8A9717226F8' ObjectId='BASE_TYPE_WPI_ITEM'>Type base environnement travail article ITEM</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='nl-BE' TypeId='BASE_TYPE_WPI_PROPERTY'>
+    <ITEM Id ='40416828-C6C1-4FBC-9F52-8629901975DC' ObjectId='BASE_TYPE_WPI_PROPERTY'>Basis type werk omgeving eigenschap onderdeel</ITEM>
+  </ITEMS>
+  <ITEMS CultureId='fr-BE' TypeId='BASE_TYPE_WPI_PROPERTY'>
+    <ITEM Id ='E23B88AA-4DD3-4FD8-8628-8824F43B3982' ObjectId='BASE_TYPE_WPI_PROPERTY'>Type base environnement travail article characteristic</ITEM>
+  </ITEMS>
+</DESCRIPTIONS>

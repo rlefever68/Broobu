@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6E717C9C-57C4-419B-9F8F-77D943475014}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Pms.Diagnostics.Contract</RootNamespace>
+    <AssemblyName>Pms.Diagnostics.Contract</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Release\SDK\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\mobifxsdk.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Pms.Framework">
+      <HintPath>..\..\MobiFxSDK\SDK\Pms.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Agent\DiagnosticsAgent.cs">
+      <DependentUpon>Agent.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Agent\DiagnosticsAgentFactory.cs">
+      <DependentUpon>AgentFactory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\DiagnosticsDomainGenerator.cs" />
+    <Compile Include="Domain\DiagnosticsRunDetailItem.cs">
+      <DependentUpon>DomainClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\DiagnosticsRunItem.cs">
+      <DependentUpon>DomainClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\DiagnosticsStatus.cs" />
+    <Compile Include="Interfaces\IDiagnostics.cs">
+      <DependentUpon>ServiceInterface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\IDiagnosticsAgent.cs">
+      <DependentUpon>AgentInterface.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Agent\Agent.txt">
+      <DependentUpon>Agent.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Content>
+    <Content Include="Agent\AgentFactory.txt">
+      <DependentUpon>AgentFactory.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Content>
+    <Content Include="Domain\DomainClass.txt">
+      <DependentUpon>DomainClass.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Content>
+    <Content Include="GenerationConfiguration\ContractGenerationConfiguration.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Interfaces\AgentInterface.txt">
+      <DependentUpon>AgentInterface.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Content>
+    <Content Include="Interfaces\ServiceInterface.txt">
+      <DependentUpon>ServiceInterface.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\mobifxsdk.pfx">
+      <Link>..\..\..\mobifxsdk.pfx</Link>
+    </None>
+    <None Include="Agent\Agent.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Agent.txt</LastGenOutput>
+      <SubType>None</SubType>
+    </None>
+    <None Include="Agent\AgentFactory.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AgentFactory.txt</LastGenOutput>
+      <SubType>None</SubType>
+    </None>
+    <None Include="Domain\DomainClass.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DomainClass.txt</LastGenOutput>
+      <SubType>None</SubType>
+    </None>
+    <None Include="Interfaces\AgentInterface.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AgentInterface.txt</LastGenOutput>
+      <SubType>None</SubType>
+    </None>
+    <None Include="Interfaces\ServiceInterface.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ServiceInterface.txt</LastGenOutput>
+      <SubType>None</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

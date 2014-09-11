@@ -1,0 +1,77 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ include file="DbmlHelper.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-25
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryAgentFactoryTemplate : Template
+{
+    public DatabaseInfo DatabaseInfo; 
+    public string    	Namespace; 
+	public bool 		HasMockRepository; // Added MDG 20101202: set to true if code is generated for mock repository
+
+    public override string TransformText()
+    {
+#>
+//========================================================================================
+// INFO: This file is generated from t4 template <#= this.GetType().Name #>.tt
+// !!! Any changes made manually will be lost next time this file is generated !!!
+//========================================================================================
+using System;
+using System.Configuration;
+using System.Reflection;
+using Pms.Framework.Utils;
+using <#= Namespace #>.Repository.Contract.Interfaces;
+
+namespace <#= Namespace #>.Repository.Contract.Agent
+{
+    public partial class <#= DatabaseInfo.LogicalName #>RepositoryAgentFactory
+    {
+<#+
+        if (HasMockRepository)
+		{
+#>
+        public const string AppSettingsKeyToMockDataKey = "<#= DatabaseInfo.LogicalName #>MockDataKey";
+        public const string AppSettingsKeyToAgentFactoryType = "<#= DatabaseInfo.LogicalName #>MockAgentFactory";
+<#+
+		}
+		bool first = true;
+		foreach (TableInfo tableInfo in DatabaseInfo.TableInfos)
+		{
+  			if (tableInfo.HasFunctions == false)
+			{
+				continue;
+			}
+			string entityName = tableInfo.EntityName;
+			
+			if (first == false) WriteLine(string.Empty);
+#>
+        public static I<#= entityName #>RepositoryAgent Create<#= entityName #>RepositoryAgent()
+        {
+<#+			if (HasMockRepository) 
+			{
+#>
+            string mockDataKey = ConfigurationManager.AppSettings.Get(AppSettingsKeyToMockDataKey);
+            if (string.IsNullOrEmpty(mockDataKey) == false)
+            {
+                Type repositoryMockAgentFactoryType = TypeFactory.CreateTypeFromConfiguration(AppSettingsKeyToAgentFactoryType);
+                MethodInfo methodInfo = repositoryMockAgentFactoryType.GetMethod("Create<#= entityName #>MockRepositoryAgent");
+                return (I<#= entityName #>RepositoryAgent)methodInfo.Invoke(null, new object[] { mockDataKey });
+            }
+<#+			}
+#>
+            return new <#= entityName #>RepositoryAgent();
+        }	
+<#+
+			first = false;
+		}
+#>
+	}
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>

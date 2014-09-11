@@ -1,0 +1,9 @@
+﻿<#@ template language="C#" hostspecific="True" debug="True" #>
+<#@ assembly name="$(ProjectDir)..\..\IrisSDK\SDK\Generation\Iris.Contract.Generation.dll" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ import namespace="Iris.Contract.Generation.Generators" #>
+<#@ output extension="txt" #>
+<# 
+AgentInterfaceGenerator generator = new AgentInterfaceGenerator(T4Toolbox.TransformationContext.Host.TemplateFile);
+generator.Run();
+#>

@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CA4A9ED6-986E-486F-8329-C550720208A7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Pms.ManageDiagnostics.Business</RootNamespace>
+    <AssemblyName>Pms.ManageDiagnostics.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\mobifxsdk.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\MobiFxSDK\SDK\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Pms.Framework">
+      <HintPath>..\..\MobiFxSDK\SDK\Pms.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyVersions.cs">
+      <Link>Properties\AssemblyVersions.cs</Link>
+    </Compile>
+    <Compile Include="Interfaces\IManageDiagnosticsProvider.cs" />
+    <Compile Include="ManageDiagnosticsProvider.cs" />
+    <Compile Include="ManageDiagnosticsProviderFactory.cs" />
+    <Compile Include="Mappers\DiagnosticsBatchViewItemMapper.cs" />
+    <Compile Include="Mappers\DiagnosticsViewItemMapper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Contract\Pms.Diagnostics.Contract\Pms.Diagnostics.Contract.csproj">
+      <Project>{6E717C9C-57C4-419B-9F8F-77D943475014}</Project>
+      <Name>Pms.Diagnostics.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Contract\Pms.DiagnosticsWorker.Contract\Pms.DiagnosticsWorker.Contract.csproj">
+      <Project>{E06B4351-8BB1-4A33-B32D-E3BE0BBBE5E9}</Project>
+      <Name>Pms.DiagnosticsWorker.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Contract\Pms.ManageDiagnostics.Contract\Pms.ManageDiagnostics.Contract.csproj">
+      <Project>{011E76A6-3C84-4D05-8724-C27C8908706F}</Project>
+      <Name>Pms.ManageDiagnostics.Contract</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\mobifxsdk.pfx">
+      <Link>..\..\..\mobifxsdk.pfx</Link>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

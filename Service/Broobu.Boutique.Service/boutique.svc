@@ -1,0 +1,1 @@
+<%@ ServiceHost Service="Broobu.Boutique.Service.BoutiqueSentry" Factory="Wulka.Networking.Wcf.SentryHostFactory" %>

@@ -1,0 +1,13 @@
+﻿<broobu:AppletWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:broobu="http://schemas.broobu/ui"
+        xmlns:Views="clr-namespace:Broobu.EcoSpace.UI.Controls.Views;assembly=Broobu.EcoSpace.UI.Controls" 
+        x:Class="Broobu.EcoSpace.UI.ManageEcoSpace"
+        Title="Manage EcoSpace" Height="600" Width="800">
+    <Grid>
+
+        <Views:EcoSpaceView/>
+
+    </Grid>
+</broobu:AppletWindow>

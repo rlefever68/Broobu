@@ -1,0 +1,34 @@
+﻿<#@ xsd processor="T4Toolbox.XsdProcessor" 
+    file="%VS100COMNTOOLS%\..\..\Xml\Schemas\DbmlSchema.xsd" #>
+<#@ include file="RepositoryDomainClassTemplate.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-02
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryDomainClassGenerator : Generator
+{
+	public string DatabaseDbml;
+	public string TableNamePrefix;
+	public string Namespace;
+	public bool PrefixEntityNameWithSchemaName;
+	
+	private RepositoryDomainClassTemplate _template = new RepositoryDomainClassTemplate();  
+
+    protected override void RunCore()
+    {
+		DatabaseInfo databaseInfo = new DatabaseInfo(DatabaseDbml, TableNamePrefix, PrefixEntityNameWithSchemaName);
+	    foreach (TableInfo tableInfo in databaseInfo.TableInfos)
+        {
+  			if (tableInfo.IsDummy || (tableInfo.HasFunctions == false))
+			{
+				continue;
+			}
+          	_template.TableInfo = tableInfo;
+            _template.Namespace = Namespace;
+            _template.RenderToFile(tableInfo.EntityName + ".cs");
+        }
+    }
+}
+#>

@@ -1,0 +1,106 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ output extension="sql"  #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-05
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositorySpSelectAllTemplate : RepositorySpTemplateBase
+{
+	public RepositorySpSelectAllTemplate()
+		: base(SpType.SelectAll)
+	{}
+
+	public override string TransformText()
+    {
+		RenderStoredProcedure();
+        return this.GenerationEnvironment.ToString();
+    }
+		
+    protected override void RenderStoredProcedure()
+    {
+		base.RenderStoredProcedure();
+		string storedProcedureName = tableName + "_SelectAll";
+
+#>
+-----------------------------------------------------------------------------
+
+<#+
+		RenderDropStoredProcedure(storedProcedureName, StoredProcedureSchema);
+#>
+
+CREATE PROCEDURE [<#= StoredProcedureSchema #>].[<#= storedProcedureName #>]
+<#+
+		RenderParameterDeclarationList();
+#>
+AS
+BEGIN
+
+    SET NOCOUNT ON
+    DECLARE @Err int
+
+<#+	
+		if (GenerateDynamicSql == false)
+		{
+#>
+    SELECT
+<#+
+		RenderSelectList();
+#>
+    FROM <#= tableSchemaPrefix #>[<#= tableName #>]
+
+    SET @Err = @@Error
+<#+	
+		}
+		else // Dynamic SQL
+		{
+#>
+    DECLARE @ExecErr int;
+    DECLARE @Cmd nvarchar(4000);
+    DECLARE @ParamDefinition nvarchar(4000);
+    
+    SET @Cmd = <#= quote #>
+    SELECT
+<#+
+		RenderSelectList();
+#>
+    FROM [<#= quote #> + @Schema + <#= quote #>].[<#= tableName #>]
+        
+    SET @Err = @@Error
+	<#= quote #>;
+    
+    set @ParamDefinition = <#= quote #> @Err Int output	<#= quote #>;
+
+    EXECUTE @ExecErr = sp_executeSql @Cmd, @ParamDefinition, @Err output;
+                
+    IF @ExecErr <> 0 set @err = @ExecErr;
+<#+
+		}
+#>
+    RETURN @Err
+END
+GO
+
+
+<#+
+		RenderPrintStoredProcedureCreationStatus(storedProcedureName);
+#>
+
+
+<#+
+    }
+	
+	protected override bool RenderParameterDeclarationList()
+	{
+		bool first = base.RenderParameterDeclarationList();
+		if (first == false)
+		{	// Close parameterlist
+#>
+)
+<#+
+		}
+		return first;
+	}
+}
+#>

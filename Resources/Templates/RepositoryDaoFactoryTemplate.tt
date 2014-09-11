@@ -1,0 +1,63 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ output extension="cs" #>
+<#@ include file="DbmlHelper.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-02
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryDaoFactoryTemplate : Template
+{
+    public DatabaseInfo DatabaseInfo; 
+    public string    	Namespace; 
+
+    public override string TransformText()
+    {
+#>
+//========================================================================================
+// INFO: This file is generated from t4 template <#= this.GetType().Name #>.tt
+// !!! Any changes made manually will be lost next time this file is generated !!!
+//========================================================================================
+using <#= Namespace #>.Repository.Contract.Interfaces;
+
+namespace <#= Namespace #>.Dao
+{
+    public partial class <#= DatabaseInfo.LogicalName #>DaoFactory
+    {
+<#+
+		bool first = true;
+		foreach (TableInfo tableInfo in DatabaseInfo.TableInfos)
+		{
+  			if (tableInfo.HasFunctions == false)
+			{
+				continue;
+			}
+			if (first == false)
+			{
+#>
+ 
+<#+
+			}
+			RenderFactory(tableInfo);
+			first = false;
+		}
+#>
+    }
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+    }
+	
+    private void RenderFactory(TableInfo tableInfo)
+    {
+		string entityName = tableInfo.EntityName;
+#>
+        public static I<#= entityName #>Repository Create<#= entityName #>Dao() 
+        {
+            return new <#= entityName #>Dao();
+        }
+<#+
+    }
+}
+#>

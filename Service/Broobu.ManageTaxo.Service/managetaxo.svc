@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Service="Broobu.ManageTaxo.Service.ManageTaxoSentry" Factory="Iris.Fx.Networking.Wcf.SentryHostFactory" %>

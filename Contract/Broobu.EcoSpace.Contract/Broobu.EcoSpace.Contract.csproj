@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2B1E4372-F6D6-4E9B-A7BD-887B10A86CF2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Broobu.EcoSpace.Contract</RootNamespace>
+    <AssemblyName>Broobu.EcoSpace.Contract</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Solutions\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Release\Contracts\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\broobu.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Mvvm.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Solutions\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=3.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Solutions\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="Wulka, Version=14.8.26.139, Culture=neutral, PublicKeyToken=01dd9af6e7fa5427, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Wulka\SDK\Wulka.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Agents\ApplicationFunctionAgent.cs" />
+    <Compile Include="Agents\EcoSpaceAgent.cs" />
+    <Compile Include="Agents\ObjectFactory.cs" />
+    <Compile Include="Domain\Account\UserEnvironmentInfo.cs" />
+    <Compile Include="Domain\EcoSpaceFactory.cs" />
+    <Compile Include="Domain\Roles\GuestRole.cs" />
+    <Compile Include="Domain\Links\EcoSpaceMembership.cs" />
+    <Compile Include="Domain\Links\IEcoSpaceMembership.cs" />
+    <Compile Include="Domain\Links\IRoleMembership.cs" />
+    <Compile Include="Domain\Links\IRoleMenuLink.cs" />
+    <Compile Include="Domain\Links\PermissionLink.cs" />
+    <Compile Include="Domain\Eco\EcoSpaceMvvmMessage.cs" />
+    <Compile Include="Domain\Roles\RoleMvvmMessage.cs" />
+    <Compile Include="Domain\Roles\Supervisor.cs" />
+    <Compile Include="Domain\Roles\Team.cs" />
+    <Compile Include="EcoSpacePortal.cs" />
+    <Compile Include="Agents\RoleAgent.cs" />
+    <Compile Include="Domain\Account\AdministratorAccountPointer.cs" />
+    <Compile Include="Domain\Applets\BrowseWebApplet.cs" />
+    <Compile Include="Domain\Applets\ICloudApplet.cs" />
+    <Compile Include="Domain\BrowseWebMenuButton.cs" />
+    <Compile Include="Domain\Account\GuestAccountPointer.cs" />
+    <Compile Include="Domain\Account\SystemAccountsFolder.cs" />
+    <Compile Include="Domain\Applets\AppletFeature.cs" />
+    <Compile Include="Domain\Applets\AppletFolder.cs" />
+    <Compile Include="Domain\Applets\BusinessAppletsFolder.cs" />
+    <Compile Include="Domain\Applets\CloudApplet.cs" />
+    <Compile Include="Domain\Applets\AppletContainer.cs" />
+    <Compile Include="Domain\Applets\ManageCloudApplet.cs" />
+    <Compile Include="Domain\Applets\MonitorCloudApplet.cs" />
+    <Compile Include="Domain\Default\DefaultMenuContainer.cs" />
+    <Compile Include="Domain\Default\DefaultPageCategory.cs" />
+    <Compile Include="Domain\Default\DefaultPlatformToolsPage.cs" />
+    <Compile Include="Domain\Default\ManageCloudSpaceMenuButton.cs" />
+    <Compile Include="Domain\Default\MonitorCloudMenuButton.cs" />
+    <Compile Include="Domain\CC4IDConst.cs" />
+    <Compile Include="Domain\Applets\LearnMoreApplet.cs" />
+    <Compile Include="Domain\LearnMoreMenuButton.cs" />
+    <Compile Include="Domain\Links\RoleMembership.cs" />
+    <Compile Include="Domain\Links\MembershipContainer.cs" />
+    <Compile Include="Domain\Links\MenuAppletLinkContainer.cs" />
+    <Compile Include="Domain\Links\RoleMenuLink.cs" />
+    <Compile Include="Domain\Default\DefaultPageGroup.cs" />
+    <Compile Include="Domain\Menu\IMenuItem.cs" />
+    <Compile Include="Domain\Menu\MenuItem.cs" />
+    <Compile Include="Domain\Menu\IPageGroup.cs" />
+    <Compile Include="Domain\Menu\IMenuContainer.cs" />
+    <Compile Include="Domain\Menu\IMenuButton.cs" />
+    <Compile Include="Domain\Menu\IPage.cs" />
+    <Compile Include="Domain\Menu\IPageCategory.cs" />
+    <Compile Include="Domain\Menu\MenuContainer.cs" />
+    <Compile Include="Domain\RoleConst.cs" />
+    <Compile Include="Domain\Default\MasterEcoSpace.cs" />
+    <Compile Include="Domain\Roles\DefaultRoleContainer.cs" />
+    <Compile Include="Domain\Roles\IRole.cs" />
+    <Compile Include="Domain\Eco\EcoSpaceConst.cs" />
+    <Compile Include="Domain\Roles\OrganizationRoleFolder.cs" />
+    <Compile Include="Domain\Links\MenuAppletLink.cs" />
+    <Compile Include="Domain\Menu\Page.cs" />
+    <Compile Include="Domain\Menu\PageGroup.cs" />
+    <Compile Include="Domain\Menu\MenuButton.cs" />
+    <Compile Include="Domain\ApplicationFunctionConst.cs" />
+    <Compile Include="Domain\Eco\EcoSpaceDocument.cs" />
+    <Compile Include="Domain\Menu\PageCategory.cs" />
+    <Compile Include="Domain\Roles\AuthenticatedRole.cs" />
+    <Compile Include="Domain\Roles\Organization.cs" />
+    <Compile Include="Domain\Roles\RegisteredRole.cs" />
+    <Compile Include="Domain\Roles\PublicRole.cs" />
+    <Compile Include="Domain\Roles\RoleContainer.cs" />
+    <Compile Include="Domain\Roles\RoleFolder.cs" />
+    <Compile Include="Domain\Roles\SystemRolesFolder.cs" />
+    <Compile Include="Domain\Roles\UserRole.cs" />
+    <Compile Include="Domain\Roles\RootRole.cs" />
+    <Compile Include="Domain\Links\RoleMenuLinkContainer.cs" />
+    <Compile Include="Domain\Eco\IEcoSpaceDocument.cs" />
+    <Compile Include="Domain\Applets\SystemAppletsFolder.cs" />
+    <Compile Include="Interfaces\IEcoSpaceAgent.cs" />
+    <Compile Include="Interfaces\AuthorizationServiceConst.cs" />
+    <Compile Include="Interfaces\IEcoSpaceBase.cs" />
+    <Compile Include="Interfaces\IEcoSpaceSentry.cs" />
+    <Compile Include="Properties\AssemblyVersions.cs" />
+    <Compile Include="Domain\Roles\Role.cs" />
+    <Compile Include="Interfaces\IApplicationFunction.cs" />
+    <Compile Include="Interfaces\IApplicationFunctionAgent.cs" />
+    <Compile Include="Interfaces\IRoleSentry.cs" />
+    <Compile Include="Interfaces\IRoleAgent.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GenerationConfiguration\ContractGenerationConfiguration.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Resources\Cool.ico" />
+    <None Include="Resources\LearnMore.ico" />
+    <None Include="Resources\CalculatorOrange.ico" />
+    <None Include="Resources\Calculator.ico" />
+    <None Include="Resources\unknown.ico" />
+    <None Include="Resources\PageCategory.ico" />
+    <None Include="Resources\ConfigCloud.ico" />
+    <None Include="Resources\CloudConfig.ico" />
+    <None Include="Resources\InspectCloud.ico" />
+    <None Include="Resources\Account.ico" />
+    <None Include="Resources\Guest.ico" />
+    <None Include="Resources\Folder.ico" />
+    <None Include="Resources\TeamRole.ico" />
+    <None Include="Resources\OrganizationRole.ico" />
+    <None Include="Resources\Role.ico" />
+    <None Include="Resources\RegisteredAccount2.ico" />
+    <None Include="Resources\Globe.ico" />
+    <None Include="Resources\RegisteredAccount.ico" />
+    <None Include="Resources\World.ico" />
+    <None Include="Resources\PublicRole.ico" />
+    <None Include="Resources\RootRole.ico" />
+    <None Include="Resources\RibbonGroup.ico" />
+    <None Include="Resources\MenuPage.ico" />
+    <None Include="Resources\MenuCategory.ico" />
+    <None Include="Resources\Applet3Orange.ico" />
+    <None Include="Resources\Applet2.ico" />
+    <None Include="Resources\Feature.ico" />
+    <None Include="Resources\Applet.ico" />
+    <None Include="Resources\SaveToCloud.ico" />
+    <None Include="Resources\GetFromCloud.ico" />
+    <None Include="Resources\EcoSpace.ico" />
+    <None Include="Resources\Cloud3D.ico" />
+    <None Include="Resources\Cloud.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\broobu.pfx">
+      <Link>broobu.pfx</Link>
+    </None>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Broobu.Authentication.Contract\Broobu.Authentication.Contract.csproj">
+      <Project>{595D5886-5982-4A51-ABA0-EA661C54D95B}</Project>
+      <Name>Broobu.Authentication.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Broobu.Taxonomy.Contract\Broobu.Taxonomy.Contract.csproj">
+      <Project>{B217D6F0-86FD-467A-B978-7E54FE364909}</Project>
+      <Name>Broobu.Taxonomy.Contract</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Domain\Base\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfEnumeration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Enumeration>
+    <ReconcileBy>None</ReconcileBy>
+    <Id>ENUM_ROOT</Id>
+    <DocType>Enumeration</DocType>
+    <Priority>0</Priority>
+    <Errors />
+    <ErrorCount>0</ErrorCount>
+    <WarningCount>0</WarningCount>
+    <InfoCount>0</InfoCount>
+    <ToBeFlushed>false</ToBeFlushed>
+    <IsDirty>false</IsDirty>
+    <SortOrder>0</SortOrder>
+    <Title>Enumerations</Title>
+    <TypeId>00000000-0000-0000-0000-000000000000</TypeId>
+    <DateModified>0001-01-01T00:00:00</DateModified>
+  </Enumeration>
+  <Enumeration>
+    <ReconcileBy>None</ReconcileBy>
+    <Id>ENUM_TYPE</Id>
+    <DocType>Enumeration</DocType>
+    <Priority>0</Priority>
+    <Errors />
+    <ErrorCount>0</ErrorCount>
+    <WarningCount>0</WarningCount>
+    <InfoCount>0</InfoCount>
+    <ToBeFlushed>false</ToBeFlushed>
+    <IsDirty>false</IsDirty>
+    <SortOrder>0</SortOrder>
+    <Title>Enumeration Types</Title>
+    <TypeId>ENUM_ROOT</TypeId>
+    <DateModified>0001-01-01T00:00:00</DateModified>
+  </Enumeration>
+  
+  <!--Gender-->
+  <Enumeration>
+    <ReconcileBy>None</ReconcileBy>
+    <Id>ENUM_TYPE_GENDER</Id>
+    <DocType>Enumeration</DocType>
+    <Priority>0</Priority>
+    <Errors />
+    <ErrorCount>0</ErrorCount>
+    <WarningCount>0</WarningCount>
+    <InfoCount>0</InfoCount>
+    <ToBeFlushed>false</ToBeFlushed>
+    <IsDirty>false</IsDirty>
+    <SortOrder>0</SortOrder>
+    <Title>Genders</Title>
+    <TypeId>ENUM_TYPE</TypeId>
+    <DateModified>0001-01-01T00:00:00</DateModified>
+  </Enumeration>
+  <Enumeration>
+    <ReconcileBy>None</ReconcileBy>
+    <Id>ENUM_GENDER_MALE</Id>
+    <DocType>Enumeration</DocType>
+    <Priority>0</Priority>
+    <Errors />
+    <ErrorCount>0</ErrorCount>
+    <WarningCount>0</WarningCount>
+    <InfoCount>0</InfoCount>
+    <ToBeFlushed>false</ToBeFlushed>
+    <IsDirty>false</IsDirty>
+    <SortOrder>0</SortOrder>
+    <Title>Male</Title>
+    <TypeId>ENUM_TYPE_GENDER</TypeId>
+    <DateModified>0001-01-01T00:00:00</DateModified>
+  </Enumeration>
+  <Enumeration>
+    <ReconcileBy>None</ReconcileBy>
+    <Id>ENUM_GENDER_FEMALE</Id>
+    <DocType>Enumeration</DocType>
+    <Priority>0</Priority>
+    <Errors />
+    <ErrorCount>0</ErrorCount>
+    <WarningCount>0</WarningCount>
+    <InfoCount>0</InfoCount>
+    <ToBeFlushed>false</ToBeFlushed>
+    <IsDirty>false</IsDirty>
+    <SortOrder>0</SortOrder>
+    <Title>Female</Title>
+    <TypeId>ENUM_TYPE_GENDER</TypeId>
+    <DateModified>0001-01-01T00:00:00</DateModified>
+  </Enumeration>
+  <Enumeration>
+    <ReconcileBy>None</ReconcileBy>
+    <Id>ENUM_GENDER_UNKNOWN</Id>
+    <DocType>Enumeration</DocType>
+    <Priority>0</Priority>
+    <Errors />
+    <ErrorCount>0</ErrorCount>
+    <WarningCount>0</WarningCount>
+    <InfoCount>0</InfoCount>
+    <ToBeFlushed>false</ToBeFlushed>
+    <IsDirty>false</IsDirty>
+    <SortOrder>0</SortOrder>
+    <Title>Unknown</Title>
+    <TypeId>ENUM_TYPE_GENDER</TypeId>
+    <DateModified>0001-01-01T00:00:00</DateModified>
+  </Enumeration>
+  
+  
+  
+  
+  
+  
+  
+</ArrayOfEnumeration>

@@ -1,0 +1,45 @@
+﻿<#@ xsd processor="T4Toolbox.XsdProcessor" 
+    file="%VS100COMNTOOLS%\..\..\Xml\Schemas\DbmlSchema.xsd" #>
+<#@ include file="RepositoryAgentClientGeneratorTemplate.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-19
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryAgentClientGeneratorGenerator : Generator
+{
+	public string DatabaseDbml;
+	public string TableNamePrefix;
+	public string Namespace;
+	public string DomainAssemblyPath;
+	public string DaoAssemblyPath;
+	public string ServiceUrl;
+	public string [] ExternalServices = new string[]{};
+	public Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost Host;
+	public bool PrefixEntityNameWithSchemaName;
+	
+	private RepositoryAgentClientGeneratorTemplate _template = new RepositoryAgentClientGeneratorTemplate();  
+
+    protected override void RunCore()
+    {
+		DatabaseInfo databaseInfo = new DatabaseInfo(DatabaseDbml, TableNamePrefix, PrefixEntityNameWithSchemaName);
+        _template.DatabaseInfo = databaseInfo;
+        _template.Namespace = Namespace;
+		_template.DomainAssemblyPath = DomainAssemblyPath;
+		_template.DaoAssemblyPath = DaoAssemblyPath;
+		_template.ServiceUrl = ServiceUrl;
+		_template.ExternalServices = ExternalServices;
+		if (Host == null)
+		{
+        	_template.Render();
+		}
+		else
+		{
+        	_template.RenderToFile(Path.GetFileNameWithoutExtension(Host.TemplateFile) + ".x86.bat");
+			_template.ForX64 = true;
+        	_template.RenderToFile(Path.GetFileNameWithoutExtension(Host.TemplateFile) + ".x64.bat");
+		}
+	}
+}
+#>

@@ -1,0 +1,71 @@
+<Window x:Class="Iris.CloudStudio.UI.SOAStudioWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:shared="http://schemas.actiprosoftware.com/winfx/xaml/shared" 
+    xmlns:docking="http://schemas.actiprosoftware.com/winfx/xaml/docking" 
+    xmlns:ui="clr-namespace:Broobu.CloudStudio.UI.Controls;assembly=Broobu.CloudStudio.UI.Controls" 
+    xmlns:Ribbon="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon;assembly=ActiproSoftware.Ribbon.Wpf351" 
+        xmlns:presentation="clr-namespace:System.Activities.Presentation;assembly=System.Activities.Presentation" 
+        Title="Broobu CloudStudio" Width="620" Height="420" xmlns:ribbon="http://schemas.actiprosoftware.com/winfx/xaml/ribbon"
+        xmlns:controls="clr-namespace:Broobu.CloudStudio.UI.Controls;assembly=Broobu.CloudStudio.UI.Controls">
+    <Window.Resources>
+        <controls:SoaStudioViewModel x:Key="vm"/>
+    </Window.Resources>
+
+	<!-- TODO: Associate an image with the DocumentWindow and ToolWindows below by setting ImageSource -->
+	
+	<Grid DataContext="{StaticResource vm}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>            
+        </Grid.RowDefinitions>
+        <!--Ribbon-->
+        <Ribbon:Ribbon Grid.Row="0">
+            <ribbon:Tab Label="New Tab">
+                <ribbon:Group Label="New Group">
+                    <ribbon:Button Label="Run" MenuItemDescription="Execute the current workflow" Name="btnRun" Click="btnRun_Click">
+                        <ribbon:Button.ImageSourceLarge>
+                            <BitmapImage UriSource="/Broobu.CloudStudio.UI;component/incident.png" />
+                        </ribbon:Button.ImageSourceLarge>
+                        <ribbon:Button.ImageSourceSmall>
+                            <BitmapImage UriSource="/Broobu.CloudStudio.UI;component/incident.png" />
+                        </ribbon:Button.ImageSourceSmall>
+                    </ribbon:Button>
+                    <ribbon:Button Label="Load Contracts" Click="Button_Click">
+                        <ribbon:Button.ImageSourceSmall>
+                            <BitmapImage UriSource="pack://application:,,,/ActiproSoftware.Ribbon.Wpf351;component/Products/Ribbon/Images/ButtonDefault32.png" />
+                        </ribbon:Button.ImageSourceSmall>
+                    </ribbon:Button>
+                </ribbon:Group>
+            </ribbon:Tab>
+        </Ribbon:Ribbon>
+        <!-- DockSite -->
+		<docking:DockSite x:Name="dockSite" Grid.Row="1">
+
+		
+
+			<!-- TODO: Add additional tool windows that should be docked on the left, but in the auto-hide state -->
+			<!-- NOTE: Use AutoHideTopContainers, AutoHideRightContainers, and AutoHideBottomContainers to dock to other sides -->
+
+			<!-- NOTE: Split containers can contain two elements, which are typically ToolWindowContainers (with 1 or more tool windows)
+			           and one (and only one) Workspace -->
+			<docking:SplitContainer>
+
+				<docking:SplitContainer Orientation="Vertical">
+
+                    <!-- NOTE: The Workspace holds the main content, which is typically TabbedMdiHost or StandardMdiHost -->
+					<docking:Workspace>
+                        <ui:SoaStudioView x:Name="vwSOAStudio"/>
+                    </docking:Workspace>
+
+
+				</docking:SplitContainer>
+
+
+			</docking:SplitContainer>
+
+		</docking:DockSite>
+	</Grid>
+	
+</Window>

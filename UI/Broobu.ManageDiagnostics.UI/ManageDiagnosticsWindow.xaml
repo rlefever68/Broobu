@@ -1,0 +1,10 @@
+﻿<Controls1:AppletWindow x:Class="Pms.ManageDiagnostics.UI.ManageDiagnosticsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ribbon="http://schemas.actiprosoftware.com/winfx/xaml/ribbon" 
+        xmlns:Controls="clr-namespace:Pms.ManageDiagnostics.UI.Controls;assembly=Pms.ManageDiagnostics.UI.Controls" xmlns:UI="clr-namespace:Pms.Framework.UI;assembly=Pms.Framework.UI" xmlns:Controls1="clr-namespace:Pms.Shell.UI.Controls;assembly=Pms.Shell.UI.Controls" ApplicationName="MobiGuider - Manage Diagnostics"
+        Title="MainWindow" WindowState="Maximized">
+    <Grid>
+        <Controls:ManageDiagnosticsView/>
+    </Grid>
+</Controls1:AppletWindow>

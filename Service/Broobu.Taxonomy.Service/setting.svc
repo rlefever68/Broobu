@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Service="Broobu.Taxonomy.Service.SettingSentry" Factory="Wulka.Networking.Wcf.SentryHostFactory"%>

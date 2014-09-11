@@ -1,0 +1,10 @@
+﻿<UI:AppletWindow x:Class="Pms.MonitorSession.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ribbon="http://schemas.actiprosoftware.com/winfx/xaml/ribbon"
+        xmlns:pms = "http://schemas.pms/ui/monitorsession" xmlns:UI="clr-namespace:Pms.Framework.UI;assembly=Pms.Framework.UI" Height="350" Width="525"
+        ApplicationName="MobiGuider - Monitor Sessions">
+    <Grid>
+        <pms:SessionViewItemListView/>
+    </Grid>
+</UI:AppletWindow>

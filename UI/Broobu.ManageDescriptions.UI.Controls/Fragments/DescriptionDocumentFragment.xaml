@@ -1,0 +1,119 @@
+<UserControl x:Class="Broobu.Taxonomy.UI.Controls.Fragments.Views.DescriptionDocumentFragment"
+xmlns="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+xmlns:viewmodel="clr-namespace:Broobu.Taxonomy.Contract.Domain;assembly=Broobu.Taxonomy.Contract"
+xmlns:contract="clr-namespace:Iris.Fx.CouchDb.Contract;assembly=Iris.Fx"
+             mc:Ignorable="d"
+    d:DesignHeight="400" d:DesignWidth="600"
+	 
+>
+    <UserControl.DataContext>
+        <viewmodel:Description/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <dxb:BarManager>
+            <dxb:BarManager.Items>
+            </dxb:BarManager.Items>
+            <DockPanel>
+                <dxr:RibbonControl RibbonStyle="Office2010" DockPanel.Dock="Top">
+                    <dxr:RibbonDefaultPageCategory Caption="defaultCategory">
+                        <dxr:RibbonPage Caption="Home">
+                            <dxr:RibbonPageGroup Caption="Description Tasks">
+                            </dxr:RibbonPageGroup>
+                        </dxr:RibbonPage>
+                    </dxr:RibbonDefaultPageCategory>
+                </dxr:RibbonControl>
+                <dxr:RibbonStatusBarControl DockPanel.Dock="Bottom"/>
+                <Grid>
+                    <dxlc:LayoutControl Orientation="Vertical">
+                        <dxlc:LayoutItem Label="Type Id" >
+                            <dxe:TextEdit EditValue="{Binding Type.TypeId, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Type" >
+                            <dxe:TextEdit EditValue="{Binding Type.Type.DisplayName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Culture Id" >
+                            <dxe:TextEdit EditValue="{Binding Type.CultureId, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Object Id" >
+                            <dxe:TextEdit EditValue="{Binding Type.ObjectId, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Url" >
+                            <dxe:TextEdit EditValue="{Binding Type.Url, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Title" >
+                            <dxe:TextEdit EditValue="{Binding Type.Title, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Touched At" >
+                            <dxe:DateEdit EditValue="{Binding Type.TouchedAt, UpdateSourceTrigger=PropertyChanged}" AllowNullInput="False" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Display Name" >
+                            <dxe:TextEdit EditValue="{Binding Type.DisplayName, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Additional Info Uri" >
+                            <dxe:TextEdit EditValue="{Binding Type.AdditionalInfoUri, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="To Be Flushed" >
+                            <dxe:CheckEdit EditValue="{Binding Type.ToBeFlushed, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Is Dirty" >
+                            <dxe:CheckEdit EditValue="{Binding Type.IsDirty, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Parent Id" >
+                            <dxe:TextEdit EditValue="{Binding Type.ParentId, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Source Type" >
+                            <dxe:TextEdit EditValue="{Binding Type.SourceType.FullName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Id" >
+                            <dxe:TextEdit EditValue="{Binding Type.Id, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Doc Type" >
+                            <dxe:TextEdit EditValue="{Binding Type.DocType, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Rev" >
+                            <dxe:TextEdit EditValue="{Binding Type.Rev, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Priority" >
+                            <dxe:TextEdit EditValue="{Binding Type.Priority, UpdateSourceTrigger=PropertyChanged}" MaskType="Numeric" Mask="d" MaskUseAsDisplayFormat="True" HorizontalContentAlignment="Right" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Correlation Id" >
+                            <dxe:TextEdit EditValue="{Binding Type.CorrelationId, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Session Id" >
+                            <dxe:TextEdit EditValue="{Binding Type.SessionId, UpdateSourceTrigger=PropertyChanged}" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Error Count" >
+                            <dxe:TextEdit EditValue="{Binding Type.ErrorCount, UpdateSourceTrigger=PropertyChanged}" MaskType="Numeric" Mask="d" MaskUseAsDisplayFormat="True" HorizontalContentAlignment="Right" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Warning Count" >
+                            <dxe:TextEdit EditValue="{Binding Type.WarningCount, UpdateSourceTrigger=PropertyChanged}" MaskType="Numeric" Mask="d" MaskUseAsDisplayFormat="True" HorizontalContentAlignment="Right" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Info Count" >
+                            <dxe:TextEdit EditValue="{Binding Type.InfoCount, UpdateSourceTrigger=PropertyChanged}" MaskType="Numeric" Mask="d" MaskUseAsDisplayFormat="True" HorizontalContentAlignment="Right" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Reconcile By" >
+                            <dxe:ComboBoxEdit EditValue="{Binding Type.ReconcileBy, UpdateSourceTrigger=PropertyChanged}" IsTextEditable="False" >
+                                <dxe:ComboBoxEdit.ItemsSource>
+                                    <dxe:EnumItemsSource EnumType="contract:ReconcileStrategy" />
+                                </dxe:ComboBoxEdit.ItemsSource>
+                            </dxe:ComboBoxEdit>
+                        </dxlc:LayoutItem>
+
+                    </dxlc:LayoutControl>
+                </Grid>
+            </DockPanel>
+        </dxb:BarManager>
+    </Grid>
+</UserControl>
+

@@ -1,0 +1,142 @@
+<ResourceDictionary 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ribbon="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon;assembly=ActiproSoftware.Ribbon.Wpf351"
+	xmlns:ribbonThemes="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Themes;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonUI="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.UI;assembly=ActiproSoftware.Ribbon.Wpf351"
+    >
+	
+	<ResourceDictionary.MergedDictionaries>
+		
+		<ResourceDictionary Source="Slider.xaml" />
+		
+	</ResourceDictionary.MergedDictionaries>
+
+	<!-- ResizeGripStyle -->						
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=ResizeGripStyle}" TargetType="{x:Type Control}">
+		<Setter Property="MinWidth" Value="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"/>
+		<Setter Property="MinHeight" Value="{DynamicResource {x:Static SystemParameters.HorizontalScrollBarHeightKey}}"/>
+        <Setter Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarItemBackgroundAlternateBrushKey}}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarBorderBrushKey}}" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Control}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="0,1,0,0"
+							ClipToBounds="True"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="True">
+						<Grid SnapsToDevicePixels="True" Background="{TemplateBinding Background}">
+							<Path HorizontalAlignment="Right" 
+								  VerticalAlignment="Bottom" 
+								  Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarResizeGripLightBrushKey}}"
+								  Margin="0,0,3,3"
+								  Data="M 8,0 L 10,0 L 10,2 L 8,2 Z M 4,4 L 6,4 L 6,6 L 4,6 Z M 8,4 L 10,4 L 10,6 L 8,6 Z M 0,8 L 2,8 L 2,10 L 0,10 Z M 4,8 L 6,8 L 6,10 L 4,10 Z M 8,8 L 10,8 L 10,10 L 8,10 Z" />
+
+							<Path HorizontalAlignment="Right" 
+								  VerticalAlignment="Bottom" 
+								  Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarResizeGripDarkBrushKey}}"
+								  Margin="0,0,4,4"
+								  Data="M 8,0 L 10,0 L 10,2 L 8,2 Z M 4,4 L 6,4 L 6,6 L 4,6 Z M 8,4 L 10,4 L 10,6 L 8,6 Z M 0,8 L 2,8 L 2,10 L 0,10 Z M 4,8 L 6,8 L 6,10 L 4,10 Z M 8,8 L 10,8 L 10,10 L 8,10 Z" />
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+			
+	<!-- StatusBarSeparatorStyle -->						
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=StatusBarSeparatorStyle}" TargetType="{x:Type Separator}">
+		<Setter Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarBorderBrushKey}}" />
+		<Setter Property="Margin" Value="0"/>
+		<Setter Property="MinHeight" Value="1"/>
+		<Setter Property="Opacity" Value="0.4"/>
+		<Setter Property="Width" Value="2"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Separator">
+					<StackPanel Orientation="Horizontal">
+						<Rectangle Width="1" Fill="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True" />
+						<Rectangle Width="1" Fill="#40FFFFFF" SnapsToDevicePixels="True" />
+					</StackPanel>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+			
+	<!-- StatusBarSeparatorAlternateStyle -->						
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=StatusBarSeparatorAlternateStyle}" TargetType="{x:Type Separator}"
+		BasedOn="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=StatusBarSeparatorStyle}}">
+		
+		<Setter Property="Opacity" Value="1"/>
+	</Style>
+			
+	<!-- StatusBarItemStyle -->						
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=StatusBarItemStyle}" TargetType="{x:Type StatusBarItem}">
+		<Setter Property="Padding" Value="10,0,10,0"/>
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="HorizontalContentAlignment" Value="Left"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type StatusBarItem}">
+					<Border Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							Padding="{TemplateBinding Padding}"
+							SnapsToDevicePixels="true">
+						<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+			
+	<!-- StatusBarItemAlternateStyle -->						
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=StatusBarItemAlternateStyle}" TargetType="{x:Type StatusBarItem}"
+		BasedOn="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=StatusBarItemStyle}}">
+		
+		<Setter Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarItemBackgroundAlternateBrushKey}}" />
+	</Style>
+	
+	<!-- StatusBarStyle -->						
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=StatusBarStyle}" TargetType="{x:Type StatusBar}">
+        <Setter Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarItemBackgroundBrushKey}}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarBorderBrushKey}}" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabForegroundHoverBrushKey}}" />
+        <Setter Property="FontSize" Value="{x:Static ribbonUI:RibbonMeasurements.UIFontSize}" />
+        <Setter Property="MinHeight" Value="{x:Static ribbonUI:RibbonMeasurements.StatusBarHeight}" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type StatusBar}">
+					<ControlTemplate.Resources>
+						
+						<Style x:Key="{x:Static StatusBar.SeparatorStyleKey}" TargetType="{x:Type Separator}"
+							BasedOn="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=StatusBarSeparatorStyle}}" />
+						
+						<Style x:Key="{x:Type StatusBarItem}" TargetType="{x:Type StatusBarItem}"
+							BasedOn="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=StatusBarItemStyle}}" />
+							
+						<Style x:Key="{x:Type Slider}" TargetType="{x:Type Slider}" 
+							BasedOn="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=StatusBarSliderStyle}}" />
+						
+					</ControlTemplate.Resources>
+					
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="0,1,0,0"
+							ClipToBounds="True"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="True">
+                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                    </Border>
+					
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
+</ResourceDictionary>

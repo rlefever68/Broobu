@@ -1,0 +1,25 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fragments="clr-namespace:Broobu.EcoSpace.UI.Controls.Fragments"
+    xmlns:fragments1="clr-namespace:Broobu.Authentication.UI.Controls.Fragments;assembly=Broobu.Authentication.UI.Controls"
+    x:Class="Broobu.EcoSpace.UI.Controls.Fragments.ManageMembershipFragment"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="300">
+
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <fragments:MembershipFragment Padding="3"/>
+            <GridSplitter Grid.Column="1" Width="3" HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                          ShowsPreview="True" />
+            <fragments1:SelectAccountFragment Grid.Column="2" Padding="3" />
+        </Grid>
+    </Grid>
+</UserControl>

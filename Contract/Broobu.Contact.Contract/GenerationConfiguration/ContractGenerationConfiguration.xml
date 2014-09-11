@@ -1,0 +1,497 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContractDefinition Name="Contact"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:noNamespaceSchemaLocation= "file:..\..\..\IrisSDK\SDK\Generation\Iris.Contract.Generation.xsd">
+  <ContractServiceInterfaces>
+
+    <ContractServiceInterface Name="IAddress">
+      <Methods>
+
+        <Method Name="SaveAddressItem">
+          <Attributes>
+            <Attribute Name="TransactionFlow" Value="TransactionFlowOption.Allowed" />
+          </Attributes>
+          <Parameters>
+            <Parameter Name="addressItem">
+              <Type Namespace="Iris.Contact.Contract.Domain" Name="AddressItem" />
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="AddressItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+
+        <Method Name="DeleteAddressItem">
+          <Attributes>
+            <Attribute Name="TransactionFlow" Value="TransactionFlowOption.Allowed" />
+          </Attributes>
+          <Parameters>
+            <Parameter Name="item">
+              <Type Name="AddressItem" Namespace="Iris.Contact.Contract.Domain"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="AddressItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+
+        <!-- GET -->
+        <Method Name="GetAddressItem">
+          <Parameters>
+            <Parameter Name="id">
+              <Type Name="string" Namespace="System"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="AddressItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+
+        <Method Name="GetAddressItemForRelation">
+          <Parameters>
+            <Parameter Name="relationId">
+              <Type Namespace="System" Name="string" />
+            </Parameter>
+            <Parameter Name="addressId">
+              <Type Namespace="System" Name="string" />
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="AddressItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        <Method Name="GetAddressItems">
+          <ReturnType Name="AddressItem[]" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        <Method Name="GetAddressItemsForRelation">
+          <Parameters>
+            <Parameter Name="relationId">
+              <Type Namespace="System" Name="string" />
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="AddressItem[]" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+
+      </Methods>
+    </ContractServiceInterface>
+
+    <ContractServiceInterface Name="ICountry">
+      <Methods>
+
+        <Method Name="SaveCountryItem">
+          <Attributes>
+            <Attribute Name="TransactionFlow" Value="TransactionFlowOption.Allowed" />
+          </Attributes>
+          <Parameters>
+            <Parameter Name="countryItem">
+              <Type Namespace="Iris.Contact.Contract.Domain" Name="CountryItem" />
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="CountryItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+
+        <!-- DELETE -->
+        <Method Name="DeleteCountryItem">
+          <Attributes>
+            <Attribute Name="TransactionFlow" Value="TransactionFlowOption.Allowed" />
+          </Attributes>
+          <Parameters>
+            <Parameter Name="item">
+              <Type Name="CountryItem" Namespace="Iris.Contact.Contract.Domain"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="CountryItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+
+        <Method Name="GetCountryItem">
+          <Parameters>
+            <Parameter Name="id">
+              <Type Name="string" Namespace="System"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="CountryItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        <Method Name="GetCountryItemByName">
+          <Parameters>
+            <Parameter Name="name">
+              <Type Name="string" Namespace="System"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="CountryItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        <Method Name="GetCountryItemByTwoLetterIsoRegionName">
+          <Parameters>
+            <Parameter Name="twoLetterIsoRegionName">
+              <Type Name="string" Namespace="System"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="CountryItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        <Method Name="GetCountryItemByThreeLetterIsoRegionName">
+          <Parameters>
+            <Parameter Name="threeLetterIsoRegionName">
+              <Type Name="string" Namespace="System"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="CountryItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        <Method Name="GetCountryItems">
+          <ReturnType Name="CountryItem[]" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        <Method Name="GetCountryItemsForCulture">
+          <Parameters>
+            <Parameter Name="cultureName">
+              <Type Name="string" Namespace="System"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="CountryItem[]" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+
+
+      </Methods>
+    </ContractServiceInterface>
+
+    <ContractServiceInterface Name="IDocument">
+      <Methods>
+        <!-- DELETE -->
+        <Method Name="DeleteDocumentItem">
+          <Attributes>
+            <Attribute Name="TransactionFlow" Value="TransactionFlowOption.Allowed" />
+          </Attributes>
+          <Parameters>
+            <Parameter Name="item">
+              <Type Name="DocumentItem" Namespace="Iris.Contact.Contract.Domain"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="DocumentItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+
+        <Method Name="GetDocumentItem">
+          <Parameters>
+            <Parameter Name="id">
+              <Type Name="string" Namespace="System"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="DocumentItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        <Method Name="GetDocumentItemForRelation">
+          <Parameters>
+            <Parameter Name="relationId">
+              <Type Name="string" Namespace="System"></Type>
+            </Parameter>
+            <Parameter Name="documentId">
+              <Type Name="string" Namespace="System"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="DocumentItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        <Method Name="GetDocumentItemByNumber">
+          <Parameters>
+            <Parameter Name="number">
+              <Type Name="string" Namespace="System"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="DocumentItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        <Method Name="GetDocumentItems">
+          <ReturnType Name="DocumentItem[]" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        <Method Name="GetDocumentItemsForRelation">
+          <Parameters>
+            <Parameter Name="relationId">
+              <Type Name="string" Namespace="System"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="DocumentItem[]" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        <Method Name="SaveDocumentItem">
+          <Attributes>
+            <Attribute Name="TransactionFlow" Value="TransactionFlowOption.Allowed" />
+          </Attributes>
+          <Parameters>
+            <Parameter Name="documentItem">
+              <Type Namespace="Iris.Contact.Contract.Domain" Name="DocumentItem" />
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="DocumentItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+
+
+
+      </Methods>
+    </ContractServiceInterface>
+
+    <ContractServiceInterface Name="IRelation">
+      <Methods>
+        <Method Name="GetRelationItem">
+          <Parameters>
+            <Parameter Name="id">
+              <Type Name="string" Namespace="System"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="RelationItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        <Method Name="GetRelationItems">
+          <ReturnType Name="RelationItem[]" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+
+        <Method Name="SaveRelationItem">
+          <Attributes>
+            <Attribute Name="TransactionFlow" Value="TransactionFlowOption.Allowed" />
+          </Attributes>
+          <Parameters>
+            <Parameter Name="relationItem">
+              <Type Namespace="Iris.Contact.Contract.Domain" Name="RelationItem" />
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="RelationItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+
+      </Methods>
+    </ContractServiceInterface>
+    
+    <ContractServiceInterface Name="IContact" >
+      <Methods>
+        <Method Name="DeleteRelationAddressItem">
+          <Attributes>
+            <Attribute Name="TransactionFlow" Value="TransactionFlowOption.Allowed" />
+          </Attributes>
+          <Parameters>
+            <Parameter Name="item">
+              <Type Name="RelationAddressItem" Namespace="Iris.Contact.Contract.Domain"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="RelationAddressItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        <Method Name="DeleteRelationDocumentItem">
+          <Attributes>
+            <Attribute Name="TransactionFlow" Value="TransactionFlowOption.Allowed" />
+          </Attributes>
+          <Parameters>
+            <Parameter Name="item">
+              <Type Name="RelationDocumentItem" Namespace="Iris.Contact.Contract.Domain"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="RelationDocumentItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        <Method Name="DeleteRelationItem">
+          <Attributes>
+            <Attribute Name="TransactionFlow" Value="TransactionFlowOption.Allowed" />
+          </Attributes>
+          <Parameters>
+            <Parameter Name="itemm">
+              <Type Name="RelationItem" Namespace="Iris.Contact.Contract.Domain"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="RelationItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+
+        <Method Name="GetRelationAddressItem">
+          <Parameters>
+            <Parameter Name="id">
+              <Type Name="string" Namespace="System"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="RelationAddressItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        
+        <Method Name="GetRelationDocumentItem">
+          <Parameters>
+            <Parameter Name="id">
+              <Type Name="string" Namespace="System"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="RelationDocumentItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        <Method Name="GetRelationAddressItems">
+          <ReturnType Name="RelationAddressItem[]" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        
+        <Method Name="GetRelationAddressItemsForRelation">
+          <Parameters>
+            <Parameter Name="relationId">
+              <Type Name="string" Namespace="System"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="RelationAddressItem[]" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        <Method Name="GetRelationDocumentItems">
+          <ReturnType Name="RelationDocumentItem[]" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        
+        <Method Name="GetRelationDocumentItemsByDocumentId">
+          <Parameters>
+            <Parameter Name="documentId">
+              <Type Name="string" Namespace="System"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="RelationDocumentItem[]" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        
+        <Method Name="GetRelationDocumentItemsByRelationId">
+          <Parameters>
+            <Parameter Name="relationId">
+              <Type Name="string" Namespace="System"></Type>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="RelationDocumentItem[]" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        
+        <!-- SAVE -->
+        
+        <Method Name="SaveRelationAddressItem">
+          <Attributes>
+            <Attribute Name="TransactionFlow" Value="TransactionFlowOption.Allowed" />
+          </Attributes>
+          <Parameters>
+            <Parameter Name="relationAddressItem">
+              <Type Namespace="Iris.Contact.Contract.Domain" Name="RelationAddressItem" />
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="RelationAddressItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+       
+        <Method Name="SaveRelationDocumentItem">
+          <Attributes>
+            <Attribute Name="TransactionFlow" Value="TransactionFlowOption.Allowed" />
+          </Attributes>
+          <Parameters>
+            <Parameter Name="relationDocumentItem">
+              <Type Namespace="Iris.Contact.Contract.Domain" Name="RelationDocumentItem" />
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="RelationDocumentItem" Namespace="Iris.Contact.Contract.Domain" />
+        </Method>
+        
+      </Methods>
+    </ContractServiceInterface>
+  
+  
+  </ContractServiceInterfaces>
+  
+  
+  
+  <DomainObjectClasses>
+    <DomainObjectClass Name="AddressItem">
+      <Properties>
+        <Property Name="CountryId">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="StateId">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="TypeId">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="Address1">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="Address2">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="Number">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="Box">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="ZipCode">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="City">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="Latitude">
+          <Type Name="double" Namespace="System"></Type>
+        </Property>
+        <Property Name="Longitude">
+          <Type Name="double" Namespace="System"></Type>
+        </Property>
+        <Property Name="AddressString">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+      </Properties>
+    </DomainObjectClass>
+    <DomainObjectClass Name="CountryItem">
+      <Properties>
+        <Property Name="TwoLetterIsoRegionName">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="ThreeLetterIsoRegionName">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="DefaultName">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+      </Properties>
+    </DomainObjectClass>
+    <DomainObjectClass Name="DocumentItem">
+      <Properties>
+        <Property Name="TypeId">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="IdentificationNumber">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="IssueDate">
+          <Type Name="DateTime?" Namespace="System"></Type>
+        </Property>
+        <Property Name="ExpiryDate">
+          <Type Name="DateTime?" Namespace="System"></Type>
+        </Property>
+        <Property Name="Description">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+      </Properties>
+    </DomainObjectClass>
+    <DomainObjectClass Name="RelationAddressItem">
+      <Properties>
+        <Property Name="RelationId">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="AddressId">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="TypeId">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+      </Properties>
+    </DomainObjectClass>
+    <DomainObjectClass Name="RelationDocumentItem">
+      <Properties>
+        <Property Name="RelationId">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="DocumentId">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="TypeId">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+      </Properties>
+    </DomainObjectClass>
+    <DomainObjectClass Name="RelationItem">
+      <Properties>
+        <Property Name="DocumentId">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="GenderId">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="TypeId">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="FirstName">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="MiddleName">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="LastName">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+        <Property Name="DateOfBirth">
+          <Type Name="DateTime" Namespace="System"></Type>
+        </Property>
+        <Property Name="PlaceOfBirth">
+          <Type Name="string" Namespace="System"></Type>
+        </Property>
+      </Properties>
+    </DomainObjectClass>
+  </DomainObjectClasses>
+</ContractDefinition>
+<!--
+
+-->

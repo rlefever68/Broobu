@@ -1,0 +1,40 @@
+﻿<#@ xsd processor="T4Toolbox.XsdProcessor" 
+    file="%VS100COMNTOOLS%\..\..\Xml\Schemas\DbmlSchema.xsd" #>
+<#@ include file="RepositoryServiceInterfaceTemplate.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-07
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryServiceInterfaceGenerator : Generator
+{
+	public string DatabaseDbml;
+	public string TableNamePrefix;
+	public string Namespace;
+	public string ServiceVersion; // The version must be specified in the format YYYY/MM where YYYY is a year and MM is a month, e.g. 2010/05
+	public bool	HasDynamicSchema;
+	public bool NeedsBulkCrud;
+	public bool PrefixEntityNameWithSchemaName;
+	
+	private RepositoryServiceInterfaceTemplate _template = new RepositoryServiceInterfaceTemplate();  
+
+    protected override void RunCore()
+    {
+		DatabaseInfo databaseInfo = new DatabaseInfo(DatabaseDbml, TableNamePrefix, PrefixEntityNameWithSchemaName);
+	    foreach (TableInfo tableInfo in databaseInfo.TableInfos)
+        {
+  			if (tableInfo.HasFunctions == false)
+			{
+				continue;
+			}
+           	_template.TableInfo = tableInfo;
+            _template.Namespace = Namespace;
+			_template.ServiceVersion = ServiceVersion;
+			_template.HasDynamicSchema = HasDynamicSchema;
+            _template.NeedsBulkCrud = NeedsBulkCrud;
+            _template.RenderToFile("I" + tableInfo.EntityName + "Repository.cs");
+        }
+    }
+}
+#>

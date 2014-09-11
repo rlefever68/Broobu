@@ -1,0 +1,109 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ output extension="txt"  #>
+<#@ include file="DbmlHelper.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-12-02
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryMockRepositoryClassTemplate : Template
+{
+ 	public TableInfo TableInfo;
+    public string Namespace; 
+	public bool	HasDynamicSchema;
+	public bool NeedsBulkCrud;
+
+	private StringHelper _strH = new StringHelper();
+
+    public override string TransformText()
+    {
+		string databaseLogicalName = TableInfo.DatabaseLogicalName;
+		string databaseLogicalNameLowerCase = _strH.ToLowerCamelCase(TableInfo.DatabaseLogicalName);
+		string entityName = TableInfo.EntityName; // UpperCamelCase
+		string entityNameAsParam = _strH.ToLowerCamelCase(TableInfo.EntityName); // lowerCamelCase
+		string idNameAsParam = _strH.ToLowerCamelCase(TableInfo.IdName); // lowerCamelCase
+		string idLanguageType = TableInfo.IdLanguageType; 
+		string idLanguageTypeUpperCase = _strH.ToUpperCamelCase(TableInfo.IdLanguageType); 
+		string baseClassDeclaration = string.Empty;
+		if (TableInfo.HasCrudFunctions)
+		{
+			if (NeedsBulkCrud)
+			{
+				string crudBaseClass = (HasDynamicSchema) ? "MockRepositoryBulkCrudWithSchemaBase" : "MockRepositoryBulkCrudBase";	
+				baseClassDeclaration = " : " + crudBaseClass + "<" + entityName + ", " + idLanguageType + ">";
+			}
+			else
+			{
+				string crudBaseClass = (HasDynamicSchema) ? "MockRepositoryCrudWithSchemaBase" : "MockRepositoryCrudBase";	
+				baseClassDeclaration = " : " + crudBaseClass + "<" + entityName + ", " + idLanguageType + ">";
+			}
+		}
+#>
+//========================================================================================
+// INFO: This file is generated from t4 template <#= this.GetType().Name #>.tt
+// !!! Any changes made manually will be lost next time this file is generated !!!
+//========================================================================================
+using System;
+using Pms.Framework.Test.Mock;
+using Pms.Framework.Test.Utilities;
+using <#= Namespace #>.Repository.Contract.Domain;
+
+namespace <#= Namespace #>.Repository.Domain.Test
+{
+    public partial class <#= entityName #>MockRepository<#= baseClassDeclaration #>
+    {
+        private readonly <#= databaseLogicalName #>Data _<#= databaseLogicalNameLowerCase #>Data;
+
+        public <#= entityName #>MockRepository(<#= databaseLogicalName #>Data <#= databaseLogicalNameLowerCase #>Data)
+<#+
+		if (TableInfo.HasCrudFunctions)
+		{
+#>
+            : base(<#= databaseLogicalNameLowerCase #>Data.<#= entityName #>s, new <#= idLanguageTypeUpperCase #>IdGenerator())
+<#+
+		}
+#>
+        {
+            _<#= databaseLogicalNameLowerCase #>Data = <#= databaseLogicalNameLowerCase #>Data;
+        }
+<#+
+		if (TableInfo.HasExtraFunctions)
+		{
+#>
+
+        #region Extra Functions (map to handwritten stored procedures)
+<#+
+			foreach(FunctionInfo functionInfo in TableInfo.FunctionInfos)
+			{
+				string methodName = functionInfo.MethodName;
+				//string methodDbName = functionInfo.DbName;
+				string paramDeclarationList = functionInfo.ParamDeclarationList;
+				string paramReferenceList = functionInfo.ParamReferenceList;
+				string arraysuffix = functionInfo.ReturnsSingleInstance ? string.Empty : "[]";
+			    string returnValueLanguageType = functionInfo.ReturnValueLanguageType;
+				string returnStatement = functionInfo.HasReturnType ? "return " : string.Empty;
+#>
+      
+		public <#= returnValueLanguageType #><#= arraysuffix #> <#= methodName #>(
+			<#= paramDeclarationList #>)
+        {
+           	<#= returnStatement #>_<#= databaseLogicalNameLowerCase #>Data.<#= entityName #>_<#= methodName #>(
+				<#= paramReferenceList #>);
+        }
+<#+
+			} // End foreach functionInfo
+#>
+
+        #endregion
+<#+
+		}
+#>
+
+    }
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>

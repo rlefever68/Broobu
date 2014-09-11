@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Pms.Framework.Domain" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Pms.Framework.Domain" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="TransactionFileItem">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:DomainObjectOfTransactionFileItem0pBNaQkG">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="File" nillable="true" type="xs:base64Binary" />
+          <xs:element minOccurs="0" name="FileName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IsZip" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TransactionFileItem" nillable="true" type="tns:TransactionFileItem" />
+  <xs:complexType name="DomainObjectOfTransactionFileItem0pBNaQkG">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="DomainObjectOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Pms.Framework.Domain" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="TransactionFileItem" Namespace="http://schemas.datacontract.org/2004/07/Pms.Framework.Domain" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Result">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="DomainObjectOfTransactionFileItem0pBNaQkG" nillable="true" type="tns:DomainObjectOfTransactionFileItem0pBNaQkG" />
+  <xs:complexType name="Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CorrelationId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ErrorCount" type="xs:int" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Errors" nillable="true" type="q1:ArrayOfstring" />
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InfoCount" type="xs:int" />
+      <xs:element minOccurs="0" name="Priority" type="xs:int" />
+      <xs:element minOccurs="0" name="SessionId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WarningCount" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Result" nillable="true" type="tns:Result" />
+</xs:schema>

@@ -1,0 +1,165 @@
+﻿<UserControl x:Class="Pms.ManageWorkspaces.UI.Controls.WorkspaceBrowserMainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ribbon="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon;assembly=ActiproSoftware.Ribbon.Wpf351" 
+             xmlns:Controls="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Controls;assembly=ActiproSoftware.Ribbon.Wpf351" 
+             xmlns:shared="clr-namespace:ActiproSoftware.Windows.DocumentManagement;assembly=ActiproSoftware.Shared.Wpf351" 
+             xmlns:UI="clr-namespace:Pms.ManageWorkspaces.UI.Controls"
+             xmlns:Vm="clr-namespace:Pms.ManageWorkspaces.UI.Controls.ViewModel"
+             xmlns:docking="clr-namespace:ActiproSoftware.Windows.Controls.Docking;assembly=ActiproSoftware.Docking.Wpf351" 
+             xmlns:Localization="clr-namespace:Pms.ManageWorkspaces.UI.Controls.Localization" 
+             xmlns:validation="clr-namespace:Pms.ManageWorkspaces.UI.Controls.UIInputValidations"
+             xmlns:UI1="clr-namespace:Pms.Framework.UI;assembly=Pms.Framework.UI" mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="606" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <Vm:WorkspaceBrowserMainViewViewModel x:Key="vm"></Vm:WorkspaceBrowserMainViewViewModel>
+    </UserControl.Resources>
+    <Grid DataContext="{StaticResource vm}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="2">
+            <UI1:BusyOverlay Name="overlay"  IsBusy="{Binding IsRefreshing}"
+										     HasNoData="{Binding IsEmpty}"
+										     Grid.Row="2" Grid.ColumnSpan="2"
+										     VerticalAlignment="Stretch" Margin="1,1">
+                <!-- DockSite -->
+                <docking:DockSite x:Name="dockSite" ToolWindowsTabPlacement="Top" Margin="0 0 0 0">
+                    <!-- TODO: Add additional tool windows that will be close initially -->
+                    <docking:DockSite.ToolWindows>
+                        <docking:ToolWindow x:Name="initiallyClosedToolWindow" Title="Initially-Closed">
+                            <TextBlock Margin="3" Text="This tool window was initially closed." TextWrapping="Wrap" />
+                        </docking:ToolWindow>
+                    </docking:DockSite.ToolWindows>
+                    <docking:SplitContainer>
+                        <docking:ToolWindowContainer>
+                            <docking:ToolWindow x:Name="twNavigator" Title="Navigator">
+                                <UI:WorkspaceNavigator x:Name="wsNavigator" x:FieldModifier="public" />
+                            </docking:ToolWindow>
+                        </docking:ToolWindowContainer>
+                        <docking:SplitContainer Orientation="Vertical">
+                            <!-- NOTE: The Workspace holds the main content, which is typically TabbedMdiHost or StandardMdiHost -->
+                            <docking:Workspace>
+                                <docking:TabbedMdiHost x:Name="tabbedMdiHost">
+                                    <docking:TabbedMdiContainer x:Name="mdiContainer">
+                                        <!-- TODO: Add additional document or tool windows -->
+                                        <docking:DocumentWindow Title="Workspace" Description="Workspace" FileName="Workspace1.xml" CanClose="False">
+                                            <Grid >
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <UI:WorkspaceListView x:Name="wsListView" Grid.Column="0" Grid.Row="0" x:FieldModifier="public"  />
+                                            </Grid>
+                                        </docking:DocumentWindow>
+                                        <!--<docking:DocumentWindow x:Name="SearchWorkspace" x:FieldModifier="public" Title="WorkspaceSearchResult" Visibility="Collapsed" Description="Workspace" FileName="Workspace1.xml">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <UI:WorkspaceListView x:Name="wsListView1" Grid.Column="0" Grid.Row="0" x:FieldModifier="public" />
+                                            </Grid>
+                                        </docking:DocumentWindow>-->
+                                    </docking:TabbedMdiContainer>
+                                </docking:TabbedMdiHost>
+                            </docking:Workspace>
+                            <docking:ToolWindowContainer>
+                                <docking:ToolWindow x:Name="twDescriptions" Title="Descriptions">
+                                    <UI:WorkspaceDescriptionsView x:Name="wsDescription" x:FieldModifier="public" />
+                                </docking:ToolWindow>
+                            </docking:ToolWindowContainer>
+                        </docking:SplitContainer>
+                        <docking:ToolWindowContainer Width="Auto">
+                            <docking:ToolWindow x:Name="twProperties" Title="Properties">
+                                <Grid DataContext="{StaticResource vm}">
+                                    <UI:WorkspaceProperties x:Name="wsProperties" WorkspaceItemProperties="{Binding WorkspaceItemProperties}" x:FieldModifier="public">
+                                    </UI:WorkspaceProperties>
+                                </Grid>
+                            </docking:ToolWindow>
+                        </docking:ToolWindowContainer>
+                    </docking:SplitContainer>
+                </docking:DockSite>
+            </UI1:BusyOverlay>
+        </Grid>
+        <ribbon:Ribbon x:Name="ribbon" Grid.Row="0" UseScenicLayout="False" ApplicationButtonImageSource="pack://application:,,,/Pms.ManageWorkspaces.Resources;component/Application-icons/prodata-logo.png">
+            <!-- Tab Panel Items (Appear next to the tabs) -->
+            <ribbon:Ribbon.TabPanelItems>
+                <Label Style="{DynamicResource labelstyle}">Welcome</Label>
+                <Controls:Button Label="Help" KeyTipAccessText="Z" />
+            </ribbon:Ribbon.TabPanelItems>
+            <ribbon:Ribbon.ApplicationMenu>
+                <!-- Application Menu -->
+                <Controls:ApplicationMenu>
+                    <!-- Application Menu Items -->
+                    <Controls:Button Label="New" KeyTipAccessText="N" />
+                    <Controls:Button Label="Open" KeyTipAccessText="O" />
+                    <Controls:Button Label="Save" KeyTipAccessText="S" />
+                    <Controls:Button Label="Save As" KeyTipAccessText="A" />
+                    <Controls:Separator />
+                    <Controls:Button Label="Print" KeyTipAccessText="P" />
+                    <Controls:Separator />
+                    <Controls:Button Label="Close" KeyTipAccessText="C" />
+                    <!-- Additional Content (Right side of application menu) -->
+                    <Controls:ApplicationMenu.AdditionalContent>
+                        <Controls:RecentDocumentMenu>
+                            <shared:RecentDocumentManager x:Name="recentDocManager" />
+                        </Controls:RecentDocumentMenu>
+                    </Controls:ApplicationMenu.AdditionalContent>
+                    <!-- Application Menu Footer Buttons -->
+                    <Controls:ApplicationMenu.FooterButtons>
+                        <Controls:Button Label="Options" KeyTipAccessText="I" />
+                        <Controls:Button Label="Exit Application" KeyTipAccessText="X" />
+                    </Controls:ApplicationMenu.FooterButtons>
+                </Controls:ApplicationMenu>
+            </ribbon:Ribbon.ApplicationMenu>
+            <!-- Quick Access ToolBar (QAT) -->
+            <ribbon:Ribbon.QuickAccessToolBarItems>
+            </ribbon:Ribbon.QuickAccessToolBarItems>
+            <!-- Tabs -->
+            <ribbon:Ribbon.Tabs>
+                <Controls:Tab Label="{x:Static  Localization:Translations.WorkspaceBrowser_MV_Tab_Home}" KeyTipAccessText="H">
+                    <Controls:Group Label="{x:Static  Localization:Translations.WorkspaceBrowser_MV_Add}" FontSize="10" FontFamily="Verdana">
+                        <Controls:Button Label="{x:Static  Localization:Translations.WorkspaceBrowser_AddWorkspace}" Command="{Binding BtnAddFolderClick}" Width="75" ImageSourceLarge="pack://application:,,,/Pms.ManageWorkspaces.Resources;component/button-icons/add-folder.png" Name="btnAddWorkspace" Context="RibbonTabGroupItem"></Controls:Button>
+                        <Controls:Button Label="{x:Static  Localization:Translations.WorkspaceBrowser_MV_btnAddItem}" Command="{Binding BtnAddItemClick}" Name="btnAddItem" x:FieldModifier="public" CommandParameter="AddItem" Width="75" ImageSourceLarge="pack://application:,,,/Pms.ManageWorkspaces.Resources;component/button-icons/add-item.png" Context="RibbonTabGroupItem"></Controls:Button>
+                        <Controls:Button Label="{x:Static  Localization:Translations.WorkspaceBrowser_ModifyItem}" Command="{Binding BtnModifyItemClick}" Name="btnmodifyItem" x:FieldModifier="public" Width="75" ImageSourceLarge="pack://application:,,,/Pms.ManageWorkspaces.Resources;component/button-icons/modify-item.png" Context="RibbonTabGroupItem"></Controls:Button>
+                    </Controls:Group>
+                    <!--<Controls:Group Label="{x:Static  Localization:Translations.WorkspaceBrowser_MV_Navigate}"   FontSize="10" FontFamily="Verdana">
+                        <Controls:Button Label="{x:Static  Localization:Translations.WorkspaceBrowser_MV_btnAddFav}" Width="75"  Command="{Binding BtnAddtoFavoritesClick}" Name="btnAddtoFavorites" ImageSourceLarge="pack://application:,,,/Pms.ManageWorkspaces.Resources;component/button-icons/favorite.png" Context="RibbonTabGroupItem" ></Controls:Button>
+                        <Controls:Button Label="{x:Static  Localization:Translations.WorkspaceBrowser_MV_btnVNT}" Width="75"  Command="{Binding BtnShowinNewTabClick}" Name="btnShowinNewTab" ImageSourceLarge="pack://application:,,,/Pms.ManageWorkspaces.Resources;component/button-icons/newtab.png" Context="RibbonTabGroupItem" ></Controls:Button>
+                    </Controls:Group>-->
+                    <Controls:Group Label="{x:Static  Localization:Translations.WorkspaceBrowser_MV_View}" FontSize="10" FontFamily="Verdana">
+                        <Controls:Button Label="{x:Static  Localization:Translations.WorkspaceBrowser_MV_btnLV}" Width="75" Command="{Binding BtnListViewClick}" Name="btnListView" VariantSize="Large" ImageSourceLarge="pack://application:,,,/Pms.ManageWorkspaces.Resources;component/button-icons/list-view.png" Context="RibbonTabGroupItem"></Controls:Button>
+                        <Controls:Button Label="{x:Static  Localization:Translations.WorkspaceBrowser_MV_btnDV}" Width="75" Command="{Binding BtnDetailViewClick}" Name="btnDetailView" VariantSize="Large" ImageSourceLarge="pack://application:,,,/Pms.ManageWorkspaces.Resources;component/button-icons/Detail_view.png" Context="RibbonTabGroupItem"></Controls:Button>
+                        <Controls:Button Label="{x:Static  Localization:Translations.WorkspaceBrowser_MV_btnTV}" Width="75" Command="{Binding BtnTreeViewClick}" Name="btnTreeView" VariantSize="Large" ImageSourceLarge="pack://application:,,,/Pms.ManageWorkspaces.Resources;component/button-icons/Tree view.png" Context="RibbonTabGroupItem"></Controls:Button>
+                    </Controls:Group>
+                    <Controls:Group Label="{x:Static  Localization:Translations.WorkspaceBrowser_MV_Back}" FontSize="10" FontFamily="Verdana">
+                        <Controls:Button Label="{x:Static  Localization:Translations.WorkspaceBrowser_MV_Back}" Width="75" Command="{Binding BtnBackClick}" IsEnabled="{Binding BlnBack}" Name="btnBack" VariantSize="Large" ImageSourceLarge="pack://application:,,,/Pms.ManageWorkspaces.Resources;component/Application-icons/back_button.png" Context="RibbonTabGroupItem"></Controls:Button>
+                    </Controls:Group>
+                </Controls:Tab>
+                <Controls:Tab Label="{x:Static Localization:Translations.WorkspaceBrowser_Tab_UP}">
+                    <Controls:Group Label="{x:Static Localization:Translations.WorkspaceBrowser_Tab_UP}" FontSize="10" FontFamily="Verdana">
+                        <Controls:Button Label="{x:Static Localization:Translations.WorkspaceBrowser_PropertiesWindow}" Grid.Column="0"
+                                        Click="BtnPropertiesWindowClick" Width="75" Name="btnPropertiesWindow" Margin="10 0 0 0" FontSize="10" FontFamily="Verdana" VariantSize="Large" Context="RibbonTabGroupItem" ImageSourceLarge="pack://application:,,,/Pms.ManageWorkspaces.Resources;component/button-icons/property_window.png"></Controls:Button>
+
+                        <Controls:Button Label="{x:Static Localization:Translations.WorkspaceBrowser_NavigatorWindow}" Grid.Column="1"
+                                        Click="BtnNavigatorWindowClick" Width="75" Name="btnNavigatorWindow" Margin="10 0 0 0" FontSize="10" FontFamily="Verdana" VariantSize="Large" Context="RibbonTabGroupItem" ImageSourceLarge="pack://application:,,,/Pms.ManageWorkspaces.Resources;component/button-icons/navigation_window.png"></Controls:Button>
+
+                        <Controls:Button Label="{x:Static Localization:Translations.WorkspaceBrowser_DescriptionWindow}" Grid.Column="2"
+                                        Click="BtnDescWindowClick" Width="75" Name="btnDescWindow" Margin="10 0 0 0" FontSize="10" FontFamily="Verdana" VariantSize="Large" Context="RibbonTabGroupItem" ImageSourceLarge="pack://application:,,,/Pms.ManageWorkspaces.Resources;component/button-icons/overview_window.png"></Controls:Button>
+                    </Controls:Group>
+                </Controls:Tab>
+            </ribbon:Ribbon.Tabs>
+        </ribbon:Ribbon>
+        <UI:BreadcrumbControl Height="30" Margin="2 0 303 0" Grid.Row="1" x:Name="wsBreadCrumb" x:FieldModifier="public" validation:InputValidation.ValidationType="AlphaNumeric"></UI:BreadcrumbControl>
+        <UI:WorkspaceSearchControl Grid.Column="4" x:Name="SearchControl" Height="27" Grid.Row="1" Margin="0 0 3 2" HorizontalAlignment="Right" validation:InputValidation.ValidationType="AlphaNumeric"></UI:WorkspaceSearchControl>
+    </Grid>
+</UserControl>

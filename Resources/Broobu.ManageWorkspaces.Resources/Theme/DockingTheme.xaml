@@ -1,0 +1,663 @@
+<ResourceDictionary 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+    xmlns:shared="http://schemas.actiprosoftware.com/winfx/xaml/shared"
+    xmlns:themes="http://schemas.actiprosoftware.com/winfx/xaml/themes"
+	xmlns:docking="clr-namespace:ActiproSoftware.Windows.Controls.Docking;assembly=ActiproSoftware.Docking.Wpf351"
+	xmlns:dockingPrimitives="clr-namespace:ActiproSoftware.Windows.Controls.Docking.Primitives;assembly=ActiproSoftware.Docking.Wpf351"
+	xmlns:dockingThemes="clr-namespace:ActiproSoftware.Windows.Controls.Docking.Themes;assembly=ActiproSoftware.Docking.Wpf351"
+	xmlns:system="clr-namespace:System;assembly=mscorlib">
+    
+    
+    <ResourceDictionary.MergedDictionaries> 
+    </ResourceDictionary.MergedDictionaries>
+    
+   
+    <!--<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.AutoHideTabItemForegroundBrushKey}" Color="#555564" />-->
+    <LinearGradientBrush x:Key="ToolWindowContainerHeaderBackground" StartPoint="0,0" EndPoint="0,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#005f9c"  Offset="0.1" />
+                <GradientStop Color="#005f9c"  Offset="0.5" />
+                <GradientStop Color="#00355f"  Offset="0.8" />
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <!-- DockSite -->
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.DockSiteBackgroundBrushKey}" Color="#FFE1E1E3" />
+    <!--<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.DockSiteBorderBrushKey}" Color="RED" />-->
+   
+    <!-- TabbedMdiContainer -->
+    
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.TabbedMdiContainerBackgroundBrushKey}" Color="#D4D7DC" /> 
+    
+    <!-- TabbedMdiHost - background  -->
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.TabbedMdiHostBackgroundBrushKey}" Color="#D4D7DC" />
+     
+        <!-- Workspace -->
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WorkspaceBackgroundBrushKey}" Color="#D4D7DC" />
+
+
+    <!-- AutoHideTabItem -->
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.AutoHideTabItemHighlightBrushKey}" Color="Transparent"  />
+
+	<!-- DocumentWindow -->
+
+    <!--<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.DocumentTabBackgroundHoverBrushKey}" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#F7FCFE" />
+        <GradientStop Offset="1" Color="#81D0F1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.DocumentTabBackgroundNormalBrushKey}" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#ECF5FC" />
+        <GradientStop Offset="1" Color="#98B4D2" />
+    </LinearGradientBrush>
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.DocumentTabBackgroundSelectedBrushKey}" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#FCFDFE" />
+        <GradientStop Offset="1" Color="#D2E6FA" />
+    </LinearGradientBrush>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.DocumentTabBorderHoverBrushKey}" Color="#69A1BF" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.DocumentTabBorderNormalBrushKey}" Color="#9196A2" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.DocumentTabBorderSelectedBrushKey}" Color="#69A1BF" />-->
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.DocumentTabForegroundNormalBrushKey}" Color="#003F70" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.DocumentTabForegroundDisabledBrushKey}" Color="#808080" />
+
+    <!-- RaftingHost -->
+    <!--<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.RaftingHostBackgroundBrushKey}" Color="#F0F3FB" />-->
+
+    
+    <!--Toolwindowcontainer Docking Bottom Design-->
+
+    <!--<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabForegroundNormalBrushKey}" Color="#003F70" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabForegroundSelectedBrushKey}" Color="#003F70" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabBackgroundSelectedBrushKey}" Color="#EFF6FD"/>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabBorderSelectedBrushKey}" Color="#9AA4AD"/>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabBorderHoverBrushKey}" Color="#9AA4AD"/>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabBorderNormalBrushKey}" Color="#9AA4AD"/>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabHighlightBrushKey}" Color="Transparent"/>-->
+
+
+    <!--<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabForegroundNormalBrushKey}" Color="#716F64" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabForegroundSelectedBrushKey}" Color="#003F70" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabBackgroundSelectedBrushKey}" Color="#EFF6FD"/>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabBorderSelectedBrushKey}" Color="#9AA4AD"/>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabBorderHoverBrushKey}" Color="Transparent"/>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabBorderNormalBrushKey}" Color="Transparent"/>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabHighlightBrushKey}" Color="Transparent"/>-->
+
+
+    <!--<Style x:Key="{x:Type docking:TabbedMdiContainer}"  TargetType="{x:Type docking:TabbedMdiContainer}">
+        <Setter Property="Foreground" Value="#003F70" ></Setter>
+        <Setter Property="FontFamily" Value="Verdana" ></Setter>
+        <Setter Property="FontWeight" Value="Normal"></Setter>
+        <Setter Property="FontSize" Value="10"></Setter>
+    </Style>-->
+
+
+    <!--<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabBorderHoverBrushKey}" StartPoint="0,0" EndPoint="0,1"  >
+        <GradientStop Offset="0" Color="#9AA4AD"></GradientStop>
+        <GradientStop Offset="1" Color="White"></GradientStop>
+    </LinearGradientBrush>-->    
+    
+    
+
+    <Style x:Key="{x:Type docking:ToolWindowContainer}" TargetType="{x:Type docking:ToolWindowContainer}">
+
+        <Setter Property="TabBarSpacerBackground" Value="{StaticResource ToolWindowContainerHeaderBackground}"></Setter>
+        <Setter Property="TitleBarForegroundInactive" Value ="White"></Setter>
+        <Setter Property="TitleBarForegroundActive" Value ="White"></Setter>
+        <Setter Property="TitleBarBackgroundActive"  Value="{StaticResource ToolWindowContainerHeaderBackground}"></Setter>
+        <Setter Property="TitleBarBackgroundInactive"  Value="{StaticResource ToolWindowContainerHeaderBackground}"></Setter>
+        <Setter Property="TitleBarBorderThickness" Value="0"></Setter>
+        <Setter Property="TitleBarForegroundInactive" Value ="White"></Setter>
+        <Setter Property="TitleBarForegroundActive" Value ="White"></Setter>
+        
+    </Style>
+
+    <!--<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.AutoHideTabItemBackgroundHoverBrushKey}" Color="red" />-->
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowContainerTitleBarBorderActiveBrushKey}" Color="White" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowContainerTitleBarBorderInactiveBrushKey}" Color="White" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowContainerTitleBarForegroundActiveBrushKey}" Color="White" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowContainerTitleBarForegroundInactiveBrushKey}" Color="White" />
+
+    <!-- ToolWindowContainerTabBarSpacer -->
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowContainerTabBarSpacerBackgroundBrushKey}" Color="#F0F0F0" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowContainerTabBarSpacerBorderBrushKey}" Color="#A0A0A0" />
+    
+    <!-- ToolWindowContainerTitleBarButton -->
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowContainerTitleBarButtonBackgroundActiveHoverBrushKey}" Color="Transparent" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowContainerTitleBarButtonBorderActiveHoverBrushKey}" Color="Transparent" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowContainerTitleBarButtonBackgroundActivePressedBrushKey}" Color="Transparent" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowContainerTitleBarButtonBorderActivePressedBrushKey}" Color="Transparent" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowContainerTitleBarButtonBackgroundInactiveHoverBrushKey}" Color="Transparent" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowContainerTitleBarButtonBorderInactiveHoverBrushKey}" Color="Transparent" />
+
+    <!-- ToolWindowTab -->
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabHighlightBrushKey}" Color="Transparent" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabBorderHoverBrushKey}" Color="#A0A0A0" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabBorderNormalBrushKey}" Color="#A0A0A0" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabBorderSelectedBrushKey}" Color="#A0A0A0" />
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabBackgroundHoverBrushKey}" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#A7D9F5" />
+        <GradientStop Offset="0.5" Color="#BEE6FD" />
+        <GradientStop Offset="0.51" Color="#D9F0FC" />
+        <GradientStop Offset="0.95" Color="#EAF6FD" />
+        <GradientStop Offset="1" Color="#FAFDFE" />
+    </LinearGradientBrush>
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabBackgroundNormalBrushKey}" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#CFCFCF" />
+        <GradientStop Offset="0.5" Color="#DDDDDD" />
+        <GradientStop Offset="0.51" Color="#EBEBEB" />
+        <GradientStop Offset="0.95" Color="#F2F2F2" />
+        <GradientStop Offset="1" Color="#FCFCFC" />
+    </LinearGradientBrush>
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabBackgroundSelectedBrushKey}" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#ffffff"  />
+        <GradientStop Color="#ffffff" Offset="0.3" />
+        <GradientStop Color="#d0e3f5" Offset="0.5" />
+        <GradientStop Color="#a7b9cb" Offset="0.9" />
+    </LinearGradientBrush>
+    <!--<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabBackgroundSelectedBrushKey}" Color="#EFF6FD" />-->
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabForegroundHoverBrushKey}" Color="#555564" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabForegroundNormalBrushKey}" Color="#555564" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTabForegroundSelectedBrushKey}" Color="#003F70" />
+
+
+    <!-- WindowBorderActive -->
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowBorderActiveBrushKey}" Color="#343434" themes:TintGroup.Name="Window" />
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowInnerTopBorderActiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Window">
+        <GradientStop Offset="0.1" Color="#FFFFFF" />
+        <GradientStop Offset="0.4" Color="#98B4D0" />
+        <GradientStop Offset="0.9" Color="#99B4D1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowInnerLeftBorderActiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Window">
+        <GradientStop Offset="0" Color="#B9D1EA" />
+        <GradientStop Offset="0.3" Color="#D6E4F3" />
+        <GradientStop Offset="0.31" Color="#BAD2EA" />
+        <GradientStop Offset="1" Color="#BAD1EA" />
+    </LinearGradientBrush>
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowInnerRightBorderActiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Window">
+        <GradientStop Offset="0" Color="#B9D1EA" />
+        <GradientStop Offset="0.3" Color="#D6E4F3" />
+        <GradientStop Offset="0.31" Color="#BAD2EA" />
+        <GradientStop Offset="1" Color="#BAD1EA" />
+    </LinearGradientBrush>
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowInnerBottomBorderActiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Window">
+        <GradientStop Offset="0.6" Color="#BAD1EA" />
+        <GradientStop Offset="0.9" Color="#28CFE4" />
+    </LinearGradientBrush>
+
+    <!-- WindowBorderInactive -->
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowBorderInactiveBrushKey}" Color="#4D4D4D" themes:TintGroup.Name="Window" />
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowInnerTopBorderInactiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Window">
+        <GradientStop Offset="0.1" Color="#E2E6EF" />
+        <GradientStop Offset="0.4" Color="#BFCDDB" />
+        <GradientStop Offset="0.9" Color="#BFCEDC" />
+    </LinearGradientBrush>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowInnerLeftBorderInactiveBrushKey}" Color="#D7E4F2" themes:TintGroup.Name="Window" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowInnerRightBorderInactiveBrushKey}" Color="#D7E4F2" themes:TintGroup.Name="Window" />
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowInnerBottomBorderInactiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Window">
+        <GradientStop Offset="0.6" Color="#D7E4F2" />
+        <GradientStop Offset="0.9" Color="#E9ECF3" />
+    </LinearGradientBrush>
+    
+
+    <!-- WindowTitleBarActive -->
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarBackgroundActiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Window">
+        <GradientStop Offset="0" Color="#99B5D1" />
+        <GradientStop Offset="1" Color="#B5CEE7" />
+    </LinearGradientBrush>
+    
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarInnerBorderActiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Window">
+        <GradientStop Offset="0.1" Color="#B7CFE8" />
+        <GradientStop Offset="0.9" Color="#B9D1EA" />
+    </LinearGradientBrush>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarDocumentNameForegroundActiveBrushKey}" Color="#000000" themes:TintGroup.Name="Window" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarForegroundShadowActiveBrushKey}" Color="Transparent" themes:TintGroup.Name="Window" />
+
+    <!-- WindowTitleBarInactive -->
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarBackgroundInactiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Window">
+        <GradientStop Offset="0" Color="#C1CFDD" />
+        <GradientStop Offset="1" Color="#D5E2F0" />
+    </LinearGradientBrush>
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarInnerBorderInactiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Window">
+        <GradientStop Offset="0.1" Color="#D6E3F1" />
+        <GradientStop Offset="0.9" Color="#D7E4F2" />
+    </LinearGradientBrush>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarDocumentNameForegroundInactiveBrushKey}" Color="#434E54" themes:TintGroup.Name="Window" />
+
+    <!-- WindowTitleBarButton -->
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderActiveDisabledBrushKey}" Color="#80515E6C" themes:TintGroup.Name="WindowTitleBarButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonInnerBorderActiveDisabledBrushKey}" Color="#40FFFFFF" themes:TintGroup.Name="WindowTitleBarButton" />
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActiveDisabledBrushKey}" StartPoint="0,0" EndPoint="0,1" Opacity="0.5" themes:TintGroup.Name="WindowTitleBarButton">
+        <GradientStop Offset="0" Color="#C3D4E7" />
+        <GradientStop Offset="0.5" Color="#BED3E8" />
+        <GradientStop Offset="0.51" Color="#98B1CC" />
+        <GradientStop Offset="1" Color="#B7D0E9" />
+    </LinearGradientBrush>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundActiveDisabledBrushKey}" Color="#535666" themes:TintGroup.Name="WindowTitleBarButton" />
+
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderActiveHoverBrushKey}" Color="#515E6C" themes:TintGroup.Name="WindowTitleBarButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonInnerBorderActiveHoverBrushKey}" Color="#80FFFFFF" themes:TintGroup.Name="WindowTitleBarButton" />
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActiveHoverBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="WindowTitleBarButton">
+        <GradientStop Offset="0" Color="#AAD5F3" />
+        <GradientStop Offset="0.5" Color="#7DBEE9" />
+        <GradientStop Offset="0.51" Color="#2D73A3" />
+        <GradientStop Offset="1" Color="#24C6EB" />
+    </LinearGradientBrush>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActiveHoverHighlightBrushKey}" Color="Transparent" themes:TintGroup.Name="WindowTitleBarButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundActiveHoverBrushKey}" Color="#535666" themes:TintGroup.Name="WindowTitleBarButton" />
+
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderActiveNormalBrushKey}" Color="#515E6C" themes:TintGroup.Name="WindowTitleBarButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonInnerBorderActiveNormalBrushKey}" Color="#80FFFFFF" themes:TintGroup.Name="WindowTitleBarButton" />
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActiveNormalBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="WindowTitleBarButton">
+        <GradientStop Offset="0" Color="#C3D4E7" />
+        <GradientStop Offset="0.5" Color="#BED3E8" />
+        <GradientStop Offset="0.51" Color="#98B1CC" />
+        <GradientStop Offset="1" Color="#B7D0E9" />
+    </LinearGradientBrush>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundActiveNormalBrushKey}" Color="#535666" themes:TintGroup.Name="WindowTitleBarButton" />
+
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderActivePressedBrushKey}" Color="#515E6C" themes:TintGroup.Name="WindowTitleBarButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonInnerBorderActivePressedBrushKey}" Color="#40FFFFFF" themes:TintGroup.Name="WindowTitleBarButton" />
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActivePressedBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="WindowTitleBarButton">
+        <GradientStop Offset="0" Color="#7F9AAC" />
+        <GradientStop Offset="0.5" Color="#5A748A" />
+        <GradientStop Offset="0.51" Color="#203B52" />
+        <GradientStop Offset="1" Color="#67E6E4" />
+    </LinearGradientBrush>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActivePressedHighlightBrushKey}" Color="Transparent" themes:TintGroup.Name="WindowTitleBarButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundActivePressedBrushKey}" Color="#535666" themes:TintGroup.Name="WindowTitleBarButton" />
+
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderInactiveDisabledBrushKey}" Color="#96A0AB" themes:TintGroup.Name="WindowTitleBarButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonInnerBorderInactiveDisabledBrushKey}" Color="#80FFFFFF" themes:TintGroup.Name="WindowTitleBarButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundInactiveDisabledBrushKey}" Color="#20FFFFFF" themes:TintGroup.Name="WindowTitleBarButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundInactiveDisabledBrushKey}" Color="#535666" themes:TintGroup.Name="WindowTitleBarButton" />
+
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderInactiveHoverBrushKey}" Color="#515E6C" themes:TintGroup.Name="WindowTitleBarButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonInnerBorderInactiveHoverBrushKey}" Color="Transparent" themes:TintGroup.Name="WindowTitleBarButton" />
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundInactiveHoverBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="WindowTitleBarButton">
+        <GradientStop Offset="0" Color="#AAD5F3" />
+        <GradientStop Offset="0.5" Color="#7DBEE9" />
+        <GradientStop Offset="0.51" Color="#2D73A3" />
+        <GradientStop Offset="1" Color="#24C6EB" />
+    </LinearGradientBrush>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundInactiveHoverHighlightBrushKey}" Color="Transparent" themes:TintGroup.Name="WindowTitleBarButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundInactiveHoverBrushKey}" Color="#535666" themes:TintGroup.Name="WindowTitleBarButton" />
+
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderInactiveNormalBrushKey}" Color="#838EA8" themes:TintGroup.Name="WindowTitleBarButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonInnerBorderInactiveNormalBrushKey}" Color="#40FFFFFF" themes:TintGroup.Name="WindowTitleBarButton" />
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundInactiveNormalBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="WindowTitleBarButton">
+        <GradientStop Offset="0" Color="#BDCBDA" />
+        <GradientStop Offset="0.5" Color="#C4D1E1" />
+        <GradientStop Offset="0.51" Color="#C5D3E3" />
+        <GradientStop Offset="1" Color="#CEDCEB" />
+    </LinearGradientBrush>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundInactiveNormalBrushKey}" Color="#535666" themes:TintGroup.Name="WindowTitleBarButton" />
+
+    <!-- WindowTitleBarButton (alternate) -->
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderActiveDisabledAlternateBrushKey}" Color="#80515E6C" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonInnerBorderActiveDisabledAlternateBrushKey}" Color="#40FFFFFF" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActiveDisabledAlternateBrushKey}" StartPoint="0,0" EndPoint="0,1" Opacity="0.5" themes:TintGroup.Name="WindowTitleBarButtonAlternate">
+        <GradientStop Offset="0" Color="#E9A99C" />
+        <GradientStop Offset="0.5" Color="#DE9284" />
+        <GradientStop Offset="0.51" Color="#B8432C" />
+        <GradientStop Offset="1" Color="#D58576" />
+    </LinearGradientBrush>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundActiveDisabledAlternateBrushKey}" Color="#535666" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderActiveHoverAlternateBrushKey}" Color="#515E6C" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonInnerBorderActiveHoverAlternateBrushKey}" Color="#80FFFFFF" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActiveHoverAlternateBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="WindowTitleBarButtonAlternate">
+        <GradientStop Offset="0" Color="#FCC8BF" />
+        <GradientStop Offset="0.5" Color="#FAA495" />
+        <GradientStop Offset="0.51" Color="#D22302" />
+        <GradientStop Offset="1" Color="#F8E893" />
+    </LinearGradientBrush>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActiveHoverHighlightAlternateBrushKey}" Color="Transparent" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundActiveHoverAlternateBrushKey}" Color="#535666" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderActiveNormalAlternateBrushKey}" Color="#515E6C" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonInnerBorderActiveNormalAlternateBrushKey}" Color="#80FFFFFF" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActiveNormalAlternateBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="WindowTitleBarButtonAlternate">
+        <GradientStop Offset="0" Color="#E9A99C" />
+        <GradientStop Offset="0.5" Color="#DE9284" />
+        <GradientStop Offset="0.51" Color="#B8432C" />
+        <GradientStop Offset="1" Color="#D58576" />
+    </LinearGradientBrush>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundActiveNormalAlternateBrushKey}" Color="#535666" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderActivePressedAlternateBrushKey}" Color="#515E6C" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonInnerBorderActivePressedAlternateBrushKey}" Color="#40FFFFFF" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActivePressedAlternateBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="WindowTitleBarButtonAlternate">
+        <GradientStop Offset="0" Color="#CCA089" />
+        <GradientStop Offset="0.5" Color="#C1856C" />
+        <GradientStop Offset="0.51" Color="#891900" />
+        <GradientStop Offset="1" Color="#F5EC6A" />
+    </LinearGradientBrush>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActivePressedHighlightAlternateBrushKey}" Color="Transparent" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundActivePressedAlternateBrushKey}" Color="#535666" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderInactiveDisabledAlternateBrushKey}" Color="#96A0AB" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonInnerBorderInactiveDisabledAlternateBrushKey}" Color="#80FFFFFF" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundInactiveDisabledAlternateBrushKey}" Color="#20FFFFFF" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundInactiveDisabledAlternateBrushKey}" Color="#535666" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderInactiveHoverAlternateBrushKey}" Color="#515E6C" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonInnerBorderInactiveHoverAlternateBrushKey}" Color="Transparent" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundInactiveHoverAlternateBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="WindowTitleBarButtonAlternate">
+        <GradientStop Offset="0" Color="#FCC8BF" />
+        <GradientStop Offset="0.5" Color="#FAA495" />
+        <GradientStop Offset="0.51" Color="#D22302" />
+        <GradientStop Offset="1" Color="#F8E893" />
+    </LinearGradientBrush>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundInactiveHoverHighlightAlternateBrushKey}" Color="Transparent" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundInactiveHoverAlternateBrushKey}" Color="#535666" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderInactiveNormalAlternateBrushKey}" Color="#838EA8" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonInnerBorderInactiveNormalAlternateBrushKey}" Color="#40FFFFFF" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundInactiveNormalAlternateBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="WindowTitleBarButtonAlternate">
+        <GradientStop Offset="0" Color="#BDCBDA" />
+        <GradientStop Offset="0.5" Color="#C4D1E1" />
+        <GradientStop Offset="0.51" Color="#C5D3E3" />
+        <GradientStop Offset="1" Color="#CEDCEB" />
+    </LinearGradientBrush>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundInactiveNormalAlternateBrushKey}" Color="#535666" themes:TintGroup.Name="WindowTitleBarButtonAlternate" />
+
+
+    <!-- 
+	
+		STYLES
+	
+	-->
+
+    <!-- WindowTitleBarButtonStyle -->
+    <Style x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonStyleKey}" TargetType="{x:Type dockingPrimitives:TitleBarButton}">
+        <Setter Property="BackgroundActiveDisabled" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActiveDisabledBrushKey}}" />
+        <Setter Property="BorderActiveDisabledBrush" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderActiveDisabledBrushKey}}" />
+        <Setter Property="ForegroundActiveDisabled" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundActiveDisabledBrushKey}}" />
+        <Setter Property="BackgroundActiveHover" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActiveHoverBrushKey}}" />
+        <Setter Property="BackgroundActiveHoverHighlight" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActiveHoverHighlightBrushKey}}" />
+        <Setter Property="BorderActiveHoverBrush" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderActiveHoverBrushKey}}" />
+        <Setter Property="ForegroundActiveHover" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundActiveHoverBrushKey}}" />
+        <Setter Property="BackgroundActiveNormal" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActiveNormalBrushKey}}" />
+        <Setter Property="BorderActiveNormalBrush" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderActiveNormalBrushKey}}" />
+        <Setter Property="ForegroundActiveNormal" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundActiveNormalBrushKey}}" />
+        <Setter Property="BackgroundActivePressed" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActivePressedBrushKey}}" />
+        <Setter Property="BackgroundActivePressedHighlight" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActivePressedHighlightBrushKey}}" />
+        <Setter Property="BorderActivePressedBrush" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderActivePressedBrushKey}}" />
+        <Setter Property="ForegroundActivePressed" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundActivePressedBrushKey}}" />
+        <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=BackgroundInactiveNormal}" />
+        <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path=BorderInactiveNormalBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="2" />
+        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=ForegroundInactiveNormal}" />
+        <Setter Property="Height" Value="15" />
+        <Setter Property="BackgroundInactiveDisabled" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundInactiveDisabledBrushKey}}" />
+        <Setter Property="BorderInactiveDisabledBrush" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderInactiveDisabledBrushKey}}" />
+        <Setter Property="ForegroundInactiveDisabled" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundInactiveDisabledBrushKey}}" />
+        <Setter Property="BackgroundInactiveHover" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundInactiveHoverBrushKey}}" />
+        <Setter Property="BackgroundInactiveHoverHighlight" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundInactiveHoverHighlightBrushKey}}" />
+        <Setter Property="BorderInactiveHoverBrush" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderInactiveHoverBrushKey}}" />
+        <Setter Property="ForegroundInactiveHover" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundInactiveHoverBrushKey}}" />
+        <Setter Property="BackgroundInactiveNormal" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundInactiveNormalBrushKey}}" />
+        <Setter Property="BorderInactiveNormalBrush" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonOuterBorderInactiveNormalBrushKey}}" />
+        <Setter Property="ForegroundInactiveNormal" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonForegroundInactiveNormalBrushKey}}" />
+        <Setter Property="Margin" Value="1" />
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="Width" Value="28" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type dockingPrimitives:TitleBarButton}">
+
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" 
+							BorderThickness="{TemplateBinding BorderThickness}"
+							Background="{TemplateBinding Background}"
+							CornerRadius="{TemplateBinding CornerRadius}"
+							SnapsToDevicePixels="True">
+                        <Grid>
+                            <Border x:Name="innerBorder" CornerRadius="{TemplateBinding CornerRadius}" />
+                            <Canvas x:Name="glyph" Margin="{TemplateBinding Padding}" Width="12" Height="11" HorizontalAlignment="Center" VerticalAlignment="Center" SnapsToDevicePixels="True">
+                                <Path x:Name="glyphPath1" StrokeThickness="1" Stroke="{TemplateBinding Foreground}" SnapsToDevicePixels="True" />
+                                <Path x:Name="glyphPath2" StrokeThickness="1" Stroke="{TemplateBinding Foreground}" SnapsToDevicePixels="True" Visibility="Collapsed" />
+                            </Canvas>
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Command" Value="{x:Static docking:WindowCommands.Minimize}">
+                            <Setter TargetName="glyphPath1" Property="Data" Value="M 1,0.5 L 10,0.5 L 10.5,1 L 10.5,4 L 10,4.5 L 1,4.5 L 0.5,4 L 0.5,1 Z" />
+                            <Setter TargetName="glyphPath1" Property="Canvas.Top" Value="5" />
+                            <Setter TargetName="glyphPath1" Property="Fill">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0.33" Color="#FFFFFF" />
+                                        <GradientStop Offset="0.34" Color="#E9E9E9" />
+                                        <GradientStop Offset="1" Color="#D7D7D7" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="Command" Value="{x:Static docking:WindowCommands.Maximize}">
+                            <Setter TargetName="glyphPath1" Property="Data" Value="M 1,0.5 L 10,0.5 L 10.5,1 L 10.5,8 L 10,8.5 L 1,8.5 L 0.5,8 L 0.5,1 Z   M 3.5,3.5 L 7.5,3.5 L 7.5,5.5 L 3.5,5.5 Z" />
+                            <Setter TargetName="glyphPath1" Property="Canvas.Top" Value="1" />
+                            <Setter TargetName="glyphPath1" Property="Fill">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0.45" Color="#FFFFFF" />
+                                        <GradientStop Offset="0.46" Color="#E9E9E9" />
+                                        <GradientStop Offset="1" Color="#D7D7D7" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="Command" Value="{x:Static docking:WindowCommands.Restore}">
+                            <Setter TargetName="glyphPath1" Property="Data" Value="M 1,0.5 L 7,0.5 L 7.5,1 L 7.5,7 L 7,7.5 L 3,7.5 L 0.5,5 L 0.5,1 Z   M 2.5,3.5 L 5.5,3.5 L 5.5,5.5 L 2.5,5.5 Z" />
+                            <Setter TargetName="glyphPath1" Property="Canvas.Left" Value="4" />
+                            <Setter TargetName="glyphPath1" Property="Fill">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0.2" Color="#FFFFFF" />
+                                        <GradientStop Offset="0.21" Color="#E9E9E9" />
+                                        <GradientStop Offset="1" Color="#D7D7D7" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="glyphPath2" Property="Data" Value="M 1,0.5 L 7,0.5 L 7.5,1 L 7.5,7 L 7,7.5 L 1,7.5 L 0.5,7 L 0.5,1 Z   M 2.5,3.5 L 5.5,3.5 L 5.5,5.5 L 2.5,5.5 Z" />
+                            <Setter TargetName="glyphPath2" Property="Canvas.Top" Value="3" />
+                            <Setter TargetName="glyphPath2" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="glyphPath2" Property="Fill">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0.2" Color="#FFFFFF" />
+                                        <GradientStop Offset="0.21" Color="#E9E9E9" />
+                                        <GradientStop Offset="1" Color="#D7D7D7" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="Command" Value="{x:Static docking:WindowCommands.Close}">
+                            <Setter TargetName="glyphPath1" Property="Data" Value="M 1,0.5 L 4,0.5 L 5.5,2 L 7,0.5 L 10,0.5 L 10.5,1 L 7.5,4.5 L 10.5,8 L 10,8.5 L 7,8.5 L 5.5,7 L 4,8.5 L 1,8.5 L 0.5,8 L 3.5,4.5 L 0.5,1 Z" />
+                            <Setter TargetName="glyphPath1" Property="Canvas.Top" Value="1" />
+                            <Setter TargetName="glyphPath1" Property="Fill">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0.45" Color="#FFFFFF" />
+                                        <GradientStop Offset="0.46" Color="#E9E9E9" />
+                                        <GradientStop Offset="1" Color="#D7D7D7" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition
+										Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Command}"
+										Value="{x:Static docking:WindowCommands.Maximize}" />
+                                <Condition
+										Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type docking:WindowControl}}, Path=WindowStyle}"
+										Value="ToolWindow" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="glyph" Property="Width" Value="8" />
+                            <Setter TargetName="glyph" Property="Height" Value="8" />
+                            <Setter TargetName="glyphPath1" Property="Fill" Value="#FFFFFF" />
+                            <Setter TargetName="glyphPath1" Property="Data" Value="M 1,0.5 L 8,0.5 L 8.5,1 L 8.5,7 L 8,7.5 L 1,7.5 L 0.5,7 L 0.5,1 Z   M 2.5,2.5 L 6.5,2.5 L 6.5,5.5 L 2.5,5.5 Z" />
+                            <Setter TargetName="glyphPath1" Property="StrokeThickness" Value="0.8" />
+                            <Setter TargetName="glyphPath1" Property="Canvas.Top" Value="0" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Command}"
+										Value="{x:Static docking:WindowCommands.Restore}" />
+                                <Condition
+										Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type docking:WindowControl}}, Path=WindowStyle}"
+										Value="ToolWindow" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="glyph" Property="Width" Value="8" />
+                            <Setter TargetName="glyph" Property="Height" Value="8" />
+
+                            <Setter TargetName="glyphPath1" Property="Fill" Value="#FFFFFF" />
+                            <Setter TargetName="glyphPath1" Property="Data"
+									Value="M 1,0.5 L 5,0.5 L 5.5,1 L 5.5,5 L 5,5.5 L 1,5.5 L 0.5,5 L 0.5,1 Z   M 2,2 L 4,2 L 4,4 L 2,4 Z" />
+                            <Setter TargetName="glyphPath1" Property="StrokeThickness" Value="0.8" />
+                            <Setter TargetName="glyphPath1" Property="Canvas.Left" Value="2" />
+                            <Setter TargetName="glyphPath1" Property="Width" Value="6" />
+
+                            <Setter TargetName="glyphPath2" Property="Fill" Value="#FFFFFF" />
+                            <Setter TargetName="glyphPath2" Property="Data"
+									Value="M 1,0.5 L 5,0.5 L 5.5,1 L 5.5,5 L 5,5.5 L 1,5.5 L 0.5,5 L 0.5,1 Z   M 2,2 L 4,2 L 4,4 L 2,4 Z" />
+                            <Setter TargetName="glyphPath1" Property="StrokeThickness" Value="0.8" />
+                            <Setter TargetName="glyphPath2" Property="Canvas.Top" Value="2" />
+                            <Setter TargetName="glyphPath2" Property="Width" Value="6" />
+                            <Setter TargetName="glyphPath2" Property="Visibility" Value="Visible" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition
+										Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Command}"
+										Value="{x:Static docking:WindowCommands.Close}" />
+                                <Condition
+										Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type docking:WindowControl}}, Path=WindowStyle}"
+										Value="ToolWindow" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="glyph" Property="Width" Value="8" />
+                            <Setter TargetName="glyph" Property="Height" Value="8" />
+                            <Setter TargetName="glyphPath1" Property="Data"
+									Value="M 1,0.5 L 3,0.5 L 4,2 L 5,0.5 L 7,0.5 L 7.5,1 L 5.5,4 L 7.5,7 L 7,7.5 L 5,7.5 L 4,6 L 3,7.5 L 1,7.5 L 0.5,7 L 2.5,4 L 0.5,1 Z" />
+                            <Setter TargetName="glyphPath1" Property="Canvas.Top" Value="0" />
+                            <Setter TargetName="glyphPath1" Property="Fill" Value="#FFFFFF" />
+                        </MultiDataTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="glyphPath1" Property="Fill" Value="#D7D7D7" />
+                            <Setter TargetName="glyphPath2" Property="Fill" Value="#D7D7D7" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsActive" Value="False" />
+                                <Condition Property="IsEnabled" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=BackgroundInactiveDisabled}" />
+                            <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path=BorderInactiveDisabledBrush}" />
+                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=ForegroundInactiveDisabled}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsActive" Value="False" />
+                                <Condition Property="IsEnabled" Value="True" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=BackgroundInactiveHover}" />
+                            <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path=BorderInactiveHoverBrush}" />
+                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=ForegroundInactiveHover}" />
+                            <Setter TargetName="innerBorder" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BackgroundInactiveHoverHighlight}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsActive" Value="True" />
+                                <Condition Property="IsEnabled" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=BackgroundActiveDisabled}" />
+                            <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path=BorderActiveDisabledBrush}" />
+                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=ForegroundActiveDisabled}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsActive" Value="True" />
+                                <Condition Property="IsEnabled" Value="True" />
+                                <Condition Property="IsMouseOver" Value="False" />
+                                <Condition Property="IsPressed" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=BackgroundActiveNormal}" />
+                            <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path=BorderActiveNormalBrush}" />
+                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=ForegroundActiveNormal}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsActive" Value="True" />
+                                <Condition Property="IsEnabled" Value="True" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <Condition Property="IsPressed" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=BackgroundActiveHover}" />
+                            <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path=BorderActiveHoverBrush}" />
+                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=ForegroundActiveHover}" />
+                            <Setter TargetName="innerBorder" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BackgroundActiveHoverHighlight}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsActive" Value="True" />
+                                <Condition Property="IsEnabled" Value="True" />
+                                <Condition Property="IsPressed" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=BackgroundActivePressed}" />
+                            <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path=BorderActivePressedBrush}" />
+                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=ForegroundActivePressed}" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- WindowTitleBarAlternateButtonStyle -->
+    <Style x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonAlternateStyleKey}" TargetType="{x:Type dockingPrimitives:TitleBarButton}" BasedOn="{StaticResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonStyleKey}}">
+        <Setter Property="BackgroundActiveDisabled" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActiveDisabledAlternateBrushKey}}" />
+        <Setter Property="BackgroundActiveHover" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActiveHoverAlternateBrushKey}}" />
+        <Setter Property="BackgroundActiveHoverHighlight" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActiveHoverHighlightAlternateBrushKey}}" />
+        <Setter Property="BackgroundActiveNormal" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActiveNormalAlternateBrushKey}}" />
+        <Setter Property="BackgroundActivePressed" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundActivePressedAlternateBrushKey}}" />
+        <Setter Property="BackgroundInactiveDisabled" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundInactiveDisabledAlternateBrushKey}}" />
+        <Setter Property="BackgroundInactiveHover" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundInactiveHoverAlternateBrushKey}}" />
+        <Setter Property="BackgroundInactiveHoverHighlight" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundInactiveHoverHighlightAlternateBrushKey}}" />
+        <Setter Property="BackgroundInactiveNormal" Value="{DynamicResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonBackgroundInactiveNormalAlternateBrushKey}}" />
+    </Style>
+
+    <!-- ToolWindowTitleBarButtonStyle -->
+    <Style x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTitleBarButtonStyleKey}"
+			TargetType="{x:Type dockingPrimitives:TitleBarButton}"
+			BasedOn="{StaticResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonStyleKey}}">
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="Padding" Value="2" />
+        <Setter Property="Width" Value="Auto" />
+    </Style>
+
+    <!-- ToolWindowTitleBarAlternateButtonStyle -->
+    <Style x:Key="{x:Static dockingThemes:DockingCommonDictionary.ToolWindowTitleBarButtonAlternateStyleKey}"
+			TargetType="{x:Type dockingPrimitives:TitleBarButton}"
+			BasedOn="{StaticResource {x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarButtonAlternateStyleKey}}">
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="Padding" Value="2" />
+        <Setter Property="Width" Value="Auto" />
+    </Style>
+
+    <!-- 
+	
+		OTHER
+	
+	-->
+
+    <FontWeight x:Key="{x:Static dockingThemes:DockingCommonDictionary.WindowTitleBarFontWeightKey}">Normal</FontWeight>
+
+
+</ResourceDictionary>

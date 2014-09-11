@@ -1,0 +1,1 @@
+<%@ Application Codebehind="Global.asax.cs" Inherits="Broobu.Boutique.Web.UI.MvcApplication" Language="C#" %>

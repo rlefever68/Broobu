@@ -1,0 +1,129 @@
+\chapter{MediaWiki improvements}
+\label{mw improvements}
+
+As mentioned in Section~\ref{paraminfo}, to generate types for each module of the \ac{API},
+it is necessary to know the properties contained in the module response
+and how do they map to the values of the \texttt{prop} parameter.
+
+This information was not available, in MediaWiki previously.
+For this reason, we extended the \texttt{paraminfo} module
+to be able to provide information about result properties
+of the \ac{API} modules, using the same type system already used to describe parameters.
+Also, most of the \ac{API} modules were changed so that they provide this information to the \texttt{paraminfo} module.
+
+Specifically, this meant adding \texttt{getResultProperties()} function to the \texttt{Api\-Base} class,
+which is a base class for all module classes, and then overriding it in each module's class.
+This function is then called from the \texttt{ApiParamInfo} class,
+so that the provided information shows in the output of the \texttt{paraminfo} module.
+For an example implementation of \texttt{getResultProperties()}, see Figure~\ref{paraminfo code}.
+
+Of the 73~modules present in the MediaWiki core (that is, without any extensions),
+5 are not suitable for having their result properties described,
+because their result looks different than the result of other modules (for example, there are modules that produce \acs{RSS} feeds).
+Further 5 modules do use the same response format as the other modules,
+but their response cannot be described in the type system used.
+There are also 17 modules that can be partially represented using this type system, but not completely.
+
+The patch that adds this ability to the \texttt{paraminfo} module and the necessary
+information to most other modules was reviewed by MediaWiki developers and merged into the official repository
+on 12 June 2012.
+On 2 July 2012, MediaWiki version 1.20wmf6, which includes changes from this patch, was deployed to all Wikimedia sites, including Wikipedias.
+
+An example of the added result information to the \texttt{paraminfo} response (here for the \texttt{categorymembers} module) is in Figure~\ref{paraminfo props}.
+
+\begin{figure}[htbp]
+\begin{lstlisting}[language=php]
+public function getResultProperties() {
+  return array(
+    'ids' => array(
+      'pageid' => 'integer'
+    ),
+    'title' => array(
+      'ns' => 'namespace',
+      'title' => 'string'
+    ),
+    'sortkey' => array(
+      'sortkey' => 'string'
+    ),
+    'sortkeyprefix' => array(
+      'sortkeyprefix' => 'string'
+    ),
+    'type' => array(
+      'type' => array(
+        ApiBase::PROP_TYPE => array(
+          'page',
+          'subcat',
+          'file'
+        )
+      )
+    ),
+    'timestamp' => array(
+      'timestamp' => 'timestamp'
+    )
+  );
+}
+\end{lstlisting}
+
+\caption{Implementation of \texttt{getResultProperties()} \\
+in the \texttt{Api\-Query\-Category\-Members} class}
+\label{paraminfo code}
+\end{figure}
+
+\begin{figure}[p]
+
+\begin{lstlisting}[language=]
+<props>
+  <prop name="ids">
+    <properties>
+      <property name="pageid" type="integer" />
+    </properties>
+  </prop>
+  <prop name="title">
+    <properties>
+      <property name="ns" type="namespace" />
+      <property name="title" type="string" />
+    </properties>
+  </prop>
+  <prop name="sortkey">
+    <properties>
+      <property name="sortkey" type="string" />
+    </properties>
+  </prop>
+  <prop name="sortkeyprefix">
+    <properties>
+      <property name="sortkeyprefix" type="string" />
+    </properties>
+  </prop>
+  <prop name="type">
+    <properties>
+      <property name="type">
+      <type>
+        <t>page</t>
+        <t>subcat</t>
+        <t>file</t>
+      </type>
+      </property>
+    </properties>
+  </prop>
+  <prop name="timestamp">
+    <properties>
+      <property name="timestamp" type="timestamp" />
+    </properties>
+  </prop>
+</props>
+\end{lstlisting}
+
+\caption{Result properties information for the \texttt{categorymembers} module}
+\label{paraminfo props}
+\end{figure}
+
+During this work, we also noticed several bugs and inconsistencies in the \ac{API}.
+Because of this, we reported eight bugs to the WikiMedia bug-tracking system.
+Three of them turned out to be duplicates of already reported bugs and,
+as of December 2012, three of them are still waiting to be fixed.
+
+We also submitted eight additional patches to the MediaWiki code review system.
+Although only three of them actually fix behavior of the MediaWiki \ac{API},
+the rest are only fixes in documentation and other mostly insignificant changes.
+Of those three patches, one is still waiting for review, because it is a breaking change,
+and most likely will not be accepted.

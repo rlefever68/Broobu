@@ -1,0 +1,57 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxwuin="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/navigation"
+    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+    xmlns:mvvm="clr-namespace:Broobu.Boutique.Hub.UI.Controls.Mvvm"
+    x:Class="Broobu.Boutique.Hub.UI.Controls.Views.MenuView"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <mvvm:MenuViewModel/>
+    </UserControl.DataContext>
+    <dxlc:LayoutControl UseLayoutRounding="True">
+        <dxlc:LayoutGroup  Header="My Menu" View="Group">
+        <dxlc:TileLayoutControl 
+                ItemsSource="{Binding Items}" 
+                ShowLayerSeparators="True" 
+                AllowItemMoving="False" 
+                x:Name="TileLayoutControl">
+            <dxlc:TileLayoutControl.Resources>
+                <Style TargetType="dxlc:Tile">
+                    <Setter Property="Size" Value="Large" />
+                    <Setter Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <Grid>
+                                    <Image Source="../Assets/MediumGray.png" Stretch="Fill"/>
+                                    <TextBlock Text="{Binding Title}" FontFamily="Segoe UI Light" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Header" Value="{Binding}" />
+                    <Setter Property="HeaderTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Subtitle}" FontFamily="Segoe UI Light" FontSize="12" />
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="dxlc:TileLayoutControl.IsFlowBreak" Value="{Binding IsFlowBreak}" />
+                    <Setter Property="dxlc:TileLayoutControl.GroupHeader" Value="{Binding GroupHeader}" />
+                    <Setter Property="Command" Value="{Binding ElementName=TileLayoutControl, Path=DataContext.RunApplet}"/>
+                    <Setter Property="CommandParameter" Value="{Binding}"/>
+                </Style>
+                <Style TargetType="dxlc:TileGroupHeader">
+                    <Setter Property="Foreground" Value="WhiteSmoke" />
+                    <Setter Property="FontSize" Value="16" />
+                    </Style>
+            </dxlc:TileLayoutControl.Resources>
+        </dxlc:TileLayoutControl>
+        </dxlc:LayoutGroup>
+    </dxlc:LayoutControl>
+    
+</UserControl>

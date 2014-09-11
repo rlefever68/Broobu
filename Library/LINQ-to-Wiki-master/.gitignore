@@ -1,0 +1,8 @@
+*.suo
+*.user
+_ReSharper*/
+*.DotSettings
+bin/
+obj/
+/Tools/LinqToWiki.Codegen.App/
+/packages/

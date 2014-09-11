@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Broobu Cloud Monitor</string>
+    <string name="title_discoitem_detail">Broobu Sentry Detail</string>
+
+
+    <string name="caption_Application">Application</string>
+    <string name="caption_Contract">Contract</string>
+    <string name="caption_Endpoint">Endpoint</string>
+    <string name="caption_Host">Host</string>
+    <string name="caption_Layer">Layer</string>
+    <string name="caption_Port">Port</string>
+    <string name="caption_Protocol">Protocol</string>
+    <string name="caption_Service">Service</string>
+    <string name="caption_Status">Status</string>
+
+    <string name="url_cloudmon">http://www.broobu.com/services/broobu/cloudmon/cloudmon.svc/getendpoints</string>
+
+</resources>

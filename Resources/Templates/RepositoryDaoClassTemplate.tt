@@ -1,0 +1,768 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ output extension="txt"  #>
+<#@ include file="DbmlHelper.tt" #>
+<#@ import namespace="System.Linq" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-04
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryDaoClassTemplate : Template
+{
+    public TableInfo TableInfo; 
+    public string Namespace; 
+	public bool	HasDynamicSchema; 	// Default is false
+									// If set true, CRUD functions get an extra input parameter containing the Schema name
+									// If set true, the CRUD stored procedures are located in the dbo schema
+	public bool NeedsBulkCrud;		// Default is false
+									// If set true, extra CRUD functions are generated for BULK operations
+
+	private StringHelper _strH = new StringHelper();
+
+    public override string TransformText()
+    {
+		
+		string databaseLogicalName = TableInfo.DatabaseLogicalName;
+		string tableName = TableInfo.TableName;
+		string entityName = TableInfo.EntityName; // UpperCamelCase
+		string schema = (HasDynamicSchema) ? "dbo" : TableInfo.Schema;
+		string entityNameAsParam = _strH.ToLowerCamelCase(TableInfo.EntityName); // lowerCamelCase
+		string idName = TableInfo.IdName; // UpperCamelCase
+		string idNameAsParam = _strH.ToLowerCamelCase(TableInfo.IdName); // lowerCamelCase
+		string idLanguageType = TableInfo.IdLanguageType;
+		string idResultType = TableInfo.IdResultType;
+		string idSqlDbType = TableInfo.IdSqlDbType;
+		bool renderPkOnly;
+		bool returnsIdentifiers;
+		string optionalSingleSchemaParam = (HasDynamicSchema) ? "string schema" : string.Empty;
+		string optionalFirstSchemaParam = (HasDynamicSchema) ? optionalSingleSchemaParam + ", " : string.Empty;
+		string optionalSingleSchemaValue = (HasDynamicSchema) ? "schema" : string.Empty;
+		string optionalFirstSchemaValue = (HasDynamicSchema) ? optionalSingleSchemaValue + ", " : string.Empty;
+		string fullTableNameExpression = (HasDynamicSchema) ?  "schema + \"." + tableName + "\""
+													        : "\"" + TableInfo.Schema + "." + tableName + "\"";
+		string baseClass = "DaoBase";
+		if (TableInfo.HasCrudFunctions)
+		{
+			if (NeedsBulkCrud)
+			{
+				string crudBaseClass = (HasDynamicSchema) ? "DaoBulkCrudWithSchemaBase" : "DaoBulkCrudBase";
+				baseClass = crudBaseClass + "<Data" + entityName + ", " + idLanguageType + ", " + idResultType + ">";
+			}
+			else
+			{
+				string crudBaseClass = (HasDynamicSchema) ? "DaoCrudWithSchemaBase" : "DaoCrudBase";
+				baseClass = crudBaseClass + "<Data" + entityName + ", " + idLanguageType + ", " + idResultType + ">";
+			}
+		}
+
+#>
+//========================================================================================
+// INFO: This file is generated from t4 template <#= this.GetType().Name #>.tt
+// !!! Any changes made manually will be lost next time this file is generated !!!
+//========================================================================================
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Diagnostics;
+using log4net;
+using Pms.Framework.Domain;
+using Pms.Framework.Dao;
+using Pms.Framework.Dao.Utilities;
+using Pms.Framework.Utils;
+
+<#+
+        if (TableInfo.IsDummy == false)
+		{
+#>
+using Data<#= entityName #>=<#= Namespace #>.Repository.Contract.Domain.<#= entityName #>;
+<#+
+        }
+#>
+using <#= Namespace #>.Repository.Contract.Interfaces;
+using <#= Namespace #>.Repository.Contract.Domain;
+
+namespace <#= Namespace #>.Dao
+{
+    internal partial class <#= entityName #>Dao : <#= baseClass #>, I<#= entityName #>Repository
+    {
+		private readonly ILog _logger;
+	
+        public <#= entityName #>Dao()
+            : base("<#= databaseLogicalName #>ConnectionString")
+        {
+			_logger = LogManager.GetLogger(GetType());
+        }
+<#+
+        if (TableInfo.HasCrudFunctions)
+		{
+#>
+
+        #region Overrides of RepositoryBase<<#= entityName #>, <#= idLanguageType #>>
+
+        public override Data<#= entityName #>[] SelectAll(<#= optionalSingleSchemaParam #>)
+        {
+            Stopwatch sqlTimer = new Stopwatch();
+
+            List<Data<#= entityName #>> collection = new List<Data<#= entityName #>>();
+
+            using (SqlConnection sqlConnection = GetConnection("<#= databaseLogicalName #>ConnectionString"))
+            using (SqlCommand sqlCommand = new SqlCommand())
+            {
+
+            	sqlCommand.CommandText = "<#= schema #>.<#= tableName #>_SelectAll";
+            	sqlCommand.CommandType = CommandType.StoredProcedure;
+            	sqlCommand.CommandTimeout = ConfiguredCommandTimeout;
+            	sqlCommand.Connection = sqlConnection;
+
+            	sqlCommand.Parameters.Add("RETURN_VALUE", SqlDbType.<#= idSqlDbType #>, 4).Direction = ParameterDirection.ReturnValue;
+<#+
+			if (HasDynamicSchema)
+			{
+#>
+				sqlCommand.Parameters.Add("@Schema", SqlDbType.VarChar).Value = schema;
+<#+
+			}
+#>
+
+				if (_logger.IsDebugEnabled)
+				{
+					_logger.Debug(sqlCommand.GetCommandString());
+					sqlTimer.Start();
+				}
+				sqlConnection.Open();
+				
+            	using(SqlDataReader reader = sqlCommand.ExecuteReader())
+				{
+            		while (reader.Read())
+            		{
+                		Data<#= entityName #> target = new Data<#= entityName #>
+                		{
+<#+
+			RenderDtoPropertySetting(string.Empty);
+#>
+                		};
+                		collection.Add(target);
+            		}
+                } // Closes the data reader
+
+				if (_logger.IsDebugEnabled)
+				{
+					sqlTimer.Stop();
+					_logger.Debug(sqlCommand.GetCommandString(sqlTimer, collection.Count));
+				}
+            } // Closes the connection
+
+            return collection.ToArray();
+        }
+
+        public override Data<#= entityName #> SelectById(<#= optionalFirstSchemaParam #><#= idLanguageType #> id)
+        {
+            Stopwatch sqlTimer = new Stopwatch();
+
+            Data<#= entityName #> result = null;
+
+            using (SqlConnection sqlConnection = GetConnection("<#= databaseLogicalName #>ConnectionString"))
+            using (SqlCommand sqlCommand = new SqlCommand())
+            {
+
+            	sqlCommand.CommandText = "<#= schema #>.<#= tableName #>_SelectById";
+            	sqlCommand.CommandType = CommandType.StoredProcedure;
+            	sqlCommand.CommandTimeout = ConfiguredCommandTimeout;
+            	sqlCommand.Connection = sqlConnection;
+
+            	sqlCommand.Parameters.Add("RETURN_VALUE", SqlDbType.Int, 4).Direction = ParameterDirection.ReturnValue;
+<#+
+			if (HasDynamicSchema)
+			{
+#>
+				sqlCommand.Parameters.Add("@Schema", SqlDbType.VarChar).Value = schema;
+<#+
+			}
+			renderPkOnly = true;
+			returnsIdentifiers = false;
+			RenderSqlParameterAdditions(renderPkOnly, returnsIdentifiers);
+#>
+
+				if (_logger.IsDebugEnabled)
+				{
+					_logger.Debug(sqlCommand.GetCommandString());
+					sqlTimer.Start();
+				}
+				
+				sqlCommand.Connection.Open();
+
+				using(SqlDataReader reader = sqlCommand.ExecuteReader())
+				{
+					try
+					{
+						if ((reader.HasRows == true) && (reader.Read() == true) )
+						{
+							result = new Data<#= entityName #>
+							{
+								// At least one row is read, and the first one is returned
+<#+
+			RenderDtoPropertySetting("    ");
+#>
+							};
+						}
+					}
+					catch(Exception ex)
+					{
+						string message = string.Format("Failed to select record with id = {0} in table {1} ---> {2}",
+							id, <#= fullTableNameExpression #>, ex.Message);
+						throw new ApplicationException(message, ex);
+					}
+                } // Closes the data reader
+
+				if (_logger.IsDebugEnabled)
+				{
+					sqlTimer.Stop();
+					_logger.Debug(sqlCommand.GetCommandString(sqlTimer, (result != null) ? 1 : 0));
+				}
+            } // Closes the connection
+
+            return result;
+        }
+
+        protected override <#= idResultType #> DoInsert(<#= optionalFirstSchemaParam #>Data<#= entityName #> value)
+        {
+            Stopwatch sqlTimer = new Stopwatch();
+
+            using (SqlConnection sqlConnection = GetConnection("<#= databaseLogicalName #>ConnectionString"))
+            using (SqlCommand sqlCommand = new SqlCommand())
+            {
+				sqlCommand.CommandText = "<#= schema #>.<#= tableName #>_Insert";
+				sqlCommand.CommandType = CommandType.StoredProcedure;
+        		sqlCommand.CommandTimeout = ConfiguredCommandTimeout;
+        		sqlCommand.Connection = sqlConnection;
+
+				sqlCommand.Parameters.Add("RETURN_VALUE", SqlDbType.<#= idSqlDbType #>, 4).Direction = ParameterDirection.ReturnValue;
+<#+
+			if (HasDynamicSchema)
+			{
+#>
+				sqlCommand.Parameters.Add("@Schema", SqlDbType.VarChar).Value = schema;
+<#+
+			}
+			renderPkOnly = false;
+			returnsIdentifiers = true;
+			RenderSqlParameterAdditions(renderPkOnly, returnsIdentifiers);
+#>
+
+				if (_logger.IsDebugEnabled)
+				{
+					_logger.Debug(sqlCommand.GetCommandString());
+					sqlTimer.Start();
+				}
+			
+				sqlCommand.Connection.Open();
+			
+				try
+				{
+					sqlCommand.ExecuteNonQuery();
+				}
+				catch(Exception ex)
+				{
+					string message = string.Format("Failed to insert value = {{{0}}} in table {1} ---> {2}",
+						value, <#= fullTableNameExpression #>, ex.Message);
+					throw new ApplicationException(message, ex);
+				}
+
+				if (_logger.IsDebugEnabled)
+				{
+					sqlTimer.Stop();
+					_logger.Debug(sqlCommand.GetCommandString(sqlTimer));
+				}
+
+<#+
+			if (TableInfo.HasCompositePk)
+			{
+#>
+				return new Data<#= TableInfo.EntityName #>.PrimaryKey
+				{
+<#+
+				foreach (ColumnInfo columnInfo in TableInfo.PkColumnInfos)
+				{
+#>
+               		<#= columnInfo.Name #> = (<#= columnInfo.LanguageType #>)sqlCommand.Parameters["@<#= columnInfo.Name #>"].Value,		
+<#+
+				}
+#>
+        		};
+<#+
+			}
+			else // No composite primary key
+			{
+#>
+				return new <#= idResultType #>{Id = (<#= idLanguageType #>)sqlCommand.Parameters["@<#= idName #>"].Value};
+<#+
+			}
+#>
+            } // Closes the connection
+        }
+
+        protected override Result DoDelete(<#= optionalFirstSchemaParam #><#= idLanguageType #> id)
+        {
+            Stopwatch sqlTimer = new Stopwatch();
+
+            using (SqlConnection sqlConnection = GetConnection("<#= databaseLogicalName #>ConnectionString"))
+            using (SqlCommand sqlCommand = new SqlCommand())
+            {
+            	sqlCommand.CommandText = "<#= schema #>.<#= tableName #>_Delete";
+            	sqlCommand.CommandType = CommandType.StoredProcedure;
+            	sqlCommand.CommandTimeout = ConfiguredCommandTimeout;
+            	sqlCommand.Connection = sqlConnection;
+
+            	sqlCommand.Parameters.Add("RETURN_VALUE", SqlDbType.<#= idSqlDbType #>, 4).Direction = ParameterDirection.ReturnValue;
+<#+
+			if (HasDynamicSchema)
+			{
+#>
+				sqlCommand.Parameters.Add("@Schema", SqlDbType.VarChar).Value = schema;
+<#+
+			}
+			renderPkOnly = true;
+			returnsIdentifiers = false;
+			RenderSqlParameterAdditions(renderPkOnly, returnsIdentifiers);
+#>
+
+				if (_logger.IsDebugEnabled)
+				{
+					_logger.Debug(sqlCommand.GetCommandString());
+					sqlTimer.Start();
+				}
+
+				sqlCommand.Connection.Open();
+
+				try
+				{
+					sqlCommand.ExecuteNonQuery();
+				}
+				catch(Exception ex)
+				{
+					string message = string.Format("Failed to delete record with id = {0} from table {1} ---> {2}",
+						id, <#= fullTableNameExpression #>, ex.Message);
+					throw new ApplicationException(message, ex);
+				}
+
+				if (_logger.IsDebugEnabled)
+				{
+					sqlTimer.Stop();
+					_logger.Debug(sqlCommand.GetCommandString(sqlTimer));
+				}
+            } // Closes the connection
+
+            return new Result();
+        }
+
+        protected override Result DoUpdate(<#= optionalFirstSchemaParam #>Data<#= entityName #> value)
+        {
+            Stopwatch sqlTimer = new Stopwatch();
+
+            using (SqlConnection sqlConnection = GetConnection("<#= databaseLogicalName #>ConnectionString"))
+            using (SqlCommand sqlCommand = new SqlCommand())
+            {
+            	sqlCommand.CommandText = "<#= schema #>.<#= tableName #>_Update";
+            	sqlCommand.CommandType = CommandType.StoredProcedure;
+            	sqlCommand.CommandTimeout = ConfiguredCommandTimeout;
+            	sqlCommand.Connection = sqlConnection;
+
+            	sqlCommand.Parameters.Add("RETURN_VALUE", SqlDbType.<#= idSqlDbType #>, 4).Direction = ParameterDirection.ReturnValue;
+<#+
+			if (HasDynamicSchema)
+			{
+#>
+				sqlCommand.Parameters.Add("@Schema", SqlDbType.VarChar).Value = schema;
+<#+
+			}
+			renderPkOnly = false;
+			returnsIdentifiers = false;
+			RenderSqlParameterAdditions(renderPkOnly, returnsIdentifiers);
+#>
+
+				if (_logger.IsDebugEnabled)
+				{
+					_logger.Debug(sqlCommand.GetCommandString());
+					sqlTimer.Start();
+				}
+				
+				sqlCommand.Connection.Open();
+
+				try
+				{
+					sqlCommand.ExecuteNonQuery();
+				}
+				catch(Exception ex)
+				{
+					string message = string.Format("Failed to update value = {{{0}}} in table {1} ---> {2}",
+						value, <#= fullTableNameExpression #>, ex.Message);
+					throw new ApplicationException(message, ex);
+				}
+
+				if (_logger.IsDebugEnabled)
+				{
+					sqlTimer.Stop();
+					_logger.Debug(sqlCommand.GetCommandString(sqlTimer));
+				}
+            } // Closes the connection
+
+            return new Result();
+        }
+
+        #endregion
+<#+
+			if (NeedsBulkCrud)
+			{
+#>
+
+        #region Overrides of BulkCrudBase<<#= entityName #>, <#= idLanguageType #>>
+
+        protected override <#= idResultType #>[] DoBulkInsert(<#= optionalFirstSchemaParam #>Data<#= entityName #>[] values)
+        {
+            Stopwatch sqlTimer = new Stopwatch();
+
+			if (_logger.IsDebugEnabled)
+            {
+                _logger.DebugFormat("Starting bulk insert of {0} records", values.Length);
+                sqlTimer.Start();
+            }
+			
+			List<<#= idResultType #>> ids = new List<<#= idResultType #>>(values.Length);
+			
+			foreach(Data<#= entityName #> value in values)
+			{
+				<#= idResultType #> id = DoInsert(<#= optionalFirstSchemaValue #>value);
+				ids.Add(id);
+			}
+
+            if (_logger.IsDebugEnabled)
+            {
+                sqlTimer.Stop();
+                _logger.DebugFormat("Completed bulk insert of {0} records ({1})", ids.Count, sqlTimer);
+            }
+			
+			return ids.ToArray();
+        }
+
+        #endregion
+
+<#+
+			}
+		}
+		
+		if (TableInfo.HasExtraFunctions)
+		{
+#>
+
+        #region Extra Functions (map to handwritten stored procedures)
+<#+
+			foreach(FunctionInfo functionInfo in TableInfo.FunctionInfos)
+			{
+				string methodName = functionInfo.MethodName;
+				string methodDbName = functionInfo.DbName;
+				string paramDeclarationList = functionInfo.ParamDeclarationList;
+				string arraysuffix = functionInfo.ReturnsSingleInstance ? string.Empty : "[]";
+			    string returnValueResultType = functionInfo.ReturnValueResultType;
+#>
+
+        public <#= returnValueResultType #><#= arraysuffix #> <#= methodName #>(<#= paramDeclarationList #>)
+        {
+            Stopwatch sqlTimer = new Stopwatch();
+
+            using (SqlConnection sqlConnection = GetConnection("<#= databaseLogicalName #>ConnectionString"))
+            using (SqlCommand sqlCommand = new SqlCommand())
+            {
+            	sqlCommand.CommandText = "<#= methodDbName #>";
+            	sqlCommand.CommandType = CommandType.StoredProcedure;
+            	sqlCommand.CommandTimeout = ConfiguredCommandTimeout;
+            	sqlCommand.Connection = sqlConnection;
+
+            	sqlCommand.Parameters.Add("RETURN_VALUE", SqlDbType.Int, 4).Direction = ParameterDirection.ReturnValue;
+<#+
+				foreach(ParamInfo paramInfo in functionInfo.ParamInfos)
+				{
+					string paramName = paramInfo.Name;
+					string paramNameAsParam = _strH.ToLowerCamelCase(paramInfo.Name); // lowerCamelCase
+					string paramSqlDbType = paramInfo.SqlDbType;
+#>
+				sqlCommand.Parameters.Add("@<#= paramName #>", SqlDbType.<#= paramSqlDbType #>).Value = <#= paramNameAsParam #>;
+<#+
+				}
+#>
+
+				foreach (SqlParameter parameter in sqlCommand.Parameters)
+				{
+					if (parameter.Value == null)
+					{
+						parameter.Value = DBNull.Value;
+					}
+				}
+
+				if (_logger.IsDebugEnabled)
+				{
+					_logger.Debug(sqlCommand.GetCommandString());
+					sqlTimer.Start();
+				}
+				sqlCommand.Connection.Open();
+<#+
+				if (functionInfo.IsScalar) 
+				{
+#>
+				sqlCommand.ExecuteNonQuery();
+				<#= returnValueResultType #> result = new <#= returnValueResultType #>(){ Id = (int)sqlCommand.Parameters["RETURN_VALUE"].Value};
+
+				if (_logger.IsDebugEnabled)
+				{
+					sqlTimer.Stop();
+					_logger.Debug(sqlCommand.GetCommandString(sqlTimer));
+				}
+
+<#+ 			
+					if (functionInfo.HasReturnType) 
+					{
+#>
+				return result;
+<#+
+					}
+				}
+				else if (functionInfo.ReturnsSingleInstance)
+				{
+#>
+				Data<#= entityName #> result = null;
+				using(SqlDataReader reader = sqlCommand.ExecuteReader())
+				{				
+					if ((reader.HasRows) && (reader.Read()) )
+					{
+						result = new Data<#= entityName #>
+						{
+							// At least one row is read, and the first one is returned
+<#+
+					RenderDtoPropertySetting(string.Empty);
+#>
+						};
+					}
+                } // Closes the data reader
+
+				if (_logger.IsDebugEnabled)
+				{
+					sqlTimer.Stop();
+					_logger.Debug(sqlCommand.GetCommandString(sqlTimer));
+				}
+
+<#+ 			
+					if (functionInfo.HasReturnType) 
+					{
+#>
+				return result;
+				
+<#+
+					}
+				}
+				else // Function returns multiple instances
+				{
+#>
+				List<Data<#= entityName #>> collection = new List<Data<#= entityName #>>();
+
+				using(SqlDataReader reader = sqlCommand.ExecuteReader())
+				{				
+					while (reader.Read())
+					{
+						Data<#= entityName #> target = new Data<#= entityName #>
+						{
+<#+
+					RenderDtoPropertySetting(string.Empty);
+#>
+						};
+						collection.Add(target);
+					}
+                } // Closes the data reader
+
+				if (_logger.IsDebugEnabled)
+				{
+					sqlTimer.Stop();
+					_logger.Debug(sqlCommand.GetCommandString(sqlTimer, collection.Count));
+				}
+
+<#+ 
+					if (functionInfo.HasReturnType) 
+					{
+#>
+				return collection.ToArray();
+
+<#+
+					}
+				}
+#>
+            } // Closes the connection
+        }
+<#+
+			} // End foreach functionInfo
+#>
+
+        #endregion
+
+<#+
+		}
+#>
+	}
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+    }
+    
+	private void RenderSqlParameterAdditions(bool renderPkOnly, bool returnsIdentifiers)
+	{
+		foreach(ColumnInfo columnInfo in TableInfo.ColumnInfos )
+		{
+			if (renderPkOnly && (columnInfo.IsInPrimaryKey == false)) continue;
+			string sourceReference = (renderPkOnly) ? ((TableInfo.HasCompositePk) ? "id." : "") : "value.";
+			if (returnsIdentifiers && columnInfo.IsIdentity)
+			{
+				if (columnInfo.IsAutoGeneratedValue)
+				{
+#>
+				sqlCommand.Parameters.Add("@<#= columnInfo.Name #>", SqlDbType.<#= columnInfo.SqlDbType #>).Direction = ParameterDirection.Output;
+<#+
+				}
+				else // A primary key that is not auto-generated
+				{
+#>
+				sqlCommand.Parameters.Add("@<#= columnInfo.Name #>", SqlDbType.<#= columnInfo.SqlDbType #>).Value = value.<#= columnInfo.ReferenceName #>;
+<#+
+				}
+			}
+			else if (renderPkOnly)
+			{
+				string valueExpression;
+				if (TableInfo.HasCompositePk)
+				{
+					valueExpression = "id." + columnInfo.Name;
+				}
+				else
+				{
+					valueExpression = "id";
+				}
+#>
+				sqlCommand.Parameters.Add("@<#= columnInfo.Name #>", SqlDbType.<#= columnInfo.SqlDbType #>).Value = <#= valueExpression #>;
+<#+
+        	}
+			else if ((columnInfo.IsInPrimaryKey) || (columnInfo.IsAutoGeneratedValue == false))
+			{
+#>
+				sqlCommand.Parameters.Add("@<#= columnInfo.Name #>", SqlDbType.<#= columnInfo.SqlDbType #>).Value = value.<#= columnInfo.ReferenceName #>;
+<#+
+        	}
+		}
+
+#>
+			
+				foreach (SqlParameter parameter in sqlCommand.Parameters)
+				{
+					if (parameter.Value == null)
+					{
+						parameter.Value = DBNull.Value;
+					}
+				}
+<#+
+	}
+	    
+	private void RenderDtoPropertySetting(string offset)
+	{
+		if (TableInfo.HasCompositePk)
+		{
+#>
+<#= offset #>							Pk = new Data<#= TableInfo.EntityName #>.PrimaryKey
+							{
+<#+
+			foreach (ColumnInfo columnInfo in TableInfo.PkColumnInfos)
+			{
+				if (columnInfo.CanBeNull)
+				{
+#>
+<#= offset #>                    		<#= columnInfo.Name #> = <#+
+					if (columnInfo.IsBinaryType)
+					{			
+						#>reader["<#= columnInfo.Name #>"] as byte[]<#+ 		
+					}
+					else if (columnInfo.LanguageType == "Char")
+					{	
+						#>char.Parse(reader["<#= columnInfo.Name #>"] as string)<#+
+					}
+					else
+					{
+						#>reader["<#= columnInfo.Name #>"] as <#=columnInfo.LanguageType#><#+
+					}
+					#>,		
+<#+
+				}
+				else
+				{
+#>
+<#= offset #>                    		<#= columnInfo.Name #> = <#+
+					if (columnInfo.IsBinaryType)
+					{			
+						#>(byte[])reader["<#= columnInfo.Name #>"]<#+ 		
+					}
+					else if (columnInfo.LanguageType == "Char")
+					{	
+						#>char.Parse((string)reader["<#= columnInfo.Name #>"])<#+
+					}
+					else
+					{
+						#>(<#=columnInfo.LanguageType#>)reader["<#= columnInfo.Name #>"]<#+
+					}
+					#>,		
+<#+
+				}
+			}
+#>
+        					},
+<#+
+		}
+		foreach (ColumnInfo columnInfo in TableInfo.ColumnInfos)
+		{
+			if (TableInfo.HasCompositePk && columnInfo.IsInPrimaryKey) continue; // Skip composite keys
+			if (columnInfo.CanBeNull)
+			{
+#>
+<#= offset #>                    		<#= columnInfo.Name #> = <#+
+					if (columnInfo.IsBinaryType)
+					{			
+						#>reader["<#= columnInfo.Name #>"] as byte[]<#+ 		
+					}
+					else if (columnInfo.LanguageType == "Char")
+					{	
+						#>char.Parse(reader["<#= columnInfo.Name #>"] as string)<#+
+					}
+					else
+					{
+						#>reader["<#= columnInfo.Name #>"] as <#=columnInfo.LanguageType#><#+
+					}
+					#>,		
+<#+
+			}
+			else
+			{
+#>
+<#= offset #>                    		<#= columnInfo.Name #> = <#+
+					if (columnInfo.IsBinaryType)
+					{			
+						#>(byte[])reader["<#= columnInfo.Name #>"]<#+ 		
+					}
+					else if (columnInfo.LanguageType == "Char")
+					{	
+						#>char.Parse((string)reader["<#= columnInfo.Name #>"])<#+
+					}
+					else
+					{
+						#>(<#=columnInfo.LanguageType#>)reader["<#= columnInfo.Name #>"]<#+
+					}
+					#>,		
+<#+
+			}
+		}
+	}
+}
+#>

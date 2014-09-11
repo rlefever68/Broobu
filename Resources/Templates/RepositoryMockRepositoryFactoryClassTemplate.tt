@@ -1,0 +1,59 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ include file="DbmlHelper.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-12-01
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryMockRepositoryFactoryClassTemplate : Template
+{
+    public DatabaseInfo DatabaseInfo; 
+    public string    	Namespace; 
+
+    public override string TransformText()
+    {
+#>
+//========================================================================================
+// INFO: This file is generated from t4 template <#= this.GetType().Name #>.tt
+// !!! Any changes made manually will be lost next time this file is generated !!!
+//========================================================================================
+using System;
+using Pms.Framework.Interfaces;
+using Pms.Framework.Test.Mock;
+using <#= Namespace #>.Repository.Contract.Domain;
+
+namespace <#= Namespace #>.Repository.Domain.Test
+{
+    public partial class MockRepositoryFactory : MockRepositoryFactoryBase
+    {
+<#+
+		foreach (TableInfo tableInfo in DatabaseInfo.TableInfos)
+		{
+			string entityName = tableInfo.EntityName;
+#>
+
+        public static <#= entityName #>MockRepository Get<#= entityName #>MockRepository(string dataKey)
+        {
+            MockRepositoryGroup mockRepositoryGroup = Instance.GetMockRepositoryGroup(dataKey);
+            <#= entityName #>MockRepository mockRepository 
+				= (<#= entityName #>MockRepository)mockRepositoryGroup.GetMockRepository(typeof(<#= entityName #>).FullName);
+            if (mockRepository == null)
+            {
+                mockRepository = new <#= entityName #>MockRepository((TransmodelData)mockRepositoryGroup.RepositoryData);
+                mockRepositoryGroup.AddMockRepository(typeof(<#= entityName #>).FullName, mockRepository);
+            }
+            return mockRepository;
+        }
+<#+
+		}
+#>
+
+    }
+}
+
+<#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>

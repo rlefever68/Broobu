@@ -1,0 +1,18 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
+        xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+        xmlns:views="clr-namespace:Broobu.Taxonomy.UI.Controls.Views;assembly=Broobu.Taxonomy.UI.Controls"
+        x:Class="Broobu.ManageDescription.UI.ManageDescriptionWindow"
+        Title="Manage Descriptions" Height="350" Width="525">
+    <Grid>
+        <dxdo:DockLayoutManager>
+            <dxdo:LayoutGroup Orientation="Vertical">
+                <dxdo:LayoutPanel Caption="Navigation" ItemHeight="Auto">
+                </dxdo:LayoutPanel>
+                <dxdo:DocumentGroup x:Name="DocumnetGroup" Caption="Documents" ItemHeight="*"/>
+            </dxdo:LayoutGroup>
+        </dxdo:DockLayoutManager>
+    </Grid>
+</Window>

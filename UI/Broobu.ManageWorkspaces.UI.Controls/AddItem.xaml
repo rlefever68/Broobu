@@ -1,0 +1,179 @@
+﻿<ribbon:RibbonWindow x:Class="Pms.ManageWorkspaces.UI.Controls.AddItem"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  
+        xmlns:Localization="clr-namespace:Pms.ManageWorkspaces.UI.Controls.Localization" 
+        xmlns:my="clr-namespace:DevExpress.Xpf.Grid;assembly=DevExpress.Xpf.Grid.v14.1" 
+        xmlns:ribbon="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon;assembly=ActiproSoftware.Ribbon.Wpf351" 
+        xmlns:Controls="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Controls;assembly=ActiproSoftware.Ribbon.Wpf351" 
+        xmlns:Editors="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v14.1" 
+        xmlns:Settings="clr-namespace:DevExpress.Xpf.Editors.Settings;assembly=DevExpress.Xpf.Core.v14.1" 
+        xmlns:Converters="clr-namespace:Pms.ManageWorkspaces.UI.Controls.Converters" 
+        xmlns:c="clr-namespace:Pms.Framework.UI;assembly=Pms.Framework.UI" 
+        xmlns:validation="clr-namespace:Pms.ManageWorkspaces.UI.Controls.UIInputValidations"
+        Background="#E7EEF6" IsMaximizeButtonVisible="False" IsMinimizeButtonVisible="False" 
+        ApplicationName="{Binding ApplicationName}" WindowState="Normal" ResizeMode="NoResize" 
+        Height="436" Width="756" WindowStartupLocation="CenterScreen" IsGlassEnabled="False" Closing="RibbonWindow_Closing">
+    <ribbon:RibbonWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/ControlThemes.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+            <!--<ViewModel:AddItemViewModel x:Key="vm"></ViewModel:AddItemViewModel>-->
+        </ResourceDictionary>
+    </ribbon:RibbonWindow.Resources>
+    <!--DataContext="{StaticResource vm}"-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Resources>
+            <c:CommandReference x:Key="DeleteButtonCommandReference" Command="{Binding BtnDeleteCommand}" />
+            <DataTemplate x:Key="celldelete">
+                <StackPanel>
+                    <!--Click="DeleteFocusedRow_Click"-->
+                    <Controls:Button ImageSourceLarge="pack://application:,,,/Pms.ManageWorkspaces.Resources;component/button-icons/Delete.png" Command="{StaticResource DeleteButtonCommandReference}"
+                                  ToolTip="Deletes the current Item" x:Name="DeleteFocusedRow" Width="20" BorderThickness="0" BorderBrush="Transparent"></Controls:Button>
+                </StackPanel>
+            </DataTemplate>
+            <Style x:Key="Rowstyle" TargetType="{x:Type my:GridRowContent}">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <MultiBinding>
+                            <MultiBinding.Converter>
+                                <Converters:DxGridRowColorConverter />
+                            </MultiBinding.Converter>
+                            <Binding Path="DataContext.ItemId" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=IsSelected}" Value="true">
+                        <Setter Property="Background" Value="{DynamicResource RowSelectionBackground}"></Setter>
+                        <Setter Property="Foreground" Value="Black"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+        <Grid Grid.Row="1" Margin="2 20 2 15" Height="317">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="250"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="110"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="110"></ColumnDefinition>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+                <ColumnDefinition Width="70"></ColumnDefinition>
+                <ColumnDefinition Width="90"></ColumnDefinition>
+                <ColumnDefinition Width="24*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Margin="5 5 5 5" Text="{x:Static  Localization:Translations.WorkspaceBrowser_AddItem_POI}" Grid.Row="0" Grid.Column="0" Height="25" VerticalAlignment="Center" />
+            <TextBox Margin="5 5 5 5" x:Name="txtparentworkspace" Grid.Row="0" Grid.Column="1" Height="25" Text="{Binding ParentofItem}" IsEnabled="{Binding IsParentItemEnable}" VerticalAlignment="Center" />
+            <Controls:Button Margin="5 0 5 0" x:Name="btnsearch" ImageSourceLarge="pack://application:,,,/Pms.ManageWorkspaces.Resources;component/button-icons/search.png" IsEnabled="{Binding IsBtnSearchEnable}" Command="{Binding BtnSearchFolderClick}" Grid.Row="0" Grid.Column="2"></Controls:Button>
+
+            <TextBlock Margin="5 5 5 5" Text="{x:Static  Localization:Translations.WorkspaceBrowser_AddItem_Name}" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center"></TextBlock>
+            <TextBox Margin="5,5,5,5" x:Name="Workspacetext" x:FieldModifier="public" Grid.Column="4" VerticalAlignment="Center" Text="{Binding ItemName}" IsEnabled="{Binding IsNameEnable}" MaxLength="50" validation:InputValidation.ValidationType="AlphaNumeric"></TextBox>
+
+            <TextBlock Margin="5 5 5 5" Text="{x:Static  Localization:Translations.WorkspaceBrowser_AddItem_AddImage}" Grid.Row="0" Grid.Column="5" VerticalAlignment="Center"></TextBlock>
+            <Editors:PopupImageEdit Margin="5 5 5 5" x:Name="addimage" Grid.Row="0" Grid.Column="6" DisplayTextConverter="{Binding Path=conv}" IsEnabled="{Binding IsImageEnable}" />
+
+            <TextBlock Margin="5 5 5 5" Text="{x:Static  Localization:Translations.WorkspaceBrowser_AddItem_Type}" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
+            <ComboBox Margin="5 5 5 5" x:Name="workspacetypecombo" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Types}" DisplayMemberPath="ItemTitle" SelectedValuePath="TypeId" SelectedValue="{Binding TypeId}" VerticalAlignment="Top" IsEnabled="{Binding IsTypeEnable,BindsDirectlyToSource=True,NotifyOnSourceUpdated=True}">
+            </ComboBox>
+
+            <TextBlock Margin="5 5 5 5" Text="{x:Static  Localization:Translations.WorkspaceBrowser_AddItem_OI}" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center"></TextBlock>
+            <TextBox Margin="5,5,5,5" x:Name="txtOrderofItem" x:FieldModifier="public" Grid.Row="1" Grid.Column="4" Text="{Binding OrderOfItem}" MaxLength="11" IsEnabled="{Binding IsOrderOfItemEnable}" validation:InputValidation.ValidationType="Numeric"></TextBox>
+
+            <TabControl Margin="5 5 5 0" Grid.Row="2" Grid.RowSpan="5" Grid.Column="0" Grid.ColumnSpan="7" x:Name="tabctrl" BorderBrush="Gray" SelectedIndex="{Binding TabctrlSelectedIndex}">
+                <TabItem Header="Property" x:Name="propertytab" IsEnabled="{Binding IsPropertyGridEnable}" IsSelected="{Binding IsPropertySelected}">
+                    <Grid>
+                        <my:GridControl x:Name="ListViewProperty" AutoPopulateColumns="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                            <my:GridControl.Resources>
+                            </my:GridControl.Resources>
+                            <my:GridControl.View>
+                                <!--InvalidRowException="Propertyview_InvalidRowException"   ShowingEditor="ViewShowingEditorProperty"  ValidateRow="Propertyview_ValidateRow" -->
+                                <my:TableView Name="Propertyview" NewItemRowPosition="Top" AllowMoveColumnToDropArea="False" ShowGroupPanel="False" AllowEditing="True" Padding="2 2 2 2" 
+                                    AutoWidth="True" EditorButtonShowMode="ShowForFocusedRow" RowStyle="{StaticResource Rowstyle}" AllowSorting="False" AllowColumnFiltering="False"
+                                        >
+                                </my:TableView>
+                            </my:GridControl.View>
+                            <my:GridControl.Columns>
+                                <my:GridColumn FieldName="PropertyName" Header="Property" Width="100">
+                                    <my:GridColumn.EditSettings>
+                                        <Settings:TextEditSettings MaxLength="50" MaskType="RegEx" Mask="\w*"></Settings:TextEditSettings>
+                                    </my:GridColumn.EditSettings>
+                                </my:GridColumn>
+                                <my:GridColumn FieldName="PropertyValue" Header="Value" Width="100">
+                                    <my:GridColumn.EditSettings>
+                                        <Settings:TextEditSettings MaxLength="50" MaskType="RegEx" Mask="\w*"></Settings:TextEditSettings>
+                                    </my:GridColumn.EditSettings>
+                                </my:GridColumn>
+                                <my:GridColumn x:Name="BtnPropertyDelete" FieldName="Delete" CellTemplate="{StaticResource celldelete}" Width="25" IsEnabled="True" />
+                            </my:GridControl.Columns>
+                        </my:GridControl>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Description" x:FieldModifier="public" x:Name="descriptiontab" IsEnabled="{Binding IsDescGridEnable}" IsSelected="{Binding IsDescSelected}">
+                    <Grid>
+                        <my:GridControl x:Name="grdWorkspaceDescriptions" AutoPopulateColumns="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                            <my:GridControl.View>
+                                <!--RowUpdated="ViewRowUpdated" ShowingEditor="ViewShowingEditor" InvalidRowException="ViewInvalidRowException" ValidateRow="ViewValidateRow" -->
+                                <my:TableView Name="view" NewItemRowPosition="Top" ShowGroupPanel="False" AllowEditing="True" Padding="2 2 2 2" 
+                                    EditorButtonShowMode="ShowForFocusedRow" RowStyle="{StaticResource Rowstyle}" AllowSorting="False" AllowColumnFiltering="False"
+                                        AllowMoveColumnToDropArea="False">
+                                </my:TableView>
+                            </my:GridControl.View>
+                            <my:GridControl.Columns>
+                                <my:GridColumn FieldName="Id" Visible="False"></my:GridColumn>
+                                <my:GridColumn FieldName="Image" Width="Auto">
+                                    <my:GridColumn.EditSettings>
+                                        <Settings:PopupImageEditSettings AllowNullInput="True" ConvertEditValue="PopupImageEditSettings_ConvertEditValue" />
+                                    </my:GridColumn.EditSettings>
+                                </my:GridColumn>
+                                <my:GridColumn FieldName="CultureId" Header="Language" Width="100">
+                                    <my:GridColumn.EditSettings>
+                                        <Settings:ComboBoxEditSettings x:Name="LanguageCombobox" x:FieldModifier="public" AutoComplete="True" ImmediatePopup="True" ValueMember="CultureId" 
+                                                  DisplayMember="Title" ItemsSource="{Binding Languages}" />
+                                    </my:GridColumn.EditSettings>
+                                </my:GridColumn>
+                                <my:GridColumn FieldName="Title" Width="160">
+                                </my:GridColumn>
+                                <my:GridColumn FieldName="TypeId" Header="Type" Width="100">
+                                    <my:GridColumn.EditSettings>
+                                        <Settings:ComboBoxEditSettings x:Name="TypeCombobox" AutoComplete="True" ImmediatePopup="True" ValueMember="TypeId" 
+                                                  DisplayMember="TypeId" ItemsSource="{Binding Types}" />
+                                    </my:GridColumn.EditSettings>
+                                </my:GridColumn>
+                                <my:GridColumn FieldName="AdditionalInfoUri" Width="160"></my:GridColumn>
+                                <my:GridColumn x:Name="btnDelete" FieldName="Delete" CellTemplate="{StaticResource celldelete}" Width="60" IsEnabled="True" />
+                            </my:GridControl.Columns>
+                        </my:GridControl>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+        <Grid Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,9,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".5*"></ColumnDefinition>
+                <ColumnDefinition Width=".5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!--Click="BtnSaveClick"-->
+            <Button x:Name="BtnAdd" x:FieldModifier="public" Command="{Binding BtnSaveCommand}"
+                    Content="{x:Static  Localization:Translations.WorkspaceBrowser_AddItem_OK}" 
+                    Grid.Column="0" Height="21" Width="60"  
+                    FontFamily="Verdana" FontSize="11" VerticalAlignment="Top"
+                    Margin="0,0,5,0">
+            </Button>
+            <Button x:Name="BtnCancel" Click="BtnCancel_Click" Grid.Column="1" Height="21" Width="60"  
+                    FontFamily="Verdana" FontSize="11" VerticalAlignment="Top"
+                    Content="{x:Static  Localization:Translations.WorkspaceBrowser_btn_Cancel}"></Button>
+        </Grid>
+    </Grid>
+</ribbon:RibbonWindow>

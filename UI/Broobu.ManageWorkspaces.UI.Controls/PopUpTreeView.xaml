@@ -1,0 +1,53 @@
+﻿<ribbon:RibbonWindow x:Class="Pms.ManageWorkspaces.UI.Controls.PopUpTreeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:Controls="clr-namespace:Pms.ManageWorkspaces.UI.Controls" 
+        xmlns:Vm="clr-namespace:Pms.ManageWorkspaces.UI.Controls.ViewModel" 
+        xmlns:ribbon="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon;assembly=ActiproSoftware.Ribbon.Wpf351" 
+        xmlns:Localization="clr-namespace:Pms.ManageWorkspaces.UI.Controls.Localization" xmlns:UI1="clr-namespace:Pms.Framework.UI;assembly=Pms.Framework.UI" Title="PopUpTreeView" Height="400" Width="450" Background="#E7EEF6" IsMaximizeButtonVisible="False" 
+        IsMinimizeButtonVisible="False" ApplicationName="PopUp TreeView" WindowState="Normal" ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" IsGlassEnabled="False">
+    <ribbon:RibbonWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/ControlThemes.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+            <Vm:WorkspaceNavigatorViewViewModel x:Key="vm" />
+        </ResourceDictionary>
+    </ribbon:RibbonWindow.Resources>
+    <Grid>
+        <UI1:BusyOverlay Name="overlay"  IsBusy="{Binding IsRefreshing}"
+										     HasNoData="{Binding IsEmpty}"
+										     Grid.Row="2" Grid.ColumnSpan="2"
+										     VerticalAlignment="Stretch" Margin="1,1">
+        <Grid DataContext="{StaticResource vm}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="330"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+            <!-- TreeView User Control -->
+            <Controls:WorkspaceTreeView BorderBrush="LightGray" BorderThickness="1 3 1 1" Grid.Row="0" x:FieldModifier="public" x:Name="wsTreeView" WorkspaceItems="{Binding WorkspaceItems}">
+            </Controls:WorkspaceTreeView>
+   
+
+        <Grid Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".5*"></ColumnDefinition>
+                <ColumnDefinition Width=".5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="BtnOk" x:FieldModifier="public"  
+                    Content="{x:Static  Localization:Translations.WorkspaceBrowser_btn_OK}" 
+                    Grid.Column="0" Height="21" Width="60" FontFamily="Verdana" FontSize="11" Click="BtnOk_Click" VerticalAlignment="Top" Margin="0,5,0,0">
+
+            </Button>
+            <Button x:Name="BtnCancel" x:FieldModifier="public"  
+                    Content="{x:Static  Localization:Translations.WorkspaceBrowser_btn_Cancel}" 
+                    Grid.Column="1" Height="21" Width="60" FontFamily="Verdana" FontSize="11" Click="BtnCancel_Click" VerticalAlignment="Top" Margin="10,5,0,0">
+
+            </Button>
+        </Grid>
+        </Grid>
+    </UI1:BusyOverlay>
+    </Grid>
+</ribbon:RibbonWindow>

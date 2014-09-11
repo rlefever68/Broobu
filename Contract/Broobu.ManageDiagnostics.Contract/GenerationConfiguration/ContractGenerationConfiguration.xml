@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContractDefinition Name="ManageDiagnostics"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:noNamespaceSchemaLocation= "file:..\..\..\MobiFxSDK\SDK\Generation\Pms.Contract.Generation.xsd">
+  <ContractServiceInterfaces>
+    
+    <ContractServiceInterface Name="IManageDiagnostics" ServiceContractNamespace="http://pms.managediagnostics/11/06">
+      <Methods>
+
+        <!--Run Diagnostics-->
+        <Method Name  ="StartDiagnostics">
+          <ReturnType Name="Result" Namespace="Pms.Framework.Domain"/>
+        </Method>
+
+        <Method Name ="AddDiagnosticsPackage">
+          <Parameters>
+            <Parameter Name="package">
+              <Type Name ="byte[]" Namespace="System"/>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="Result" Namespace="Pms.Framework.Domain"/>
+        </Method>
+
+        <Method Name="GetDiagnosticsReportsByDate">
+          <Parameters>
+            <Parameter Name="date">
+              <Type Name="DateTime" Namespace="System"/>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="DiagnosticsBatchViewItem[]" Namespace="Pms.ManageDiagnostics.Contract.Domain"/>
+        </Method>
+
+
+
+
+        <Method Name="GetDiagnosticsReport">
+          <Parameters>
+            <Parameter Name="reportId">
+              <Type Name="string" Namespace="System"/>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="DiagnosticsViewItem[]" Namespace="Pms.ManageDiagnostics.Contract.Domain"/>
+        </Method>
+        
+        
+      </Methods>
+    </ContractServiceInterface>
+    
+  </ContractServiceInterfaces>
+  
+  <DomainObjectClasses>
+
+    <DomainObjectClass Name="DiagnosticsBatchViewItem">
+      <Properties>
+        <Property Name="Batch">
+          <Type Name="string" Namespace="System"/>
+        </Property>
+        <Property Name="Status">
+          <Type Name="string" Namespace="System"/>
+        </Property>
+        <Property Name="Description">
+          <Type Name="string" Namespace="System"/>
+        </Property>
+        <Property Name="StartTime">
+          <Type Name="DateTime" Namespace="System"/>
+        </Property>
+        <Property Name="EndTime">
+          <Type Name="DateTime" Namespace="System"/>
+        </Property>
+      </Properties>
+    </DomainObjectClass>
+    
+    <DomainObjectClass Name="DiagnosticsViewItem">
+      <Properties>
+        <Property Name="Contract">
+          <Type Name="string" Namespace="System"/>
+        </Property>
+        <Property Name="Method">
+          <Type Name="string" Namespace="System"/>
+        </Property>
+        <Property Name="Status">
+          <Type Name="string" Namespace="System"/>
+        </Property>
+        <Property Name="Description">
+          <Type Name="string" Namespace="System"/>
+        </Property>
+        <Property Name="StartTime">
+          <Type Name="DateTime" Namespace="System"/>
+        </Property>
+        <Property Name="EndTime">
+          <Type Name="DateTime" Namespace="System"/>
+        </Property>
+      </Properties>
+    </DomainObjectClass>
+    
+     
+  </DomainObjectClasses>
+</ContractDefinition>
+  
+

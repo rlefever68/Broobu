@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.w3.org/poi" xmlns="http://www.w3.org/poi"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <xs:element name="pois">
+    <xs:complexType>
+      <xs:complexContent mixed="true">
+        <xs:extension base="POIType">
+          <xs:sequence>
+            <xs:element ref="poi" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="poi">
+    <xs:complexType>
+      <xs:complexContent mixed="true">
+        <xs:extension base="POIType">
+          <xs:sequence>
+            <xs:element ref="location"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="POIType" abstract="true" mixed="true">
+    <xs:complexContent>
+      <xs:extension base="POIBaseType">
+        <xs:sequence>
+          <xs:element ref="label" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="description" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="category" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="time" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="link" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="metadata" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+    <!-- @TODO make ID mandatory -->
+  </xs:complexType>
+
+  <xs:complexType name="POIBaseType" mixed="true">
+    <xs:sequence>
+      <xs:element name="value" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="author" type="POITermType" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>
+            value of author is determined by the type (MIME type) and should be either free text (text/plain) or VCard (text/directory)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element ref="license" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:anyURI" use="optional"/>
+    <xs:attribute name="href" type="xs:anyURI" use="optional"/>
+    <xs:attribute name="type" type="xs:string" use="optional"/>
+    <xs:attribute name="created" type="xs:dateTime" use="optional"/>
+    <xs:attribute name="updated" type="xs:dateTime" use="optional"/>
+    <xs:attribute name="deleted" type="xs:dateTime" use="optional"/>
+    <xs:attribute name="lang" type="xs:string" use="optional"/>
+    <xs:attribute name="base" type="xs:anyURI" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="POITermType">
+    <xs:complexContent>
+      <xs:extension base="POIBaseType">
+        <xs:attribute name="term" type="xs:string" use="required"/>
+        <xs:attribute name="scheme" type="xs:anyURI" use="optional"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:element name="label" type="POITermType"/>
+  <xs:element name="category" type="POITermType"/>
+  <xs:element name="time" type="POITermType">
+    <xs:annotation>
+      <xs:documentation>some time terms are start, end, updated, created, deleted (time value can be a dateTime or iCalendar)</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="description" type="POIBaseType"/>
+  <xs:element name="license" type="POITermType"/>
+  <xs:element name="link" type="POITermType"/>
+
+
+  <xs:element name="location">
+    <xs:complexType>
+      <xs:complexContent mixed="true">
+        <xs:extension base="POIBaseType">
+          <xs:sequence>
+            <xs:element ref="point" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="line" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="polygon" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="address" type="POIBaseType" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>free text or VCard depending on the MIME type</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="undetermined" minOccurs="0" type="xs:string"/>
+            <xs:element ref="relationship" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="relationship">
+    <xs:annotation>
+      <xs:documentation>relationship terms can be within, contains, equals, disjoint, intersects, touches, crosses, overlaps</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="POITermType">
+          <xs:attribute name="targetPOI" type="xs:anyURI"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="point">
+    <xs:annotation>
+      <xs:documentation>some point terms are center, navigation point, entrance</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent mixed="true">
+        <xs:extension base="POITermType">
+          <xs:sequence>
+            <xs:element name="Point" type="GML_CE_Geometry"> </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="line">
+    <xs:complexType>
+      <xs:complexContent mixed="true">
+        <xs:extension base="POITermType">
+          <xs:sequence>
+            <xs:element name="LineString" type="GML_CE_Geometry"> </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="polygon">
+    <xs:complexType>
+      <xs:complexContent mixed="true">
+        <xs:extension base="POITermType">
+          <xs:sequence>
+            <xs:element name="SimplePolygon" type="GML_CE_Geometry"> </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="GML_CE_Geometry">
+    <xs:sequence>
+      <xs:element name="posList" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>posList can have 2 or 3 coordinate sets. If 3, then the 3rd is altitude in meters, and srsName must be http://www.opengis.net/def/crs/EPSG/0/4979</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute default="http://www.opengis.net/def/crs/EPSG/0/4326" name="srsName"
+      type="xs:string"/>
+  </xs:complexType>
+</xs:schema>

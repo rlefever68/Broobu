@@ -1,0 +1,14 @@
+﻿<Window x:Class="WpfApplication406.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:local="clr-namespace:WpfApplication406">
+    <Grid>
+        <Grid.Resources>
+            <local:DateTimeToTimeSpanConverter x:Key="DateTimeToTimeSpanConverter"/>
+        </Grid.Resources>
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="248,126,0,0" Name="textBlock1" Text="{Binding Duration}" VerticalAlignment="Top" />
+        <dxe:TextEdit HorizontalAlignment="Left" Margin="216,36,0,0" Name="textEdit1" VerticalAlignment="Top" Width="150" MaskType="DateTime" Mask="hh:mm:ss" EditValue="{Binding Duration, Mode=TwoWay, Converter={StaticResource DateTimeToTimeSpanConverter}}" ValidateOnEnterKeyPressed="True" />
+        <dxe:ButtonEdit HorizontalAlignment="Left" Margin="234,88,0,0" Name="buttonEdit1" VerticalAlignment="Top" Width="150" />
+    </Grid>
+</Window>

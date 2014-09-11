@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContractGenerationConfiguration>
+  <Interfaces>
+    <string>Pms.ManageAccount.Contract.Interfaces.IManageAccount</string>
+  </Interfaces>
+  <RootNamespace>Pms.ManageAccount.Contract</RootNamespace>
+  <ProjectFilePath>s:\Contract\Pms.ManageAccount.Contract\Pms.ManageAccount.Contract.csproj</ProjectFilePath>
+</ContractGenerationConfiguration>

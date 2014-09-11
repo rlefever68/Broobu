@@ -1,0 +1,13 @@
+﻿<broobu:AppletWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:views="clr-namespace:Broobu.MonitorDisco.UI.Controls.Views;assembly=Broobu.MonitorDisco.UI.Controls"
+        xmlns:broobu="http://schemas.broobu/ui"
+        x:Class="Broobu.MonitorDisco.UI.MonitorCloudWindow"
+        Title="Broobu - Monitor Cloud"
+        dx:ThemeManager.ThemeName="TouchlineDark">
+    <Grid>
+        <views:MonitorCloudView/>
+    </Grid>
+</broobu:AppletWindow>

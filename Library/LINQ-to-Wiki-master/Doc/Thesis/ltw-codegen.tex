@@ -1,0 +1,330 @@
+\section{The LinqToWiki.Codegen project}
+\label{ltwc}
+
+The LinqToWiki.Codegen project contains code that retrieves information about \ac{API} modules in some wiki,
+then uses that information to generate C\# code to access those modules using Roslyn
+and finally compiles the code into a library.
+
+\paragraph{Alternatives to Roslyn}
+
+Roslyn was chosen, because it is superior when compared with common approaches for code generation in .NET,
+namely Reflection.Emit and \acs{CodeDOM}.
+
+Reflection.Emit \cite{reflection-emit} is a set of types that allow generation of code at runtime.
+The generated code can then be directly executed or saved as an assembly (.dll or .exe) to disk.
+The distinguishing feature is that it uses the low-level \ac{CIL},
+which means writing any code beyond the simplest methods can be very tedious and error-prone.
+
+\acs{CodeDOM} \cite{codedom} can be used to generate code and compile it to an assembly.
+It uses language-independent model, which can be converted to various .NET languages,
+including C\# and \ac{VB.NET}.
+This model is also the biggest disadvantage of \acs{CodeDOM}, because it means it doesn't support all features of C\#.
+For example, even such basic feature as writing a \lstinline{static} class is impossible in the \acs{CodeDOM} model
+without using “hacks”.
+
+Detailed description of Roslyn is in Section~\ref{roslyn}.
+
+\paragraph{What to generate?}
+
+At this point, we have a library (LinqToWiki.Core) that can be used to access the MediaWiki \ac{API} the way we want
+from the final generated library.
+We can also use the same library to get the information we need about the modules of the \ac{API} from the \texttt{paraminfo} module.
+And we have decided we want to use Roslyn to generate the final library.
+What remains is to decide what code to generate, how exactly to map the modules, their parameters
+and their results into the model of LinqToWiki.Core.
+
+%TODO: think about moving this before LTW.Core
+
+There are some decisions that were already made in LinqToWiki.Core
+(the \texttt{sort} and \texttt{dir} parameters should map to \lstinline{OrderBy()};
+the \texttt{prop} parameter maps to \lstinline{Select()}),
+but several other decisions still remain:\footnote{
+Obviously, both libraries were written alongside each other, to work well together, not one after the other.
+But we think it is better to describe them this way, separately.}
+
+\begin{itemize}
+\item How should the remaining parameters be mapped?
+Should they all go into \lstinline{Where()} or somewhere else? Where?
+\item How should the modules that do not return lists be mapped?
+\ac{LINQ} methods are not suitable for them, because they are meant to work with collections.
+\item How to name the generated types and members?
+Specifically, how to represent names that cannot be used (like those containing special characters)
+and names that are undesirable (those that conflict with C\# keywords).
+Also, should the generated members follow .NET naming conventions?
+\end{itemize}
+
+Our answers to these questions are in the following couple of sections.
+
+\subsection{Naming of generated types and members}
+\label{ltwc-naming}
+
+Let us start with the last question: Should the generated members follow .NET naming conventions?
+The .NET naming guidelines \cite{guidelines-for-names},
+that are widely followed by various .NET libraries and the .NET Framework itself,
+state that names of types and public members should use PascalCase,
+that is, each word of an identifier should start with a capital letter
+and the identifier should not contain any delimiters (such as underscores).
+
+We would prefer to follow these naming conventions, but, unfortunately, it is not possible.
+That is because the names of modules, parameters, result properties and almost all enumerated types in the \ac{API}
+use names that are all lowercase, without delimiters between words.
+That means there is no way to figure out which letters in an identifier should be capitalized
+(apart from the first one).
+
+As one of the more extreme examples,
+one of the possible values of the \texttt{rights} parameter
+of the \texttt{allusers} module on the English Wikipedia is \texttt{collection\-save\-as\-community\-page}.
+A human can see that the proper name for that value using PascalCase would be \lstinline{CollectionSaveAsCommunityPage},
+but a computer cannot.
+(Actually, it is possible that the words could be reliably separated using natural language processing,
+but doing that is outside the scope of this work.)
+
+\paragraph{Reserved names}
+
+Because different .NET languages have different sets of reserved identifier names
+(usually, those are the language keywords)
+and because libraries written in one language should be usable from other languages,
+.NET languages provide a way to use their keywords as identifiers.
+In the case of C\#, this is done by prefixing the identifier with an at sign.
+So, for example, to use \texttt{new} as an identifier, one has to write \lstinline{@new}.
+
+Thanks to this, using keyword-named identifiers is still possible,
+although slightly less convenient than with normal identifiers.
+Also, the naming guidelines suggest avoiding keywords as identifiers.
+
+In MediaWiki core \ac{API} modules, there are four identifiers that are also C\# keywords:
+\texttt{namespace}, \texttt{new}, \texttt{true}, \texttt{false}.
+Out of these, we decided to shorten \texttt{namespace} to \lstinline{ns},
+which is a common abbreviation, so the meaning should not be lost.
+The other three have to be written with \lstinline{@} (\lstinline{@new}, \lstinline{@true} and \lstinline{@false}) in C\#,
+because we did not find a reasonable alternative for them.
+
+\paragraph{Special characters}
+
+The characters hyphen~(\texttt{-}), slash~(\texttt{/}) and space
+appear in some names in the \ac{API}, but are not allowed in .NET identifiers,
+so they are replaced by underscores (\texttt{\_}).
+
+Some names also start with an exclamation mark~(\texttt{!}), to indicate negation.
+Such names are translated by prefixing \lstinline{not_}.
+So for example, \texttt{!minor} (which means that an edit is not a minor edit)
+is translated into \lstinline{not_minor}.
+
+One more special case is that some enumerated types allow an empty value.
+Such value is then represented by the identifier \lstinline{none}.
+
+\paragraph{Naming types}
+
+Another question is how to name the generated types.
+There are two kinds of generated types:
+those that represent some enumerated type and those that represent parameters or results of some module.
+
+For the latter kind, it is simple to come up with a convention like naming them by the module name,
+suffixed by the specific kind of the type
+(e.g. \lstinline{blockResult} for the result of the \texttt{block} module
+or \lstinline{categorymembersWhere} for the type representing \lstinline{Where()} parameters for the \texttt{categorymembers} module).
+
+But for the former kind, the situation is more complicated.
+Enumerated types do not have names by themselves, they are part of a parameter or property that has a name.
+The problem is that different modules often have parameters and properties with the same name,
+while their type sometimes is the same and sometimes it is not.
+
+So, there are two options: either let the types that look the same actually be the same generated type,
+or let each parameter and property have its own distinct type.
+If we merge the types that look the same, we should not use the module name in their name,
+because one type can be used with different modules.
+But that means we need to distinguish different types in another way, like a number.
+But names like \lstinline{token5} are not very helpful for the user.
+
+Because of that, we chose the other option, which means including the name of the module in the type name.
+But doing it this way does not eliminate conflicts completely:
+In the case when a module has a parameter and a property with the same name,
+their types still have to be distinguished.
+An example of such type name is \lstinline{recentchangestype2}.
+
+\subsection{Structure of generated code}
+\label{ltwcg-structure}
+
+At the start of each query is the \lstinline{Wiki} type.
+It contains methods for non-query modules as well as methods to create list-based \lstinline{PagesSource}s.
+It also contains the property \lstinline{Query} that returns an object that contains methods for
+\texttt{list} and \texttt{meta} query modules.
+(\texttt{prop} query modules work differently, for more information, see Section~\ref{PagesSource}.)
+
+\paragraph{Simple modules}
+
+With modules that do not return lists, the situation is mostly simple:
+there are no parameters to sort or filter the result (because it is not a list)
+and most of those modules also do not have parameters to choose the result properties.
+
+Because of that, a method for each such module, that directly returns the result object is enough.
+This method has parameters corresponding to the parameters of the module,
+where required parameters of the module are mapped as normal method parameters
+and parameters that are not required are mapped as optional parameters.
+The code of this method builds \lstinline{QueryParameters} from the method parameters
+and then executes the query using \lstinline{QueryProcessor}.
+
+\paragraph{List modules}
+
+On the other hand, list modules can have several kinds of parameters:
+
+\begin{itemize}
+\item Those that affect order of the items in the list. They are naturally mapped as \lstinline{OrderBy()}.
+The parameters \texttt{sort} and \texttt{dir} belong here.
+\item Those that choose what properties appear in the result. They are naturally mapped as \lstinline{Select()}.
+Only the parameter \texttt{prop} belongs here.
+\item Those that filter what items appear in the result. They are naturally mapped as \lstinline{Where()}.
+For example, the parameters \texttt{namespace} and \texttt{startsortkey}
+of the \texttt{categorymembers} module belong here.
+\item Various other parameters. They do not naturally map to any LINQ method.
+For example, the parameter \texttt{title} (that decides which category to enumerate)
+of the \texttt{categorymembers} module belongs here.
+\end{itemize}
+
+The first two kinds are not a problem, because it is clear which parameters belong to them.
+The second two kinds are a problem, because there is no clear way to automatically distinguish between the two.
+One exception, where the distinction is clear,
+is if a parameter is required (as indicated in its description),
+because it then means it belongs among “other parameters”.
+
+Required parameters are given as parameters of the module methods,
+but we decided to treat all non-required parameters that do not belong to the first two kinds,
+as if they were \lstinline{Where()} parameters.
+Unfortunately, this means that some queries do not logically make sense,
+if we consider that the \lstinline{Where()} method should only filter the results.
+
+For example, consider this query:
+
+\begin{lstlisting}
+wiki.Query.categorymembers()
+    .Where(cm => cm.title == "Category:Query languages")
+\end{lstlisting}
+
+Here, the \lstinline{title} property does not actually represent filtering
+by the title of the category member, it decides which category to enumerate.
+And without it, the query would not even execute successfully
+(the parameter \texttt{title} is not marked as required, because the parameter \texttt{pageid} can be used instead of it).
+
+Proper solution to this problem would require human interaction when generating the code,
+to choose which parameters belong to \lstinline{Where()} and which do not.
+As an alternative, the description of each parameter in the \texttt{paraminfo} module could contain its kind.
+
+\paragraph{Enumerated types}
+
+One more question is how to represent enumerated types.
+The answer is seemingly simple: make them \lstinline{enum}s
+and for those parameters or properties that can have multiple values, use bit flags.
+But the largest type that can be used as an underlying type for \lstinline{enum}
+is \lstinline{ulong}, which has 64 bits.
+That means this will work only if there is no enumerated type in the \ac{API},
+that has more than 64 values and can have multiple values at the same time.
+Unfortunately, the English Wikipedia has one:
+the type of the \lstinline{rights} parameter of the \lstinline{allusers} module
+has 106 values and the parameter can have multiple values at the same time.
+
+Because of that, each enumerated type is represented by immutable class deriving from the common base class \lstinline{StringValue},
+with inaccessible constructor and static field for each possible value.
+Combination of values can be represented as a collection, like with other types.
+
+\subsection{\texorpdfstring{\lstinline{Wiki}}{Wiki}}
+
+The top-level type that manages all code generation is \lstinline{Wiki}
+(not to be confused with the generated \lstinline{Wiki} type from Section~\ref{ltwcg-structure}).
+It manages retrieving information about \ac{API} modules and generating code for them.
+
+When the code generation is complete, it saves the generated C\# files to a temporary directory
+and compiles them using CodeDOM.
+CodeDOM is used for the compilation,
+because its compiler is the full C\# compiler and can handle all features of C\# (unlike the CodeDOM object model).
+The Roslyn compiler is not able to compile some useful expressions, such as collection initializers
+(but the object model of Roslyn is complete).
+
+\subsection{\texorpdfstring{\lstinline{ModuleSource}}{ModuleSource}}
+
+The \lstinline{ModuleSource} class is used to retrieve information about modules of the \ac{API}
+and transform it from \acs{XML} to objects, like \lstinline{Module}, \lstinline{Parameter} and \lstinline{Parameter}\lstBreak\lstinline{Type}.
+This information comes from the \texttt{paraminfo} module and is fetched using LinqToWiki.Core.
+
+In fact, this code can be viewed as a sample on how to use LinqToWiki.Core
+without code generated by LinqToWiki.Codegen.
+Generated code cannot be used to work with the \texttt{paraminfo} module,
+because it is one of the modules, whose response is complicated
+and does not fit into the simple type system used by \texttt{paraminfo}.
+
+Because the addition of result properties to \texttt{paraminfo} was made as a part of this work
+(see Section~\ref{mw improvements}) and so is quite recent, there is also another option to get this information:
+\lstinline{ModuleSource} can accept a “props defaults” file, that contains the necessary information.
+The file looks the same as \texttt{paraminfo} response (in XML format),
+except it contains only the added information.
+This file can be created from another wiki that can already provide this information,
+or it can be written by hand.
+It can be also useful to work with modules from extensions, that currently don't provide this information.
+
+\subsection{\texorpdfstring{\lstinline{ModuleGenerator}}{ModuleGenerator}}
+
+\lstinline{ModuleGenerator} and related types are the ones that actually generate code for each module using Roslyn.
+Each type generates code for a certain kind of module,
+so for example \lstinline{ModuleGenerator} works with non-query modules,
+while \lstinline{QueryModuleGenerator} works with most query modules.
+
+Each generator creates all the code that is necessary for that module.
+For example, for a \texttt{list} query module,
+this includes generating \lstinline{Where}, \lstinline{Select} and possibly \lstinline{OrderBy} classes,
+method in the \lstinline{QueryAction} class
+(which is returned by the \lstinline{Query} property of the \lstinline{Wiki} class)
+and types for all its enumerated types.
+
+Each of the generated types and methods also has \acs{XML} documentation comment attached,
+based on description from \texttt{paraminfo}.
+This means that a user of this library does not have to guess what each method or property means,
+his \ac{IDE} can show him description for it.
+
+These descriptions sometimes contain references to details of the \ac{API} that this library abstracts away.
+For example, the description for the \texttt{unique} parameter of the \lstinline{alllinks} module says:
+“Only show unique links. Cannot be used with generator or alprop=ids.”
+The reference to \texttt{alprop} makes sense to someone who uses the \ac{API} directly,
+but would be very confusing for a user of LinqToWiki.
+Not only does LinqToWiki abstract away module prefixes (\texttt{al}),
+it also doesn't expose the \texttt{prop} parameter directly
+(the \lstinline{Select()} method is used instead).
+
+\subsection{\texorpdfstring{\lstinline{SyntaxEx}}{SyntaxEx}}
+
+As described in Section~\ref{roslyn}, creating Roslyn syntax trees can be cumbersome.
+The \lstinline{SyntaxEx} class makes doing that easier by adding simpler alternatives
+to the factory methods in Roslyn's \lstinline{Syntax} class.
+The \lstinline{SyntaxEx} methods do not handle more complex cases,
+so for those, using \lstinline{Syntax} is still necessary.
+
+For example of how the code from Figure~\ref{Roslyn code 2012} can be written using \lstinline{SyntaxEx},
+see Figure~\ref{SyntaxEx code}.
+
+\begin{figure}[htbp]
+
+\begin{lstlisting}
+SyntaxEx.AutoPropertyDeclaration(
+  new[]
+  {
+    SyntaxKind.PublicKeyword,
+    SyntaxKind.AbstractKeyword
+  },
+  "CategoryInfoResult",
+  "CategoryInfo",
+  setModifier: SyntaxKind.PrivateKeyword,
+  isAbstract: true)
+\end{lstlisting}
+
+\caption{Sample code to manually create \\ a Roslyn syntax tree using \lstinline{SyntaxEx}}
+\label{SyntaxEx code}
+\end{figure}
+
+\medskip
+
+Another improvement is that syntax nodes that represent declaration of property, field, parameter or variable
+can be used to refer to them in later code, for example when assigning the value of a parameter to a property.
+This is achieved by using implicit conversions and a helper type \lstinline{NamedNode}.
+In Roslyn without this extension, it is necessary to extract the name of the syntax node
+and use that to create \lstinline{IdentifierNameSyntax}.
+
+As with \lstinline{SyntaxEx}, this can make simple cases simpler, but cannot handle everything.
+Because of that, complex cases still have to directly use Roslyn.

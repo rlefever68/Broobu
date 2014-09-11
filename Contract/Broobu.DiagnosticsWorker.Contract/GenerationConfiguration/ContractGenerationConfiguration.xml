@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContractDefinition Name="DiagnosticsWorker"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:noNamespaceSchemaLocation= "file:..\..\..\MobiFxSDK\SDK\Generation\Pms.Contract.Generation.xsd">
+  <ContractServiceInterfaces>
+    
+    <ContractServiceInterface Name="IRunDiagnostics" ServiceContractNamespace="http://pms.diagnosticsworker/11/04">
+      <Methods>
+        <!--Run Diagnostics-->
+        <Method Name  ="RunDiagnostics">
+          <ReturnType Name="Result" Namespace="Pms.Framework.Domain"/>
+        </Method>
+
+        <!--Add Diagnostics Pacakage-->
+        <Method Name ="AddDiagnosticsPackage">
+          <Parameters>
+            <Parameter Name="package">
+              <Type Name ="byte[]" Namespace="System"/>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="Result" Namespace="Pms.Framework.Domain"/>
+        </Method>
+      </Methods>
+      </ContractServiceInterface>
+
+  </ContractServiceInterfaces>
+
+</ContractDefinition>
+  
+

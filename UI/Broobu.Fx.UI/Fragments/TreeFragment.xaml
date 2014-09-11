@@ -1,0 +1,73 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    x:Class="Broobu.Fx.UI.Fragments.TreeFragment"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+
+        <DataTemplate x:Key="NodeDataTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding Data.DisplayInfo.Icon}" Margin="2"
+                                               Stretch="UniformToFill" Width="20" Height="20"
+                                               ImageFailed="Image_OnImageFailed" />
+                <TextBlock Text="{Binding Data.DisplayInfo.DisplayName}" Grid.Column="1"
+                                                   VerticalAlignment="Center" Margin="2" />
+            </Grid>
+        </DataTemplate>
+
+    </UserControl.Resources>
+    <Grid>
+        <dxb:BarManager AllowCustomization="False" AllowHotCustomization="False" AllowQuickCustomization="False" AllowUIAutomationSupport="False" MDIMergeStyle="Never" MenuGlyphSize="Small">
+            <dxb:BarManager.Bars>
+                <dxb:Bar IsStatusBar="True">
+                    <dxb:Bar.DockInfo>
+                        <dxb:BarDockInfo ContainerType="Bottom"/>
+                    </dxb:Bar.DockInfo>
+                </dxb:Bar>
+                <dxb:Bar ShowDragWidget="False" UseWholeRow="True" Caption="Actions" AllowCustomizationMenu="False" GlyphSize="Small" AllowQuickCustomization="False" AllowHide="False">
+                    <dxb:BarButtonItem x:Name="btnAddBranch" Content="Add Branch" Command="{Binding AddBranch}"/>
+                    <dxb:BarButtonItem x:Name="btnAddChild" Content="Add Child" Command="{Binding AddChild}"/>
+                    <dxb:BarButtonItem x:Name="btnAddFolder" Content="Add Folder" Command="{Binding AddFolder}"/>
+                </dxb:Bar>
+            </dxb:BarManager.Bars>
+            <Grid>
+                <dxg:TreeListControl x:Name="TreeListControl"
+                                     SelectionMode="Row"
+                                     ShowBorder="False"
+                                     SelectedItemChanged="TreeListControl_OnSelectedItemChanged">
+                    <dxg:TreeListControl.Columns>
+                        <dxg:TreeListColumn FieldName="DisplayInfo" Header="" UnboundType="Object" 
+                                            CellTemplate="{StaticResource NodeDataTemplate}">
+                        </dxg:TreeListColumn>
+                    </dxg:TreeListControl.Columns>
+                    <dxg:TreeListControl.View>
+                        <dxg:TreeListView x:Name="TreeView"
+                                          AllowPerPixelScrolling="True"
+                                          AllowEditing="False"
+                                          AutoWidth="True"
+                                          ShowHorizontalLines="False"
+                                          ShowVerticalLines="False"
+                                          ShowBandsPanel="False"
+                                          ShowColumnHeaders="False"
+                                          ShowIndicator="False"
+                                          ShowExpandButtons="True"
+                                          CustomUnboundColumnData="TreeView_OnCustomUnboundColumnData" 
+                                          NodeChanged="OnNodeChanged">
+                            </dxg:TreeListView>
+
+                    </dxg:TreeListControl.View>
+                </dxg:TreeListControl>
+            </Grid>
+        </dxb:BarManager>
+
+    </Grid>
+</UserControl>

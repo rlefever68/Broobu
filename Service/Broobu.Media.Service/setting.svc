@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Service="Broobu.Media.Service.SettingService" Factory="Iris.Fx.Networking.Wcf.AnnouncingServiceHostFactory"%>

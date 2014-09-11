@@ -1,0 +1,589 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{46EB5B52-E6E4-457B-8CC1-6EF79E8033AB}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Broobu.MonitorDisco.UI.Controls</RootNamespace>
+    <AssemblyName>Broobu.MonitorDisco.UI.Controls</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Solutions\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\broobu.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Mvvm.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.Core.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.Grid.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.Grid.v14.1.Core, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.Ribbon.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="NLog, Version=3.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Solutions\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Wulka">
+      <HintPath>..\..\Wulka\SDK\Wulka.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Contract\Broobu.MonitorDisco.Contract\Properties\AssemblyVersions.cs">
+      <Link>Properties\AssemblyVersions.cs</Link>
+    </Compile>
+    <Compile Include="MonitorCloudAddIn.cs" />
+    <Compile Include="ViewModels\DiscoInfoViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Views\MonitorCloudView.xaml.cs">
+      <DependentUpon>MonitorCloudView.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="..\..\broobu.pfx">
+      <Link>broobu.pfx</Link>
+    </None>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\MonitorCloudView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Reload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Contract\Broobu.MonitorDisco.Contract\Broobu.MonitorDisco.Contract.csproj">
+      <Project>{F91577DB-89FA-43F7-A08E-3FF227767E9A}</Project>
+      <Name>Broobu.MonitorDisco.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Broobu.Authentication.UI.Controls\Broobu.Authentication.UI.Controls.csproj">
+      <Project>{F7757306-F486-4BE3-99D7-80C5B7ED325B}</Project>
+      <Name>Broobu.Authentication.UI.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Broobu.Fx.UI\Broobu.Fx.UI.csproj">
+      <Project>{6dbad298-4c04-4e60-a8af-cd6ec63549de}</Project>
+      <Name>Broobu.Fx.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\services.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\about.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clipart\caCompClient.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clipart\caCompClientEnabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clipart\caDatabaseBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clipart\caDataBaseDisabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clipart\caDatabaseGreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clipart\caDataBaseViolet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clipart\caInet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clipart\caInetSearch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clipart\caModem.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clipart\caModemEnabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clipart\caNetCard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clipart\caNetwork.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clipart\caNetworkEnabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clipart\caServer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clipart\caServerEnabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clipart\caWebCam.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Code_Central.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Contact_Us.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cursors\cursor_pen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cursors\cursor_text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\demo-logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\description.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\dx-logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DXRibbon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Add_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Add_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\AlignJustify_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\AlignJustify_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Attach_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\bold-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\bullets-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\bullets-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Bullets-Box-76x76.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Bullets-Circle-76x76.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Bullets-Decimal-76x76.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Bullets-Disc-76x76.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Bullets-LowerLatin-76x76.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Bullets-LowerRoman-76x76.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Bullets-None-76x76.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Bullets-Square-76x76.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Bullets-UpperLatin-76x76.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Bullets-UpperRoman-76x76.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\center-align-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\close-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\close-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\copy-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\copy-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\cut-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\cut-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Delete_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Delete_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\EditHeight-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\EditWidth-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\find-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Find_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\font-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\font-color-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\font-color-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Font_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\FontSizeDecrease_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\FontSizeDecrease_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\FontSizeIncrease_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\FontSizeIncrease_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Highlight_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Highlight_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\IndentDecrease_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\IndentDecrease_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\IndentIncrease_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\IndentIncrease_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\info-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\info-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\InsertPicture-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\italic-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\left-align-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\ListBullets_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\ListBullets_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\new-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\new-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\NewViaWizard_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\NewViaWizard_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\open-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\open-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\paste-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\paste-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\PenTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Pinned.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\print-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\print-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\redo-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\redo-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\replace-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Replace_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\right-align-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\save-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\save-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\save-as-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\save-as-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Scaling_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\SelectAll_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\SelectAll_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Strikeout_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Strikeout_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Subscript_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Subscript_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Superscript_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Superscript_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\TextTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Thickness_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\underline-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\undo-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\undo-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Unpinned.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Info_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\online.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Online_Help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ProductSmallLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ribbon-application-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Ribbon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shapes\ShapeCircle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shapes\ShapeDownArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shapes\ShapeLeftArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shapes\ShapeNone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shapes\ShapeRectangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shapes\ShapeRightArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shapes\ShapeStar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shapes\ShapeTriangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shapes\ShapeUpArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ThemeIcons\DeepBlue_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ThemeIcons\DeepBlue_48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ThemeIcons\DXStyle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ThemeIcons\LightGray_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ThemeIcons\LightGray_48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ThemeIcons\MetropolisDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ThemeIcons\MetropolisLight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ThemeIcons\Office2007Black_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ThemeIcons\Office2007Black_48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ThemeIcons\Office2007Blue_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ThemeIcons\Office2007Blue_48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ThemeIcons\Office2007Silver_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ThemeIcons\Office2007Silver_48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ThemeIcons\Office2010Black_48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ThemeIcons\Seven_48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ThemeIcons\VS2010.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

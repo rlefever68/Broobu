@@ -1,0 +1,10 @@
+﻿<dx:DXWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:Views="clr-namespace:Broobu.ManageTaxonomy.UI.Controls.Views;assembly=Broobu.ManageTaxo.UI.Controls" x:Class="Broobu.ManageTaxo.UI.ManageTaxoWindow"
+        Title="Manage Taxonomy" Height="605.224" Width="983.209">
+    <Grid>
+        <Views:ManageHookItemsView/>
+    </Grid>
+</dx:DXWindow>

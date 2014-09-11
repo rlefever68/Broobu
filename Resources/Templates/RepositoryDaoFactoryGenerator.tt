@@ -1,0 +1,27 @@
+﻿<#@ xsd processor="T4Toolbox.XsdProcessor" 
+    file="%VS100COMNTOOLS%\..\..\Xml\Schemas\DbmlSchema.xsd" #>
+<#@ include file="RepositoryDaoFactoryTemplate.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-02
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryDaoFactoryGenerator : Generator
+{
+	public string DatabaseDbml;
+	public string TableNamePrefix;
+	public string Namespace;
+	public bool PrefixEntityNameWithSchemaName;
+	
+	private RepositoryDaoFactoryTemplate _template = new RepositoryDaoFactoryTemplate();  
+
+    protected override void RunCore()
+    {
+		DatabaseInfo databaseInfo = new DatabaseInfo(DatabaseDbml, TableNamePrefix, PrefixEntityNameWithSchemaName);
+        _template.DatabaseInfo = databaseInfo;
+        _template.Namespace = Namespace;
+        _template.Render();
+    }
+}
+#>

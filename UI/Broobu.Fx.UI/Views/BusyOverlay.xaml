@@ -1,0 +1,77 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:Broobu.Fx.UI.Converters"
+
+                    xmlns:markup="clr-namespace:Wulka.UI.Markup"
+                    xmlns:views="clr-namespace:Broobu.Fx.UI.Views">
+
+    <Style TargetType="{x:Type views:BusyOverlay}">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type views:BusyOverlay}">
+                    <Grid>
+                        <ContentPresenter Content="{TemplateBinding Content}" />
+                        <Grid
+                            Visibility="{TemplateBinding Property=IsBusy, Converter={markup:Converter {x:Type converters:ConverterBooleanVisibility}}}">
+                            <!--<MediaElement x:Name="hourglass" 
+                                          UnloadedBehavior="Manual"     
+                                          Source="../Res/hourglass2.gif" 
+                                          LoadedBehavior="Play" 
+                                          Stretch="None"/>-->
+                            <Image Name="hourglass"
+                                   Source="../Res/hourglass.gif"
+                                   Stretch="None"
+                                   Margin="20"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                        </Grid>
+                        <Grid
+                            Visibility="{TemplateBinding Property=HasNoData, Converter={markup:Converter {x:Type converters:ConverterBooleanVisibility}}}">
+                            <TextBlock Name="lblNoData"
+                                       FontFamily="Verdana Bold"
+                                       FontSize="12"
+                                       Text="{markup:L No Data Available}"
+                                       Margin="20"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                        </Grid>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsBusy}" Value="true">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard BeginTime="0:0:0.5">
+                                        <DoubleAnimation From="0.3" To="1"
+                                                         Storyboard.TargetName="hourglass"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0.2"
+                                                         RepeatBehavior="Forever" AutoReverse="True" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=HasNoData}"
+                                     Value="true">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard BeginTime="0:0:0.5">
+                                        <DoubleAnimation From="0.3" To="1"
+                                                         Storyboard.TargetName="lblNoData"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0.2"
+                                                         RepeatBehavior="Forever" AutoReverse="True" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

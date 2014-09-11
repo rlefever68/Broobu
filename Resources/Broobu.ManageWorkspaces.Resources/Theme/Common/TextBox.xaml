@@ -1,0 +1,110 @@
+<ResourceDictionary 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:shared="http://schemas.actiprosoftware.com/winfx/xaml/shared"
+    xmlns:ribbon="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonControls="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Controls;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonInput="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Input;assembly=ActiproSoftware.Ribbon.Wpf351"
+	xmlns:ribbonThemes="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Themes;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonUI="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.UI;assembly=ActiproSoftware.Ribbon.Wpf351"
+    >
+	
+	<!-- ribbonControls:TextBox -->
+	<Style x:Key="{x:Type ribbonControls:TextBox}" TargetType="TextBox">
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="FocusVisualStyle" Value="{x:Null}" />
+		<Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.WindowTextBrushKey}}" />
+		<Setter Property="MinHeight" Value="{x:Static ribbonUI:RibbonMeasurements.RibbonControlSmallHeight}"/>
+		<Setter Property="Padding" Value="0" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="TextBox">
+					<ControlTemplate.Resources>
+						<shared:IsNullOrEmptyConverter x:Key="IsNullOrEmptyConverter" />
+					</ControlTemplate.Resources>
+					
+					<Border x:Name="Border" Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.EditControlBackgroundNormalBrushKey}}" 
+						BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.EditControlBorderNormalBrushKey}}" 
+						BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+						<Grid>
+							<ScrollViewer x:Name="PART_ContentHost" Background="Transparent" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="True"
+								Style="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=ScrollViewerStyle}}" />
+							<TextBlock x:Name="hint" Margin="2,0,2,0" 
+									   Text="{TemplateBinding ribbonUI:RibbonControlService.HintText}" TextTrimming="CharacterEllipsis"
+									   VerticalAlignment="Center" IsHitTestVisible="False" Opacity="0.67"
+									   Foreground="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}" />
+						</Grid>
+					</Border>
+				
+					<ControlTemplate.Triggers>
+						<Trigger Property="ribbonUI:RibbonControlService.HintText" Value="{x:Null}">
+							<Setter TargetName="hint" Property="Visibility" Value="Collapsed" />
+						</Trigger>
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource IsNullOrEmptyConverter}}" Value="True" />
+								<Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsKeyboardFocusWithin}" Value="True" />
+							</MultiDataTrigger.Conditions>
+							<MultiDataTrigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="hint" Storyboard.TargetProperty="Opacity" To=".33" Duration="0:0:0.2" />									
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiDataTrigger.EnterActions>
+							<MultiDataTrigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="hint" Storyboard.TargetProperty="Opacity" Duration="0:0:0.4" />
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiDataTrigger.ExitActions>
+						</MultiDataTrigger>
+						<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource IsNullOrEmptyConverter}}" Value="False">
+							<DataTrigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="hint" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2" />
+									</Storyboard>
+								</BeginStoryboard>
+							</DataTrigger.EnterActions>
+							<DataTrigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="hint" Storyboard.TargetProperty="Opacity" Duration="0:0:0.4" />
+									</Storyboard>
+								</BeginStoryboard>
+							</DataTrigger.ExitActions>
+						</DataTrigger>
+
+						<Trigger Property="AcceptsReturn" Value="True">
+							<Setter Property="VerticalContentAlignment" Value="Stretch" />
+							<Setter TargetName="hint" Property="VerticalAlignment" Value="Top" />
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.EditControlBorderDisabledBrushKey}}" />
+							<Setter TargetName="Border" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.EditControlBackgroundDisabledBrushKey}}" />
+							<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundDisabledBrushKey}}"/>							
+						</Trigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsMouseOver" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter TargetName="Border" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.EditControlBackgroundHoverBrushKey}}" />
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsKeyboardFocusWithin" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter TargetName="Border" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.EditControlBackgroundHoverBrushKey}}" />
+						</MultiTrigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
+</ResourceDictionary>

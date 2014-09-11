@@ -1,0 +1,169 @@
+<ResourceDictionary 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ribbon="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonControlsPrimitives="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Controls.Primitives;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonInput="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Input;assembly=ActiproSoftware.Ribbon.Wpf351"
+	xmlns:ribbonThemes="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Themes;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonUI="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.UI;assembly=ActiproSoftware.Ribbon.Wpf351"
+    >
+	
+	<!-- WindowTitleBarButtonStyle -->
+	<Style x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonStyleKey}" TargetType="{x:Type ribbonControlsPrimitives:RibbonWindowTitleBarButton}">
+		<Setter Property="BackgroundActiveDisabled" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActiveDisabledBrushKey}}" />
+		<Setter Property="BorderActiveDisabledBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderActiveDisabledBrushKey}}" />
+		<Setter Property="ForegroundActiveDisabled" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonForegroundActiveDisabledBrushKey}}" />
+		<Setter Property="BackgroundActiveHover" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActiveHoverBrushKey}}" />
+		<Setter Property="BackgroundActiveHoverHighlight" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActiveHoverHighlightBrushKey}}" />
+		<Setter Property="BorderActiveHoverBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderActiveHoverBrushKey}}" />
+		<Setter Property="ForegroundActiveHover" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonForegroundActiveHoverBrushKey}}" />
+		<Setter Property="BackgroundActiveNormal" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActiveNormalBrushKey}}" />
+		<Setter Property="BorderActiveNormalBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderActiveNormalBrushKey}}" />
+		<Setter Property="ForegroundActiveNormal" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonForegroundActiveNormalBrushKey}}" />
+		<Setter Property="BackgroundActivePressed" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActivePressedBrushKey}}" />
+		<Setter Property="BackgroundActivePressedHighlight" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActivePressedHighlightBrushKey}}" />
+		<Setter Property="BorderActivePressedBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderActivePressedBrushKey}}" />
+		<Setter Property="ForegroundActivePressed" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonForegroundActivePressedBrushKey}}" />
+		<Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=BackgroundInactiveNormal}" />
+		<Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path=BorderInactiveNormalBrush}" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="CornerRadius" Value="3" />
+		<Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=ForegroundInactiveNormal}" />
+		<Setter Property="Height" Value="21" />
+		<Setter Property="BackgroundInactiveDisabled" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundInactiveDisabledBrushKey}}" />
+		<Setter Property="BorderInactiveDisabledBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderInactiveDisabledBrushKey}}" />
+		<Setter Property="ForegroundInactiveDisabled" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonForegroundInactiveDisabledBrushKey}}" />
+		<Setter Property="BackgroundInactiveHover" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundInactiveHoverBrushKey}}" />
+		<Setter Property="BackgroundInactiveHoverHighlight" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundInactiveHoverHighlightBrushKey}}" />
+		<Setter Property="BorderInactiveHoverBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderInactiveHoverBrushKey}}" />
+		<Setter Property="ForegroundInactiveHover" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonForegroundInactiveHoverBrushKey}}" />
+		<Setter Property="BackgroundInactiveNormal" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundInactiveNormalBrushKey}}" />
+		<Setter Property="BorderInactiveNormalBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderInactiveNormalBrushKey}}" />
+		<Setter Property="ForegroundInactiveNormal" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonForegroundInactiveNormalBrushKey}}" />
+		<Setter Property="Margin" Value="1" />
+		<Setter Property="Padding" Value="1" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="Width" Value="21" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ribbonControlsPrimitives:RibbonWindowTitleBarButton">
+					
+					<Grid>
+						<Border BorderBrush="{TemplateBinding BorderBrush}" 
+								BorderThickness="{TemplateBinding BorderThickness}"
+								Background="{TemplateBinding Background}"
+								CornerRadius="{TemplateBinding CornerRadius}"
+								SnapsToDevicePixels="True">
+							<Grid>
+								<Border x:Name="innerBorder" CornerRadius="{TemplateBinding CornerRadius}" />
+								<ContentPresenter Margin="{TemplateBinding Padding}"
+												  Content="{TemplateBinding Content}" 
+												  ContentTemplate="{TemplateBinding ContentTemplate}"
+												  ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" />
+							</Grid>
+						</Border>
+						<Rectangle x:Name="PART_IndicatorArea" Fill="Transparent" Visibility="Collapsed" />
+					</Grid>
+						
+					<ControlTemplate.Triggers>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsActive" Value="False" />
+								<Condition Property="IsEnabled" Value="False" />
+							</MultiTrigger.Conditions>
+							<Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=BackgroundInactiveDisabled}" />
+							<Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path=BorderInactiveDisabledBrush}" />
+							<Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=ForegroundInactiveDisabled}" />
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsActive" Value="False" />
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsMouseOver" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=BackgroundInactiveHover}" />
+							<Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path=BorderInactiveHoverBrush}" />
+							<Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=ForegroundInactiveHover}" />
+							<Setter TargetName="innerBorder" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BackgroundInactiveHoverHighlight}" />
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsActive" Value="True" />
+								<Condition Property="IsEnabled" Value="False" />
+							</MultiTrigger.Conditions>
+							<Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=BackgroundActiveDisabled}" />
+							<Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path=BorderActiveDisabledBrush}" />
+							<Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=ForegroundActiveDisabled}" />
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsActive" Value="True" />
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsMouseOver" Value="False" />
+								<Condition Property="IsPressed" Value="False" />
+							</MultiTrigger.Conditions>
+							<Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=BackgroundActiveNormal}" />
+							<Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path=BorderActiveNormalBrush}" />
+							<Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=ForegroundActiveNormal}" />
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsActive" Value="True" />
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsMouseOver" Value="True" />
+								<Condition Property="IsPressed" Value="False" />
+							</MultiTrigger.Conditions>
+							<Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=BackgroundActiveHover}" />
+							<Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path=BorderActiveHoverBrush}" />
+							<Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=ForegroundActiveHover}" />
+							<Setter TargetName="innerBorder" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BackgroundActiveHoverHighlight}" />
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsActive" Value="True" />
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsPressed" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=BackgroundActivePressed}" />
+							<Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Self}, Path=BorderActivePressedBrush}" />
+							<Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=ForegroundActivePressed}" />
+						</MultiTrigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>		
+	</Style>
+	
+	<!-- WindowTitleBarAlternateButtonStyle -->
+	<Style x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonAlternateStyleKey}" TargetType="{x:Type ribbonControlsPrimitives:RibbonWindowTitleBarButton}" BasedOn="{StaticResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonStyleKey}}">
+		<Setter Property="BackgroundActiveDisabled" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActiveDisabledAlternateBrushKey}}" />
+		<Setter Property="BorderActiveDisabledBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderActiveDisabledAlternateBrushKey}}" />
+		<Setter Property="ForegroundActiveDisabled" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonForegroundActiveDisabledAlternateBrushKey}}" />
+		<Setter Property="BackgroundActiveHover" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActiveHoverAlternateBrushKey}}" />
+		<Setter Property="BackgroundActiveHoverHighlight" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActiveHoverHighlightAlternateBrushKey}}" />
+		<Setter Property="BorderActiveHoverBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderActiveHoverAlternateBrushKey}}" />
+		<Setter Property="ForegroundActiveHover" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonForegroundActiveHoverAlternateBrushKey}}" />
+		<Setter Property="BackgroundActiveNormal" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActiveNormalAlternateBrushKey}}" />
+		<Setter Property="BorderActiveNormalBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderActiveNormalAlternateBrushKey}}" />
+		<Setter Property="ForegroundActiveNormal" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonForegroundActiveNormalAlternateBrushKey}}" />
+		<Setter Property="BackgroundActivePressed" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActivePressedAlternateBrushKey}}" />
+		<Setter Property="BackgroundActivePressedHighlight" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActivePressedHighlightAlternateBrushKey}}" />
+		<Setter Property="BorderActivePressedBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderActivePressedAlternateBrushKey}}" />
+		<Setter Property="ForegroundActivePressed" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonForegroundActivePressedAlternateBrushKey}}" />
+		<Setter Property="BackgroundInactiveDisabled" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundInactiveDisabledAlternateBrushKey}}" />
+		<Setter Property="BorderInactiveDisabledBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderInactiveDisabledAlternateBrushKey}}" />
+		<Setter Property="ForegroundInactiveDisabled" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonForegroundInactiveDisabledAlternateBrushKey}}" />
+		<Setter Property="BackgroundInactiveHover" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundInactiveHoverAlternateBrushKey}}" />
+		<Setter Property="BackgroundInactiveHoverHighlight" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundInactiveHoverHighlightAlternateBrushKey}}" />
+		<Setter Property="BorderInactiveHoverBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderInactiveHoverAlternateBrushKey}}" />
+		<Setter Property="ForegroundInactiveHover" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonForegroundInactiveHoverAlternateBrushKey}}" />
+		<Setter Property="BackgroundInactiveNormal" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundInactiveNormalAlternateBrushKey}}" />
+		<Setter Property="BorderInactiveNormalBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderInactiveNormalAlternateBrushKey}}" />
+		<Setter Property="ForegroundInactiveNormal" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonForegroundInactiveNormalAlternateBrushKey}}" />
+	</Style>
+			
+	<!-- RibbonWindowTitleBarButton -->
+	<Style x:Key="{x:Type ribbonControlsPrimitives:RibbonWindowTitleBarButton}" TargetType="{x:Type ribbonControlsPrimitives:RibbonWindowTitleBarButton}"
+		BasedOn="{StaticResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonStyleKey}}" />
+
+</ResourceDictionary>

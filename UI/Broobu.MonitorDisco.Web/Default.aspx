@@ -1,0 +1,54 @@
+﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
+    CodeBehind="Default.aspx.cs" Inherits="Iris.MonitorDisco.Web._Default" %>
+
+<%@ Register Assembly="DevExpress.Web.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxGridView" TagPrefix="dx" %>
+
+<%@ Register assembly="DevExpress.Web.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" namespace="DevExpress.Web.ASPxEditors" tagprefix="dx" %>
+
+<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+</asp:Content>
+<asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
+    <h2>
+        Discovered Services
+    </h2>
+    <div>
+        <dx:ASPxGridView ID="GridView" runat="server" ClientIDMode="AutoID" 
+            CssClass="grid" Width="100%"
+            CssFilePath="~/App_Themes/Office2010Blue/{0}/styles.css" 
+            CssPostfix="Office2010Blue" onhtmlrowcreated="GridView_HtmlRowCreated">
+            <SettingsBehavior ColumnResizeMode="Control" AutoExpandAllGroups="True" />
+            <SettingsPager Visible="False">
+            </SettingsPager>
+            <Settings ShowGroupPanel="True" ShowFooter="True" 
+                ShowHorizontalScrollBar="True" />
+            <Images SpriteCssFilePath="~/App_Themes/Office2010Blue/{0}/sprite.css">
+                <LoadingPanelOnStatusBar Url="~/App_Themes/Office2010Blue/GridView/Loading.gif">
+                </LoadingPanelOnStatusBar>
+                <LoadingPanel Url="~/App_Themes/Office2010Blue/GridView/Loading.gif">
+                </LoadingPanel>
+            </Images>
+            <ImagesFilterControl>
+                <LoadingPanel Url="~/App_Themes/Office2010Blue/GridView/Loading.gif">
+                </LoadingPanel>
+            </ImagesFilterControl>
+            <Styles CssFilePath="~/App_Themes/Office2010Blue/{0}/styles.css" 
+                CssPostfix="Office2010Blue">
+                <Header ImageSpacing="5px" SortingImageSpacing="5px">
+                </Header>
+                <LoadingPanel ImageSpacing="5px">
+                </LoadingPanel>
+            </Styles>
+            <StylesPager>
+                <PageNumber ForeColor="#3E4846">
+                </PageNumber>
+                <Summary ForeColor="#1E395B">
+                </Summary>
+            </StylesPager>
+            <StylesEditors ButtonEditCellSpacing="0">
+                <ProgressBar Height="21px">
+                </ProgressBar>
+            </StylesEditors>
+        </dx:ASPxGridView>
+    </div>
+</asp:Content>

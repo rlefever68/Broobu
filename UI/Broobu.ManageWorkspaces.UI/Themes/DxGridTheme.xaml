@@ -1,0 +1,405 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys" 
+                    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+                    xmlns:utils="clr-namespace:DevExpress.Xpf.Core;assembly=DevExpress.Xpf.Core.v14.1" xmlns:dxb="clr-namespace:DevExpress.Xpf.Bars;assembly=DevExpress.Xpf.Core.v14.1" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+
+    <sys:Double x:Key="{dxgt:TableViewThemeKey ResourceKey=LeftDataAreaIndent}">0</sys:Double>
+    <sys:Double x:Key="{dxgt:TableViewThemeKey ResourceKey=RightDataAreaIndent}">0</sys:Double>
+    <sys:Double x:Key="{dxgt:TableViewThemeKey ResourceKey=LeftGroupAreaIndent}">28</sys:Double>
+    <sys:Double x:Key="{dxgt:TableViewThemeKey ResourceKey=RightGroupAreaIndent}">0</sys:Double>
+    <sys:Double x:Key="{dxgt:TableViewThemeKey ResourceKey=FixedLineWidth}">3</sys:Double>
+    <sys:Double x:Key="{dxgt:TableViewThemeKey ResourceKey=IndicatorWidth}">16</sys:Double>
+    <Thickness x:Key="{dxgt:TableViewThemeKey ResourceKey=Margin}">0</Thickness>
+
+    <Thickness x:Key="{dxgt:TableViewThemeKey ResourceKey=RowPresenterGridMargin}">0,0,0,0</Thickness>
+    <Thickness x:Key="{dxgt:TableViewThemeKey ResourceKey=IndicatorMargin}">0,0,0,0</Thickness>
+    
+    <Style x:Key="{dxgt:GridColumnHeaderThemeKey ResourceKey=SortArrowUpStyle}" TargetType="{x:Type Control}">
+        <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+
+    <Style x:Key="{dxgt:GridColumnHeaderThemeKey ResourceKey=SortArrowDownStyle}" TargetType="{x:Type Control}">
+        <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+
+    <ControlTemplate x:Key="{dxgt:GridColumnHeaderThemeKey ResourceKey=SortArrowUpTemplate}">
+        <Path Width="8" Height="8" Stretch="Fill" Data="F1 M 290,312L 294,308L 295,308L 299,312L 290,312 Z " Fill="Black" />
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="{dxgt:GridColumnHeaderThemeKey ResourceKey=SortArrowDownTemplate}">
+        <Path Stretch="Fill" Width="8" Height="8" Data="F1 M 278,308L 282,312L 283,312L 287,308L 278,308 Z " Fill="Black" />
+    </ControlTemplate>
+
+    <!--ScrollViewer Style -->
+    <ControlTemplate x:Key="{dxgt:GridControlThemeKey ResourceKey=Template}" TargetType="{x:Type dxg:GridControl}">
+        <AdornerDecorator>
+            <utils:DXArranger>
+                <dxg:DXGridThemesLoader x:Name="PART_ThemesLoader" 
+                                        dxg:GridBorderHelper.ShowBorder="{Binding Path=ShowBorder, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Template="{DynamicResource {dxgt:GridControlThemeKey ResourceKey=BorderTemplate}}" />
+            </utils:DXArranger>
+        </AdornerDecorator>
+    </ControlTemplate>
+
+    <SolidColorBrush x:Key="{dxgt:TableViewThemeKey ResourceKey=ColumnChooserBackgroundBrush}" Color="#FFFFFFFF" />
+    <LinearGradientBrush x:Key="RowSelectionBackground" StartPoint="0,0" EndPoint="0,0">
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#C6D3E7" />
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ColumnManagerCellOverBackground" StartPoint="0,0" EndPoint="0,2">
+
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#fafbfd" Offset="0.01" />
+                <GradientStop Color="#bccce3" Offset="0.3" />
+                <GradientStop Color="#c7def1" Offset="0.5" />
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+
+
+    <LinearGradientBrush x:Key="GroupHeaderBackground" StartPoint="0,0" EndPoint="0,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#fffefe" Offset="0.01"></GradientStop>
+                <!--<GradientStop Color="#ebebeb" Offset="0.9" />-->
+                <GradientStop Color="#d3d7da" Offset="0.9" />
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+
+    <!--Row Style-->
+    <Style x:Key="{dxgt:GridRowThemeKey ResourceKey=RowStyle}"
+           BasedOn="{StaticResource  {dxgt:GridRowThemeKey ResourceKey=RowStyle}}"
+           TargetType="{x:Type dxg:GridRowContent}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding EvenRow}" Value="True">
+                <Setter Property="Background" Value="#E8E8E8" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding EvenRow}" Value="False">
+                <Setter Property="Background" Value="White" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=IsSelected}" Value="true">
+                <Setter Property="Background" Value="{StaticResource RowSelectionBackground}"></Setter>
+                <Setter Property="Foreground" Value="Black"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Cell Font Style-->
+    <Style x:Key="{dxgt:GridColumnHeaderThemeKey ResourceKey=ContentStyle}" TargetType="{x:Type ContentPresenter}">
+        <Setter Property="TextElement.Foreground" Value="Black" />
+    </Style>
+
+    <!--GroupPanel-->
+
+    <ControlTemplate x:Key="{dxgt:GridControlThemeKey ResourceKey=BorderTemplate}" TargetType="{x:Type ContentControl}">
+        <Border Background="#B6BBBF" BorderBrush="Black">
+            <ContentPresenter />
+        </Border>
+    </ControlTemplate>
+
+    <!--ColumHeader-->
+    <ControlTemplate x:Key="{dxgt:GridColumnHeaderThemeKey ResourceKey=ButtonContentTemplate}" TargetType="{x:Type ContentControl}">
+        <Border Name="border" CornerRadius="5 5 0 0" BorderBrush="#B6BBBF" BorderThickness="0.5">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#a5c8f5" Offset="0.5" />
+                    <GradientStop Color="#cfe4ff" Offset="0.40" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <ContentPresenter Margin="4,3,4,3"></ContentPresenter>
+        </Border>
+        <ControlTemplate.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" Value="True" />
+                    <Condition Binding="{Binding ActualAllowSorting}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="border" Property="Background" Value="Gray" />
+            </MultiDataTrigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="border" Property="Background" Value="{StaticResource ColumnManagerCellOverBackground}" />
+            </Trigger>
+            <Trigger Property="dxg:GridColumn.ColumnPosition" Value="Left">
+                <Setter TargetName="border" Property="CornerRadius" Value="2,0,0,0" />
+            </Trigger>
+            <Trigger Property="dxg:GridColumn.ColumnPosition" Value="Middle">
+                <Setter TargetName="border" Property="BorderThickness" Value="0,1,1,1" />
+            </Trigger>
+            <Trigger Property="dxg:GridColumn.ColumnPosition" Value="Right">
+                <Setter TargetName="border" Property="CornerRadius" Value="0,2,0,0" />
+                <Setter TargetName="border" Property="BorderThickness" Value="0,1,1,1" />
+            </Trigger>
+            <Trigger Property="dxg:GridColumn.ColumnPosition" Value="Single">
+                <Setter TargetName="border" Property="CornerRadius" Value="2,2,2,2" />
+            </Trigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=HasRightSibling}" Value="True" />
+                    <Condition Binding="{Binding Path=(dxg:GridColumn.ColumnPosition), RelativeSource={RelativeSource Self}}" Value="Middle" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="BorderThickness" Value="0,1,1,1" TargetName="border" />
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=HasRightSibling}" Value="False" />
+                    <Condition Binding="{Binding Path=(dxg:GridColumn.ColumnPosition), RelativeSource={RelativeSource Self}}" Value="Middle" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="BorderThickness" Value="0,1,0,1" TargetName="border" />
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=HasRightSibling}" Value="True" />
+                    <Condition Binding="{Binding Path=(dxg:GridColumn.ColumnPosition), RelativeSource={RelativeSource Self}}" Value="Left" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="BorderThickness" Value="1,1,1,1" TargetName="border" />
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=HasRightSibling}" Value="False" />
+                    <Condition Binding="{Binding Path=(dxg:GridColumn.ColumnPosition), RelativeSource={RelativeSource Self}}" Value="Left" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="BorderThickness" Value="1,1,0,1" TargetName="border" />
+            </MultiDataTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!--Footer Style-->
+    <ControlTemplate x:Key="{dxgt:TotalSummaryThemeKey ResourceKey=FootersContentTemplate}" TargetType="{x:Type ContentControl}">
+        <Grid>
+            <Border BorderBrush="#FFC7C9CC" BorderThickness="0,1,0,0" Background="Transparent" />
+            <ContentPresenter Margin="0,3,0,2" />
+        </Grid>
+    </ControlTemplate>
+
+
+    <!--<ControlTemplate x:Key="{dxgt:GridRowThemeKey ResourceKey=NewItemRowTemplate}" TargetType="{x:Type ContentControl}">
+        <Grid>
+            <Border x:Name="rowDelimeterBorder" 
+                    BorderBrush="{DynamicResource {dxgt:GridRowThemeKey ResourceKey=GridDataRowDelimiterBrush}}" 
+                    BorderThickness="0,0,0,1">
+                <Grid>
+                    <Border x:Name="borderFocused" Background="#FFE3E6EB">
+                        <Border.Visibility>
+                            <Binding Path="SelectionState">
+                                <Binding.Converter>
+                                    <dxg:SelectionStateToVisibilityConverter Value="Focused" />
+                                </Binding.Converter>
+                            </Binding>
+                        </Border.Visibility>
+                    </Border>
+                    <ContentControl>
+                        <ContentPresenter />
+                    </ContentControl>
+                    <Border x:Name="backgroundBorder" Background="#FFFFFFFF" IsHitTestVisible="False" >
+                        <utils:MeasurePixelSnapper>
+                            <TextBlock Foreground="#FFA3A3A3" Margin="0,1,0,2" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="PART_GridNewRowText">
+                                <TextBlock.Text>
+                                    <Binding Path="View.LocalizationDescriptor" ConverterParameter="GridNewRowText">
+                                        <Binding.Converter>
+                                            <dxg:DynamicLocalizationStringValueConvertor />
+                                        </Binding.Converter>
+                                    </Binding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </utils:MeasurePixelSnapper>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding Path=SelectionState}" Value="Focused">
+                <Setter Property="Foreground" Value="{DynamicResource {dxgt:GridRowThemeKey ResourceKey=TextFocusedBrush}}" />
+            </DataTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>-->
+
+    <DataTemplate x:Key="{dxgt:GridRowThemeKey ResourceKey=DataRowTemplate}">
+        <dxg:GridScrollablePart x:Name="ScrollablePart" FixedColumnsDelimiterTemplate="{DynamicResource {dxgt:GridRowThemeKey ResourceKey=FixedColumnsDelimiterTemplate}}" ScrollingMargin="{Binding Path=DataContext.View.ScrollingVirtualizationMargin, RelativeSource={RelativeSource TemplatedParent}}" FitContentWidth="{Binding Path=DataContext.View.FitColumnWidth, RelativeSource={RelativeSource TemplatedParent}}" dxg:GridControl.CurrentView="{Binding Path=DataContext.View, RelativeSource={RelativeSource TemplatedParent}}">
+            <dxg:GridScrollablePart.FitContent>
+                <ContentPresenter Content="{Binding DataContext, RelativeSource={RelativeSource TemplatedParent}}" ContentTemplate="{DynamicResource {dxgt:GridRowThemeKey ResourceKey=FitColumnContentTemplate}}" dxg:GridPopupMenu.GridMenuType="RowCell" dxb:BarManager.DXContextMenu="{Binding Path=DataContext.View.GridMenu, RelativeSource={RelativeSource TemplatedParent}}" />
+            </dxg:GridScrollablePart.FitContent>
+            <dxg:GridScrollablePart.FixedLeftContent>
+                <dxg:CellItemsControl dxg:GridControl.CurrentView="{Binding View}" ItemsSource="{Binding Path=DataContext.FixedLeftCellData, RelativeSource={RelativeSource TemplatedParent}}" ItemsPanel="{DynamicResource {dxgt:TableViewThemeKey ResourceKey=FixedLeftNoneDropPanelTemplate}}">
+                </dxg:CellItemsControl>
+            </dxg:GridScrollablePart.FixedLeftContent>
+            <dxg:GridScrollablePart.FixedRightContent>
+                <dxg:CellItemsControl dxg:GridControl.CurrentView="{Binding View}" ItemsSource="{Binding Path=DataContext.FixedRightCellData, RelativeSource={RelativeSource TemplatedParent}}" ItemsPanel="{DynamicResource {dxgt:TableViewThemeKey ResourceKey=FixedRightNoneDropPanelTemplate}}">
+                </dxg:CellItemsControl>
+            </dxg:GridScrollablePart.FixedRightContent>
+            <dxg:GridScrollablePart.FixedNoneContent>
+                <dxg:CellItemsControl dxg:GridControl.CurrentView="{Binding View}" ItemsSource="{Binding Path=DataContext.FixedNoneCellData, RelativeSource={RelativeSource TemplatedParent}}" ItemsPanel="{DynamicResource {dxgt:TableViewThemeKey ResourceKey=FixedNoneDropPanelTemplate}}">
+                </dxg:CellItemsControl>
+            </dxg:GridScrollablePart.FixedNoneContent>
+        </dxg:GridScrollablePart>
+    </DataTemplate>
+
+    <!--<ControlTemplate x:Key="{dxgt:TableViewThemeKey ResourceKey=GroupPanelContentTemplate}" TargetType="{x:Type Control}">
+        <utils:MeasurePixelSnapper>
+            <Border x:Name="GroupPanelBorder" Background="{StaticResource GroupHeaderBackground}" BorderBrush="#B6BBBF" BorderThickness="0,0,0,4">
+                <Grid Margin="3">
+                    <TextBlock x:Name="PART_GroupPanelDragText" Style="{DynamicResource {dxgt:TableViewThemeKey ResourceKey=GroupPanelDragTextStyle}}">
+                         <TextBlock.Text>
+                            <Binding Path="(dxg:GridControl.CurrentView).LocalizationDescriptor" RelativeSource="{RelativeSource TemplatedParent}" ConverterParameter="GridGroupPanelText">
+                                <Binding.Converter>
+                                    <dxg:DynamicLocalizationStringValueConvertor />
+                                </Binding.Converter>
+                            </Binding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <utils:CachedItemsControl ItemsSource="{Binding Path=(dxg:GridControl.CurrentView).GroupedColumns, RelativeSource={RelativeSource TemplatedParent}}" x:Name="groupPanelItemsControl" Style="{DynamicResource {dxgt:GroupRowThemeKey ResourceKey=GroupItemsControlStyle}}" />
+                </Grid>
+            </Border>
+        </utils:MeasurePixelSnapper>
+    </ControlTemplate>-->
+
+    <!--Group style-->
+    <Style x:Key="{dxgt:GroupRowThemeKey ResourceKey=GroupRowStyle}" TargetType="{x:Type ContentControl}">
+        <Setter Property="Foreground" Value="#FF616A76" />
+        <Setter Property="Background" Value="{DynamicResource GroupGridRowBorderBrush}" />
+    </Style>
+
+    <DataTemplate x:Key="{dxgt:GroupRowThemeKey ResourceKey=GroupValueTemplate}">
+        <Border Style="{Binding Path=(dxg:GridControl.ActiveView).GroupValueContentStyle, RelativeSource={RelativeSource TemplatedParent}}"
+                     VerticalAlignment="Center" Padding="0,0,0,1">
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Path=DisplayText}" />
+        </Border>
+    </DataTemplate>
+
+    <ControlTemplate x:Key="{dxgt:GroupRowThemeKey ResourceKey=GroupRowContentTemplate}" TargetType="{x:Type ContentControl}">
+        <Border x:Name="topBorder" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+            <Border x:Name="groupRowBorder" Background="#FFFFFFFF" BorderBrush="#FF9199A4" BorderThickness="0,0,0,2">
+                <ContentPresenter />
+            </Border>
+        </Border>
+        <ControlTemplate.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=(dxg:GridViewBase.IsFocusedRow), RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
+                    <Condition Binding="{Binding Path=(dxg:GridControl.ActiveView).MultiSelectMode, RelativeSource={RelativeSource TemplatedParent}}" Value="Row" />
+                    <Condition Binding="{Binding Path=(dxg:RowData.RowData).IsSelected, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Background" TargetName="groupRowBorder" Value="#FFE3E6EB" />
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=(dxg:GridViewBase.IsFocusedRow), RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
+                    <Condition Binding="{Binding Path=(dxg:GridControl.ActiveView).MultiSelectMode, RelativeSource={RelativeSource TemplatedParent}}" Value="None" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Background" TargetName="groupRowBorder" Value="#FFE3E6EB" />
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=(dxg:GridViewBase.IsFocusedRow), RelativeSource={RelativeSource TemplatedParent}}" Value="False" />
+                    <Condition Binding="{Binding Path=(dxg:RowData.RowData).IsSelected, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
+                    <Condition Binding="{Binding Path=(dxg:GridControl.ActiveView).MultiSelectMode, RelativeSource={RelativeSource TemplatedParent}}" Value="Row" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Background" TargetName="groupRowBorder" Value="#FFEEF0F3" />
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding Path=(dxg:GridControl.ActiveView), ElementName=borderFocused, Converter={dxg:CardViewCheckConverter}}" Value="true">
+            </DataTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!--Filter Style-->
+    <!--This is the place where filter panel of data is changing (filter panel wen not selected)-->
+    <ControlTemplate x:Key="{dxgt:GridRowThemeKey ResourceKey=FilterRowTemplate}" TargetType="{x:Type ContentControl}">
+        <Border Background="#B6BBBF" BorderBrush="{DynamicResource {dxgt:GridRowThemeKey ResourceKey=GridDataRowDelimiterBrush}}" BorderThickness="0,0,0,0" Height="17">
+            <Grid>
+                <!--<Border x:Name="borderFocused" Visibility="Hidden" Margin="0" SnapsToDevicePixels="True" Background="#FFE3E6EB"/>-->
+                <Border x:Name="borderFocused" Visibility="Hidden" Margin="0" SnapsToDevicePixels="True">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Offset="0" Color="#d9eafe" />
+                            <GradientStop Offset="1" Color="#ffffff" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+                <ContentPresenter Margin="0" />
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=(dxg:GridViewBase.IsFocusedRow), RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
+                    <Condition Binding="{Binding Path=(dxg:GridControl.ActiveView).MultiSelectMode, RelativeSource={RelativeSource TemplatedParent}}" Value="None" />
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="borderFocused" Property="Visibility" Value="Visible" />
+                <Setter Property="TextBlock.Foreground" Value="{DynamicResource DataRowTextFocusedBrush}" />
+            </MultiDataTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <!--Filter Item Style-->
+    <ControlTemplate x:Key="{dxgt:GridRowThemeKey ResourceKey=FilterCellContentPresenterTemplate}" TargetType="{x:Type dxg:FilterCellContentPresenter}">
+        <Border x:Name="ContentBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" Padding="{TemplateBinding Padding}">
+            <dxg:FilterRowCellEditor x:Name="PART_CellEditor" 
+                                Column="{Binding Column, RelativeSource={RelativeSource TemplatedParent}}"
+                                FieldName="{Binding FieldName, RelativeSource={RelativeSource TemplatedParent}}">
+            </dxg:FilterRowCellEditor>
+        </Border>
+        <ControlTemplate.Triggers>
+
+            <Trigger Property="HasRightSibling" Value="True">
+                <Setter Property="BorderThickness" Value="0,0,1,0" TargetName="ContentBorder" />
+            </Trigger>
+            <Trigger Property="ShowVerticalLines" Value="False">
+                <Setter Property="BorderBrush" Value="Transparent" TargetName="ContentBorder" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="{dxgt:GridRowThemeKey ResourceKey=NewItemRowCellContentPresenterTemplate}" TargetType="{x:Type dxg:NewItemRowCellContentPresenter}">
+        <Border x:Name="ContentBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" Padding="{TemplateBinding Padding}">
+            <dxg:NewItemRowCellEditor x:Name="PART_CellEditor"
+                                Column="{Binding Column, RelativeSource={RelativeSource TemplatedParent}}"
+                                FieldName="{Binding FieldName, RelativeSource={RelativeSource TemplatedParent}}">
+            </dxg:NewItemRowCellEditor>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="HasRightSibling" Value="True">
+                <Setter Property="BorderThickness" Value="0,0,1,0" TargetName="ContentBorder" />
+            </Trigger>
+            <Trigger Property="ShowVerticalLines" Value="False">
+                <Setter Property="BorderBrush" Value="Transparent" TargetName="ContentBorder" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!--FitColumnContent Style-->
+    <DataTemplate x:Key="{dxgt:GridColumnHeaderThemeKey ResourceKey=FitColumnContentTemplate}">
+        <Grid>
+            <dxg:FitColumnHeader dxg:GridColumn.ColumnPosition="Right" />
+            <Rectangle Stroke="{x:Null}" HorizontalAlignment="Left" Margin="0,3,0,4" x:Name="separator" Width="1" Fill="#FF9199A4" />
+        </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="{dxgt:GridColumnHeaderThemeKey ResourceKey=FixedColumnsDelimiterTemplate}">
+        <Border BorderBrush="#FF4C535C" BorderThickness="1,0,1,1" Background="#FFFFFFFF" />
+    </DataTemplate>
+    <DataTemplate x:Key="{dxgt:GridRowThemeKey ResourceKey=FixedColumnsDelimiterTemplate}">
+        <Border x:Name="border" Background="#FFEEF0F3" BorderThickness="1,0,1,0" BorderBrush="#FFD5D8DD" />
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Path=(dxg:GridControl.ActiveView).ShowVerticalLines, RelativeSource={RelativeSource Self}}" Value="False">
+                <Setter Property="Background" Value="Transparent" TargetName="border" />
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+    <DataTemplate x:Key="{dxgt:GridRowThemeKey ResourceKey=FitColumnContentTemplate}">
+        <Border Name="fitColumnVerticalLine" Background="Transparent" BorderBrush="{DynamicResource {dxgt:GridRowThemeKey ResourceKey=GridDataRowDelimiterBrush}}" BorderThickness="1,0,0,0" />
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Path=(dxg:GridControl.ActiveView).ShowVerticalLines, RelativeSource={RelativeSource Self}}" Value="False">
+                <Setter Property="BorderBrush" Value="Transparent" TargetName="fitColumnVerticalLine" />
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+
+</ResourceDictionary>

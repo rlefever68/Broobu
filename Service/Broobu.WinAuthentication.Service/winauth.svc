@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Service="Iris.WinAuthentication.Service.WinAuthenticationService" Factory="Iris.WinAuthentication.Service.WinAuthenticationServiceHostFactory" %>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UserEnvironmentInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  Greeting="Hello Stranger">
+  
+  <UserId>PUBLIC_USER</UserId>
+  <Menu>
+    
+    <Title>Applications</Title>
+    <ToolTip>Base Applications</ToolTip>
+    <Icon />
+    <Order>0</Order>
+    <PluginUrl />
+    <Items>
+
+      <!-- Infrastructure Applications-->
+      <BoutiqueMenuInfo>
+        <Title>Broobu</Title>
+        <ToolTip>Infrastructure Management Tools</ToolTip>
+        <Icon />
+        <Order>0</Order>
+        <PluginUrl />
+        <ServiceUrl />
+        <Items>
+          <BoutiqueMenuInfo>
+            
+            <Title>Cloud Monitor</Title>
+            <ToolTip>Monitor the Broobu P2P Cloud.</ToolTip>
+            <Icon />
+            <Order>0</Order>
+            <PluginUrl>http://www.broobu.com/clickonce/broobu/monitordisco/broobu.monitordisco.ui.application</PluginUrl>
+            <ServiceUrl></ServiceUrl>
+          </BoutiqueMenuInfo>
+        </Items>
+      </BoutiqueMenuInfo>
+      <BoutiqueMenuInfo>
+        <Title>TEMA</Title>
+        <ToolTip>Tema Applications</ToolTip>
+        <Icon />
+        <Order>0</Order>
+        <PluginUrl />
+        <ServiceUrl />
+        <Items>
+          <BoutiqueMenuInfo>
+            <Title>Cost Calculator</Title>
+            <ToolTip>Calculate the cost of a building project.</ToolTip>
+            <Icon />
+            <Order>0</Order>
+            <PluginUrl>http://www.broobu.com/clickonce/business.cc4id/calculatecost/cc4id.tema.calculatecost.ui.application</PluginUrl>
+            <ServiceUrl></ServiceUrl>
+          </BoutiqueMenuInfo>  
+        </Items>
+      </BoutiqueMenuInfo>
+    </Items>
+  </Menu>
+</UserEnvironmentInfo>

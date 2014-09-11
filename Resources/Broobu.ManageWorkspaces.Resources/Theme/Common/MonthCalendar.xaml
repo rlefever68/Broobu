@@ -1,0 +1,97 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:calendar="http://schemas.actiprosoftware.com/winfx/xaml/shared"
+    xmlns:ribbon="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon;assembly=ActiproSoftware.Ribbon.Wpf351"
+	xmlns:ribbonThemes="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Themes;assembly=ActiproSoftware.Ribbon.Wpf351"
+    >
+
+	<!-- PreviousMonthButtonStyle -->
+	<Style x:Key="PreviousMonthButtonStyle" TargetType="{x:Type calendar:PreviousMonthButton}" BasedOn="{StaticResource {x:Type calendar:PreviousMonthButton}}">
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MonthCalendarGlyphBrushKey}}" />
+	</Style>
+	
+	<!-- NextMonthButtonStyle -->
+	<Style x:Key="NextMonthButtonStyle" TargetType="{x:Type calendar:NextMonthButton}" BasedOn="{StaticResource {x:Type calendar:NextMonthButton}}">
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MonthCalendarGlyphBrushKey}}" />
+	</Style>
+	
+	<!-- TitleStyle -->
+	<Style x:Key="TitleStyle" TargetType="{x:Type calendar:MonthCalendarTitle}" BasedOn="{StaticResource {x:Type calendar:MonthCalendarTitle}}">
+		<Setter Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MonthCalendarTitleBackgroundBrushKey}}" />
+		<Setter Property="FontWeight" Value="Normal" />
+		<Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.ControlTextBrushKey}}" />
+	</Style>
+
+	<!-- MonthCalendarStyle -->
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=MonthCalendarStyle}" TargetType="{x:Type calendar:MonthCalendar}">
+		<Style.Resources>
+			
+			<!-- calendar:DayItemPresenter -->
+			<Style x:Key="{x:Type calendar:DayItemPresenter}" TargetType="{x:Type calendar:DayItemPresenter}">
+				<Setter Property="Background" Value="Transparent"/>
+				<Setter Property="BorderBrush" Value="Transparent"/>
+				<Setter Property="BorderThickness" Value="1" />
+				<Setter Property="HorizontalContentAlignment" Value="Center" />
+				<Setter Property="Padding" Value="4,1,4,1" />
+				<Setter Property="VerticalContentAlignment" Value="Center"/>
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type calendar:DayItemPresenter}">
+							<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+								Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
+								<ContentPresenter Content="{TemplateBinding Content}" 
+									ContentTemplate="{TemplateBinding ContentTemplate}" ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+									HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+									SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+									/>
+							</Border>
+							
+							<ControlTemplate.Triggers>
+								<MultiTrigger>
+									<MultiTrigger.Conditions>
+										<Condition Property="IsSelected" Value="True" />
+										<Condition Property="Selector.IsSelectionActive" Value="False" />
+									</MultiTrigger.Conditions>
+									<Setter Property="Background" Value="{StaticResource {x:Static SystemColors.ControlBrushKey}}" />
+									<Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.ControlTextBrushKey}}" />
+								</MultiTrigger>
+								<MultiTrigger>
+									<MultiTrigger.Conditions>
+										<Condition Property="IsSelected" Value="True" />
+										<Condition Property="Selector.IsSelectionActive" Value="True" />
+									</MultiTrigger.Conditions>
+									<Setter Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MonthCalendarSelectionBackgroundBrushKey}}" />
+									<Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.ControlTextBrushKey}}" />
+								</MultiTrigger>
+								<Trigger Property="IsEnabled" Value="False">
+									<Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+				
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding}" Value="{x:Null}">
+						<Setter Property="IsEnabled" Value="False"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding IsOtherMonth}" Value="True">
+						<Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding IsToday}" Value="True">
+						<Setter Property="BorderBrush" Value="Maroon"/>
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+
+		</Style.Resources>
+		
+		<Setter Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MonthCalendarBorderBrushKey}}" />
+		<Setter Property="Focusable" Value="True" />
+		<Setter Property="NextMonthButtonStyle" Value="{StaticResource NextMonthButtonStyle}" />
+		<Setter Property="Padding" Value="5,0,5,0" />
+		<Setter Property="PreviousMonthButtonStyle" Value="{StaticResource PreviousMonthButtonStyle}" />
+		<Setter Property="TitleStyle" Value="{StaticResource TitleStyle}" />
+	</Style>
+	
+</ResourceDictionary>

@@ -1,0 +1,1 @@
+<%@ ServiceHost Service="Pms.Diagnostics.Service.DiagnosticsService" Factory="Pms.Framework.Networking.Wcf.AnnouncingServiceHostFactory" %>

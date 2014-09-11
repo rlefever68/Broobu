@@ -1,0 +1,27 @@
+﻿<#@ xsd processor="T4Toolbox.XsdProcessor" 
+    file="%VS100COMNTOOLS%\..\..\Xml\Schemas\DbmlSchema.xsd" #>
+<#@ include file="RepositoryMockRepositoryFactoryClassTemplate.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-12-01
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryMockRepositoryFactoryClassGenerator : Generator
+{
+	public string DatabaseDbml;
+	public string TableNamePrefix;
+	public string Namespace;
+	public bool PrefixEntityNameWithSchemaName;
+	
+	private RepositoryMockRepositoryFactoryClassTemplate _template = new RepositoryMockRepositoryFactoryClassTemplate();  
+
+    protected override void RunCore()
+    {
+		DatabaseInfo databaseInfo = new DatabaseInfo(DatabaseDbml, TableNamePrefix, PrefixEntityNameWithSchemaName);
+        _template.DatabaseInfo = databaseInfo;
+        _template.Namespace = Namespace;
+        _template.Render();
+    }
+}
+#>

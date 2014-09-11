@@ -1,0 +1,2 @@
+Use of DEFAULT SCHEMA does not work in stored procedures.
+For this reason, when the stored procedure must support dynamic schema's, the CRUD statement will be generated as a dynamic sql statement.

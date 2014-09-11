@@ -1,0 +1,102 @@
+﻿<broobu:ViewUserControl x:Class="Broobu.Boutique.Hub.UI.Controls.Views.HubView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:views="clr-namespace:Broobu.Boutique.Hub.UI.Controls.Views"
+             xmlns:viewModel="clr-namespace:Broobu.Boutique.Hub.UI.Controls.ViewModel"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:navigation="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/navigation"
+             xmlns:views1="clr-namespace:Broobu.Fx.UI.Views;assembly=Broobu.Fx.UI"
+             xmlns:broobu="http://schemas.broobu/ui"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800"
+             dx:ThemeManager.ThemeName="TouchlineDark">
+    
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Broobu.Fx.UI;component/Themes.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <viewModel:HubViewModel x:Name="Vm"/>
+    </UserControl.DataContext>
+    
+    <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:EventToCommand EventName="Loaded" Command="{Binding OnViewLoaded}" />
+        <navigation:FrameNavigationService 
+            Frame="{Binding ElementName=NavFrame}" 
+            x:Name="NavService"
+            ViewLocator="{Binding HubViewLocator}"/>
+        <dx:DialogService DialogWindowStartupLocation="CenterOwner">
+            <dx:DialogService.ViewTemplate>
+                <DataTemplate>
+                    <views1:WaitView/>
+                </DataTemplate>
+            </dx:DialogService.ViewTemplate>
+            <dx:DialogService.DialogStyle>
+                <Style TargetType="dx:DXDialogWindow">
+                    <Setter Property="SizeToContent" Value="WidthAndHeight"/>
+                </Style>
+            </dx:DialogService.DialogStyle>
+        </dx:DialogService>
+    </dxmvvm:Interaction.Behaviors>
+
+    <dx:BackgroundPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+            <dxwui:PageAdornerControl x:Name="AdornerControl" ShowBackButton="True">
+                <dxwui:PageAdornerControl.HeaderTemplate>
+                <DataTemplate>
+                    <dxlc:LayoutGroup Orientation="Horizontal">
+                        <dxlc:LayoutGroup Orientation="Horizontal">
+                            <dxlc:LayoutItem HorizontalAlignment="Left">
+                                <Image x:Name="Image" Source="../Images/CloudscapeBannerSmall.png" Stretch="UniformToFill"  HorizontalAlignment="Left" Height="50"/>
+                            </dxlc:LayoutItem>
+                            <dxlc:LayoutItem HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2">
+                                <TextBlock  Style="{StaticResource TitleFeedbackStyle}">
+                                    <TextBlock.Text>
+                                        <Binding Path="DataContext.FeedbackText" ElementName="AdornerControl" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </dxlc:LayoutItem>
+                                <dxlc:LayoutItem HorizontalAlignment="Right" VerticalAlignment="Top">
+                                    <TextBlock  Style="{StaticResource TitleFeedbackStyle}">
+                                        <TextBlock.Text>
+                                            <Binding Path="DataContext.NewsText" ElementName="AdornerControl" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"/>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                        </dxlc:LayoutGroup>
+                </DataTemplate>
+            </dxwui:PageAdornerControl.HeaderTemplate>
+        </dxwui:PageAdornerControl>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+                <views:CommandView/>
+                <!--<dxwui:NavigationFrame x:Name="NavFrame" 
+                                       AnimationType="SlideHorizontal" 
+                                       Source="{Binding NavigateTo.ViewName}" 
+                                       Grid.Column="1"/>-->
+                <dxwui:NavigationFrame x:Name="NavFrame" 
+                                       AnimationType="SlideHorizontal" 
+                                       Source="{Binding NavigateTo.ViewName}" 
+                                       Grid.Column="1"/>
+            </Grid>
+    </Grid>
+    </dx:BackgroundPanel>
+</broobu:ViewUserControl>

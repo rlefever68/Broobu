@@ -1,0 +1,299 @@
+<ResourceDictionary 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:media="clr-namespace:System.Windows.Media;assembly=PresentationCore"
+    xmlns:ribbon="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonControls="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Controls;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonControlsPrimitives="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Controls.Primitives;assembly=ActiproSoftware.Ribbon.Wpf351"
+	xmlns:ribbonThemes="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Themes;assembly=ActiproSoftware.Ribbon.Wpf351"
+    >
+	
+	<!-- ribbonControls:Tab -->
+	<Style x:Key="{x:Type ribbonControls:Tab}" TargetType="{x:Type ribbonControls:Tab}">
+		<Setter Property="FocusVisualStyle" Value="{x:Null}" />
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabForegroundHoverBrushKey}}" />
+		<Setter Property="Padding" Value="12,4,12,4" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ribbonControls:Tab">
+					<ControlTemplate.Resources>
+
+						<ribbonControlsPrimitives:KeyTipToAccessTextConverter x:Key="KeyTipToAccessTextConverter" />
+
+					</ControlTemplate.Resources>
+						
+					<Grid Margin="0,0,1,0" MinHeight="23" Background="Transparent" ClipToBounds="True">
+						
+						<Rectangle x:Name="Separator" Margin="0,0,-1,1" Width="1" HorizontalAlignment="Right" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabSeparatorBrushKey}}" Opacity="{TemplateBinding SeparatorOpacity}" />
+						
+						<Rectangle x:Name="ContextualTabGroupSeparatorLeft" Margin="-1,0,0,1" Width="1" HorizontalAlignment="Left" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextualTabGroupSeparatorBelowBrushKey}}" Visibility="Collapsed" />
+						<Rectangle x:Name="ContextualTabGroupSeparatorRight" Margin="0,0,-1,1" Width="1" HorizontalAlignment="Right" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextualTabGroupSeparatorBelowBrushKey}}" Visibility="Collapsed" />
+						
+						<Grid x:Name="SelectedUI" Visibility="Hidden">
+							
+							<Border Margin="3,1,1,0" BorderThickness="0,1,1,0" BorderBrush="#30808080" CornerRadius="0,3,0,0" SnapsToDevicePixels="True" />
+							
+							<Border Margin="2,0,2,0" BorderThickness="1,1,1,0" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabOuterBorderSelectedBrushKey}}" CornerRadius="3,3,0,0" 
+								Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabBackgroundSelectedBrushKey}}" SnapsToDevicePixels="True">
+								<Border BorderThickness="1,1,1,0" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabContentInnerBorderBrushKey}}" CornerRadius="2,2,0,0" SnapsToDevicePixels="True">
+									<Border BorderThickness="1,2,1,0" BorderBrush="#60FFFFFF" />
+								</Border>
+							</Border>
+
+							<Border Margin="1,0,0,0" BorderThickness="0,0,1,1" Width="3" Height="3" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabInnerBorderSelectedBrushKey}}" 
+								CornerRadius="0,0,3,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" SnapsToDevicePixels="True" />
+							<Border Margin="0,0,1,0" BorderThickness="1,0,0,1" Width="3" Height="3" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabInnerBorderSelectedBrushKey}}" 
+								CornerRadius="0,0,0,3" HorizontalAlignment="Right" VerticalAlignment="Bottom" SnapsToDevicePixels="True" />
+							
+							<Border BorderThickness="0,0,1,1" Width="3" Height="3" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabOuterBorderSelectedBrushKey}}" 
+								CornerRadius="0,0,3,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" SnapsToDevicePixels="True" />
+							<Border BorderThickness="1,0,0,1" Width="3" Height="3" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabOuterBorderSelectedBrushKey}}" 
+								CornerRadius="0,0,0,3" HorizontalAlignment="Right" VerticalAlignment="Bottom" SnapsToDevicePixels="True" />
+
+							<Rectangle Margin="3,0,3,0" Height="1" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabBackgroundSelectedBottomBrushKey}}" VerticalAlignment="Bottom" SnapsToDevicePixels="True" />
+						
+						</Grid>
+								
+						<Grid x:Name="TintedSelectedUI" Visibility="Hidden">
+							
+							<Border Margin="3,1,1,0" BorderThickness="0,1,1,0" BorderBrush="#30808080" CornerRadius="0,3,0,0" SnapsToDevicePixels="True" />
+							
+							<Border Margin="2,0,2,0" BorderThickness="1,1,1,0" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabOuterBorderFocusedBrushKey}}" CornerRadius="3,3,0,0" 
+								Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextualTabGroupBackgroundBrushKey}}" SnapsToDevicePixels="True">
+								<Border BorderThickness="1,0,1,0" CornerRadius="2,2,2,2" SnapsToDevicePixels="True" 
+										Background="{TemplateBinding TintedSelectedBackground}" BorderBrush="{TemplateBinding TintedSelectedOuterBorderBrush}" />
+							</Border>
+
+							<Border Margin="1,0,0,0" BorderThickness="0,0,1,1" Width="3" Height="3" CornerRadius="0,0,3,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" SnapsToDevicePixels="True"
+									BorderBrush="{TemplateBinding TintedSelectedInnerBorderBrush}" />
+							<Border Margin="0,0,1,0" BorderThickness="1,0,0,1" Width="3" Height="3" CornerRadius="0,0,0,3" HorizontalAlignment="Right" VerticalAlignment="Bottom" SnapsToDevicePixels="True"
+									BorderBrush="{TemplateBinding TintedSelectedInnerBorderBrush}" />
+							
+							<Border BorderThickness="0,0,1,1" Width="3" Height="3" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabOuterBorderFocusedBrushKey}}" 
+								CornerRadius="0,0,3,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" SnapsToDevicePixels="True" />
+							<Border BorderThickness="1,0,0,1" Width="3" Height="3" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabOuterBorderFocusedBrushKey}}" 
+								CornerRadius="0,0,0,3" HorizontalAlignment="Right" VerticalAlignment="Bottom" SnapsToDevicePixels="True" />
+
+						</Grid>
+												
+						<Grid x:Name="HoverUI" Opacity="0">
+							
+							<Border Margin="2,0,2,1" BorderThickness="1,1,1,0" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabOuterBorderHoverBrushKey}}" CornerRadius="3,3,0,0" 
+								Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabBackgroundHoverBrushKey}}" SnapsToDevicePixels="True">
+								<Border BorderThickness="1,1,1,0" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabBorderHighlightHoverBrushKey}}" CornerRadius="2,2,0,0" 
+									Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabBackgroundHighlightHoverBrushKey}}" SnapsToDevicePixels="True">
+									<Rectangle Margin="-1,0,-1,0" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabBackgroundHighlightAlternateHoverBrushKey}}" SnapsToDevicePixels="True" />
+								</Border>
+							</Border>
+
+							<Rectangle Margin="1,3,0,1" Width="1" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabBorderHighlightHoverBrushKey}}" HorizontalAlignment="Left" VerticalAlignment="Stretch" SnapsToDevicePixels="True" />
+							<Rectangle Margin="0,3,1,1" Width="1" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabBorderHighlightHoverBrushKey}}" HorizontalAlignment="Right" VerticalAlignment="Stretch" SnapsToDevicePixels="True" />
+							
+						</Grid>
+													
+						<Grid x:Name="TintedHoverUI" Opacity="0">
+							
+							<Border Margin="2,0,2,1" BorderThickness="1,1,1,0" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabOuterBorderHoverBrushKey}}" CornerRadius="3,3,0,0" 
+								Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabBackgroundHoverBrushKey}}" SnapsToDevicePixels="True">
+								<Border BorderThickness="1,1,1,0" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabBorderHighlightHoverBrushKey}}" CornerRadius="2,2,0,0" SnapsToDevicePixels="True"
+										Background="{TemplateBinding TintedHoverBackground}" />
+							</Border>
+
+							<Rectangle Margin="1,3,0,1" Width="1" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabBorderHighlightHoverBrushKey}}" HorizontalAlignment="Left" VerticalAlignment="Stretch" SnapsToDevicePixels="True" />
+							<Rectangle Margin="0,3,1,1" Width="1" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabBorderHighlightHoverBrushKey}}" HorizontalAlignment="Right" VerticalAlignment="Stretch" SnapsToDevicePixels="True" />
+							
+						</Grid>
+											
+						<Grid x:Name="HoverSelectedUI" Opacity="0">
+
+							<Border Margin="0,0,0,1" BorderThickness="3,3,3,0" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabBorderHighlightHoverSelectedBrushKey}}" CornerRadius="4,4,0,0" SnapsToDevicePixels="True" />
+							
+							<Border Margin="2,0,2,1" BorderThickness="1,1,1,0" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabOuterBorderHoverSelectedBrushKey}}" CornerRadius="3,3,0,0" SnapsToDevicePixels="True">
+								<Border BorderThickness="1,0,1,0" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabInnerBorderHoverSelectedBrushKey}}" CornerRadius="2,2,0,0" SnapsToDevicePixels="True" />
+							</Border>
+							
+							<Rectangle Margin="3,3,0,1" Width="1" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabBorderHighlightHoverSelectedBrushKey}}" HorizontalAlignment="Left" VerticalAlignment="Stretch" SnapsToDevicePixels="True" />
+							<Rectangle Margin="0,3,3,1" Width="1" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabBorderHighlightHoverSelectedBrushKey}}" HorizontalAlignment="Right" VerticalAlignment="Stretch" SnapsToDevicePixels="True" />
+							
+						</Grid>
+							
+						<Grid x:Name="FocusedUI" Opacity="0">
+							
+							<Border Margin="3,1,1,0" BorderThickness="0,1,1,0" BorderBrush="#30808080" CornerRadius="0,3,0,0" SnapsToDevicePixels="True" />
+							
+							<Border Margin="2,0,2,0" BorderThickness="1,1,1,0" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabOuterBorderFocusedBrushKey}}" CornerRadius="3,3,0,0" 
+								Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabBackgroundFocusedBrushKey}}" SnapsToDevicePixels="True">
+								<Border BorderThickness="1,1,1,0" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabInnerBorderFocusedBrushKey}}" CornerRadius="2,2,0,0" SnapsToDevicePixels="True" />
+							</Border>
+
+							<Border Margin="1,0,0,0" BorderThickness="0,0,1,1" Width="3" Height="3" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabInnerBorderFocusedBrushKey}}" 
+								CornerRadius="0,0,3,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" SnapsToDevicePixels="True" />
+							<Border Margin="0,0,1,0" BorderThickness="1,0,0,1" Width="3" Height="3" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabInnerBorderFocusedBrushKey}}" 
+								CornerRadius="0,0,0,3" HorizontalAlignment="Right" VerticalAlignment="Bottom" SnapsToDevicePixels="True" />
+							
+							<Border BorderThickness="0,0,1,1" Width="3" Height="3" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabOuterBorderFocusedBrushKey}}" 
+								CornerRadius="0,0,3,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" SnapsToDevicePixels="True" />
+							<Border BorderThickness="1,0,0,1" Width="3" Height="3" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabOuterBorderFocusedBrushKey}}" 
+								CornerRadius="0,0,0,3" HorizontalAlignment="Right" VerticalAlignment="Bottom" SnapsToDevicePixels="True" />
+
+							<Rectangle Margin="3,0,3,0" Height="1" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabBackgroundFocusedBottomBrushKey}}" VerticalAlignment="Bottom" SnapsToDevicePixels="True" />
+						
+						</Grid>
+						
+						<AccessText Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=KeyTipAccessText, Converter={StaticResource KeyTipToAccessTextConverter}}" Foreground="Transparent">
+							<AccessText.RenderTransform>
+								<TranslateTransform X="-100" />
+							</AccessText.RenderTransform>
+						</AccessText>
+							
+						<TextBlock x:Name="PART_Label" Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center" SnapsToDevicePixels="True" 
+							Text="{TemplateBinding Label}" Foreground="{TemplateBinding Foreground}" />
+					</Grid>
+						
+					<ControlTemplate.Triggers>
+						<Trigger Property="Selector.IsSelected" Value="True">
+							<Setter Property="IsSelected" Value="True" />
+						</Trigger>
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ribbon:Ribbon}, Path=IsMinimized}" Value="True" />
+								<Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ribbon:Ribbon}, Path=IsMinimizedPopupOpen}" Value="False" />
+							</MultiDataTrigger.Conditions>
+							<Setter Property="IsSelected" Value="False" />
+						</MultiDataTrigger>
+						<Trigger Property="IsFirstTabInContextualTabGroup" Value="True">
+							<Setter TargetName="ContextualTabGroupSeparatorLeft" Property="Visibility" Value="Visible" />
+						</Trigger>
+						<Trigger Property="IsLastTabInContextualTabGroup" Value="True">
+							<Setter TargetName="ContextualTabGroupSeparatorRight" Property="Visibility" Value="Visible" />
+						</Trigger>
+						<Trigger Property="IsTextTruncated" Value="True">
+							<Setter TargetName="PART_Label" Property="HorizontalAlignment" Value="Left" />
+						</Trigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsSelected" Value="True" />
+								<Condition Property="IsTinted" Value="False" />
+							</MultiTrigger.Conditions>
+							<Setter TargetName="SelectedUI" Property="Visibility" Value="Visible" />
+							<Setter TargetName="HoverUI" Property="Visibility" Value="Hidden" />
+							<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabForegroundSelectedBrushKey}}" />
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsSelected" Value="True" />
+								<Condition Property="IsTinted" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter TargetName="TintedSelectedUI" Property="Visibility" Value="Visible" />
+							<Setter TargetName="TintedHoverUI" Property="Visibility" Value="Hidden" />
+							<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabForegroundSelectedBrushKey}}" />
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True" />
+							 <!--<Condition Property="IsMouseOverTab" Value="False" />-->
+								<Condition Property="IsSelected" Value="False" />
+								<Condition Property="IsTinted" Value="False" />
+							</MultiTrigger.Conditions>
+							<MultiTrigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="HoverUI" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0" />
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.EnterActions>
+							<MultiTrigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="HoverUI" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2" />
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.ExitActions>
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <!--<Condition Property="IsMouseOverTab" Value="True" />-->  
+								<Condition Property="IsSelected" Value="False" />
+								<Condition Property="IsTinted" Value="True" />
+							</MultiTrigger.Conditions>
+							<MultiTrigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="TintedHoverUI" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0" />
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.EnterActions>
+							<MultiTrigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="TintedHoverUI" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2" />
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.ExitActions>
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <!--<Condition Property="IsMouseOverTab" Value="True" />--> 
+								<Condition Property="IsSelected" Value="True" />
+								<Condition Property="IsTinted" Value="False" />
+							</MultiTrigger.Conditions>
+							<MultiTrigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="HoverSelectedUI" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2" />
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.EnterActions>
+							<MultiTrigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="HoverSelectedUI" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2" />
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.ExitActions>
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <!--<Condition Property="IsMouseOverTab" Value="True" />--> 
+								<Condition Property="IsSelected" Value="True" />
+								<Condition Property="IsTinted" Value="True" />
+							</MultiTrigger.Conditions>
+							<MultiTrigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="FocusedUI" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2" />
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.EnterActions>
+							<MultiTrigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="FocusedUI" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2" />
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.ExitActions>
+						</MultiTrigger>
+						<Trigger Property="IsKeyboardFocused" Value="True">
+							<Setter TargetName="SelectedUI" Property="Visibility" Value="Hidden" />
+							<Setter TargetName="HoverUI" Property="Visibility" Value="Hidden" />
+							<Setter TargetName="HoverSelectedUI" Property="Visibility" Value="Hidden" />
+							<Setter TargetName="FocusedUI" Property="Opacity" Value="1" />
+							<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabForegroundSelectedBrushKey}}" />
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundDisabledBrushKey}}"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+					
+				</ControlTemplate>				
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>

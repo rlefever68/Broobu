@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Pms.Components.ActiPro;component/Themes/NavigationTheme.xaml" />
+        <ResourceDictionary Source="/Pms.Components.ActiPro;component/Themes/RibbonTheme.xaml" />
+        <ResourceDictionary Source="/Pms.Components.ActiPro;component/Themes/DockingTheme.xaml" />
+        <!--<ResourceDictionary Source="/Pms.Components.DevExpress;component/Themes/DxGridTheme.xaml" />-->
+        <ResourceDictionary Source="Themes/DxGridTheme.xaml" />
+        
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

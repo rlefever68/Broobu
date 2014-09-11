@@ -1,0 +1,68 @@
+﻿<Window x:Class="Pms.MobiLauncher.UI.Controls.SquareLoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        Title="User Login"   
+        Width="447" Height="220" WindowStyle="None" ResizeMode="NoResize"  AllowsTransparency="True" 
+        WindowStartupLocation="CenterScreen"
+        xmlns:launcher="clr-namespace:Pms.MobiLauncher.UI.Controls">
+    <Window.Background>
+        <SolidColorBrush />
+    </Window.Background>
+    <Window.Resources>
+        <ResourceDictionary x:Key="rd">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+            <launcher:LoginViewModel x:Key="vm"/>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource vm}" Name="grdLogin">
+
+        <Image Source="Images/Method1_login.png"  ></Image>
+
+        <Grid Height="150" Width="330" Margin="55,45,40,-14">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="156" />
+                <ColumnDefinition Width="174*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="6*" />
+            </Grid.RowDefinitions>
+            <TextBlock   HorizontalAlignment="Right"   Margin="0,9,7,9" Text="Mode"  VerticalAlignment="Center" Style="{DynamicResource TextBlockStyle}"  />
+            <TextBlock Grid.Row="1" HorizontalAlignment="Right" Margin="0,9,7,9" Text="User" VerticalAlignment="Center" Style="{DynamicResource TextBlockStyle}" />
+            <TextBlock Grid.Row="2" HorizontalAlignment="Right" Margin="0,9,7,9"  Text="Password" VerticalAlignment="Center" Style="{DynamicResource TextBlockStyle}"/>
+            <ComboBox Grid.Column="1" Height="20" Width="150" ItemsSource="{Binding AuthenticationModes}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Title}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBox  BorderBrush="#AAA" BorderThickness="1,1,1,1" Grid.Column="1" Grid.Row="1" Height="20"  Width="150" />
+            <PasswordBox   BorderBrush="#AAA" BorderThickness="1,1,1,1" Grid.Column="1" Grid.Row="2" Height="20" Width="150"    />
+            <Grid Grid.Column="1" Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Register"  Grid.Column="0"  IsDefault="False" Margin="2,4,2,4" Name="btnRegister"   HorizontalAlignment="Stretch" />
+                <Button Content="Login"  Grid.Column="1"  IsDefault="True" Margin="2,4,2,4"   Name="btnLogin"   HorizontalAlignment="Stretch" />
+                <Button Content="Cancel" Grid.Column="2"   Margin="2,4,2,4" Name="Cancel"   Click="Cancel_Click" HorizontalAlignment="Stretch" />
+            </Grid>
+
+
+        </Grid>
+
+    </Grid>
+ 
+
+</Window>
+ 

@@ -1,0 +1,25 @@
+﻿<UI:ViewUserControl xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"  xmlns:dxca="http://schemas.devexpress.com/winfx/2008/xaml/carousel"  
+             x:Class="Pms.Framework.UI.Controls.TagView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:UI="clr-namespace:Pms.Framework.UI" mc:Ignorable="d" 
+             d:DesignHeight="374" d:DesignWidth="647" xmlns:my="clr-namespace:Pms.Framework.Domain;assembly=Pms.Framework" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors">
+    <Grid>
+       <dxg:GridControl DesignTimeDataObjectType="my:EnumerationPropertyItem">
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="Title" Name="colTitle" />
+                <dxg:GridColumn FieldName="TypeId" Name="colTypeId" />
+                <dxg:GridColumn FieldName="Value" Name="colValue">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:MemoEditSettings />
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="AdditionalInfoUri" Name="colInfoUrl" />
+            </dxg:GridControl.Columns>
+            <dxg:GridControl.View>
+                <dxg:CardView CardLayout="Rows" AllowEditing="False" AllowFilterEditor="True" />
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+    </Grid>
+</UI:ViewUserControl>

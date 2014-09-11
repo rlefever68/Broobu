@@ -1,0 +1,77 @@
+﻿<!-- This DXPage displays detailed information on "John Smith". It is invoked when clicking the John Smith photo on the start-up page. -->
+<Layout:DXPage
+    x:Class="Broobu.MonitorCloud.UI.WinStore.View.OverviewPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Core="using:DevExpress.Core"
+    xmlns:Layout="using:DevExpress.UI.Xaml.Layout"
+    xmlns:Editors="using:DevExpress.UI.Xaml.Editors"
+    xmlns:local="using:Broobu.MonitorCloud.UI.WinStore.View"
+    mc:Ignorable="d" DataContext="{StaticResource overviewPageViewModel}">
+    <UserControl.Resources>
+        <Core:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter"/>
+    </UserControl.Resources>
+    <!-- The PageAdornerControl displays the back button and a page title. -->
+    <Layout:PageAdornerControl Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                            Header="{Binding DetailPageHeader}">
+        <!-- Defines the visibility of controls according to the application's state (Portrait, Landscape, Snapped and Filled) -->
+        <Layout:LayoutAwareDecorator>
+        <!-- The LayoutControl enables you to build a simple or compound layout of controls within a form with the intrinsic support for consistent control arrangement. -->
+        <Layout:LayoutControl Margin="40,0,40,0"
+                            HorizontalItemSpacing="40"
+                            VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Layout:LayoutGroup Orientation="Vertical" Width="500" VerticalItemSpacing="40">
+                <Layout:LayoutItem SizeMode="AutoSize" HorizontalContentAlignment="Left" Padding="0">
+                    <Image Source="{Binding Photo}" Width="150" Height="150" Stretch="UniformToFill" Margin="0"/>
+                </Layout:LayoutItem>
+                <Editors:TextEdit TextWrapping="Wrap" EditValue="{Binding Bio, Mode=TwoWay}"/>
+            </Layout:LayoutGroup>
+            <Layout:LayoutGroup Orientation="Vertical">
+                <Layout:LayoutGroup Orientation="Vertical">
+                    <Layout:LayoutGroup Orientation="Vertical" VerticalAlignment="Bottom">
+                        <Layout:LayoutItem Header="First Name:" HeaderPosition="Top" Required="True">
+                            <Editors:TextEdit EditValue="{Binding FirstName, Mode=TwoWay}"/>
+                        </Layout:LayoutItem>
+                        <Layout:LayoutItem Header="Last Name:" HeaderPosition="Top" Required="True">
+                            <Editors:TextEdit EditValue="{Binding LastName, Mode=TwoWay}"/>
+                        </Layout:LayoutItem>
+                    </Layout:LayoutGroup>
+                </Layout:LayoutGroup>
+                <Layout:LayoutGroup Header="Phones"
+            ItemsSource="{Binding PhoneNumbers}" Orientation="Vertical">
+                    <Layout:LayoutGroup.ItemTemplate>
+                        <DataTemplate>
+                            <Layout:LayoutItem Header="{Binding Type}" HeaderStringFormat="{}{0}:" Required="{Binding IsRequired}">
+                                <Editors:TextEdit EditValue="{Binding Value, Mode=TwoWay}" MinWidth="400">
+                                    <Editors:TextEdit.TextInputSettings>
+                                        <Editors:TextInputMaskSettings Mask="(999) 000-0000" MaskType="Simple" IgnoreBlank="True" SaveLiteral="True"/>
+                                    </Editors:TextEdit.TextInputSettings>
+                                </Editors:TextEdit>
+                            </Layout:LayoutItem>
+                        </DataTemplate>
+                    </Layout:LayoutGroup.ItemTemplate>
+                </Layout:LayoutGroup>
+                <Layout:LayoutGroup Header="Emails"
+            ItemsSource="{Binding Emails}" Orientation="Vertical">
+                    <Layout:LayoutGroup.ItemTemplate>
+                        <DataTemplate>
+                            <Layout:LayoutItem Header="{Binding Type}" HeaderStringFormat="{}{0}:" Required="{Binding IsRequired}">
+                                <Editors:TextEdit EditValue="{Binding Value, Mode=TwoWay}" MinWidth="400">
+                                    <Editors:TextEdit.TextInputSettings>
+                                        <Editors:TextInputMaskSettings 
+                                    Mask="{}[a-z0-9._%-]+@[a-z0-9.-]+\.[a-z]{2,4}"
+                                    MaskType="RegEx" IgnoreBlank="True" SaveLiteral="True"/>
+                                    </Editors:TextEdit.TextInputSettings>
+                                </Editors:TextEdit>
+                            </Layout:LayoutItem>
+                        </DataTemplate>
+                    </Layout:LayoutGroup.ItemTemplate>
+                </Layout:LayoutGroup>
+            </Layout:LayoutGroup>
+            </Layout:LayoutControl>
+                <local:OverviewSnappedView Layout:LayoutAwareDecorator.ViewStateVisibility="Snapped"/>
+        </Layout:LayoutAwareDecorator>
+    </Layout:PageAdornerControl>
+</Layout:DXPage>

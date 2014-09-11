@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContractDefinition Name="Diagnostics"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:noNamespaceSchemaLocation= "file:..\..\..\MobiFxSDK\SDK\Generation\Pms.Contract.Generation.xsd">
+  <ContractServiceInterfaces>
+    
+   
+    
+    
+    <ContractServiceInterface Name="IDiagnostics" ServiceContractNamespace="http://pms.diagnostics/11/04">
+
+      <Methods>
+        
+        <!--Get Diagnostics Runs for date-->
+        <Method Name="GetDiagnosticsRunItemsForDate">
+          <Parameters>
+            <Parameter Name="date">
+              <Type Name="DateTime" Namespace="System"/>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="DiagnosticsRunItem[]" Namespace="Pms.Diagnostics.Contract.Domain"/>
+        </Method>
+
+        <Method Name="GetDiagnosticsDetailsForRun">
+          <Parameters>
+            <Parameter Name="id">
+              <Type Name="string" Namespace="System"/>
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="DiagnosticsRunDetailItem[]" Namespace="Pms.Diagnostics.Contract.Domain"/>
+        </Method>
+
+
+
+      </Methods>
+    </ContractServiceInterface>
+    
+  </ContractServiceInterfaces>
+  
+  <DomainObjectClasses>
+  
+
+    <DomainObjectClass Name="DiagnosticsRunItem">
+      <Properties>
+        <Property Name="Status">
+          <Type Name="string" Namespace="System"/>
+        </Property>
+        <Property Name="Info">
+          <Type Name="string" Namespace="System"/>
+        </Property>
+        <Property Name="StartTime">
+          <Type Name="DateTime" Namespace="System"/>
+        </Property>
+        <Property Name="EndTime">
+          <Type Name="DateTime" Namespace="System"/>
+        </Property>
+      </Properties>
+    </DomainObjectClass>
+
+
+    <DomainObjectClass Name ="DiagnosticsRunDetailItem">
+      <Properties>
+        <Property Name ="RunId">
+          <Type Name ="string" Namespace="System"/>
+        </Property>
+        <Property Name ="Status">
+          <Type Name ="string" Namespace="System"/>
+        </Property>
+        <Property Name ="ServiceContract">
+          <Type Name ="string" Namespace="System"/>
+        </Property>
+        <Property Name ="Method">
+          <Type Name ="string" Namespace="System"/>
+        </Property>
+        <Property Name ="StartedAt">
+          <Type Name ="DateTime" Namespace="System"/>
+        </Property>
+        <Property Name ="EndedAt">
+          <Type Name ="DateTime" Namespace="System"/>
+        </Property>
+        <Property Name ="Info">
+          <Type Name ="string" Namespace="System"/>
+        </Property>
+      </Properties>
+    </DomainObjectClass>
+    
+    
+    
+  </DomainObjectClasses>
+</ContractDefinition>
+  
+

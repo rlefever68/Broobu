@@ -1,0 +1,376 @@
+<ResourceDictionary 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:shared="http://schemas.actiprosoftware.com/winfx/xaml/shared"
+    xmlns:ribbon="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonControls="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Controls;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonControlsPrimitives="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Controls.Primitives;assembly=ActiproSoftware.Ribbon.Wpf351"
+	xmlns:ribbonThemes="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Themes;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonUI="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.UI;assembly=ActiproSoftware.Ribbon.Wpf351"
+	>
+
+	<ResourceDictionary.MergedDictionaries>
+		
+		<ResourceDictionary Source="ComboBox.xaml" />
+		<ResourceDictionary Source="TextBox.xaml" />
+		
+	</ResourceDictionary.MergedDictionaries>
+	
+	<!-- 
+	
+		Other Styles Not Included in this Resource:
+		
+		ContextMenuStyle (ContextMenu)
+		DateTimePickerStyle (DateTimePicker)
+		MonthCalendarStyle (MonthCalendar)
+		ResizeGripStyle (ResizeGrip)
+		ScrollBarStyle (ScrollBar)
+		ScrollBarAlternateStyle (ScrollBar)
+		ScrollViewerStyle (ScrollViewer)
+		ScrollViewerAlternateStyle (ScrollViewer)
+		StatusBarItemStyle (StatusBarItem)
+		StatusBarItemAlternateStyle (StatusBarItem)
+		StatusBarSeparatorStyle (Separator)
+		StatusBarSeparatorAlternateStyle (Separator)
+		StatusBarStyle (StatusBar)
+		StatusBarSliderStyle (Slider)
+		StatusBarSliderDecreaseButtonStyle (ButtonBase)
+		StatusBarSliderIncreaseButtonStyle (ButtonBase)
+		ToolTipStyle (ToolTip)
+		
+	-->
+	
+	<!-- ButtonBaseSmallTemplate -->
+	<ControlTemplate x:Key="ButtonBaseSmallTemplate" TargetType="{x:Type ButtonBase}">
+		<Grid SnapsToDevicePixels="True">
+			<Border x:Name="OuterBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+					   Background="{TemplateBinding Background}" CornerRadius="1" SnapsToDevicePixels="True" />
+			<Rectangle x:Name="RadialBackground" Fill="Transparent" RadiusX="1" RadiusY="1" SnapsToDevicePixels="True" />
+			<Rectangle x:Name="InnerBorder" Margin="1" RadiusX="1" RadiusY="1" SnapsToDevicePixels="True" />
+		
+			<StackPanel x:Name="PART_Button" Margin="{TemplateBinding Padding}" Orientation="Horizontal" SnapsToDevicePixels="True" 
+				HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+				<ContentPresenter  
+					VerticalAlignment="Center" 
+					SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+					ContentTemplate="{TemplateBinding ContentTemplate}" 
+					RecognizesAccessKey="True"
+					Content="{TemplateBinding Content}" /> 				
+				<Path x:Name="DropDownArrow" Margin="2,0,0,0" VerticalAlignment="Center" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlDropDownArrowBrushKey}}" 
+					Data="M 0,0 L 2.5,3 L 5,0 Z" SnapsToDevicePixels="True" Visibility="Collapsed" />
+			</StackPanel>
+		</Grid>
+
+		<ControlTemplate.Triggers>
+			<Trigger Property="ribbonUI:PopupControlService.HasPopup" Value="True">
+				<Setter TargetName="DropDownArrow" Property="Visibility" Value="Visible" />
+			</Trigger>
+			
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="True" />
+					<Condition Property="IsMouseOver" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundHoverBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverBrushKey}}"/>
+				<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderHoverBrushKey}}"/>
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="True" />
+					<Condition Property="IsKeyboardFocused" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundHoverBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverBrushKey}}"/>
+				<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderHoverBrushKey}}"/>
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="True" />
+					<Condition Property="IsPressed" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundPressedBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderPressedBrushKey}}"/>
+				<Setter TargetName="RadialBackground" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallRadialBackgroundPressedBrushKey}}" />
+				<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderPressedBrushKey}}"/>
+			</MultiTrigger>
+			<Trigger Property="ribbonUI:PopupControlService.IsPopupOpen" Value="True">
+				<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundPopupOpenBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderPopupOpenBrushKey}}"/>
+				<Setter TargetName="RadialBackground" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallRadialBackgroundPopupOpenBrushKey}}" />
+				<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderPopupOpenBrushKey}}"/>
+			</Trigger>
+		</ControlTemplate.Triggers>					
+	</ControlTemplate>
+	
+	<!-- ButtonStyle -->
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=ButtonStyle}" TargetType="ButtonBase">
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="BorderBrush" Value="Transparent"/>
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundBrushKey}}"/>
+		<Setter Property="MinHeight" Value="16"/>
+		<Setter Property="MinWidth" Value="16"/>
+		<Setter Property="Padding" Value="4"/>
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="Template" Value="{StaticResource ButtonBaseSmallTemplate}" />
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+	</Style>
+	
+	<!-- ComboBoxStyle -->
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=ComboBoxStyle}" TargetType="ComboBox"
+		BasedOn="{StaticResource {x:Type ribbonControls:ComboBox}}" />
+	
+	<!-- CheckBoxStyle -->
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=CheckBoxStyle}" TargetType="CheckBox">
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundBrushKey}}"/>
+		<Setter Property="HorizontalContentAlignment" Value="Left"/>
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="CheckBox">
+					<DockPanel Background="Transparent" SnapsToDevicePixels="True">
+						<Border x:Name="OuterBorder" DockPanel.Dock="Left" Margin="3" Width="13" Height="13" BorderThickness="1" VerticalAlignment="Center"
+							BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBorderNormalBrushKey}}" SnapsToDevicePixels="True">
+							<Border x:Name="InnerBorder" Margin="1" BorderThickness="1" 
+								BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBorderNormalBrushKey}}" 
+								Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBackgroundNormalBrushKey}}" SnapsToDevicePixels="True">
+								<Grid>
+									<Path x:Name="CheckBox" Margin="-1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"
+										Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxForegroundBrushKey}}" 
+										Data="M 0.5,6.5 L 3.5,9.5 L 4.5,9.5 L 7.5,1.5 L 6,0.5 L 3.5,7 L 1.5,5 Z" SnapsToDevicePixels="False" />
+									<Rectangle x:Name="Indeterminate" Visibility="Collapsed" Opacity="0.5"
+										Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxForegroundBrushKey}}" />
+								</Grid>
+							</Border>
+						</Border>
+						<Grid Margin="0,0,3,0" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+								VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="True">
+							<Rectangle x:Name="LabelFocus" StrokeThickness="1" Stroke="#F0000000" StrokeDashArray="1 2" Visibility="Collapsed" SnapsToDevicePixels="True" />
+							<ContentPresenter Margin="{TemplateBinding Padding}" 
+								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+								ContentTemplate="{TemplateBinding ContentTemplate}" 
+								RecognizesAccessKey="True" 
+								Content="{TemplateBinding Content}" /> 
+						</Grid>
+					</DockPanel>
+					
+					<ControlTemplate.Triggers>
+						<Trigger Property="VerticalContentAlignment" Value="Top">
+							<Setter TargetName="OuterBorder" Property="VerticalAlignment" Value="Top" />
+							<Setter TargetName="OuterBorder" Property="Margin" Value="3,1,3,3" />
+						</Trigger>
+						<Trigger Property="VerticalContentAlignment" Value="Stretch">
+							<Setter TargetName="OuterBorder" Property="VerticalAlignment" Value="Top" />
+							<Setter TargetName="OuterBorder" Property="Margin" Value="3,1,3,3" />
+						</Trigger>
+						<Trigger Property="VerticalContentAlignment" Value="Bottom">
+							<Setter TargetName="OuterBorder" Property="VerticalAlignment" Value="Bottom" />
+							<Setter TargetName="OuterBorder" Property="Margin" Value="3,3,3,1" />
+						</Trigger>
+						<Trigger Property="IsChecked" Value="True">
+							<Setter TargetName="CheckBox" Property="Visibility" Value="Visible"/>
+						</Trigger>						
+						<Trigger Property="IsChecked" Value="{x:Null}">
+							<Setter TargetName="Indeterminate" Property="Visibility" Value="Visible"/>
+						</Trigger>						
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsMouseOver" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBorderHoverBrushKey}}"/>
+							<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBackgroundHoverBrushKey}}" />
+							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBorderHoverBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBackgroundHoverBrushKey}}"/>
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsKeyboardFocused" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBorderHoverBrushKey}}"/>
+							<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBackgroundHoverBrushKey}}" />
+							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBorderHoverBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBackgroundHoverBrushKey}}"/>
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsPressed" Value="False" />
+								<Condition Property="IsKeyboardFocused" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter TargetName="LabelFocus" Property="Visibility" Value="Visible"/>
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsPressed" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBorderPressedBrushKey}}"/>
+							<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBackgroundPressedBrushKey}}" />
+							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBorderPressedBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBackgroundPressedBrushKey}}"/>
+						</MultiTrigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBorderDisabledBrushKey}}"/>
+							<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBackgroundDisabledBrushKey}}" />
+							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBorderDisabledBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBackgroundDisabledBrushKey}}"/>
+							<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundDisabledBrushKey}}"/>
+						</Trigger>						
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
+	<!-- PasswordBoxStyle -->
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=PasswordBoxStyle}" TargetType="PasswordBox">
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="FocusVisualStyle" Value="{x:Null}" />
+		<Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.WindowTextBrushKey}}" />
+		<Setter Property="MinHeight" Value="{x:Static ribbonUI:RibbonMeasurements.RibbonControlSmallHeight}"/>
+		<Setter Property="Padding" Value="0" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="PasswordBox">
+					<Border x:Name="Border" Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.EditControlBackgroundNormalBrushKey}}" 
+						BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.EditControlBorderNormalBrushKey}}" 
+						BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+						<ScrollViewer x:Name="PART_ContentHost" Background="Transparent" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="True"
+							Style="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=ScrollViewerStyle}}" />
+					</Border>
+				
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.EditControlBorderDisabledBrushKey}}" />
+							<Setter TargetName="Border" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.EditControlBackgroundDisabledBrushKey}}" />
+						</Trigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsMouseOver" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter TargetName="Border" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.EditControlBackgroundHoverBrushKey}}" />
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsKeyboardFocusWithin" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter TargetName="Border" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.EditControlBackgroundHoverBrushKey}}" />
+						</MultiTrigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
+	<!-- RadioButtonStyle -->
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=RadioButtonStyle}" TargetType="RadioButton">
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundBrushKey}}"/>
+		<Setter Property="HorizontalContentAlignment" Value="Left"/>
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="RadioButton">
+					<DockPanel Background="Transparent" SnapsToDevicePixels="True">
+						<Grid x:Name="Bullet" DockPanel.Dock="Left" Margin="3" Width="13" Height="13" VerticalAlignment="Center">
+							<Ellipse x:Name="OuterBorder" StrokeThickness="1"
+								Stroke="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBorderNormalBrushKey}}" SnapsToDevicePixels="True" />
+							<Ellipse x:Name="InnerBorder" Margin="2" StrokeThickness="1"
+								Stroke="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBorderNormalBrushKey}}" 
+								Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBackgroundNormalBrushKey}}" SnapsToDevicePixels="True" />
+							<Ellipse x:Name="CheckBox" Margin="4" StrokeThickness="1" Visibility="Collapsed"
+								Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxForegroundBrushKey}}" SnapsToDevicePixels="True" />
+						</Grid>
+						<Grid Margin="0,0,3,0" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+								VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="True">
+							<Rectangle x:Name="LabelFocus" StrokeThickness="1" Stroke="#F0000000" StrokeDashArray="1 2" Visibility="Collapsed" SnapsToDevicePixels="True" />
+							<ContentPresenter Margin="{TemplateBinding Padding}" 
+								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+								ContentTemplate="{TemplateBinding ContentTemplate}" 
+								RecognizesAccessKey="True" 
+								Content="{TemplateBinding Content}" /> 
+						</Grid>
+					</DockPanel>
+					
+					<ControlTemplate.Triggers>
+						<Trigger Property="VerticalContentAlignment" Value="Top">
+							<Setter TargetName="Bullet" Property="VerticalAlignment" Value="Top" />
+							<Setter TargetName="Bullet" Property="Margin" Value="3,1,3,3" />
+						</Trigger>
+						<Trigger Property="VerticalContentAlignment" Value="Stretch">
+							<Setter TargetName="Bullet" Property="VerticalAlignment" Value="Top" />
+							<Setter TargetName="Bullet" Property="Margin" Value="3,1,3,3" />
+						</Trigger>
+						<Trigger Property="VerticalContentAlignment" Value="Bottom">
+							<Setter TargetName="Bullet" Property="VerticalAlignment" Value="Bottom" />
+							<Setter TargetName="Bullet" Property="Margin" Value="3,3,3,1" />
+						</Trigger>
+						<Trigger Property="IsChecked" Value="True">
+							<Setter TargetName="CheckBox" Property="Visibility" Value="Visible"/>
+						</Trigger>						
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsMouseOver" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBorderHoverBrushKey}}"/>
+							<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBackgroundHoverBrushKey}}" />
+							<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBorderHoverBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBackgroundHoverBrushKey}}"/>
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsKeyboardFocused" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBorderHoverBrushKey}}"/>
+							<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBackgroundHoverBrushKey}}" />
+							<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBorderHoverBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBackgroundHoverBrushKey}}"/>
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsPressed" Value="False" />
+								<Condition Property="IsKeyboardFocused" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter TargetName="LabelFocus" Property="Visibility" Value="Visible"/>
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsPressed" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBorderPressedBrushKey}}"/>
+							<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBackgroundPressedBrushKey}}" />
+							<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBorderPressedBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBackgroundPressedBrushKey}}"/>
+						</MultiTrigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBorderDisabledBrushKey}}"/>
+							<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBackgroundDisabledBrushKey}}" />
+							<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBorderDisabledBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBackgroundDisabledBrushKey}}"/>
+							<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundDisabledBrushKey}}"/>
+						</Trigger>						
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<!-- TextBoxStyle -->
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=TextBoxStyle}" TargetType="TextBox"
+		BasedOn="{StaticResource {x:Type ribbonControls:TextBox}}" />
+
+</ResourceDictionary>

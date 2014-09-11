@@ -1,0 +1,145 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ output extension="txt"  #>
+<#@ include file="DbmlHelper.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2011-01-19
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryTestClassTemplate : Template
+{
+ 	public TableInfo TableInfo;
+    public string Namespace; 
+	public bool	HasDynamicSchema;
+	public bool NeedsBulkCrud;
+
+	private StringHelper _strH = new StringHelper();
+
+    public override string TransformText()
+    {
+		string databaseLogicalName = TableInfo.DatabaseLogicalName;
+		string entityName = TableInfo.EntityName; // UpperCamelCase
+		string entityNameAsParam = _strH.ToLowerCamelCase(TableInfo.EntityName); // lowerCamelCase
+		string idNameAsParam = _strH.ToLowerCamelCase(TableInfo.IdName); // lowerCamelCase
+		string idLanguageType = TableInfo.IdLanguageType; 
+		string optionalSingleSchemaParam = (HasDynamicSchema) ? "string schema" : string.Empty;
+		string optionalFirstSchemaParam = (HasDynamicSchema) ? optionalSingleSchemaParam + ", " : string.Empty;
+		string optionalSingleSchemaValue = (HasDynamicSchema) ? "Schema" : string.Empty;
+		string optionalFirstSchemaValue = (HasDynamicSchema) ? optionalSingleSchemaValue + ", " : string.Empty;
+		string operationBehaviourAttributeExpression = "[OperationBehavior(TransactionScopeRequired = true)]";
+#>
+using System;
+<#+
+		if (HasDynamicSchema)
+		{
+#>
+using System.Configuration;
+<#+
+		}
+#>
+//========================================================================================
+// INFO: This file is generated from t4 template <#= this.GetType().Name #>.tt
+// !!! Any changes made manually will be lost next time this file is generated !!!
+//========================================================================================
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Pms.Framework.Exceptions;
+using <#= Namespace #>.Repository.Contract.Agent;
+using <#= Namespace #>.Repository.Contract.Domain;
+
+namespace <#= Namespace #>.Repository.Test
+{
+    [TestClass]
+	public partial class <#= entityName #>RepositoryTests
+    {
+<#+
+        if (TableInfo.HasCrudFunctions)
+		{
+#>
+
+        #region IRepository<<#= entityName #>, <#= idLanguageType #>> Members
+
+		//public <#= entityName #>[] SelectAll(<#= optionalSingleSchemaParam #>)
+        [TestMethod]
+        public void Try_SelectAll()
+        {
+            try
+            {
+				<#= entityName #>[] list = <#= databaseLogicalName #>RepositoryAgentFactory
+					.Create<#= entityName #>RepositoryAgent()
+					.SelectAll(<#= optionalSingleSchemaValue #>);
+                Assert.IsNotNull(list, "I<#= entityName #>Repository.SelectAll() did not return a collection ");
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("I<#= entityName #>Repository.SelectAll() threw an exception --> " + ex.GetCombinedMessages());
+            }
+        }
+
+		//public <#= entityName #> SelectById(<#= optionalFirstSchemaParam #><#= idLanguageType #> id)
+        //public void Update(<#= optionalFirstSchemaParam #><#= entityName #> value, string username, string applicationCode)
+        //public void Delete(<#= optionalFirstSchemaParam #><#= idLanguageType #> id, string username, string applicationCode)
+        //public <#= idLanguageType #> Insert(<#= optionalFirstSchemaParam #><#= entityName #> value, string username, string applicationCode)
+
+        #endregion
+<#+
+			if (NeedsBulkCrud)
+			{
+#>
+
+        #region Bulk CRUD functions <<#= entityName #>, <#= idLanguageType #>>
+
+        //public <#= idLanguageType #>[] BulkInsert(<#= optionalFirstSchemaParam #><#= entityName #>[] values, string username, string applicationCode)
+
+        #endregion
+
+<#+
+			}
+		}
+		
+		if (TableInfo.HasExtraFunctions)
+		{
+#>
+
+        #region Extra Functions (map to handwritten stored procedures)
+<#+
+			foreach(FunctionInfo functionInfo in TableInfo.FunctionInfos)
+			{
+				string methodName = functionInfo.MethodName;
+				string returnValue = functionInfo.HasReturnType ? "return" : string.Empty;
+				string methodDbName = functionInfo.DbName;
+				string paramDeclarationList = functionInfo.ParamDeclarationList;
+				string paramReferenceList = functionInfo.ParamReferenceList;
+				string arraysuffix = functionInfo.ReturnsSingleInstance ? string.Empty : "[]";
+			    string returnValueLanguageType = functionInfo.ReturnValueLanguageType;
+#>
+
+		//public <#= returnValueLanguageType #><#= arraysuffix #> <#= methodName #>(<#= paramDeclarationList #>)
+<#+
+			} // End foreach functionInfo
+#>
+
+        #endregion
+<#+
+		}
+		
+		if (HasDynamicSchema)
+		{
+#>
+
+        #region Private Helpers
+
+        private string Schema { get { return ConfigurationManager.AppSettings["Pms.Eod.SchemaName"]; } }
+
+        #endregion
+<#+
+		}
+#>
+
+    }
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>

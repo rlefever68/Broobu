@@ -1,0 +1,52 @@
+﻿<Window x:Class="Pms.MobiLauncher.UI.Controls.RoundLoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:my="clr-namespace:Pms.MobiLauncher.UI.Controls"
+        Title="User Login" Height="460" Width="535" WindowStyle="None" 
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" AllowsTransparency="True" Opacity="1">
+    <Window.Background>
+        <SolidColorBrush />
+    </Window.Background>
+    <Window.Resources>
+       
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+            <my:LoginViewModel x:Key="vm"/>
+        </ResourceDictionary>
+        
+
+     
+    </Window.Resources>
+    <Grid DataContext="{StaticResource vm}">
+        <Image Source="Images/login_method2.png" Height="Auto" Width="Auto"   ></Image>
+        <Grid Height="160" Width="330" Margin="84,130,99,130">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="174*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="19*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Mode" Margin="50,13,10,10"  Style="{StaticResource TextBlockStyle}"></TextBlock>
+            <TextBlock Grid.Row="1" Margin="50,10,10,10" Text="User"  VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" />
+            <TextBlock Grid.Row="2"  Text="Password" Margin="50,10,10,10" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+            <ComboBox Grid.Column="1" Margin="0,10,10,10" Height="22" BorderBrush="#E1E7F1">
+            </ComboBox>
+            <!--"#E1E7F1"-->
+            <TextBox BorderBrush="#E1E7F1" BorderThickness="2,2,2,2" Height="22" Grid.Column="1" Grid.Row="1" Margin="0,10,10,10" />
+            <PasswordBox BorderBrush="#E1E7F1" BorderThickness="1,1,1,1" Grid.Column="1" Height="22" Grid.Row="2" Margin="0,10,10,10"  />
+            <!--<ProgressBar x:Name="progressBar" Grid.Row="3"  Height="10" IsIndeterminate="True" Margin="26,4,20,36" Grid.Column="1" />-->
+            <Button Content="Login" Grid.Column="1" Grid.Row="3" IsDefault="True" Name="Loginbutton"  Padding="10,1,10,1" Height="24" Width="76" HorizontalAlignment="Left" Margin="0,0,0,1" Background="#11447C" Foreground="White" Command="{Binding LoginCommand}" />
+            <Button Content="Close" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Name="Cancel" Padding="1,1,1,1" Width="76" Height="24" Margin="0,0,13,1" Background="#11447C" Foreground="White" Command="{Binding CloseCommand}" />
+
+        </Grid>
+    </Grid>
+</Window> 

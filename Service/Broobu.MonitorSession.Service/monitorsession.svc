@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Service="Iris.MonitorSession.Service.MonitorSessionService" Factory="Iris.Fx.Networking.Wcf.AnnouncingServiceHostFactory" %>

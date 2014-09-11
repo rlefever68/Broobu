@@ -1,0 +1,118 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ include file="DbmlHelper.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-12-01
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryDataClassTemplate : Template
+{
+    public DatabaseInfo DatabaseInfo; 
+    public string    	Namespace; 
+
+    public override string TransformText()
+    {
+#>
+//========================================================================================
+// INFO: This file is generated from t4 template <#= this.GetType().Name #>.tt
+// !!! Any changes made manually will be lost next time this file is generated !!!
+//========================================================================================
+using System;
+using <#= Namespace #>.Repository.Contract.Domain;
+
+namespace <#= Namespace #>.Repository.Domain.Test
+{
+    public class <#= DatabaseInfo.LogicalName #>Data
+    {
+        /// <summary>
+        /// Gets or sets the data key.  The data key is an optional descriptive name
+        /// for this particular data instance.
+        /// </summary>
+        /// <value>The data key.</value>
+        public string DataKey { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TransmodelData"/> class.
+        /// </summary>
+        public <#= DatabaseInfo.LogicalName #>Data()
+        {
+<#+
+		foreach (TableInfo tableInfo in DatabaseInfo.TableInfos)
+		{
+#>
+            <#= tableInfo.EntityName #>s = new <#= tableInfo.EntityName #>[0];
+<#+
+		}
+#>
+        }
+
+        #region Data Arrays (Equivalent of Tables)
+
+<#+
+		foreach (TableInfo tableInfo in DatabaseInfo.TableInfos)
+		{
+#>
+        public <#= tableInfo.EntityName #>[] <#= tableInfo.EntityName #>s { get; protected set; }
+<#+
+		}
+#>
+
+        #endregion
+
+        #region Extra Data Functions (Equivalent of Extra SPs)
+<#+
+		foreach (TableInfo tableInfo in DatabaseInfo.TableInfos)
+		{
+  			if (tableInfo.HasFunctions == false)
+			{
+				continue;
+			}
+			foreach(FunctionInfo functionInfo in tableInfo.FunctionInfos)
+			{
+				string methodName = functionInfo.MethodName;
+				string methodDbName = functionInfo.DbName;
+				string paramDeclarationList = functionInfo.ParamDeclarationList;
+				string paramReferenceList = functionInfo.ParamReferenceList;
+				string arraysuffix = functionInfo.ReturnsSingleInstance ? string.Empty : "[]";
+			    string returnValueLanguageType = functionInfo.ReturnValueLanguageType;
+#>
+
+		public virtual <#= returnValueLanguageType #><#= arraysuffix #> <#= tableInfo.EntityName #>_<#= methodName #>(
+			<#= paramDeclarationList #>)
+        {
+            throw new NotImplementedException();
+        }
+<#+
+			} // End foreach functionInfo
+		}
+#>
+
+        #endregion
+
+    }
+}
+
+<#+
+		foreach (TableInfo tableInfo in DatabaseInfo.TableInfos)
+		{
+  			if (tableInfo.HasFunctions == false)
+			{
+				continue;
+			}
+			RenderSvcUtilCommand(tableInfo.EntityName);
+		}
+#>
+
+<#+
+        return this.GenerationEnvironment.ToString();
+    }
+	
+	private void RenderSvcUtilCommand(string entityName)
+	{
+#>
+	
+<#+
+	}
+}
+#>

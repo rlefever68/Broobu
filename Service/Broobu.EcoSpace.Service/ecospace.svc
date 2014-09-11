@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Service="Broobu.EcoSpace.Service.EcoSpaceSentry" Factory="Wulka.Networking.Wcf.SentryHostFactory"%>

@@ -1,0 +1,10 @@
+﻿Manage Enumerations 
+*******************
+Version 10.19 (Current)
+-----------------------
+New Features
+- Ability to Add,Remove and Edit Enumerations
+- Added release notes
+Resolved Issues
+Known Issues
+

@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Service="Broobu.CloudMon.Rest.CloudMonitorSentry" Factory="Iris.Fx.Networking.Wcf.SentryHostFactory" %>

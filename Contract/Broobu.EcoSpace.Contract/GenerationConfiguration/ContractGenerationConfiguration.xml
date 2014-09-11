@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContractDefinition Name="WulkaFx"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:noNamespaceSchemaLocation="file:..\..\..\Generation\Library\Broobu.Contract.Generation\Broobu.Contract.Generation.xsd">
+  <ContractServiceInterfaces>
+
+    <ContractServiceInterface Name="IAccount" ServiceContractNamespace="http://broobu.com/11/04">
+      <Methods>
+
+        <Method Name="GetAccountForSession">
+          <Parameters>
+            <Parameter Name="session">
+              <Type Name="WulkaSession" Namespace="Broobu.Fx.Domain" />
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="AccountItem" Namespace="Broobu.Fx.Contract.Domain" />
+        </Method>
+
+        <Method Name="ValidateCredentials">
+          <Parameters>
+            <Parameter Name="username">
+              <Type Name="string" Namespace="System" />
+            </Parameter>
+            <Parameter Name="password">
+              <Type Name="string" Namespace="System" />
+            </Parameter>
+
+          </Parameters>
+          <ReturnType Name="ValidationResult" Namespace="Broobu.Fx.Contract.Domain" />
+        </Method>
+
+        <Method Name="GetAccountForUser">
+          <Parameters>
+            <Parameter Name="username">
+              <Type Name="string" Namespace="System" />
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="AccountItem" Namespace="Broobu.Fx.Contract.Domain" />
+        </Method>
+
+        <Method Name="GetAllAccounts">
+          <ReturnType Name="AccountItem[]" Namespace="Broobu.Fx.Contract.Domain" />
+        </Method>
+
+        <Method Name="SaveAccountItem">
+          <Parameters>
+            <Parameter Name="item">
+              <Type Name="AccountItem" Namespace="Broobu.Fx.Contract.Domain" />
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="AccountItem" Namespace="Broobu.Fx.Contract.Domain" />
+        </Method>
+
+      </Methods>
+    </ContractServiceInterface>
+
+    <ContractServiceInterface Name="IApplicationFunction" ServiceContractNamespace="http://broobu.com/11/04" />
+
+    <ContractServiceInterface Name="IRole" ServiceContractNamespace="http://broobu.com/11/04" />
+
+    <ContractServiceInterface Name="ISetting" ServiceContractNamespace="http://broobu.com/11/04" />
+
+  </ContractServiceInterfaces>
+
+
+  <DomainObjectClasses>
+    <DomainObjectClass Name="AccountItem">
+      <Properties>
+        <Property Name="Dimensions">
+          <Type Name="DimensionItem[]" Namespace="Broobu.Diagnostics.Contract.Domain" />
+        </Property>
+      </Properties>
+    </DomainObjectClass>
+
+    <DomainObjectClass Name="DimensionItem">
+      <Properties>
+        <Property Name="Title">
+          <Type Name="string" Namespace="System" />
+        </Property>
+      </Properties>
+    </DomainObjectClass>
+
+    <DomainObjectClass Name="DataItem">
+      <Properties>
+        <Property Name="Unit">
+          <Type Name="string" Namespace="System" />
+        </Property>
+        <Property Name="Val">
+          <Type Name="double" Namespace="System" />
+        </Property>
+      </Properties>
+    </DomainObjectClass>
+
+
+  </DomainObjectClasses>
+</ContractDefinition>

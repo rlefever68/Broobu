@@ -1,0 +1,34 @@
+<ui:ViewUserControl x:Class="Broobu.ManageTaxonomy.UI.Controls.Fragments.DescriptionFragment"
+xmlns="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:viewModels="clr-namespace:Broobu.ManageTaxonomy.UI.Controls.ViewModels"
+             xmlns:ui="clr-namespace:Iris.Fx.UI;assembly=Iris.Fx">
+    <UserControl.Resources>
+        <viewModels:DescriptionViewModel x:Key="Vm"/>
+    </UserControl.Resources>
+    <Grid DataContext="{StaticResource Vm}">
+        <dxlc:LayoutControl Orientation="Vertical">
+            <dxlc:LayoutItem Label="Display Name" >
+                <dxe:TextEdit EditValue="{Binding Description.DisplayName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Type" >
+                <dxe:TextEdit EditValue="{Binding Description.Type.DisplayName}" IsReadOnly="True" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Culture Id" >
+                <dxe:TextEdit EditValue="{Binding Description.CultureId, UpdateSourceTrigger=PropertyChanged}" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Title" >
+                <dxe:TextEdit EditValue="{Binding Description.Title, UpdateSourceTrigger=PropertyChanged}" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Url" >
+                <dxe:TextEdit EditValue="{Binding Description.Url, UpdateSourceTrigger=PropertyChanged}" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Additional Info Uri" >
+                <dxe:TextEdit EditValue="{Binding Description.AdditionalInfoUri, UpdateSourceTrigger=PropertyChanged}" />
+            </dxlc:LayoutItem>
+        </dxlc:LayoutControl>
+    </Grid>
+</ui:ViewUserControl>
+

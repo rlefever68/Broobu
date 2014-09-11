@@ -1,0 +1,847 @@
+<ResourceDictionary 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:system="clr-namespace:System;assembly=mscorlib"
+	xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+	xmlns:themes="http://schemas.actiprosoftware.com/winfx/xaml/themes"
+    xmlns:ribbonControlsPrimitives="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Controls.Primitives;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonInput="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Input;assembly=ActiproSoftware.Ribbon.Wpf351"
+	xmlns:ribbonThemes="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Themes;assembly=ActiproSoftware.Ribbon.Wpf351"  
+    >
+    <ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary.MergedDictionaries>
+	
+ 
+    
+<!-- BRUSHES/PENS-->
+	
+
+	<!-- General -->
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowBackgroundBrushKey}" Color="#A4C3EB" themes:TintGroup.Name="Window" /> 
+	<!--<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonBackgroundBrushKey}" Color="#17497e" />-->	
+    <RadialGradientBrush PresentationOptions:Freeze="True"    x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonBackgroundBrushKey}">
+        <GradientStop Color="#bbd8f6" Offset="0.8"/>
+        <GradientStop Color="#b9cbdd" Offset="0"/>
+    </RadialGradientBrush>
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonGroupScrollButtonBorderLightBrushKey}" Color="#F3F6FB" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonGroupScrollButtonBorderDarkBrushKey}" Color="#A9C4DB" />
+ 
+    <!--RIBBON BUTTONS HOVER BRUSH KEY--> 
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLargeBackgroundHoverBrushKey}" Color="Transparent"  />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundHoverBrushKey}" Color="Transparent" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderHoverBrushKey}" Color="#BCBCBC" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverBrushKey}" Color="Transparent" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLargeBackgroundPressedBrushKey}" Color="Transparent" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundPressedBrushKey}" Color="Transparent" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderPressedBrushKey}" Color="Transparent" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderPressedBrushKey}" Color="Transparent" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLargeRadialBackgroundPressedBrushKey}" Color="Transparent" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallRadialBackgroundPressedBrushKey}" Color="Transparent" />
+
+    <!-- Application Button (orb) -->
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationButtonInnerBackgroundHoverBrushKey}" Color="Transparent" themes:TintGroup.Name="ApplicationButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationButtonInnerBorderHoverBrushKey}" Color="Transparent" themes:TintGroup.Name="ApplicationButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationButtonOrbInnerBackgroundHoverBrushKey}" Color="Transparent" themes:TintGroup.Name="ApplicationButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationButtonOrbInnerBorderHoverBrushKey}" Color="Transparent" themes:TintGroup.Name="ApplicationButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationButtonOrbOuterBackgroundHoverBrushKey}" Color="Transparent" themes:TintGroup.Name="ApplicationButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationButtonInnerBorderFocusedBrushKey}" Color="Transparent" themes:TintGroup.Name="ApplicationButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationButtonInnerBackgroundPressedBrushKey}" Color="Transparent" themes:TintGroup.Name="ApplicationButton" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationButtonOuterBackgroundHoverBrushKey}" Color="Transparent" themes:TintGroup.Name="ApplicationButton" />
+    
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationButtonOrbOuterBorderNormalBrushKey}" Color="#D07E8DA2" themes:TintGroup.Name="ApplicationButton" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationButtonOrbInnerBorderNormalBrushKey}" Color="#A0FFFFFF" themes:TintGroup.Name="ApplicationButton" />	
+	<RadialGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationButtonOrbOuterBackgroundNormalBrushKey}" RadiusX="2" themes:TintGroup.Name="ApplicationButton">
+		<GradientStop Color="#F4F5F9" Offset="0.8"/>
+		<GradientStop Color="#D9DFE8" Offset="0"/>
+	</RadialGradientBrush>
+	<RadialGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationButtonOrbInnerBackgroundNormalBrushKey}" themes:TintGroup.Name="ApplicationButton">
+		<RadialGradientBrush.Transform>
+			<TransformGroup>
+				<ScaleTransform ScaleX="0.5" ScaleY="2.5" />
+				<TranslateTransform X="8.5" Y="-20"/>
+			</TransformGroup>
+		</RadialGradientBrush.Transform>
+		<GradientStop Color="#93A5C2" Offset="1"/>
+		<GradientStop Color="#FFFFFF" Offset="0.2"/>
+	</RadialGradientBrush>
+	
+	<!-- Application Menu -->
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationMenuOuterBorderBrushKey}" Color="#53719a" themes:TintGroup.Name="ApplicationMenu" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationMenuInnerBorderBrushKey}" Color="#FFFFFF" themes:TintGroup.Name="ApplicationMenu" />	
+	
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationMenuHeaderBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="ApplicationMenu">
+		<GradientStop Offset="0" Color="#D7E5F7" />
+		<GradientStop Offset="0.44" Color="#D4E1F3" />
+		<GradientStop Offset="0.45" Color="#C6D8EE" />
+		<GradientStop Offset="1" Color="#B7CAE6" />
+	</LinearGradientBrush>
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationMenuSideBrushKey}" Color="#BDD3EF" themes:TintGroup.Name="ApplicationMenu" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationMenuFooterBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="ApplicationMenu">
+		<GradientStop Offset="0" Color="#BDD3EF" />
+		<GradientStop Offset="0.44" Color="#BED4F0" />
+		<GradientStop Offset="0.45" Color="#B0C9EA" />
+		<GradientStop Offset="1" Color="#CFE0F5" />
+	</LinearGradientBrush>
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationMenuAdditionalContentBackgroundBrushKey}" Color="#E9EAEE" themes:TintGroup.Name="ApplicationMenu" />
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationMenuFooterButtonBorderNormalBrushKey}" Color="#7793B9" themes:TintGroup.Name="ApplicationMenuFooterButton" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationMenuFooterButtonBackgroundNormalBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="ApplicationMenuFooterButton">
+		<GradientStop Offset="0" Color="#E8F1FC" />
+		<GradientStop Offset="0.44" Color="#E9F1FC" />
+		<GradientStop Offset="0.45" Color="#D2E1F4" />
+		<GradientStop Offset="1" Color="#EBF3FD" />
+	</LinearGradientBrush>
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ApplicationMenuFooterButtonBorderDisabledBrushKey}" Color="#9BAFCA" themes:TintGroup.Name="ApplicationMenuFooterButton" />
+
+	<!-- Button Group -->
+	
+	 <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ButtonGroupBorderBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="ButtonGroup">
+		<GradientStop Color="#A0BCE4" />
+		<GradientStop Color="#557CAE" Offset="0.5" />
+		<GradientStop Color="#A0BCE4" Offset="1" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ButtonGroupBackgroundBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="ButtonGroup">
+		<GradientStop Color="#C8DBEE" />
+		<GradientStop Color="#C9DDF6" Offset="0.4" />
+		<GradientStop Color="#BCD0E9" Offset="0.4" />
+		<GradientStop Color="#D0E1F7" Offset="1" />
+	</LinearGradientBrush>
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.StatusBarButtonGroupBorderBrushKey}" Color="#5B81B3" themes:TintGroup.Name="StatusBarButtonGroup" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.StatusBarButtonGroupBackgroundBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="StatusBarButtonGroup">
+		<GradientStop Color="#D2E0F2" />
+		<GradientStop Color="#C0D4EF" Offset="0.4" />
+		<GradientStop Color="#A8C5E9" Offset="0.4" />
+		<GradientStop Color="#D8E8FC" Offset="1" />
+	</LinearGradientBrush>
+	
+	<!-- CheckBox -->
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBorderNormalBrushKey}" Color="#ABC1DE" themes:TintGroup.Name="CheckBox" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBorderNormalBrushKey}" StartPoint="0,0" EndPoint="1,1" themes:TintGroup.Name="CheckBox">
+		<GradientStop Offset="0" Color="#A2ACB9" />
+		<GradientStop Offset="1" Color="#E4E6EA" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBackgroundNormalBrushKey}" StartPoint="0,0" EndPoint="1,1" themes:TintGroup.Name="CheckBox">
+		<GradientStop Offset="0" Color="#CACFD5" />
+		<GradientStop Offset="1" Color="#F6F6F6" />
+	</LinearGradientBrush>
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxForegroundBrushKey}" Color="#5577A3" themes:TintGroup.Name="CheckBox" />
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBorderHoverBrushKey}" Color="#5577A3" themes:TintGroup.Name="CheckBox" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBackgroundHoverBrushKey}" Color="#DEEAFA" themes:TintGroup.Name="CheckBox" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBorderHoverBrushKey}" StartPoint="0,0" EndPoint="1,1" themes:TintGroup.Name="CheckBox">
+		<GradientStop Offset="0" Color="#FAD57A" />
+		<GradientStop Offset="1" Color="#FDF1CF" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBackgroundHoverBrushKey}" StartPoint="0,0" EndPoint="1,1" themes:TintGroup.Name="CheckBox">
+		<GradientStop Offset="0" Color="#FCE7AF" />
+		<GradientStop Offset="1" Color="#FEF8E7" />
+	</LinearGradientBrush>
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBorderPressedBrushKey}" Color="#5577A3" themes:TintGroup.Name="CheckBox" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBackgroundPressedBrushKey}" Color="#C1D8F5" themes:TintGroup.Name="CheckBox" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBorderPressedBrushKey}" StartPoint="0,0" EndPoint="1,1" themes:TintGroup.Name="CheckBox">
+		<GradientStop Offset="0" Color="#F28926" />
+		<GradientStop Offset="1" Color="#FAD5AF" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBackgroundPressedBrushKey}" StartPoint="0,0" EndPoint="1,1" themes:TintGroup.Name="CheckBox">
+		<GradientStop Offset="0" Color="#FFD067" />
+		<GradientStop Offset="1" Color="#FFF4D5" />
+	</LinearGradientBrush>
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBorderDisabledBrushKey}" Color="#AEB1B5" themes:TintGroup.Name="CheckBox" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxOuterBackgroundDisabledBrushKey}" Color="#FFFFFF" themes:TintGroup.Name="CheckBox" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBorderDisabledBrushKey}" StartPoint="0,0" EndPoint="1,1" themes:TintGroup.Name="CheckBox">
+		<GradientStop Offset="0" Color="#E0E2E5" />
+		<GradientStop Offset="1" Color="#F2F3F3" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.CheckBoxInnerBackgroundDisabledBrushKey}" StartPoint="0,0" EndPoint="1,1" themes:TintGroup.Name="CheckBox">
+		<GradientStop Offset="0" Color="#EEF0F2" />
+		<GradientStop Offset="1" Color="#FBFBFB" />
+	</LinearGradientBrush>
+	
+	<!-- Context Menu -->
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuOverflowButtonBackgroundNormalBrushKey}" Color="Transparent" themes:TintGroup.Name="ContextMenuOverflowButton" />	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuOverflowButtonBackgroundHoverBrushKey}" Color="#E8F1FC" themes:TintGroup.Name="ContextMenuOverflowButton" />	
+	
+	<!-- Contextual Tab Group -->
+
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ContextualTabGroupForegroundBrushKey}" Color="#15428B" themes:TintGroup.Name="ContextualTabGroup" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ContextualTabGroupBackgroundBrushKey }" Color="red" themes:TintGroup.Name="ContextualTabGroup" />
+
+	<!-- Edit Control (General) -->
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.EditControlBorderNormalBrushKey}" Color="#ABC1DE" themes:TintGroup.Name="EditControl" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.EditControlBackgroundNormalBrushKey}" Color="#FFFFFF" themes:TintGroup.Name="EditControl" />
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.EditControlBackgroundHoverBrushKey}" Color="#FFFFFF" themes:TintGroup.Name="EditControl" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.EditControlButtonPartBackgroundHoverBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="EditControl">
+		<GradientStop Offset="0" Color="#E4F0FE" />
+		<GradientStop Offset="0.49" Color="#DAE7F9" />
+		<GradientStop Offset="0.5" Color="#CFDFF3" />
+		<GradientStop Offset="1" Color="#E8F1FD" />
+	</LinearGradientBrush>
+
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.EditControlBorderDisabledBrushKey}" Color="#B1BBC6" themes:TintGroup.Name="EditControl" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.EditControlBackgroundDisabledBrushKey}" Color="#EFEFEF" themes:TintGroup.Name="EditControl" />
+	
+	<!-- Gallery -->
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonGalleryBorderNormalBrushKey}" Color="#B9D0ED" themes:TintGroup.Name="RibbonGallery" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonGalleryBackgroundNormalBrushKey}" Color="#D4E6F8" themes:TintGroup.Name="RibbonGallery" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonGalleryBorderHoverBrushKey}" Color="#B9D0ED" themes:TintGroup.Name="RibbonGallery" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonGalleryBackgroundHoverBrushKey}" Color="#ECF3FB" themes:TintGroup.Name="RibbonGallery" />
+
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonGalleryButtonOuterBorderNormalBrushKey}" Color="#B9D0ED" themes:TintGroup.Name="RibbonGallery" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonGalleryButtonInnerBorderNormalBrushKey}" Color="#E0E2EBF6" themes:TintGroup.Name="RibbonGallery" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonGalleryButtonBackgroundNormalBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="RibbonGallery">
+		<GradientStop Offset="0" Color="#DEEBFE" />
+		<GradientStop Offset="0.47" Color="#E0EEFF" />
+		<GradientStop Offset="0.52" Color="#C1D5F1" />
+		<GradientStop Offset="1" Color="#CFE0F7" />
+	</LinearGradientBrush>
+
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonGalleryButtonOuterBorderDisabledBrushKey}" Color="#C5D1DE" themes:TintGroup.Name="RibbonGallery" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonGalleryButtonInnerBorderDisabledBrushKey}" Color="#E0F2F3F5" themes:TintGroup.Name="RibbonGallery" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonGalleryButtonBackgroundDisabledBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="RibbonGallery">
+		<GradientStop Offset="0" Color="#F0F3F6" />
+		<GradientStop Offset="0.47" Color="#F0F3F6" />
+		<GradientStop Offset="0.52" Color="#E0E4E8" />
+		<GradientStop Offset="1" Color="#E8EBEF" />
+	</LinearGradientBrush>
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryFilterBackgroundBrushKey}" Color="#B5D2F7" themes:TintGroup.Name="PopupGallery" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryFilterForegroundNormalBrushKey}" Color="#00156E" themes:TintGroup.Name="PopupGallery" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryFilterForegroundHoverBrushKey}" Color="#0066FF" themes:TintGroup.Name="PopupGallery" />
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripSeparatorBrushKey}" Color="#DDE7EE" themes:TintGroup.Name="PopupGallery" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripBackgroundBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="PopupGallery">
+		<GradientStop Offset="0" Color="#FFFFFF" />
+		<GradientStop Offset="1" Color="#DFE9EF" />
+	</LinearGradientBrush>
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripDarkBrushKey}" Color="#A6B2CB" themes:TintGroup.Name="PopupGallery" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripLightBrushKey}" Color="#FFFFFF" themes:TintGroup.Name="PopupGallery" />
+	
+	<!-- Group -->
+	
+	 <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupExpandedOuterBorderNormalBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Group">
+		 <!--<GradientStop Color="#C1D0DE" />
+		<GradientStop Color="#9EBFDB" Offset="1" />-->
+        <GradientStop Color="#8B949C" /> 
+    </LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupExpandedOuterBorderHoverBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Group">
+		 <GradientStop Color="#ADC7DE" />
+		<GradientStop Color="#7EADD3" Offset="1" /> 
+	</LinearGradientBrush>
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupExpandedInnerBorderBrushKey}" Color="#FFFFFF" themes:TintGroup.Name="Group" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupExpandedBackgroundHoverBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Group">
+	 <GradientStop Color="#80F4F8FE" />
+		<GradientStop Color="#80ECF2FA" Offset="1" /> 
+	</LinearGradientBrush>
+
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupCollapsedOuterBorderNormalBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Group">
+		<GradientStop Color="#A5BFD5" />
+		<GradientStop Color="#94B9D5" Offset="1" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupCollapsedInnerBorderNormalBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Group">
+		<GradientStop Color="#60FFFFFF" />
+		<GradientStop Color="#A0C0F9FF" Offset="1" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupCollapsedBackgroundNormalBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Group">
+		 <GradientStop Color="#40BAD1F0" Offset="0.6" />
+		<GradientStop Color="#40BAD1F0" Offset="1" /> 
+	</LinearGradientBrush>
+
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupCollapsedOuterBorderHoverBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Group">
+		<GradientStop Color="#BACDE1" />
+		<GradientStop Color="#B1E6EB" Offset="1" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupCollapsedInnerBorderHoverBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Group">
+		<GradientStop Color="#80FFFFFF" />
+		<GradientStop Color="#E0FFFFFF" Offset="1" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupCollapsedBackgroundHoverBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Group">
+		 <GradientStop Color="#40FFFFFF" Offset="0.6" />
+		<GradientStop Color="#40FFFFFF" Offset="1" /> 
+	</LinearGradientBrush>
+
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupCollapsedOuterBorderPressedBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Group">
+		<GradientStop Color="#879CAF" />
+		<GradientStop Color="#87A9C4" Offset="1" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupCollapsedBackgroundPressedBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Group">
+	 <GradientStop Color="#8F969F" />
+		<GradientStop Color="#AEC2DD" Offset="0.05" />
+		<GradientStop Color="#88A7D0" Offset="0.19" />
+		<GradientStop Color="#7699C8" Offset="0.2" />
+		<GradientStop Color="#B2D4FE" Offset="1" /> 
+	</LinearGradientBrush>
+
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupCollapsedImageBorderBrushKey}" Color="#AAC3D9" themes:TintGroup.Name="Group" />	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupCollapsedImageLabelBackgroundBrushKey}" Color="#C3D9F2" themes:TintGroup.Name="Group" />	
+	
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupLabelBackgroundNormalBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Group">
+		 
+       <!--<GradientStop Color="#c6cbd1" />-->
+
+        <GradientStop Color="#c7d4e2" />
+     </LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupLabelBackgroundHoverBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Group">
+		<GradientStop Color="#C8E0FF" />
+		<GradientStop Color="#D6EDFF" Offset="1" />
+	</LinearGradientBrush>
+	<!--<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupLabelForegroundBrushKey}"  themes:TintGroup.Name="Group" />-->
+
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupLabelForegroundBrushKey}"  Color="#003f70" themes:TintGroup.Name="Group" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupLabelDialogLauncherGlyph1BrushKey}" Color="#668EAF" themes:TintGroup.Name="Group" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.GroupLabelDialogLauncherGlyph2BrushKey}" Color="#FFFFFF" themes:TintGroup.Name="Group" />
+
+	<!-- Key Tip -->
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.KeyTipBorderBrushKey}" Color="#767676" themes:TintGroup.Name="KeyTip" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.KeyTipBackgroundBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="KeyTip">
+		<GradientStop Color="#FBFCFD" />
+		<GradientStop Color="#D0DEF1" Offset="1" />
+	</LinearGradientBrush>
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.KeyTipForegroundBrushKey}" Color="#4C4C4C" themes:TintGroup.Name="KeyTip" />
+
+	<!-- Menu Item -->
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.MenuItemForegroundBrushKey}" Color="#00156E" themes:TintGroup.Name="MenuItem" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.MenuItemForegroundDisabledBrushKey}" Color="#9A9A9A" themes:TintGroup.Name="MenuItem" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.MenuItemIconColumnBackgroundBrushKey}" Color="#E9EEEE" themes:TintGroup.Name="MenuItem" />	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.MenuSeparatorDarkBrushKey}" Color="#C5C5C5" themes:TintGroup.Name="MenuItem" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.MenuSeparatorLightBrushKey}" Color="#F5F5F5" themes:TintGroup.Name="MenuItem" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.MenuLabeledSeparatorBackgroundBrushKey}" Color="#DDE7EE" themes:TintGroup.Name="MenuItem" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.MenuItemCheckBorderBrushKey}" Color="#F29536" themes:TintGroup.Name="RibbonControlState" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.MenuItemCheckBackgroundBrushKey}" Color="#FFE395" themes:TintGroup.Name="RibbonControlState" />
+
+	<!-- MonthCalendar -->
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.MonthCalendarTitleBackgroundBrushKey}" Color="#BFDBFF" themes:TintGroup.Name="MonthCalendar" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.MonthCalendarGlyphBrushKey}" Color="#6F9DD9" themes:TintGroup.Name="MonthCalendar" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.MonthCalendarBorderBrushKey}" Color="#9AC6FF" themes:TintGroup.Name="MonthCalendar" />	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.MonthCalendarSelectionBackgroundBrushKey}" Color="#FBC84F" themes:TintGroup.Name="MonthCalendar" />
+
+	<!-- QAT -->
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.QatAboveBorderActiveBrushKey}" Color="#BACCE2" themes:TintGroup.Name="QuickAccessToolBar" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.QatAboveBorderHighlightActiveBrushKey}" Color="#80FFFFFF" themes:TintGroup.Name="QuickAccessToolBar" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.QatAboveBackgroundActiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="QuickAccessToolBar">
+		<GradientStop Color="#DEE7F4" />
+		<GradientStop Color="#E6EEF9" Offset="0.1" />
+		<GradientStop Color="#C9D9EE" Offset="0.8" />
+	</LinearGradientBrush>
+
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.QatAboveBorderInactiveBrushKey}" Color="#BCCBDE" themes:TintGroup.Name="QuickAccessToolBar" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.QatAboveBorderHighlightInactiveBrushKey}" Color="#80FFFFFF" themes:TintGroup.Name="QuickAccessToolBar" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.QatAboveBackgroundInactiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="QuickAccessToolBar">
+		<GradientStop Color="#E0E6EF" />
+		<!--<GradientStop Color="#E9EDF3" Offset="0.1" />
+		<GradientStop Color="#C8D3E3" Offset="0.8" />-->
+	</LinearGradientBrush>
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.QatBelowOuterBorderBrushKey}" Color="#7EA1CD" themes:TintGroup.Name="QuickAccessToolBar" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.QatBelowInnerBorderBrushKey}" Color="#DCE8F7" themes:TintGroup.Name="QuickAccessToolBar" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.QatBelowBackgroundBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="QuickAccessToolBar">
+		<GradientStop Color="#B2CDED" />
+		<GradientStop Color="#AAC5EA" Offset="1" />
+	</LinearGradientBrush>
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.QatOverflowPopupBorderBrushKey}" Color="#3764A0" themes:TintGroup.Name="QuickAccessToolBar" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.QatOverflowPopupBackgroundBrushKey}" Color="#C2DCFF" themes:TintGroup.Name="QuickAccessToolBar" />
+	
+	<!-- Ribbon Control (General) -->
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundBrushKey}" Color="#475564" themes:TintGroup.Name="RibbonControl" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundDisabledBrushKey}" Color="#9A9A9A" themes:TintGroup.Name="RibbonControl" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlDropDownArrowBrushKey}" Color="#567DB1" themes:TintGroup.Name="RibbonControl" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlRightArrowBrushKey}" StartPoint="0,0" EndPoint="1,0" themes:TintGroup.Name="RibbonControl">
+		<GradientStop Offset="0" Color="#6A7EC5" />
+		<GradientStop Offset="1" Color="#40465A" />
+	</LinearGradientBrush>
+	
+	<!-- Screen Tip -->
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScreenTipBorderBrushKey}" Color="#767676" themes:TintGroup.Name="ScreenTip" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScreenTipBackgroundBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="ScreenTip">
+		<GradientStop Color="#FFFFFF" />
+		<GradientStop Color="#CAD9EF" Offset="1" />
+	</LinearGradientBrush>
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScreenTipForegroundBrushKey}" Color="#4C4C4C" themes:TintGroup.Name="ScreenTip" />
+
+	<!-- ScrollBar -->
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarTrackBorderAlternateBrushKey}" Color="#B2D0F6" themes:TintGroup.Name="ScrollBarAlternate" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarTrackHorizontalBackgroundAlternateBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="ScrollBarAlternate">
+		<GradientStop Color="#7C9BC1" />
+		<GradientStop Color="#7395C0" Offset="0.5" />
+		<GradientStop Color="#95B0D2" Offset="1" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarTrackVerticalBackgroundAlternateBrushKey}" StartPoint="0,0" EndPoint="1,0" themes:TintGroup.Name="ScrollBarAlternate">
+		<GradientStop Color="#7C9BC1" />
+		<GradientStop Color="#7395C0" Offset="0.5" />
+		<GradientStop Color="#95B0D2" Offset="1" />
+	</LinearGradientBrush>
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarThumbDecorationDarkBrushKey}" Color="#818790" themes:TintGroup.Name="ScrollBar" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarThumbDecorationLightBrushKey}" Color="#40FFFFFF" themes:TintGroup.Name="ScrollBar" />
+	
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarButtonHorizontalForegroundBrushKey}" StartPoint="0,0" EndPoint="1,0" themes:TintGroup.Name="ScrollBar">
+		<GradientStop Color="#6E7EA6" />
+		<GradientStop Color="#424B63" Offset="1" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarButtonVerticalForegroundBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="ScrollBar">
+		<GradientStop Color="#6E7EA6" />
+		<GradientStop Color="#424B63" Offset="1" />
+	</LinearGradientBrush>
+	
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarButtonHorizontalForegroundAlternateBrushKey}" StartPoint="0,0" EndPoint="1,0" themes:TintGroup.Name="ScrollBarAlternate">
+		<GradientStop Color="#6E7EA6" />
+		<GradientStop Color="#424B63" Offset="1" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarButtonVerticalForegroundAlternateBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="ScrollBarAlternate">
+		<GradientStop Color="#6E7EA6" />
+		<GradientStop Color="#424B63" Offset="1" />
+	</LinearGradientBrush>
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarButtonOuterBorderNormalBrushKey}" Color="#55688F" themes:TintGroup.Name="ScrollBarState" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarButtonInnerBorderNormalBrushKey}" Color="#80FFFFFF" themes:TintGroup.Name="ScrollBarState" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarButtonHorizontalBackgroundNormalBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="ScrollBarState">
+		<GradientStop Color="#EEEFF3" />
+		<GradientStop Color="#DDE3ED" Offset="0.49" />
+		<GradientStop Color="#C6D2E0" Offset="0.50" />
+		<GradientStop Color="#9CAEC3" Offset="1" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarButtonVerticalBackgroundNormalBrushKey}" StartPoint="0,0" EndPoint="1,0" themes:TintGroup.Name="ScrollBarState">
+		<GradientStop Color="#EEEFF3" />
+		<GradientStop Color="#DDE3ED" Offset="0.49" />
+		<GradientStop Color="#C6D2E0" Offset="0.50" />
+		<GradientStop Color="#9CAEC3" Offset="1" />
+	</LinearGradientBrush>
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarButtonOuterBorderHoverBrushKey}" Color="#3C6EB0" themes:TintGroup.Name="ScrollBarState" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarButtonInnerBorderHoverBrushKey}" Color="#B0FFFFFF" themes:TintGroup.Name="ScrollBarState" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarButtonHorizontalBackgroundHoverBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="ScrollBarState">
+		<GradientStop Color="#D0E2FA" />
+		<GradientStop Color="#C7DBF6" Offset="0.49" />
+		<GradientStop Color="#A6C6F0" Offset="0.50" />
+		<GradientStop Color="#9BB9E0" Offset="1" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarButtonVerticalBackgroundHoverBrushKey}" StartPoint="0,0" EndPoint="1,0" themes:TintGroup.Name="ScrollBarState">
+		<GradientStop Color="#D0E2FA" />
+		<GradientStop Color="#C7DBF6" Offset="0.49" />
+		<GradientStop Color="#A6C6F0" Offset="0.50" />
+		<GradientStop Color="#9BB9E0" Offset="1" />
+	</LinearGradientBrush>
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarButtonOuterBorderPressedBrushKey}" Color="#17498A" themes:TintGroup.Name="ScrollBarState" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarButtonInnerBorderPressedBrushKey}" Color="#80FFFFFF" themes:TintGroup.Name="ScrollBarState" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarButtonHorizontalBackgroundPressedBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="ScrollBarState">
+		<GradientStop Color="#AFCEF7" />
+		<GradientStop Color="#A2C5F2" Offset="0.49" />
+		<GradientStop Color="#6BA2EA" Offset="0.50" />
+		<GradientStop Color="#6497DA" Offset="1" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.ScrollBarButtonVerticalBackgroundPressedBrushKey}" StartPoint="0,0" EndPoint="1,0" themes:TintGroup.Name="ScrollBarState">
+		<GradientStop Color="#AFCEF7" />
+		<GradientStop Color="#A2C5F2" Offset="0.49" />
+		<GradientStop Color="#6BA2EA" Offset="0.50" />
+		<GradientStop Color="#6497DA" Offset="1" />
+	</LinearGradientBrush>
+	
+	<!-- Separator -->
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.SeparatorDarkBrushKey}" Color="#93B1D5" themes:TintGroup.Name="Separator" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.SeparatorLightBrushKey}" Color="#F8FAFC" themes:TintGroup.Name="Separator" />
+
+	<!-- Slider -->
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderBorderBrushKey}" Color="#41699F" themes:TintGroup.Name="StatusBarSlider" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderTrackDarkBrushKey}" Color="#8041699F" themes:TintGroup.Name="StatusBarSlider" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderTrackLightBrushKey}" Color="#80FFFFFF" themes:TintGroup.Name="StatusBarSlider" />
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderButtonGlyphBrushKey}" Color="#F04C5D74" themes:TintGroup.Name="StatusBarSlider" />
+	
+	<RadialGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderButtonOuterBackgroundNormalBrushKey}" RadiusX="2" themes:TintGroup.Name="StatusBarSlider">
+		<GradientStop Color="#F4F5F9" Offset="0.7"/>
+		<GradientStop Color="Transparent" Offset="0"/>
+	</RadialGradientBrush>
+	<RadialGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderButtonInnerBackgroundNormalBrushKey}" themes:TintGroup.Name="StatusBarSlider">
+		<RadialGradientBrush.Transform>
+			<TransformGroup>
+				<ScaleTransform ScaleX="0.5" ScaleY="2.5" />
+				<TranslateTransform X="3.5" Y="-8.89"/>
+			</TransformGroup>
+		</RadialGradientBrush.Transform>
+		<GradientStop Color="Transparent" Offset="0.7"/>
+		<GradientStop Color="#FFFFFF" Offset="0.1"/>
+	</RadialGradientBrush>
+	
+	<!-- StatusBar-->
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.StatusBarBorderBrushKey}" Color="#567DB0" themes:TintGroup.Name="StatusBar" />
+	
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.StatusBarItemBackgroundBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="StatusBar">
+		<!--<GradientStop Color="#D7E6F9" />
+		<GradientStop Color="#C7DCF8" Offset="0.35" />
+		<GradientStop Color="#B3D0F5" Offset="0.36" />
+		<GradientStop Color="#BDD6F5" Offset="0.5" />
+		<GradientStop Color="#D7E5F7" Offset="0.9" />
+		<GradientStop Color="#BAD4F7" Offset="1" />-->
+       <GradientStop Color="#a1a8b0" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.StatusBarItemBackgroundAlternateBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="StatusBar">
+		<GradientStop Color="#C5DCF8" />
+		<GradientStop Color="#A9CAF7" Offset="0.35" />
+		<GradientStop Color="#90B6EA" Offset="0.36" />
+		<GradientStop Color="#89AFE1" Offset="0.5" />
+		<GradientStop Color="#7DA0CF" Offset="0.75" />
+		<GradientStop Color="#7495C2" Offset="1" />
+	</LinearGradientBrush>
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.StatusBarResizeGripDarkBrushKey}" Color="#455D80" themes:TintGroup.Name="StatusBar" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.StatusBarResizeGripLightBrushKey}" Color="#B1C9E8" themes:TintGroup.Name="StatusBar" />
+	
+	<!-- Tab -->
+
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabOuterBorderSelectedBrushKey}" Color="#bcbcbc" themes:TintGroup.Name="Tab" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabInnerBorderSelectedBrushKey}" Color="#bcbcbc" themes:TintGroup.Name="Tab" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabBackgroundSelectedBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Tab">
+        <!--<GradientStop Color="#ffffff"  />
+        <GradientStop Color="#e9f2fb" Offset="0.3" />
+       <GradientStop Color="#d0e3f5" Offset="0.5" /> 
+         <GradientStop Color="#a7b9cb" Offset="0.8" />-->
+        <GradientStop Color="#ffffff"  />
+        <GradientStop Color="#ffffff" Offset="0.3" />
+        <GradientStop Color="#d0e3f5" Offset="0.5" />
+        <GradientStop Color="#a7b9cb" Offset="0.9" />
+    </LinearGradientBrush>
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabBackgroundSelectedBottomBrushKey}" Color="#bcbcbc" themes:TintGroup.Name="Tab" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabForegroundSelectedBrushKey}" Color="#003f70" themes:TintGroup.Name="Tab" />
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabOuterBorderHoverBrushKey}" Color="#8DB2E3" themes:TintGroup.Name="Tab" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabBorderHighlightHoverBrushKey}" Color="#60FFFFFF" themes:TintGroup.Name="Tab" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabBackgroundHoverBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="RibbonControlState">
+		<!--<GradientStop Color="red" />
+		<GradientStop Color="Transparent" Offset="1" />-->
+	</LinearGradientBrush>
+	<RadialGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabBackgroundHighlightHoverBrushKey}" Center="0.5,0.2" GradientOrigin="0.5,0.2" RadiusX="0.8" RadiusY="0.8" themes:TintGroup.Name="RibbonControlState">
+		<!--<GradientStop Color="Transparent" Offset="0.2" />
+		<GradientStop Color="#E3D198" Offset="1"/>-->
+	</RadialGradientBrush>
+	<RadialGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabBackgroundHighlightAlternateHoverBrushKey}" Center="0.5,1" GradientOrigin="0.5,1" RadiusX="0.9" RadiusY="0.4" themes:TintGroup.Name="RibbonControlState">
+		<!--<GradientStop Color="Transparent" Offset="0.15"/>
+		<GradientStop Color="Transparent" Offset="1" />-->
+	</RadialGradientBrush>
+    
+	<!--<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabForegroundHoverBrushKey}" Color="#15428B" themes:TintGroup.Name="Tab" />-->
+<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabForegroundHoverBrushKey}" Color="#003f70" themes:TintGroup.Name="Tab" />
+    
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabOuterBorderHoverSelectedBrushKey}"   themes:TintGroup.Name="RibbonControlState" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabInnerBorderHoverSelectedBrushKey}"   themes:TintGroup.Name="RibbonControlState" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabBorderHighlightHoverSelectedBrushKey}"  themes:TintGroup.Name="RibbonControlState" />
+
+	<!--<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabOuterBorderFocusedBrushKey}" Color="#C2C2C2" themes:TintGroup.Name="RibbonControlState" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabInnerBorderFocusedBrushKey}" Color="#F8CB60" themes:TintGroup.Name="RibbonControlState" />-->
+	<!--<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabBackgroundFocusedBrushKey}" StartPoint="0,0" EndPoint="0,1"  themes:TintGroup.Name="RibbonControlState">
+		<GradientStop Color="#FBE3A8" />
+		<GradientStop Color="#FDF1D4" Offset="1" />
+	</LinearGradientBrush>-->
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabBackgroundFocusedBottomBrushKey}" Color="#FDF1D4" themes:TintGroup.Name="RibbonControlState" />
+	
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabSeparatorBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Tab">
+		<GradientStop Color="#B7D4F9" />
+		<GradientStop Color="#8DB2E3" Offset="0.6" />
+	</LinearGradientBrush>
+	
+	<!-- Tab Content -->
+	
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabContentOuterBorderBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Tab">
+		<GradientStop Color="#8B949C" />
+		<!--<GradientStop Color="#9EBFDB" Offset="1" />-->
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabContentInnerBorderBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Tab">
+		 <!--<GradientStop Color="#8B949C" />-->
+		<!--<GradientStop Color="#C0F9FF" Offset="1" />--> 
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.TabContentBackgroundBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Tab">
+	
+            <!--<GradientStop Color="#ebebeb" Offset="0.1"/>
+	        <GradientStop Color="#d2d6d9" Offset="0.4"/>
+		 	<GradientStop Color="#e1e1e3" Offset="0.3" />-->  
+        <GradientStop Color="#eaf2fa" Offset="0.1"/>
+	    <GradientStop Color="#C7D9EB" Offset="0.4"/>
+			<GradientStop Color="#D5E5F5" Offset="1" />
+		 
+    </LinearGradientBrush>
+	
+	<!-- Window Border -->
+	
+	<!--<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowBorderActiveBrushKey}" Color="#3A5A82" themes:TintGroup.Name="Window" />-->
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowBorderActiveBrushKey}"  themes:TintGroup.Name="Window" />
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowInnerTopBorderActiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Window">
+		 
+        <!--<GradientStop  Color="#8d9e2c" />-->
+        
+<GradientStop Offset="0.1" Color="#33659a" />
+		<GradientStop Offset="0.2 " Color="#0d4279" />
+		<GradientStop Offset="0.3" Color="#12467d" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowInnerLeftBorderActiveBrushKey}" StartPoint="0,0" EndPoint="1,0" themes:TintGroup.Name="Window">
+		<GradientStop Offset="0.1" Color="#B1C6E1" />
+		<GradientStop Offset="0.4" Color="#C2D9F7" />
+		<GradientStop Offset="0.6" Color="#C2D9F7" />
+		<GradientStop Offset="0.9" Color="#B0CBEF" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowInnerRightBorderActiveBrushKey}" StartPoint="0,0" EndPoint="1,0" themes:TintGroup.Name="Window">
+		<GradientStop Offset="0.1" Color="#B0CBEF" />
+		<GradientStop Offset="0.4" Color="#C2D9F7" />
+		<GradientStop Offset="0.6" Color="#C2D9F7" />
+		<GradientStop Offset="0.9" Color="#B1C6E1" />
+	</LinearGradientBrush>
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowInnerBottomBorderActiveBrushKey}" Color="#B0CBEF" themes:TintGroup.Name="Window" />
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowBorderInactiveBrushKey}" Color="#97A5B7" themes:TintGroup.Name="Window" />	
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowInnerTopBorderInactiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Window">
+		<GradientStop Offset="0" Color="#E3E7EC" />
+		<GradientStop Offset="1" Color="#E0E6EE" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowInnerLeftBorderInactiveBrushKey}" StartPoint="0,0" EndPoint="1,0" themes:TintGroup.Name="Window">
+		<GradientStop Offset="0.1" Color="#CCD6E2" />
+		<GradientStop Offset="0.4" Color="#D4DEEC" />
+		<GradientStop Offset="0.6" Color="#D4DEEC" />
+		<GradientStop Offset="0.9" Color="#CCD8E8" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowInnerRightBorderInactiveBrushKey}" StartPoint="0,0" EndPoint="1,0" themes:TintGroup.Name="Window">
+		<GradientStop Offset="0.1" Color="#CCD8E8" />
+		<GradientStop Offset="0.4" Color="#D4DEEC" />
+		<GradientStop Offset="0.6" Color="#D4DEEC" />
+		<GradientStop Offset="0.9" Color="#CCD6E2" />
+	</LinearGradientBrush>
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowInnerBottomBorderInactiveBrushKey}" Color="#CCD8E8" themes:TintGroup.Name="Window" />
+
+	<!-- Window Title Bar -->
+	
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarBackgroundActiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Window">
+        <!--<GradientStop   Offset="0.20" Color="#67781c" />-->
+		<GradientStop Offset="0.1" Color="#33659a" />
+		<GradientStop Offset="0.2 " Color="#0d4279" />
+		<GradientStop Offset="0.3" Color="#12467d" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarInnerBorderActiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Window">
+		<!--<GradientStop Offset="0.1" Color="#DBF4FE" />
+		<GradientStop Offset="0.4" Color="#B0CFF7" />
+		<GradientStop Offset="0.6" Color="#B0CFF7" />
+		<GradientStop Offset="0.9" Color="#DBE8F9" />-->
+       <!--<GradientStop   Color="#a4b847" />-->
+        <GradientStop Offset="0.1" Color="#33659a" />
+        <GradientStop Offset="0.2 " Color="#0d4279" />
+        <GradientStop Offset="0.3" Color="#12467d" />
+
+    </LinearGradientBrush>
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarDocumentNameForegroundActiveBrushKey}" Color="White" themes:TintGroup.Name="Window" /> <!-- Title Bar Color -->
+	<!--<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarApplicationNameForegroundActiveBrushKey}" Color="#3E6AAA" themes:TintGroup.Name="Window" />	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarForegroundShadowActiveBrushKey}" Color="Transparent" themes:TintGroup.Name="Window" />-->
+
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarApplicationNameForegroundActiveBrushKey}" Color="White" themes:TintGroup.Name="Window" />
+    <SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarForegroundShadowActiveBrushKey}" Color="Transparent" themes:TintGroup.Name="Window" />
+
+    <LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarBackgroundInactiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Window">
+		<GradientStop Offset="0" Color="#E0E6F0" />
+		<GradientStop Offset="0.20" Color="#DEE5ED" />
+		<GradientStop Offset="0.21" Color="#D8E1EC" />
+		<GradientStop Offset="1" Color="#E3E8EF" />
+	</LinearGradientBrush>
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarInnerBorderInactiveBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Window">
+		<GradientStop Offset="0.1" Color="#DFEBEF" />
+		<GradientStop Offset="0.4" Color="#CCDAEC" />
+		<GradientStop Offset="0.6" Color="#CCDAEC" />
+		<GradientStop Offset="0.9" Color="#DFE5ED" />
+	</LinearGradientBrush>
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarDocumentNameForegroundInactiveBrushKey}" Color="#A0A0A0" themes:TintGroup.Name="Window" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarApplicationNameForegroundInactiveBrushKey}" Color="#A0A0A0" themes:TintGroup.Name="Window" />	
+	
+	<!-- WindowTitleBarButton -->	
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderActiveHoverBrushKey}" Color="#A0C2F2" themes:TintGroup.Name="WindowTitleBarButton" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonInnerBorderActiveHoverBrushKey}" Color="#80FFFFFF" themes:TintGroup.Name="WindowTitleBarButton" />	
+	<RadialGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActiveHoverHighlightBrushKey}" themes:TintGroup.Name="WindowTitleBarButton">
+		<RadialGradientBrush.Transform>
+			<TransformGroup>
+				<ScaleTransform ScaleX="1" ScaleY="2" />
+				<TranslateTransform X="0" Y="-8" />
+			</TransformGroup>
+		</RadialGradientBrush.Transform>
+		<GradientStop Color="#EAF2FF" Offset="1"/>
+		<GradientStop Color="#FAFBFE" Offset="0"/>
+	</RadialGradientBrush>	
+	<RadialGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActiveHoverBrushKey}" themes:TintGroup.Name="WindowTitleBarButton">
+		<RadialGradientBrush.Transform>
+			<TransformGroup>
+				<ScaleTransform ScaleX="1" ScaleY="3" />
+				<TranslateTransform X="0" Y="-6" />
+			</TransformGroup>
+		</RadialGradientBrush.Transform>
+		<GradientStop Color="#D2E4FE" Offset="1"/>
+		<GradientStop Color="#F5F9FF" Offset="0.2"/>
+	</RadialGradientBrush>	
+	
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderActivePressedBrushKey}" Color="#A0BEE3" themes:TintGroup.Name="WindowTitleBarButton" />
+	<SolidColorBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonInnerBorderActivePressedBrushKey}" Color="#80FFFFFF" themes:TintGroup.Name="WindowTitleBarButton" />	
+	<RadialGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActivePressedHighlightBrushKey}" themes:TintGroup.Name="WindowTitleBarButton">
+		<RadialGradientBrush.Transform>
+			<TransformGroup>
+				<ScaleTransform ScaleX="1" ScaleY="1.5" />
+				<TranslateTransform X="0" Y="-4" />
+			</TransformGroup>
+		</RadialGradientBrush.Transform>
+		<GradientStop Color="#9EC2ED" Offset="1"/>
+		<GradientStop Color="#BFD5F0" Offset="0"/>
+	</RadialGradientBrush>	
+	<RadialGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActivePressedBrushKey}" themes:TintGroup.Name="WindowTitleBarButton">
+		<RadialGradientBrush.Transform>
+			<TransformGroup>
+				<ScaleTransform ScaleX="1.5" ScaleY="2.5" />
+				<TranslateTransform X="-5.5" Y="-4" />
+			</TransformGroup>
+		</RadialGradientBrush.Transform>
+		<GradientStop Color="#84B2E9" Offset="1"/>
+		<GradientStop Color="#B4D9F4" Offset="0.2"/>
+		<GradientStop Color="#C0E7FC" Offset="0"/>
+	</RadialGradientBrush>	
+
+	<!-- Window Workspace -->
+	
+	<LinearGradientBrush PresentationOptions:Freeze="True" x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowWorkspaceBackgroundBrushKey}" StartPoint="0,0" EndPoint="0,1" themes:TintGroup.Name="Window">
+		<GradientStop Offset="0" Color="#9FBFE7" />
+		<GradientStop Offset="0.75" Color="#577FB3" />
+		<GradientStop Offset="1" Color="#6591CD" />
+	</LinearGradientBrush>
+	
+	<!-- 
+	
+		STYLES
+	
+	-->
+
+	<!-- WindowTitleBarButtonStyle -->
+	<Style x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonStyleKey}" TargetType="{x:Type ribbonControlsPrimitives:RibbonWindowTitleBarButton}">
+		<Setter Property="BackgroundActiveHover" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActiveHoverBrushKey}}" />
+		<Setter Property="BackgroundActiveHoverHighlight" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActiveHoverHighlightBrushKey}}" />
+		<Setter Property="BorderActiveHoverBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderActiveHoverBrushKey}}" />
+		<Setter Property="ForegroundActiveHover" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonForegroundActiveHoverBrushKey}}" />
+		<Setter Property="BackgroundActivePressed" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActivePressedBrushKey}}" />
+		<Setter Property="BackgroundActivePressedHighlight" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonBackgroundActivePressedHighlightBrushKey}}" />
+		<Setter Property="BorderActivePressedBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonOuterBorderActivePressedBrushKey}}" />
+		<Setter Property="ForegroundActivePressed" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonForegroundActivePressedBrushKey}}" />
+		<Setter Property="Height" Value="25" />
+		<Setter Property="Margin" Value="0,0,0,-3" />
+		<Setter Property="Width" Value="25" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type ribbonControlsPrimitives:RibbonWindowTitleBarButton}">
+									
+					<Grid Background="Transparent" SnapsToDevicePixels="True">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+						
+						<Rectangle x:Name="upperBackground" Margin="1,1,1,0" />
+						<Rectangle x:Name="lowerBackground" Grid.Row="1" Margin="1,0,1,1" />
+						<Border x:Name="innerBorder" Grid.RowSpan="2" Margin="1" BorderBrush="Transparent" BorderThickness="1" CornerRadius="1" SnapsToDevicePixels="True">
+							<Canvas x:Name="glyph" Margin="{TemplateBinding Padding}" Width="9" Height="9" HorizontalAlignment="Center" VerticalAlignment="Center" SnapsToDevicePixels="True">
+								<Path x:Name="glyphPath1" StrokeThickness="1" Stroke="#9B9B9B" StrokeStartLineCap="Square" StrokeEndLineCap="Square" SnapsToDevicePixels="True" />
+								<Path x:Name="glyphPath3" StrokeThickness="1" Stroke="#F8F9FA" StrokeStartLineCap="Square" StrokeEndLineCap="Square" SnapsToDevicePixels="True" />
+								<Path x:Name="glyphPath2" StrokeThickness="1" Stroke="#B8C2D0" StrokeStartLineCap="Square" StrokeEndLineCap="Square" SnapsToDevicePixels="True" />
+							</Canvas>
+						</Border>
+						<Border x:Name="outerBorder" Grid.RowSpan="2" BorderBrush="Transparent" BorderThickness="1" CornerRadius="2" SnapsToDevicePixels="True" />
+					</Grid>
+
+					<ControlTemplate.Triggers>
+						<Trigger Property="Command" Value="{x:Static ribbonInput:RibbonCommands.MinimizeWindow}">
+							<Setter TargetName="glyph" Property="Width" Value="7" />
+							<Setter TargetName="glyphPath1" Property="Data" Value="M 0.5,6.5 L 6.5,6.5" />
+							<Setter TargetName="glyphPath2" Property="Data" Value="M 0.5,7.5 L 6.5,7.5" />
+							<Setter TargetName="glyphPath3" Property="Data" Value="M 0.5,8.5 L 6.5,8.5" />
+						</Trigger>
+						<Trigger Property="Command" Value="{x:Static ribbonInput:RibbonCommands.MaximizeWindow}">
+							<Setter TargetName="glyphPath1" Property="Data" Value="M 0.5,1.5 L 8.5,1.5" />
+							<Setter TargetName="glyphPath2" Property="Data" Value="M 0.5,2.5 L 8.5,2.5 L 8.5,7.5 L 0.5,7.5 L 0.5,3.5 L 8.5,3.5" />
+							<Setter TargetName="glyphPath3" Property="Data" Value="M 1.5,4.5 L 7.5,4.5 M 0.5,8.5 L 8.5,8.5" />
+						</Trigger>
+						<Trigger Property="Command" Value="{x:Static ribbonInput:RibbonCommands.RestoreWindow}">
+							<Setter TargetName="glyphPath1" Property="Data" Value="M 0.5,2.5 L 6.5,2.5 M 8.5,1.5 L 2.5,1.5" />
+							<Setter TargetName="glyphPath2" Property="Data" Value="M 6.5,6.5 L 6.5,3.5 L 0.5,3.5 L 0.5,7.5 L 6.5,7.5 L 6.5,6.5 L 8.5,6.5 L 8.5,2.5 L 7.5,2.5" />
+							<Setter TargetName="glyphPath3" Property="Data" Value="M 6.5,7.5 L 6.5,4.5 L 0.5,4.5 L 0.5,8.5 L 6.5,8.5 L 6.5,7.5 L 8.5,7.5 L 8.5,3.5 L 7.5,3.5" />
+						</Trigger>
+						<Trigger Property="Command" Value="{x:Static ribbonInput:RibbonCommands.CloseWindow}">
+							<Setter TargetName="glyph" Property="Width" Value="11" />
+							<Setter TargetName="glyphPath1" Property="Data" Value="M 1.5,0.5 L 3.5,0.5 L 5.5,2.5 L 7.5,0.5 L 9.5,0.5" />
+							<Setter TargetName="glyphPath2" Property="Data" Value="M 2.5,1.5 L 3.5,1.5 L 5.5,3.5 L 7.5,1.5 L 8.5,1.5 L 6.5,3.5 L 6.5,4.5 L 9.5,7.5 L 7.5,7.5 L 5.5,5.5 L 3.5,7.5 L 1.5,7.5 L 4.5,4.5 L 4.5,3.5 Z" />
+							<Setter TargetName="glyphPath3" Property="Data" Value="M 0.5,8.5 L 3.5,8.5 L 5.5,6.5 L 7.5,8.5 L 10.5,8.5" />
+							<Setter TargetName="glyphPath2" Property="Fill" Value="{Binding RelativeSource={RelativeSource Self}, Path=Stroke}" />
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter TargetName="glyph" Property="Opacity" Value="0.4" />
+						</Trigger>
+						<Trigger Property="IsActive" Value="True">
+							<Setter TargetName="glyphPath1" Property="Stroke" Value="#656565" />
+							<Setter TargetName="glyphPath2" Property="Stroke" Value="#829AB9" />
+							<Setter TargetName="glyphPath3" Property="Stroke" Value="#F8F9FA" />
+						</Trigger>
+						
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsMouseOver" Value="True" />
+								<Condition Property="IsPressed" Value="False" />
+							</MultiTrigger.Conditions>
+							<Setter TargetName="outerBorder" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderActiveHoverBrush}" />
+							<Setter TargetName="upperBackground" Property="Fill" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BackgroundActiveHoverHighlight}" />
+							<Setter TargetName="lowerBackground" Property="Fill" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BackgroundActiveHover}" />
+							<Setter TargetName="glyphPath1" Property="Stroke" Value="#656565" />
+							<Setter TargetName="glyphPath2" Property="Stroke" Value="#829AB9" />
+							<Setter TargetName="glyphPath3" Property="Stroke" Value="#F8F9FA" />
+						</MultiTrigger>
+						
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsEnabled" Value="True" />
+								<Condition Property="IsPressed" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter TargetName="outerBorder" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderActivePressedBrush}" />
+							<Setter TargetName="upperBackground" Property="Fill" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BackgroundActivePressedHighlight}" />
+							<Setter TargetName="lowerBackground" Property="Fill" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BackgroundActivePressed}" />
+							<Setter TargetName="glyphPath1" Property="Stroke" Value="#656565" />
+							<Setter TargetName="glyphPath2" Property="Stroke" Value="#829AB9" />
+							<Setter TargetName="glyphPath3" Property="Stroke" Value="#F8F9FA" />
+						</MultiTrigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+			
+	<!-- WindowTitleBarAlternateButtonStyle -->
+	<Style x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonAlternateStyleKey}" TargetType="{x:Type ribbonControlsPrimitives:RibbonWindowTitleBarButton}" BasedOn="{StaticResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonStyleKey}}">
+	</Style>
+			
+	<!-- RibbonWindowTitleBarButton -->
+	<Style x:Key="{x:Type ribbonControlsPrimitives:RibbonWindowTitleBarButton}" TargetType="{x:Type ribbonControlsPrimitives:RibbonWindowTitleBarButton}"
+		BasedOn="{StaticResource {x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarButtonStyleKey}}" />
+
+	 
+   
+
+    <FontWeight x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarFontWeightKey}">Normal</FontWeight>
+	<system:Boolean x:Key="{x:Static ribbonThemes:RibbonCommonDictionary.WindowTitleBarUsesSystemFontKey}">False</system:Boolean>
+	
+</ResourceDictionary>

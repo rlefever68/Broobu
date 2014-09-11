@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="0f5df277-759c-4740-b173-39995a2b48f7" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:7070/services/transactions/transactionrouter/service/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="08.wsdl" MetadataType="Wsdl" ID="16519de8-7bf1-4354-903e-ca07b9d64345" SourceId="1" SourceUrl="http://localhost:7070/services/transactions/transactionrouter/service/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="d838cd6d-8c49-4e85-a1a0-37b1cb403614" SourceId="1" SourceUrl="http://localhost:7070/services/transactions/transactionrouter/service/mex" />
+    <MetadataFile FileName="08.xsd" MetadataType="Schema" ID="a1188b44-f3c8-44fd-9a99-2ca1a755abd4" SourceId="1" SourceUrl="http://localhost:7070/services/transactions/transactionrouter/service/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="04775de7-9b85-4af8-930b-529832fe89f0" SourceId="1" SourceUrl="http://localhost:7070/services/transactions/transactionrouter/service/mex" />
+    <MetadataFile FileName="Pms.Framework.Domain.xsd" MetadataType="Schema" ID="5fea06bb-e62b-4910-a68f-dca227eb5704" SourceId="1" SourceUrl="http://localhost:7070/services/transactions/transactionrouter/service/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="0a40b9bd-d38c-499d-988d-da51c53d2ded" SourceId="1" SourceUrl="http://localhost:7070/services/transactions/transactionrouter/service/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

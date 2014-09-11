@@ -1,0 +1,8 @@
+﻿<Window x:Class="Broobu.Desktop.UI.HubWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="HubWindow" Height="300" Width="300">
+    <Grid>
+        
+    </Grid>
+</Window>

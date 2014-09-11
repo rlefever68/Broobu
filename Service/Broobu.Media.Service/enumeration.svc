@@ -1,0 +1,2 @@
+﻿<%@ ServiceHost Service="Broobu.Media.Service.EnumerationService" Factory=Iris.Fx.Networking.Wcf.AnnouncingServiceHostFactory%>
+

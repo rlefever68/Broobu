@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Broobu.Boutique.Hub.UI.Controls.Views.CommandView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <dxn:NavBarControl Margin="5,0,5,0">
+            <dxn:NavBarControl.View>
+                <dxn:NavigationPaneView/>
+            </dxn:NavBarControl.View>
+            <dxn:NavBarGroup Header="Home" ItemDisplayMode="ImageAndText">
+                <dxn:NavBarItem Command="{Binding GotoMyApps}"  ImageSource="pack://application:,,,/Broobu.Boutique.Hub.UI.Controls;component/Images/MyAppsOrangeCloud.png"  DisplayMode="ImageAndText" Content="My Apps"  IsVisible="{Binding IsMyAppsVisible}"/>
+                <dxn:NavBarItem Command="{Binding LogonLogoff}" ImageSource="{Binding LogButtonImage}" DisplayMode="ImageAndText" Content="{Binding LogButtonText}"  IsVisible="{Binding IsLogVisible}" />
+                <dxn:NavBarItem Command="{Binding Exit}" ImageSource="pack://application:,,,/Broobu.Boutique.Hub.UI.Controls;component/Images/turnoff.png" DisplayMode="ImageAndText" Content="Exit"/>
+            </dxn:NavBarGroup>
+            <dxn:NavBarGroup Header="Workspaces" ItemDisplayMode="ImageAndText">
+                <dxn:NavBarItem Command="{Binding MyWorkspaces}"  ImageSource="pack://application:,,,/Broobu.Boutique.Hub.UI.Controls;component/Images/MyAppsOrangeCloud.png"  DisplayMode="ImageAndText" Content="My Apps"  IsVisible="{Binding IsMyAppsVisible}"/>
+                <dxn:NavBarItem Command="{Binding BrowseEcoSpaces}" ImageSource="{Binding LogButtonImage}" DisplayMode="ImageAndText" Content="{Binding LogButtonText}"  IsVisible="{Binding IsLogVisible}" />
+            </dxn:NavBarGroup>
+        </dxn:NavBarControl>
+        
+        
+    </Grid>
+</UserControl>

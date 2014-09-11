@@ -1,0 +1,57 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    x:Class="Broobu.EcoSpace.UI.Controls.Fragments.MembershipFragment"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="300" AllowDrop="True"
+    xmlns:mvvm="clr-namespace:Broobu.EcoSpace.UI.Controls.Mvvm"
+    xmlns:views="clr-namespace:Broobu.Fx.UI.Views;assembly=Broobu.Fx.UI"
+    x:Name="FragMembership">
+    <UserControl.DataContext>
+        <mvvm:MembershipViewModel x:Name="VmMembership"/>
+    </UserControl.DataContext>
+    <Grid>
+        <views:BusyOverlay IsBusy="{Binding IsBusy}" HasNoData="{Binding IsEmpty}">
+        <dxg:GridControl AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" ShowBorder="True"
+                         ItemsSource="{Binding Memberships}">
+            <dxg:GridControl.View>
+                <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True" ShowGroupPanel="False"
+                               ShowColumnHeaders="False" ShowIndicator="False" ShowHorizontalLines="False">
+                    <dxg:TableView.DataRowTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"  />
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"  />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Image Source="{Binding Row.Source.DisplayInfo.Icon}" Grid.RowSpan="2" Height="30" Width="30" Stretch="UniformToFill" Margin="3" />
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Row.Source.DisplayName}"/>
+                                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Row.RelationType}" Padding="3" FontSize="16" HorizontalAlignment="Center"/>
+                                <Image Grid.Column="1" 
+                                       Grid.Row="1" 
+                                       Source="{Binding Row.DisplayInfo.Icon}" 
+                                       VerticalAlignment="Bottom" 
+                                       HorizontalAlignment="Stretch"
+                                       Stretch="UniformToFill"
+                                       Height="20"
+                                       Margin="3"/>
+                                <Image Grid.Row="0" Grid.Column="2"  Source="{Binding Row.Target.Glyph}" Grid.RowSpan="2" Height="30" Width="30" Stretch="UniformToFill" Margin="3" />
+                                <TextBlock Grid.Column="2" Grid.Row="2"  Text="{Binding Row.Target.DisplayName}" Padding="3"/>
+                            </Grid>
+                        </DataTemplate>
+                    </dxg:TableView.DataRowTemplate>
+                </dxg:TableView>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+        </views:BusyOverlay>
+    </Grid>
+</UserControl>

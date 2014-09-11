@@ -1,0 +1,819 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ assembly name="System.Core.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="EnvDTE" #>
+<#@template debug="true" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-02
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class DatabaseInfo
+{
+	private Database _database;
+	private string _tableNamePrefix;
+	private string _logicalName;
+	private bool _prefixEntityNameWithSchemaName; // If true (default false), schema name is placed as prefix in entity name)
+	private List<TableInfo> _tableInfos;
+	private List<FunctionInfo> _functionInfos;
+	private StringHelper _strH = new StringHelper();
+	
+	public DatabaseInfo(string DatabaseDbml, string tableNamePrefix)
+		: this(DatabaseDbml, tableNamePrefix, false)
+	{
+	}
+	
+	public DatabaseInfo(string DatabaseDbml, string tableNamePrefix, bool prefixEntityNameWithSchemaName)
+	{
+		//System.Diagnostics.Debugger.Launch();
+	    _database = Database.Load( TransformationContext.Host.ResolvePath(DatabaseDbml));
+		_tableNamePrefix = (tableNamePrefix == null) ? string.Empty : tableNamePrefix;
+		_prefixEntityNameWithSchemaName = prefixEntityNameWithSchemaName;
+		_logicalName = Path.GetFileNameWithoutExtension(DatabaseDbml);
+	
+		// Load table infos
+        _tableInfos = new List<TableInfo>();
+		foreach (Table table in _database.Table)
+		{
+			_tableInfos.Add(new TableInfo(this, table, _tableNamePrefix, _logicalName,
+				                           _prefixEntityNameWithSchemaName));
+		}
+		
+		// Load function infos
+		_functionInfos = new List<FunctionInfo>();
+		if (_database.Function != null)
+		{
+			foreach (Function function in _database.Function)
+			{
+				_functionInfos.Add(new FunctionInfo(function, _tableNamePrefix, _logicalName));
+			}
+		}
+		
+		// Map functions to table
+		foreach (FunctionInfo functionInfo in _functionInfos)
+		{
+			if (string.IsNullOrEmpty(functionInfo.ReturnTypeId) == false)
+			{
+				 // The return type of this function is one of the entities defined in the dbml,
+				 // so this function is mapped to that entity
+				foreach(TableInfo tableInfo in _tableInfos)
+				{
+					if (tableInfo.TypeId == functionInfo.ReturnTypeId)
+					{
+						functionInfo.ParentTable = tableInfo;
+						break;
+					}
+				}
+				if (functionInfo.ParentTable == null)
+				{
+					string message = string.Format("The IdRef of the method return type ({0}) cannot be mapped to"
+						+ " the ID of an entity in the DBML file, please check file consistency",
+						functionInfo.ReturnTypeId);
+					throw new ApplicationException(message);
+				}
+			}
+			else 
+			{
+				// The return type does not map to an entity
+				// Use the prefix of the method name to map the method to an entity
+				// The prefix is the first part of the stored procedure name, up to, but exluding the last underscore 
+				// in the name.
+				foreach(TableInfo tableInfo in _tableInfos)
+				{
+					if (tableInfo.EntityName == functionInfo.MethodNamePrefix)
+					{
+						functionInfo.ParentTable = tableInfo;
+						break;
+					}
+				}
+				if (functionInfo.ParentTable == null)
+				{
+					string message = string.Format("The function {0} can not be mapped to an entity in the DBML,"
+						+ " the prefix '{1}' in the method name does not correspond with an entity name"
+						+ " and the method has a return type that is not an entity type",
+						functionInfo.DbName,
+						functionInfo.MethodNamePrefix);
+					throw new ApplicationException(message);
+				}
+			}
+		}
+
+	}
+
+	public string 				LogicalName 	{ get { return _logicalName; } }
+	public List<TableInfo> 		TableInfos 		{ get { return _tableInfos; } }
+	public List<FunctionInfo> 	FunctionInfos 	{ get { return _functionInfos; } }
+}
+
+public class TableInfo
+{
+	private DatabaseInfo _databaseInfo;
+	private Table _table;
+	private string _namePrefix;
+	private string _databaseLogicalName;
+	private bool _prefixEntityNameWithSchemaName; // If true (default false), schema name is placed as prefix in entity name)
+	private List<ColumnInfo> _columnInfos;
+	private List<ColumnInfo> _pkColumnInfos;
+	private List<FunctionInfo> _functionInfos;
+	private StringHelper _strH = new StringHelper();
+	private bool _isMappedToTable;
+	
+	private string _schemaName;
+	private string _tableName;
+	private string _entityName;
+	
+	public TableInfo(DatabaseInfo databaseInfo, Table table, string namePrefix,
+						string databaseLogicalName, bool prefixEntityNameWithSchemaName)
+	{
+		_databaseInfo = databaseInfo;
+		_table = table;
+		_namePrefix = (namePrefix == null) ? string.Empty : namePrefix;
+		_databaseLogicalName = databaseLogicalName;
+		_prefixEntityNameWithSchemaName = prefixEntityNameWithSchemaName;
+		_isMappedToTable = !string.IsNullOrEmpty(table.Name);
+		if (string.IsNullOrEmpty(_table.Name) == false) 
+		{
+			// Entity maps to a database table			
+			string[] tableNameParts = _table.Name.Split('.');
+			_schemaName = tableNameParts[0];
+			_tableName = tableNameParts[1];  
+			_entityName = _prefixEntityNameWithSchemaName
+					? _strH.ToUpperCamelCase(_schemaName) + _strH.ToUpperCamelCase(_tableName)
+					: _strH.ToUpperCamelCase(_table.Type.Name);
+											// Always take the type name as entity name, is initialy equal to the table name but can be modified if
+											// an entity name different from the table name is wanted
+		}
+		else // Entity does NOT map to a database table
+		{
+			_schemaName = string.Empty;
+			_tableName = _table.Type.Name;
+			_entityName = _strH.ToUpperCamelCase(_table.Type.Name);
+		}
+		LoadColumnInfos();
+	}
+	
+	public bool   HasCrudFunctions { get { return _isMappedToTable; } }						// CRUD functions are only generated if the entity is mapped to a table
+	public bool   HasExtraFunctions { get { return FunctionInfos.Count > 0; } } 			// True if extra stored procedures are provided
+	public bool   IsDummy { get { return TableName == DatabaseLogicalName; } }				// If true, this is a dummy table to hook up extra functions that are not related to a specific table
+		
+	public bool   HasFunctions { get { return HasCrudFunctions || HasExtraFunctions; } } 	// Returns true if CRUD functions available (if mapped to a table)
+																							// or extra functions available
+	public bool   HasCompositePk { get { return _pkColumnInfos.Count > 1; } }
+	public bool   HasPk          { get { return _pkColumnInfos.Count > 0; } }
+	public bool   IsPkAutoGenerated { get { return GetIsPkAutoGenerated(); } }
+	public string DatabaseLogicalName { get { return _databaseLogicalName; } }
+	public string Schema {get {return _schemaName;}}
+	public string TableName { get { return _tableName; } }
+	public string NamePrefix { get { return _namePrefix; } }
+	public string EntityName { get { return _entityName; } }
+	public string IdName { get { return GetIdName(); } }
+	public string IdLanguageType { get { return GetIdLanguageType(); } }
+	public string IdResultType { get { return _strH.MapLanguageTypeToResultType(IdLanguageType); } }
+	public string InnerCompositePkLanguageType { get { return "PrimaryKey"; } }
+	public string IdSqlDbType { get { return GetIdSqlDbType(); } }
+	public string IdTSqlDbType { get { return GetIdTSqlDbType(); } }
+	public string TypeId  { get { return _table.Type.Id; } }
+	
+	public List<ColumnInfo> ColumnInfos { get { return _columnInfos; } }
+	public List<ColumnInfo> PkColumnInfos { get { return _pkColumnInfos; } }
+	
+	// Returns the list of functions that have this table as type of the return value
+	public List<FunctionInfo> FunctionInfos
+	{
+	    get
+	    {
+			if (_functionInfos == null)
+			{
+	        	_functionInfos = new List<FunctionInfo>();
+				foreach (FunctionInfo functionInfo in _databaseInfo.FunctionInfos)
+				{
+					if (functionInfo.ParentTable == this)
+					{
+						_functionInfos.Add(functionInfo);
+					}
+				}
+			}
+			return _functionInfos;
+	    }
+	}	
+	
+	public string FieldInitializerList
+	{
+		get
+		{
+			string fieldInitializerList = string.Empty;
+			bool first = true;
+			foreach(ColumnInfo columnInfo in ColumnInfos)
+			{
+				if (first == false)
+				{
+					fieldInitializerList += ", ";
+				}
+				fieldInitializerList += columnInfo.Name + " = " + columnInfo.DefaultValue;
+				first = false;
+			}
+			return fieldInitializerList;
+		}
+	}
+
+	private void LoadColumnInfos()
+	{
+    	_columnInfos = new List<ColumnInfo>();
+    	_pkColumnInfos = new List<ColumnInfo>();
+		if (_table.Type.Items == null)
+		{
+			return;
+		}
+		foreach (object item in _table.Type.Items)
+		{
+			Column column = item as Column;
+			if (column != null)
+			{
+				ColumnInfo columnInfo = new ColumnInfo(this, column);
+				_columnInfos.Add(columnInfo);
+				if (columnInfo.IsInPrimaryKey)
+				{
+					_pkColumnInfos.Add(columnInfo);
+				}
+			}
+		}
+	}
+
+	private string GetIdName()
+	{
+		if (HasCompositePk)
+		{
+			return "Pk";
+		}
+		else if (HasPk)
+		{
+			return _pkColumnInfos[0].Name;
+		}
+		return "<ERROR: TABLE HAS NO IDENTITY COLUMN>";
+	}
+
+	private string GetIdLanguageType()
+	{
+		if (HasCompositePk)
+		{
+			return EntityName + "." + InnerCompositePkLanguageType; // Composite primary key
+		}
+		else if (HasPk)
+		{
+			return _pkColumnInfos[0].LanguageType;
+		}
+		return "<ERROR: TABLE HAS NO PRIMARY KEY COLUMN(S)>";
+	}
+
+	private string GetIdSqlDbType()
+	{
+		foreach (ColumnInfo columnInfo in ColumnInfos)
+		{
+			if (columnInfo.IsIdentity || columnInfo.IsInPrimaryKey)
+			{
+				return columnInfo.SqlDbType;
+			}
+		}
+		return "<ERROR: TABLE HAS NO IDENTITY COLUMN>";
+	}
+
+	private string GetIdTSqlDbType()
+	{
+		foreach (ColumnInfo columnInfo in ColumnInfos)
+		{
+			if (columnInfo.IsIdentity || columnInfo.IsInPrimaryKey)
+			{
+				return columnInfo.TSqlDbType;
+			}
+		}
+		return "<ERROR: TABLE HAS NO IDENTITY COLUMN>";
+	}
+	
+	private bool GetIsPkAutoGenerated()
+	{
+		foreach (ColumnInfo columnInfo in _pkColumnInfos)
+		{
+			if (columnInfo.IsAutoGeneratedValue)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+}
+
+public class ColumnInfo
+{
+	private TableInfo    _tableInfo;
+	private Column       _column;
+	private StringHelper _strH = new StringHelper();
+	
+	public ColumnInfo(TableInfo tableInfo, Column column)
+	{
+		_tableInfo = tableInfo;
+		_column = column;
+	}
+	
+	public string Name           	{ get { return GetName(); } }
+	public string ReferenceName     { get { return GetReferenceName(); } } // May be prefixed with 'Pk.'
+	public string FullLanguageType  { get { return GetFullLanguageType(); } }
+	public string LanguageType   	{ get { return _strH.FullTypeNameToTypeName(GetFullLanguageType()); } }
+	public bool   IsIdentity     	{ get { return GetIsIdentity(); } }
+	public bool   IsInPrimaryKey 	{ get { return _column.IsPrimaryKey; } }
+	public bool   IsGuidKey			{ get { return GetIsGuidKey(); } }
+	public bool   CanBeNull      	{ get { return _column.CanBeNull; } }
+	public string SqlDbType		 	{ get { return GetSqlDbType(); } }  // No length or precision
+	public string TSqlDbType		{ get { return GetTSqlDbType(); } } // May contain length and/or precision
+	public string FullTSqlDbType	{ get { return _column.DbType; } } // May contain length and/or precision and NOT NULL indication
+	public bool   NeedsQuotes		{ get { return IsDbStringType || IsDateTimeType; } }
+	public bool   IsDbStringType	{ get { return GetIsDbStringType(); } } // Is a T-SQL string type
+	public bool   IsDateTimeType	{ get { return GetIsDateTimeType(); } } // Is a T-SQL DateTime type
+	public bool   IsBinaryType      { get { return GetIsBinaryType();   } } // Is a T-SQL VarBinary type
+	public bool   IsValueType		{ get { return _strH.IsValueType(_column.Type); } }
+	public int    DbStringLength    { get { return GetDbStringLength(); } }
+	public string DefaultValue      { get { return GetDefaultValue(); } }
+	public bool   IsAutoGeneratedValue { get { return _column.IsDbGenerated; } }
+	
+	// Column data type translation
+	private string GetFullLanguageType()
+	{
+		if (IsValueType && _column.CanBeNull)
+		{
+			return _column.Type + "?";
+		}
+		else
+		{
+			return _column.Type;
+		}
+	}
+	
+	private string GetSqlDbType()
+	{
+		string sqlDbType = _column.DbType;
+		return sqlDbType.Split(' ', '(')[0];
+	}
+	
+	private string GetTSqlDbType()
+	{
+		string sqlDbType = _column.DbType;
+		return sqlDbType.Split(' ')[0];
+	}
+	
+	private string GetName()
+	{
+		return _column.Name.TrimStart('[').TrimEnd(']');
+	}
+	
+	private string GetReferenceName()
+	{
+		string prefix = (_tableInfo.HasCompositePk && IsInPrimaryKey) ? "Pk." : string.Empty;
+		return prefix + GetName();
+	}
+	
+	private bool GetIsIdentity()
+	{
+		return 
+		( 	_column.DbType.Contains("IDENTITY")
+		||  GetIsGuidKey() 							// Columns of type UniqueIdentifier that are part of the primary key
+		);											// Are treated as Identity columns and a value is assigned in the _Insert
+	}												// stored procedure
+	
+	private bool GetIsGuidKey()
+	{
+		return 
+	 	(	(SqlDbType == "UniqueIdentifier")   // Columns of type UniqueIdentifier that are part of the primary key
+		&&	(_column.IsPrimaryKey)				// Are treated as Identity columns and a value is assigned in the _Insert
+		);										// stored procedure
+	}
+	
+	private bool GetIsDbStringType()
+	{
+		switch(SqlDbType)
+		{
+			case "Char":
+			case "NChar":
+			case "VarChar":
+			case "NVarChar":
+				return true;
+			default:
+				return false;
+		}
+	}
+	
+	private int GetDbStringLength()
+	{
+		if (IsDbStringType)
+		{
+			string dbType = _column.DbType;
+			int openBracketIndex = dbType.IndexOf('(');
+			if (openBracketIndex < 0)
+			{
+				return 0; // No length contained in type definition
+			}
+			int closeBracketIndex = dbType.IndexOf(')', openBracketIndex + 1);
+			if (closeBracketIndex < 0)
+			{
+				return 0; // Syntax error
+			}
+			string lengthSpecifier = dbType.Substring(openBracketIndex + 1, closeBracketIndex - openBracketIndex - 1);
+			int result;
+			if (int.TryParse(lengthSpecifier, out result))
+			{
+				return result;
+			}
+		}
+		return 0;
+	}
+	
+	private bool GetIsDateTimeType()
+	{
+		switch(SqlDbType)
+		{
+			case "DateTime":
+			case "DateTime2":
+			case "Date":
+			case "SmallDateTime":
+			case "DateTimeOffset":
+				return true;
+			default:
+				return false;
+		}
+	}
+	
+	private bool GetIsBinaryType()
+	{
+		
+		switch(SqlDbType)
+		{
+			case "VarBinary":
+				return true;
+			default:
+				return false;
+		}
+	}
+	
+	private string GetDefaultValue()
+	{
+		if (LanguageType == "DateTime")
+		{
+			return "new DateTime(0,0,0)";
+		}
+		else if (LanguageType == "string")
+		{
+			return "null";
+		}
+		else if (CanBeNull)
+		{
+			return "null";
+		}
+		else
+		{
+			return "0";
+		}
+	}
+}
+
+public class FunctionInfo
+{
+	private Function _function;
+	public Function Function
+	{
+		get { return _function;}
+	}
+	private string _namePrefix;
+	private string _databaseLogicalName;
+	private string _returnTypeId;   // Reference to another class that is the return type of this function
+	private string _returnTypeName; // Contains the return type System.Int32 if the stored procedure does not contain
+	                                // a select statement
+	private List<ParamInfo> _paramInfos;
+	private StringHelper _strH = new StringHelper();
+	
+	public bool IsScalar
+	{
+		get
+		{
+			return !string.IsNullOrEmpty(_returnTypeName);	
+		}
+	}
+	
+	public FunctionInfo(Function function, string namePrefix, string databaseLogicalName)
+	{
+		_function = function;
+		_namePrefix = (namePrefix == null) ? string.Empty : namePrefix;
+		_databaseLogicalName = databaseLogicalName;
+		// Find element type, if any
+		foreach (object item in _function.Items)
+		{
+			Type elementType = item as Type;
+			if (elementType != null)
+			{
+				_returnTypeId = elementType.IdRef;
+				continue;
+			}
+			Return returnType = item as Return;
+			if (returnType != null)
+			{
+				_returnTypeName = returnType.Type;
+				continue;
+			}
+		}
+	}
+	public TableInfo ParentTable 	{ get; set; }
+	
+	public string MethodName       	{ get { return GetMethodName(); } }
+	public string DbName           	{ get { return _function.Name; } }
+	public string ReturnTypeId     	{ get { return _returnTypeId; } }
+	
+	public bool HasReturnType    	{ get { return true; } }
+
+	public string ReturnValueLanguageType { get { return GetReturnValueLanguageType(); } }
+
+	public string ReturnValueResultType 
+	{
+		get 
+		{ 
+			return _strH.MapLanguageTypeToResultType(ReturnValueLanguageType);
+		}
+	}
+
+	public bool   ReturnsSingleInstance
+	{
+		get
+		{
+			if (!string.IsNullOrEmpty(_returnTypeName))
+			{
+				return true; // Always single (or no) instance
+			}
+			string singleInstancePrefix = "SelectFirst";
+			return GetMethodName().StartsWith(singleInstancePrefix);
+		}
+	}
+
+	public List<ParamInfo> ParamInfos
+	{
+	    get
+	    {
+			if (_paramInfos == null)
+			{
+	        	_paramInfos = new List<ParamInfo>();
+				if (_function.Parameter != null)
+				{
+					foreach (Parameter parameter in _function.Parameter)
+					{
+						_paramInfos.Add(new ParamInfo(parameter));
+					}
+				}
+			}
+			return _paramInfos;
+	    }
+	}
+	
+	public string ParamDeclarationList
+	{
+		get
+		{
+			string paramList = string.Empty;
+			bool first = true;
+			if (_function.Parameter != null)
+			{
+				foreach(ParamInfo paramInfo in ParamInfos)
+				{
+					if (first == false)
+					{
+						paramList += ", ";
+					}
+					paramList += paramInfo.LanguageType + " " + _strH.ToLowerCamelCase(paramInfo.Name);
+					first = false;
+				}
+			}
+			return paramList;
+		}
+	}
+	
+	public string ParamReferenceList
+	{
+		get
+		{
+			string paramList = string.Empty;
+			bool first = true;
+			if (_function.Parameter != null)
+			{
+				foreach(ParamInfo paramInfo in ParamInfos)
+				{
+					if (first == false)
+					{
+						paramList += ", ";
+					}
+					paramList += _strH.ToLowerCamelCase(paramInfo.Name);
+					first = false;
+				}
+			}
+			return paramList;
+		}
+	}
+
+	private string GetReturnValueLanguageType()
+	{
+		if (!string.IsNullOrEmpty(_returnTypeName))
+		{
+			return _strH.FullTypeNameToTypeName(_returnTypeName);
+		}
+		return ParentTable.EntityName;
+	}
+	
+	private string DbNamePrefix // Excludes last underscore, is null if no underscore in name
+    {
+        get
+        {
+            string name = _function.Method;
+            int prefixLength = name.LastIndexOf('_');
+            if ( prefixLength >= 0)
+            {
+                return name.Substring(0, prefixLength);
+            }
+            return null;
+        }
+    }
+
+	public string MethodNamePrefix // Excludes last underscore, is null if no underscore in name
+    {
+        get
+        {
+            string dbNamePrefix = DbNamePrefix;
+            if ( dbNamePrefix != null)
+            {
+                return _strH.ToUpperCamelCase(dbNamePrefix);
+            }
+            return null;
+        }
+    }
+
+	private string GetMethodName()
+	{
+		string prefix = DbNamePrefix;
+		if ( prefix != null)
+		{
+			return _function.Method.Substring(prefix.Length + 1);
+		}
+		return _function.Method;
+	}
+}
+
+public class ParamInfo
+{
+	private Parameter _parameter;
+	private StringHelper _strH = new StringHelper();
+	
+	public ParamInfo(Parameter parameter)
+	{
+		_parameter = parameter;
+	}
+	public string Name           	{ get { return _parameter.Name; } }
+	public string FullLanguageType  { get { return GetFullLanguageType(); } }
+	public string LanguageType   	{ get { return _strH.FullTypeNameToTypeName(GetFullLanguageType()); } }
+	public string SqlDbType		 	{ get { return GetSqlDbType(); } }
+	public string TSqlDbType		{ get { return GetTSqlDbType(); } }
+	public bool   IsValueType		{ get { return _strH.IsValueType(_parameter.Type); } }
+	
+	// Column data type translation
+	private string GetFullLanguageType()
+	{
+		// CONVENTION: If in the dbml file you add " NULL" to the DbType, the language type is made nullable 
+		if (IsValueType 
+			&& (_parameter.DbType.EndsWith(" NOT NULL") == false)
+			&& _parameter.DbType.EndsWith(" NULL")
+			)
+		{
+			return _parameter.Type + "?";
+		}
+		else
+		{
+			return _parameter.Type;
+		}
+	}
+	
+	private string GetSqlDbType()
+	{
+		string sqlDbType = _parameter.DbType;
+		return sqlDbType.Split(' ', '(')[0];
+	}
+	
+	private string GetTSqlDbType()
+	{
+		string sqlDbType = _parameter.DbType;
+		return sqlDbType.Split(' ')[0];
+	}
+}	
+public class StringHelper
+{
+    public string ToLowerCamelCase(string src)
+    {
+	    src = ToUpperCamelCase(src);
+	    return src.Substring(0, 1).ToLower() + src.Substring(1);
+    }
+
+    public string ToUpperCamelCase(string phrase)
+    {
+	    string[] splittedPhrase = phrase.Split(' ', '-', '.', '_');
+	    StringBuilder stringBuilder = new StringBuilder();
+
+	    foreach (string word in splittedPhrase)
+	    {
+	        string result = word;
+
+		    if (word.Length > 0)
+		    {
+                // If word is uppercase, convert to UpperCamelCase
+			    if (word.All(c=>char.IsUpper(c)))
+			    {
+				    result = word.Substring(0, 1) + word.Substring(1).ToLower();
+			    }
+
+                // Make first character upper case
+			    result = result.Substring(0, 1).ToUpper() + result.Substring(1);
+
+		        stringBuilder.Append(result);
+		    }
+	    }
+	    return stringBuilder.ToString();
+    }
+	
+    public string RemovePrefix(string src, string prefix)
+    {
+	    if (src.StartsWith(prefix))
+	    {
+		    return src.Substring(prefix.Length); // Skip prefix
+	    }
+	    return src; // Keep original
+    }
+
+	public bool IsValueType(string type)
+	{
+		switch(type)
+		{
+			case "System.String":
+				return false;
+			default: 
+				return true;
+		}
+	}
+
+	public string FullTypeNameToTypeName(string fullTypeName)
+	{
+        const string systemPrefix = "System.";
+        switch (fullTypeName)
+        {
+            case "System.String": return "string";
+            case "System.Int64": return "long";
+            case "System.Int32": return "int";
+            case "System.Int16": return "short";
+            case "System.UInt64": return "ulong";
+            case "System.UInt32": return "uint";
+            case "System.UInt16": return "ushort";
+            case "System.Byte": return "byte";
+            case "System.Boolean": return "bool";
+            case "System.Decimal": return "decimal";
+            case "System.Double": return "double";
+            case "System.Int64?": return "long?";
+            case "System.Int32?": return "int?";
+            case "System.Int16?": return "short?";
+            case "System.UInt64?": return "ulong?";
+            case "System.UInt32?": return "uint?";
+            case "System.UInt16?": return "ushort?";
+            case "System.Byte?": return "byte?";
+            case "System.Boolean?": return "bool?";
+            case "System.Decimal?": return "decimal?";
+            case "System.Double?": return "double?";
+            default:
+                if (fullTypeName.StartsWith(systemPrefix))
+                {
+                    return fullTypeName.Substring(systemPrefix.Length);
+                }
+                else
+                {
+                    return fullTypeName;
+                }
+        }
+	}
+    
+	public string MapLanguageTypeToResultType(string type)
+	{
+		switch (type)
+			{
+				case "string":
+					return "IdResult";
+				case "int":
+					return "IdResult<int>";
+				case "long":
+					return "IdResult<long>";
+				default:
+					return type;
+			}
+		
+	}
+}
+#>

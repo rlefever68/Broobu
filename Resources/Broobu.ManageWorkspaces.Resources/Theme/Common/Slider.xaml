@@ -1,0 +1,302 @@
+<ResourceDictionary 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ribbon="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon;assembly=ActiproSoftware.Ribbon.Wpf351"
+	xmlns:ribbonThemes="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Themes;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonUI="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.UI;assembly=ActiproSoftware.Ribbon.Wpf351"
+    >
+
+	<!-- StatusBarSliderButtonStyle -->
+    <Style x:Key="StatusBarSliderButtonStyle" TargetType="{x:Type ButtonBase}">
+		<Setter Property="FocusVisualStyle" Value="{x:Null}" />
+		<Setter Property="Height" Value="16" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="Width" Value="16" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type ButtonBase}">
+					
+					<Grid Background="Transparent">
+						<Grid.Clip>
+							<EllipseGeometry RadiusX="8" RadiusY="8" Center="8,8" />
+						</Grid.Clip>	
+
+						<Ellipse x:Name="ButtonOuterNormalBackground" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderButtonOuterBackgroundNormalBrushKey}}" Clip="M 0.5,8 C 0.5,-2 15.5,-2 15.5,8 Z" />
+						<Ellipse x:Name="ButtonInnerNormalBackground" Margin="1" RenderTransformOrigin="0.5,0.5" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderButtonInnerBackgroundNormalBrushKey}}">
+							<Ellipse.RenderTransform>
+								<TransformGroup>
+									<ScaleTransform ScaleX="3" ScaleY="1"/>
+									<TranslateTransform X="0" Y="7"/>
+								</TransformGroup>
+							</Ellipse.RenderTransform>
+						</Ellipse>			
+						
+						<Ellipse x:Name="ButtonOuterHoverBackground" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ApplicationButtonOuterBackgroundHoverBrushKey}}" Opacity="0" />
+						<Ellipse x:Name="ButtonInnerHoverBackground" Margin="1" RenderTransformOrigin="0.5,0.5" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ApplicationButtonInnerBackgroundHoverBrushKey}}" Opacity="0">
+							<Ellipse.RenderTransform>
+								<TransformGroup>
+									<ScaleTransform ScaleX="3" ScaleY="1"/>
+									<TranslateTransform X="0" Y="7"/>
+								</TransformGroup>
+							</Ellipse.RenderTransform>
+						</Ellipse>			
+						
+						<Ellipse x:Name="ButtonOuterPressedBackground" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ApplicationButtonOuterBackgroundPressedBrushKey}}" Opacity="0" />
+						<Ellipse x:Name="ButtonInnerPressedBackground" Margin="1" RenderTransformOrigin="0.5,0.5" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ApplicationButtonInnerBackgroundPressedBrushKey}}" Opacity="0">
+							<Ellipse.RenderTransform>
+								<TransformGroup>
+									<ScaleTransform ScaleX="3" ScaleY="1"/>
+									<TranslateTransform X="0" Y="7"/>
+								</TransformGroup>
+							</Ellipse.RenderTransform>
+						</Ellipse>			
+						
+						<Ellipse x:Name="ButtonBorder" Stroke="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderBorderBrushKey}}" />
+
+						<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" SnapsToDevicePixels="True" />
+					</Grid>
+
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsKeyboardFocused" Value="True">
+							<Setter TargetName="ButtonOuterHoverBackground" Property="Opacity" Value="1"/>
+							<Setter TargetName="ButtonInnerHoverBackground" Property="Opacity" Value="1"/>
+						</Trigger>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="ButtonOuterHoverBackground" Property="Opacity" Value="1"/>
+							<Setter TargetName="ButtonInnerHoverBackground" Property="Opacity" Value="1"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="ButtonOuterPressedBackground" Property="Opacity" Value="1"/>
+							<Setter TargetName="ButtonInnerPressedBackground" Property="Opacity" Value="1"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+					
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+		
+	<!-- StatusBarSliderDecreaseButtonStyle -->
+    <Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=StatusBarSliderDecreaseButtonStyle}" TargetType="{x:Type ButtonBase}" BasedOn="{StaticResource StatusBarSliderButtonStyle}">
+		<Setter Property="Command" Value="{x:Static Slider.DecreaseSmall}" />
+		<Setter Property="ContentTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<Grid Width="10" Height="4">
+						<Rectangle Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderTrackLightBrushKey}}" />
+						<Rectangle Margin="1" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderButtonGlyphBrushKey}}" />
+					</Grid>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
+	<!-- StatusBarSliderIncreaseButtonStyle -->
+    <Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=StatusBarSliderIncreaseButtonStyle}" TargetType="{x:Type ButtonBase}" BasedOn="{StaticResource StatusBarSliderButtonStyle}">
+		<Setter Property="Command" Value="{x:Static Slider.IncreaseSmall}" />
+		<Setter Property="ContentTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<Grid>
+						<Path Data="M 3.5,0.5 L 3.5,3.5 L 0.5,3.5 L 0.5,6.5 L 3.5,6.5 L 3.5,9.5 L 6.5,9.5 L 6.5,6.5 L 9.5,6.5 L 9.5,3.5 L 6.5,3.5 L 6.5,0.5 Z"
+								Stroke="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderTrackLightBrushKey}}"
+								Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderTrackLightBrushKey}}" />
+						<Path Data="M 4.5,1.5 L 4.5,4.5 L 1.5,4.5 L 1.5,5.5 L 4.5,5.5 L 4.5,8.5 L 5.5,8.5 L 5.5,5.5 L 8.5,5.5 L 8.5,4.5 L 5.5,4.5 L 5.5,1.5 Z"
+								Stroke="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderButtonGlyphBrushKey}}"
+								Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderButtonGlyphBrushKey}}" />
+					</Grid>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
+	<!-- SliderTransparentRepeatButtonStyle -->
+    <Style x:Key="SliderTransparentRepeatButtonStyle" TargetType="{x:Type RepeatButton}">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="IsTabStop" Value="false"/>
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border Background="{TemplateBinding Background}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+	
+	<!-- SliderHorizontalThumbStyle -->
+	<Style x:Key="SliderHorizontalThumbStyle" TargetType="{x:Type Thumb}">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="Foreground" Value="{x:Null}"/>
+        <Setter Property="Background" Value="{StaticResource {x:Static SystemColors.ControlBrushKey}}"/>
+        <Setter Property="Height" Value="13"/>
+        <Setter Property="Width" Value="11"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+					<ControlTemplate.Resources>
+						<PathGeometry x:Key="ThumbGeometry" Figures="M 4.5,0.5 L 0.5,0.5 L 0.5,8.5 L 4.5,12.5 L 8.5,8.5 L 8.5,0.5 Z" />
+					</ControlTemplate.Resources>
+					
+					<Canvas>
+						<Path x:Name="Background" Data="{StaticResource ThumbGeometry}" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderButtonBackgroundNormalBrushKey}}" SnapsToDevicePixels="True" />
+						<Path x:Name="InnerBorder" Data="{StaticResource ThumbGeometry}" Stroke="#80FFFFFF" StrokeThickness="3" SnapsToDevicePixels="True" />
+						<Path x:Name="OuterBorder" Data="{StaticResource ThumbGeometry}" Stroke="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderBorderBrushKey}}" SnapsToDevicePixels="True">
+							<Path.Fill>
+								<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+									<GradientStop Color="#FFFFFFFF" Offset="0" />
+									<GradientStop Color="#20FFFFFF" Offset="0.3" />
+									<GradientStop Color="#20FFFFFF" Offset="0.5" />
+									<GradientStop Color="#FFFFFFFF" Offset="1" />
+								</LinearGradientBrush>
+							</Path.Fill>
+						</Path>
+						<Path Data="M 4.5,3.5 L 4.5,8.5" Stroke="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderTrackDarkBrushKey}}" SnapsToDevicePixels="True" />
+						<Path Data="M 5.5,3.5 L 5.5,8.5" Stroke="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderTrackLightBrushKey}}" SnapsToDevicePixels="True" />
+					</Canvas>
+                    
+					<ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Background" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLargeBackgroundHoverBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsDragging" Value="True">
+                            <Setter TargetName="Background" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLargeBackgroundPressedBrushKey}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+	<!-- SliderHorizontalTemplate -->
+	<ControlTemplate x:Key="SliderHorizontalTemplate" TargetType="{x:Type Slider}">
+		<Border Background="{TemplateBinding Background}"
+				BorderBrush="{TemplateBinding BorderBrush}"
+				BorderThickness="{TemplateBinding BorderThickness}"
+				Width="{TemplateBinding Width}">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto" MinHeight="{TemplateBinding Slider.MinHeight}"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<!--
+					 #
+					 # Top TickMark: Will be shown only when Slider.TickPlacement = TopLeft or Both
+					 #
+				 -->
+				<TickBar x:Name="TopTick"
+						 Placement="Top"
+						 Fill="{TemplateBinding Foreground}"
+						 Height="4"
+						 Visibility="Collapsed"/>
+				<!--
+					 #
+					 # Slider TrackBackground
+					 #
+					 # Draw Track Background. Usually, the track image is smaller than the size of
+					 # the channel. So, we need to put the background at center of the channel.
+					 #
+				<theme:ClassicBorderDecorator Name="TrackBackground"
+											  Margin="0,0,0,1"
+											  Height="4"
+											  Grid.Row="1"
+											  BorderStyle="Sunken"
+											  BorderBrush="{x:Static theme:ClassicBorderDecorator.ClassicBorderBrush}"
+											  BorderThickness="2">
+				 -->
+				<Border Name="TrackBackground" Grid.Row="1">
+					<Grid>
+						<StackPanel VerticalAlignment="Center">
+							<Rectangle Height="1" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderTrackDarkBrushKey}}" SnapsToDevicePixels="True" />
+							<Rectangle Height="1" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.StatusBarSliderTrackLightBrushKey}}" SnapsToDevicePixels="True" />
+						</StackPanel>
+
+						<!--
+							 #
+							 # SelectionRangeElement
+							 #
+						 -->
+						<Canvas Margin="-2">
+							<!--
+								 #
+								 # SelectionRangeElement
+								 #
+							 -->
+							<Rectangle x:Name="PART_SelectionRange"
+									   Fill="{StaticResource {x:Static SystemColors.HighlightBrushKey}}"
+									   Height="4.0"
+									   Visibility="Hidden"/>
+						</Canvas>
+					</Grid>
+				</Border>
+				<!--
+				</theme:ClassicBorderDecorator>
+
+					 #
+					 # MainPartsPanel
+					 # ==============
+					 #   This is a panel that hold 2 transparent RepeatButtons and Thumb.
+					 #   This part usually lay on top of the Track background.
+				   -->
+				<Track Grid.Row="1" Name="PART_Track" Margin="1,0,-1,0">
+					<Track.DecreaseRepeatButton>
+						<RepeatButton Style="{StaticResource SliderTransparentRepeatButtonStyle}" Command="{x:Static Slider.DecreaseLarge}"/>
+					</Track.DecreaseRepeatButton>
+					<Track.IncreaseRepeatButton>
+						<RepeatButton Style="{StaticResource SliderTransparentRepeatButtonStyle}" Command="{x:Static Slider.IncreaseLarge}"/>
+					</Track.IncreaseRepeatButton>
+					<Track.Thumb>
+						<Thumb x:Name="Thumb" Style="{StaticResource SliderHorizontalThumbStyle}" />
+					</Track.Thumb>
+				</Track>
+
+				<!--
+					 #
+					 # Bottom TickMark: Will be shown only when Slider.TickPlacement = BottomRight or Both
+					 #
+				 -->
+				<TickBar x:Name="BottomTick"
+						 Fill="{TemplateBinding Foreground}"
+						 Placement="Bottom"
+						 Height="4"
+						 Visibility="Collapsed"
+						 Grid.Row="2"/>
+			</Grid>
+		</Border>
+		
+		<ControlTemplate.Triggers>
+			<!-- ShowTickMarkBands and Reposition the Track-->
+			<Trigger Property="TickPlacement" Value="TopLeft">
+				<Setter TargetName="TopTick" Property="Visibility" Value="Visible"/> 
+				<Setter TargetName="TrackBackground" Property="Margin" Value="0,3,0,0"/>
+			</Trigger>
+			<Trigger Property="TickPlacement" Value="BottomRight">
+				<Setter TargetName="BottomTick" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="TrackBackground" Property="Margin" Value="0,0,0,3"/>
+			</Trigger>
+			<Trigger Property="TickPlacement" Value="Both">
+				<Setter TargetName="TopTick" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="BottomTick" Property="Visibility" Value="Visible"/>
+			</Trigger>
+			<!-- Display SelectionRange background -->
+			<Trigger Property="IsSelectionRangeEnabled" Value="true">
+				<Setter TargetName="PART_SelectionRange" Property="Visibility" Value="Visible"/>
+			</Trigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+	
+	<!-- StatusBarSliderStyle -->
+    <Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=StatusBarSliderStyle}" TargetType="{x:Type Slider}">
+        <Setter Property="Stylus.IsPressAndHoldEnabled" Value="False"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="Template" Value="{StaticResource SliderHorizontalTemplate}" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+	
+</ResourceDictionary>

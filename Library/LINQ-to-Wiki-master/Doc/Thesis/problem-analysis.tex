@@ -1,0 +1,203 @@
+\chapter{Problem analysis}
+\label{goal}
+
+The goal of the LinqToWiki library is to be able to express requests using the MediaWiki \ac{API}
+in a way that is readable, discoverable, checked by the compiler for correctness as much as possible and also flexible with regards to changes.
+
+This is achieved by generating classes specific for each module and using them in LINQ queries.
+
+\paragraph{Querying data in C\#}
+
+\ac{LINQ} is a way of querying various data sources from the C\# language.
+The two most commonly used variants are LINQ to Objects, and various versions of LINQ for \ac{SQL} databases.
+LINQ to Objects is used for querying in-memory data, like arrays.
+There are several widely-used libraries for accessing \ac{SQL} databases using LINQ, including LINQ to SQL, LINQ to Entities and NHibernate.
+
+In all versions of \ac{LINQ}, the queries look the same. For example:
+
+\begin{lstlisting}
+from product in products
+where product.Price > 500
+   && product.InStock
+join category in categories on product.Category equals category
+orderby product.Price
+select product.Name
+\end{lstlisting}
+
+A query like this is translated into a sequence of method calls that take their parameters in the form of lambda expressions.%
+\footnote{
+Lambda expressions are a way to create unnamed (anonymous) functions.
+Parameter list of the function is specified on the left side of the \lstinline{=>} operator,
+result of the function is computed by the expression on its right side.
+Types of the parameters and the return type do not have to be specified, if they can be inferred.
+}
+For example, the \lstinline{where} part of the above query is translated into:
+
+\begin{lstlisting}
+products.Where(product => product.Price > 500 && product.InStock)
+\end{lstlisting}
+
+The commonalities between LINQ to Objects and SQL LINQ libraries are that the full range of operators is available
+and that all properties of the queried type are available in all of them.
+
+\paragraph{Querying MediaWiki}
+
+The situation with the MediaWiki \ac{API} is different in several ways:
+
+\begin{enumerate}
+\item It does not support queries represented by many of the LINQ operators, including \lstinline{join} and \lstinline{group by}.
+\item Some of the modules do not support sorting, some do. Of those that do support sorting, some allow specifying the sort key, others only the direction.
+\item The sets of properties that are available for filtering, sorting and selecting are all different.
+
+For example, the \texttt{blocks} module does support specifying the direction, but not the property to sort by.
+Its set of properties that can be used for filtering includes \lstinline{Ip}
+(the \ac{IP} address of the blocked user), but not \lstinline{ById}.
+On the other hand, properties that can be used for selecting include \lstinline{ById}
+(ID of the user who performed the block), but not \lstinline{Ip}.
+
+\item There are modules used for queries about a set of pages. Those pages can be from a hard-coded list or a result from some other module.
+
+An example of such module is \texttt{categories}, which returns the list of categories of each page
+specified in the input list.
+
+\item There are also parameters that do not fit into the LINQ model well. Some of them are required, some are not.
+
+These parameters usually modify which items appear in the output,
+but they are not just a filter from some larger lists.
+Examples of such parameters are the required parameter \texttt{search} of the \texttt{search} module
+(which specifies what string to search for)
+or the optional parameter \texttt{title} of the \texttt{categorymembers} module
+(which decides what category to enumerate;
+this parameter is not required, because the parameter \texttt{pageid} can be used instead of it).
+\end{enumerate}
+
+The goal is to be able to represent all valid queries, while invalid queries should cause a compile-time error.
+
+Specifically, unsupported operators (like \lstinline{join} and \lstinline{group by}) should cause an error for all modules,
+while the \lstinline{orderby} clause should cause an error only for the modules that do not support sorting.
+
+Also, all operators should support only those properties that are actually supported by the \ac{API}.
+So, for example for the \texttt{blocks} module, the following query should compile and execute fine:
+
+\begin{lstlisting}
+from block in wiki.Blocks()
+where block.Ip == "8.8.8.8"
+orderby block descending
+select block.ById
+\end{lstlisting}
+
+This is because
+\begin{compactitem}
+\item limiting the query by the blocked \ac{IP} address,
+\item sorting without specifying the key and
+\item selecting the ID of the user who performed the block
+\end{compactitem}
+are all allowed, while the following query should cause three errors:
+
+\begin{lstlisting}
+from block in wiki.Blocks()
+where block.ById == 1234
+orderby block.Expiry descending
+select block.Ip
+\end{lstlisting}
+
+Here,
+\begin{compactitem}
+\item limiting by the ID of the user who performed the block,
+\item sorting by the expiration date and
+\item selecting the \ac{IP} address
+\end{compactitem}
+are all impossible.
+(Actually selecting the \ac{IP} address of the blocked user is possible,
+but the information is contained in properties with different names.)
+
+\section{Alternatives}
+\label{alternatives}
+
+Using statically typed methods and custom LINQ provider is not the only way a library like this
+could be built in C\#.
+Some of the alternatives include:
+
+\begin{itemize}
+\item Using strings for everything
+
+This is probably the simplest way to write a library for MediaWiki API.
+It means parameters and their names (including those specifying which module to use) are specified
+as a collection of string key-value pairs.
+
+For example, the query from the previous section would look something like:
+
+\begin{lstlisting}
+wiki.Query(new Dictionary<string, string>
+    {
+        { "list", "blocks" },
+        { "bkip", "8.8.8.8" },
+        { "bkdir", "older" },
+        { "bkprop", "byid" }
+    })
+\end{lstlisting}
+
+The main disadvantage of this approach is there is no checking of the query:
+any mistake in the query won't be found out until the query is actually executed.
+It also means autocompletion cannot help the user in finding out which parameters are available.
+
+In such implementation, the result of the query will be also some sort of dictionary
+(indexed by names of result properties), which has the same kind of problems as using strings for parameter names.
+
+Some modifications are possible, for example having a special parameter for the module prefix
+(\texttt{bk} in the above example), which would make the code less repetitive.
+But such changes will not fix the fundamental problems with this approach.
+
+\item Using \lstinline{dynamic}
+
+C\# 4.0 supports dynamic typing using the special type \lstinline{dynamic}.
+When using that, C\# acts similarly as dynamic languages.
+This means methods and their parameters do not have to be declared before they can be used.
+
+For example, the same query used previously could look like this using \lstinline{dynamic}:
+
+\begin{lstlisting}
+dynamic wiki = ...;
+wiki.ListBlocks("bk", ip:"8.8.8.8", dir:"older", prop:"byid")
+\end{lstlisting}
+
+For this query to work,
+the library does not need any knowledge about the \texttt{blocks} module or its parameters.
+
+This query is much more succinct than the string version
+(although part of that is because of extracting the prefix,
+which could be done with strings too, as mentioned).
+But it suffers from the same issues: mistakes cannot be detected at compile time
+and autocomplete will not be able to help.
+
+In this case, the returned object will be also dynamic,
+with the same advantages and disadvantages.
+
+One interesting consequence of using \lstinline{dynamic} is that it means LINQ cannot be used.
+Some of the reasons for this are that dynamically invoked methods cannot have lambdas as their arguments
+(at least not directly) and that expression trees do not support \lstinline{dynamic}.
+
+\item Manually written code for each module
+
+Here, code for each module would be written manually, instead of using code generation.
+This would be a significant amount of code which would have to be updated with every change of the API.
+Another problem is that each wiki can have different set of extensions, which add their own API modules,
+so distinct versions for some wikis would have to be maintained.
+
+The biggest advantage of this approach is that a human can understand the documentation of a module,
+so they can write code for a module better than a code generator such as LinqToWiki.Codegen could.
+This is because not all details of how a module works can be encoded into its machine readable description.
+
+\item Using \lstinline{IQueryable} instead of custom LINQ provider
+
+The \lstinline{IQueryable} interface is often used for implementing custom \ac{LINQ} sources,
+especially those for querying \ac{SQL} databases.
+
+The biggest disadvantage of using this approach is that \lstinline{IQueryable}
+supports all LINQ operators and all operators use the same set of properties.
+This is not suitable for MediaWiki \ac{API},
+because it does not support several LINQ operators,
+because ordering is available only for some modules
+and because filtering, sorting and projection all use different sets of properties.
+
+\end{itemize}

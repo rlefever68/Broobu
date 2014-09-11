@@ -1,0 +1,120 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:validationRules1="clr-namespace:Broobu.Fx.UI.ValidationRules;assembly=Broobu.Fx.UI"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    
+    xmlns:mvvm="clr-namespace:Broobu.Authentication.UI.Controls.Mvvm"
+    xmlns:rules="clr-namespace:Broobu.Authentication.UI.Controls.Rules"
+
+    x:Class="Broobu.Authentication.UI.Controls.Views.RegisterUserView"
+             mc:Ignorable="d" >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Broobu.Fx.UI;component/Themes.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <mvvm:RegisterUserViewModel/>
+    </UserControl.DataContext>
+    <dxlc:LayoutControl StretchContentHorizontally="True" Orientation="Horizontal">
+        <dxlc:LayoutGroup View="Group" Header="Registration Form" Orientation="Vertical">
+            <dxlc:LayoutItem Label="Email" LabelStyle="{DynamicResource LayoutItemLabelStyle}" HorizontalAlignment="Stretch" Padding="3">
+                <dxe:TextEdit x:Name="EdEmailAddr">
+                    <dxe:TextEdit.Text>
+                        <Binding Path="UserInfo.Email" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validationRules1:EmailRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </dxe:TextEdit.Text>
+                </dxe:TextEdit>
+            </dxlc:LayoutItem>
+
+            <dxlc:LayoutGroup Header="You" View="Group" Orientation="Horizontal">
+                <dxlc:LayoutItem Label="First Name" LabelStyle="{DynamicResource LayoutItemLabelStyle}" Padding="3">
+                    <dxe:TextEdit x:Name="EdFirstName">
+                        <dxe:TextEdit.Text>
+                            <Binding Path="UserInfo.FirstName" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validationRules1:RequiredRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </dxe:TextEdit.Text>
+                    </dxe:TextEdit>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="Last Name"  LabelStyle="{DynamicResource LayoutItemLabelStyle}" Padding="3">
+                    <dxe:TextEdit x:Name="EdLastName">
+                        <dxe:TextEdit.Text>
+                            <Binding Path="UserInfo.LastName" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validationRules1:RequiredRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </dxe:TextEdit.Text>
+                    </dxe:TextEdit>
+                </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+
+            <!--<dxlc:LayoutGroup Header="Culture" View="Group" Orientation="Horizontal">
+                <dxlc:LayoutItem Label="Region" LabelStyle="{DynamicResource LayoutItemLabelStyle}" Padding="3">
+                   <dxe:ComboBoxEdit /> 
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="Culture"  LabelStyle="{DynamicResource LayoutItemLabelStyle}" Padding="3">
+                   <dxe:ComboBoxEdit /> 
+                </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>-->
+
+
+
+            <dxlc:LayoutGroup Header="Authentication" View="Group" Orientation="Vertical">
+                <dxlc:LayoutItem Label="Password"  LabelStyle="{DynamicResource LayoutItemLabelStyle}" Padding="3">
+                    <dxe:PasswordBoxEdit x:Name="EdPassword">
+                        <dxe:PasswordBoxEdit.Text>
+                            <Binding Path="Password" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validationRules1:PasswordRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </dxe:PasswordBoxEdit.Text>
+                    </dxe:PasswordBoxEdit>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="Confirm Password"  LabelStyle="{DynamicResource LayoutItemLabelStyle}" Padding="3">
+                    <dxe:PasswordBoxEdit x:Name="EdConfirmPassWord">
+                        <dxe:PasswordBoxEdit.Text>
+                            <Binding Path="ConfirmedPassword" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validationRules1:PasswordRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </dxe:PasswordBoxEdit.Text>
+                    </dxe:PasswordBoxEdit>
+                </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutGroup Orientation="Horizontal">
+                <dxlc:LayoutItem Padding="3">
+                    <Button Content="Submit Registration" 
+                            Style="{StaticResource ButtonStyle}" 
+                            IsDefault="True"
+                            Command="{Binding Submit}"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Padding="3">
+                    <Button Content="Maybe Later..." 
+                            Style="{StaticResource ButtonStyle}"
+                            Command="{Binding GoBack}"/>
+                </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutItem>
+                <TextBlock x:Name="Feedback" Foreground="WhiteSmoke" Text="{Binding Feedback}" VerticalAlignment="Center" Style="{DynamicResource TitleFeedbackStyle}"/>
+            </dxlc:LayoutItem>
+        </dxlc:LayoutGroup>
+   
+    </dxlc:LayoutControl>
+
+    
+</UserControl>

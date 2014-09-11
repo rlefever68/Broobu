@@ -1,0 +1,4 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" 
+Service="Pms.UnderConstruction.Service.UnderConstructionService" 
+CodeBehind="UnderConstructionService.cs"%>
+<%@ Assembly Name="Pms.UnderConstruction.Service"%>

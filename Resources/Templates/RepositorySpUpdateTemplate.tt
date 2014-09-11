@@ -1,0 +1,131 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ output extension="sql"  #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-05
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositorySpUpdateTemplate : RepositorySpTemplateBase
+{
+	public RepositorySpUpdateTemplate()
+		: base(SpType.Update)
+	{}
+
+	public override string TransformText()
+    {
+		RenderStoredProcedure();
+        return this.GenerationEnvironment.ToString();
+    }
+		
+    protected override void RenderStoredProcedure()
+    {
+		base.RenderStoredProcedure();
+		string storedProcedureName = tableName + "_Update";
+		bool renderPkOnly;
+		bool returnsIdentifiers;
+
+#>
+-----------------------------------------------------------------------------
+
+<#+
+		RenderDropStoredProcedure(storedProcedureName, StoredProcedureSchema);
+#>
+
+CREATE PROCEDURE [<#= StoredProcedureSchema #>].[<#= storedProcedureName #>]
+<#+
+		renderPkOnly = false;
+		returnsIdentifiers = false;
+		RenderParameterDeclarationList(renderPkOnly, returnsIdentifiers);
+#>
+AS
+BEGIN
+
+    SET NOCOUNT ON
+    DECLARE @Err int
+
+<#+		if (GenerateDynamicSql == false) 
+		{
+#>
+    UPDATE <#= tableSchemaPrefix #>[<#= tableName #>]
+    SET
+<#+
+		RenderSetList(" ,");
+#>
+    WHERE
+<#+
+		RenderWhereList();
+#>
+ 
+
+    SET @Err = @@Error
+<#+
+		}
+		else // Dynamic SQL
+		{
+#>
+    DECLARE @ExecErr int;
+    DECLARE @Cmd nvarchar(4000);
+    DECLARE @ParamDefinition nvarchar(4000);
+    
+    SET @Cmd = <#= quote #>
+    UPDATE [<#= quote #> + @Schema + <#= quote #>].[<#= tableName #>]
+    SET
+<#+
+		RenderSetList(" ,");
+#>
+    WHERE
+<#+
+		RenderWhereList();
+#>
+        
+    SET @Err = @@Error
+	<#= quote #>;
+    
+    set @ParamDefinition = 
+<#+
+		renderPkOnly = false;
+		RenderParameterDefinitionList(renderPkOnly);
+#>
+
+    EXECUTE @ExecErr = sp_executeSql @Cmd, @ParamDefinition
+		, @Err output
+<#+
+		returnsIdentifiers = false;
+		RenderParameterValueListForDynamicSql(",;", returnsIdentifiers);
+#>
+                
+    IF @ExecErr <> 0 set @err = @ExecErr;
+<#+
+		}
+#>
+    RETURN @Err
+END
+GO
+
+<#+
+		RenderPrintStoredProcedureCreationStatus(storedProcedureName);
+#>
+
+
+<#+
+    }
+	
+    private void RenderSetList(string separators)
+    {
+		bool first = true;
+		foreach(ColumnInfo columnInfo in TableInfo.ColumnInfos)
+		{
+			if (columnInfo.IsIdentity)
+			{
+				continue;
+			}
+			string separator = (first) ? separators.Substring(0,1) : separators.Substring(1,1);
+#>
+        <#= separator #> [<#= columnInfo.Name #>] = @<#= columnInfo.Name #>
+<#+
+			first = false;
+		}
+	}	
+}
+#>

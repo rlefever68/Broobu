@@ -1,0 +1,72 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ output extension="txt"  #>
+<#@ include file="DbmlHelper.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-17
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryAgentInterfaceTemplate : Template
+{
+ 	public TableInfo TableInfo;
+    public string Namespace; 
+	public bool	HasDynamicSchema;
+	public bool NeedsBulkCrud;		
+
+	private StringHelper _strH = new StringHelper();
+
+    public override string TransformText()
+    {
+		string entityName = TableInfo.EntityName; // UpperCamelCase
+		string entityNameAsParam = _strH.ToLowerCamelCase(TableInfo.EntityName); // lowerCamelCase
+		string idNameAsParam = _strH.ToLowerCamelCase(TableInfo.IdName); // lowerCamelCase
+		string idLanguageType = TableInfo.IdLanguageType; 
+		string idResultType = TableInfo.IdResultType; 
+		string baseInterfaceDeclaration = string.Empty;
+		if (TableInfo.HasCrudFunctions)
+		{
+			if (NeedsBulkCrud)
+			{
+				string crudBaseInterface = (HasDynamicSchema) ? "IRepositoryBulkCrudWithSchemaAgent" : "IRepositoryBulkCrudAgent";	
+				baseInterfaceDeclaration = " : " + crudBaseInterface + "<" + entityName + ", " + idLanguageType + ", " + idResultType + ">";
+			}
+			else
+			{
+				string crudBaseInterface = (HasDynamicSchema) ? "IRepositoryCrudWithSchemaAgent" : "IRepositoryCrudAgent";	
+				baseInterfaceDeclaration = " : " + crudBaseInterface + "<" + entityName + ", " + idLanguageType + ", " + idResultType + ">";
+			}
+		}
+#>
+//========================================================================================
+// INFO: This file is generated from t4 template <#= this.GetType().Name #>.tt
+// !!! Any changes made manually will be lost next time this file is generated !!!
+//========================================================================================
+using System;
+using Pms.Framework.Interfaces;
+using Pms.Framework.Domain;
+using <#= Namespace #>.Repository.Contract.Domain;
+
+namespace <#= Namespace #>.Repository.Contract.Interfaces
+{
+    public partial interface I<#= entityName #>RepositoryAgent<#= baseInterfaceDeclaration #>
+    {
+<#+
+        foreach(FunctionInfo functionInfo in TableInfo.FunctionInfos)
+		{
+			string methodName = functionInfo.MethodName;
+			string paramDeclarationList = functionInfo.ParamDeclarationList;
+			string arraysuffix = functionInfo.ReturnsSingleInstance ? string.Empty : "[]";
+			string returnValueResultType = functionInfo.ReturnValueResultType;
+#>
+        <#= returnValueResultType #><#= arraysuffix #> <#= methodName #>(<#= paramDeclarationList #>);
+<#+
+		}
+#>
+    }
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>

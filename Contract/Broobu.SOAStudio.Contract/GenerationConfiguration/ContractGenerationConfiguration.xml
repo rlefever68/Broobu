@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContractDefinition Name="SoaStudio"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:noNamespaceSchemaLocation= "file:..\..\..\MobiFxSDK\SDK\Generation\Pms.Contract.Generation.xsd">
+  <ContractServiceInterfaces>
+    
+    <ContractServiceInterface Name="ISoaStudio" ServiceContractNamespace="http://pms.soastudio/11/04">
+      <Methods>
+         <!--Get Facts--> 
+        <Method Name="GetDiscoveredServices">
+          <ReturnType Name="DiscoViewItem[]" Namespace="Pms.SoaStudio.Contract.Domain"/>
+        </Method>
+        <Method Name="RegisterActivitiesContract">
+          <Parameters>
+            <Parameter Name="contract">
+              <Type Name="AcivitiesContractViewItem" />
+            </Parameter>
+          </Parameters>
+          <ReturnType Name="ActivitiesContractViewItem" Namespace="Pms.SoaStudio.Domain"/>
+        </Method>
+        
+        
+        
+      </Methods>
+    </ContractServiceInterface>
+    
+  </ContractServiceInterfaces>
+  
+  <DomainObjectClasses>
+    <DomainObjectClass Name="DiscoViewItem">
+      <Properties>
+        <Property Name="Endpoint">
+          <Type Name="string" Namespace="System"/>
+        </Property>
+        <Property Name="Contract">
+          <Type Name="string" Namespace="System"/>
+        </Property>
+      </Properties>
+    </DomainObjectClass>
+    
+     
+  </DomainObjectClasses>
+</ContractDefinition>
+  
+

@@ -1,0 +1,29 @@
+﻿<#@ xsd processor="T4Toolbox.XsdProcessor" 
+    file="%VS100COMNTOOLS%\..\..\Xml\Schemas\DbmlSchema.xsd" #>
+<#@ include file="RepositoryAgentFactoryTemplate.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-25
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryAgentFactoryGenerator : Generator
+{
+	public string DatabaseDbml;
+	public string TableNamePrefix;
+	public string Namespace;
+	public bool   HasMockRepository; // Added MDG 20101202: set to true if code is generated for mock repository
+	public bool PrefixEntityNameWithSchemaName;
+	
+	private RepositoryAgentFactoryTemplate _template = new RepositoryAgentFactoryTemplate();  
+
+    protected override void RunCore()
+    {
+		DatabaseInfo databaseInfo = new DatabaseInfo(DatabaseDbml, TableNamePrefix, PrefixEntityNameWithSchemaName);
+        _template.DatabaseInfo = databaseInfo;
+        _template.Namespace = Namespace;
+		_template.HasMockRepository = HasMockRepository;
+        _template.Render();
+    }
+}
+#>

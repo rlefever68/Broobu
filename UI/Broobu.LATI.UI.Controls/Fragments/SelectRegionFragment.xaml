@@ -1,0 +1,14 @@
+﻿<UserControl xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  x:Class="Broobu.LATI.UI.Controls.Fragments.SelectRegionFragment"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mvvm="clr-namespace:Broobu.LATI.UI.Controls.Mvvm"
+             mc:Ignorable="d">
+    <UserControl.DataContext>
+        <mvvm:SelectRegionViewModel />
+    </UserControl.DataContext>
+    <Grid>
+       <dxe:ComboBoxEdit Name="ComboBoxEdit" ItemsSource="{Binding Regions}" SelectedItem="{Binding SelectedRegion}"/>     
+    </Grid>
+</UserControl>

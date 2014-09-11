@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="Pms.WorkspaceBrowser.UI.Controls.Property"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:my="clr-namespace:DevExpress.Xpf.Grid;assembly=DevExpress.Xpf.Grid.v10.2" 
+             xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys" 
+             xmlns:Controls="clr-namespace:Pms.WorkspaceBrowser.UI.Controls" 
+             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
+    
+    <UserControl.Resources>
+         <Controls:PropertyViewModel x:Key="vm" />       
+    </UserControl.Resources>
+    <Grid  x:Name="LayoutRoot" DataContext="{StaticResource vm}" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="210"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.Resources>
+            <!--Row Style-->
+            <Style x:Key="Rowstyle"
+           TargetType="{x:Type my:GridRowContent}">
+                <Setter Property="Background" Value="#E8E8E8"></Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=IsSelected}" Value="true">
+                        <Setter Property="Background" Value="{DynamicResource RowSelectionBackground}"></Setter>
+                        <Setter Property="Foreground" Value="Black"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <ControlTemplate x:Key="{dxgt:GridRowThemeKey ResourceKey=NewItemRowTemplate}" TargetType="{x:Type ContentControl}">
+                <Grid>
+                    <Border x:Name="rowDelimeterBorder" 
+                    BorderBrush="{DynamicResource {dxgt:GridRowThemeKey ResourceKey=GridDataRowDelimiterBrush}}" 
+                    BorderThickness="0,0,0,1" >
+                        <Grid>
+                            <Border x:Name="borderFocused" Background="DarkGray">
+                            </Border>
+                            <ContentControl>
+                                <ContentPresenter  />
+                            </ContentControl>
+                        </Grid>
+                    </Border>
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <DataTrigger Binding="{Binding Path=SelectionState}" Value="Focused">
+                        <Setter Property="Foreground" Value="Black" />
+                    </DataTrigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Grid.Resources>
+        <my:GridControl x:Name="ListViewProperty" AutoPopulateColumns="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" >
+
+            <my:GridControl.View >
+                <my:TableView Name="view" NewItemRowPosition="Top" ShowGroupPanel="False" AllowEditing="True" Padding="2 2 2 2" 
+                              ShowingEditor="ViewShowingEditor"  AutoWidth="True" EditorButtonShowMode="ShowForFocusedRow" RowStyle="{StaticResource Rowstyle}" >
+                </my:TableView>
+            </my:GridControl.View>
+
+            <my:GridControl.Columns>
+                
+                <my:GridColumn FieldName="PropertyName" Header="Property" Width="100">            
+                </my:GridColumn>
+
+                <my:GridColumn FieldName="PropertyValue" Header="Value" Width="100">
+                </my:GridColumn>
+
+
+            </my:GridControl.Columns>
+        </my:GridControl>
+
+        <!--<Grid Margin="10 10 50 0" Grid.Row="1" HorizontalAlignment="Right" >
+            <Button Width="70" x:Name="btnSaveDesc" Height="30" Content="Save" />
+        </Grid>-->
+    </Grid>
+</UserControl>

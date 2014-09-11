@@ -1,0 +1,158 @@
+﻿<UI:ViewUserControl x:Class="Pms.ManageWorkspaces.UI.Controls.WorkspaceListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Pms.ManageWorkspaces.UI.Controls.Behaviour" xmlns:UI="clr-namespace:Pms.Framework.UI;assembly=Pms.Framework.UI" 
+             xmlns:ViewModel="clr-namespace:Pms.ManageWorkspaces.UI.Controls.ViewModel" mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="400">
+
+    <UI:ViewUserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/ListViewTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <ViewModel:WorkspaceListViewViewModel x:Key="vm" />
+
+            <ContextMenu Name="lstICM" x:Key="ListViewItemContextMenu">
+                <MenuItem x:Name="Rename" Header="Rename" Click="Rename_Click" />
+                <MenuItem x:Name="Delete" Header="Delete" Click="Delete_Click" />
+            </ContextMenu>
+
+            <ContextMenu Name="lstCM" x:Key="ListViewContextMenu">
+                <MenuItem Header="New" x:Name="lstCMnew">
+                    <MenuItem x:Name="Item" Header="Item" Command="{Binding ListViewCommand}" CommandParameter="NewItem"></MenuItem>
+                    <MenuItem x:Name="Folder" Header="Folder" Command="{Binding ListViewCommand}" CommandParameter="NewFolder" ></MenuItem>
+                </MenuItem>
+                <!--coded by bharathi-->
+                <MenuItem x:Name="Refresh" Header="Refresh"  Command="{Binding ListViewCommand}" CommandParameter="Refresh"   />
+                <!--ended-->
+            </ContextMenu>
+          
+            <Style x:Key="ListViewStyle" TargetType="{x:Type ListView}">
+                <Setter Property="ContextMenu" Value="{StaticResource ListViewContextMenu}"></Setter>
+            
+
+            </Style>
+
+            <DataTemplate x:Key="DisplayImage">
+                <StackPanel Width="20" Height="20">
+                    <Image Source="{Binding ItemImage}" />
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DisplayText">
+                <StackPanel Width="Auto" MinWidth="250">
+                    <TextBox Name="EditBox" Style="{StaticResource TextBoxstyle}" Text="{Binding ItemTitle}" 
+                               MouseRightButtonUp="TextBox_MouseRightButtonDown" KeyDown="TextBox_KeyDown" LostFocus="TextBox_LostFocus"
+                             ></TextBox>
+                </StackPanel>
+            </DataTemplate>
+            <!---->
+            <GridView x:Key="DetailView">
+                <GridViewColumn Header="Image"  CellTemplate="{StaticResource DisplayImage}"   Width="50" ></GridViewColumn>
+                <GridViewColumn Header="Item Title" CellTemplate="{StaticResource DisplayText}"  Width="200" >
+                    <!--<GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Width="Auto" MinWidth="250">
+                             <TextBox Style="{StaticResource TextBoxstyle}" KeyDown="TextBox_KeyDown" Text="{Binding ItemTitle}" 
+                             MouseRightButtonUp="TextBox_MouseRightButtonDown"   
+                             LostFocus="TextBox_LostFocus" MouseDown="TextBox_MouseDown"></TextBox>
+                            </StackPanel>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>-->
+                </GridViewColumn>
+                <GridViewColumn Header="Type" DisplayMemberBinding="{Binding TypeTitle}"  Width="200"></GridViewColumn>
+            </GridView>
+
+            <GridView x:Key="ListView" >
+                <GridViewColumn Header="Image" CellTemplate="{StaticResource DisplayImage}" ></GridViewColumn>
+                <GridViewColumn Header="Item Title" CellTemplate="{StaticResource DisplayText}">
+                    <!--<GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Width="Auto" MinWidth="250">
+                                <TextBox Style="{StaticResource TextBoxstyle}" KeyDown="TextBox_KeyDown" Text="{Binding ItemTitle}" 
+                             MouseRightButtonUp="TextBox_MouseRightButtonDown"   
+                             LostFocus="TextBox_LostFocus" MouseDown="TextBox_MouseDown"></TextBox>
+                            </StackPanel>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>-->
+                </GridViewColumn>
+            </GridView>
+        </ResourceDictionary>
+
+    </UI:ViewUserControl.Resources>
+    <Grid x:Name="LayoutRoot" DataContext="{StaticResource vm}">
+        <Grid.Resources>
+
+            <DataTemplate x:Key="DisplayImage">
+                <StackPanel Width="20" Height="20">
+                    <Image Source="{Binding ItemImage}" />
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DisplayText">
+                <StackPanel Width="Auto" MinWidth="150">
+                    <TextBox Style="{StaticResource TextBoxstyle}" KeyDown="TextBox_KeyDown" Text="{Binding ItemTitle}" 
+                             MouseRightButtonUp="TextBox_MouseRightButtonDown"   
+                             LostFocus="TextBox_LostFocus" MouseDown="TextBox_MouseDown"></TextBox>
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DisplayTypeText">
+                <StackPanel Width="Auto">
+                    <TextBlock Text="{Binding TypeTitle}" Margin="45 5 0 5"></TextBlock>
+                </StackPanel>
+            </DataTemplate>
+
+        </Grid.Resources>
+
+
+        <ListView x:Name="ListViewControl" 
+                  local:SelectorDoubleClickCommandBehavior.HandleDoubleClick="true" 
+                  local:SelectorDoubleClickCommandBehavior.TheCommandToRun="{Binding Path=DoubleClickCommand}"            
+                  local:SelectionBehavior.SelectionChanged="{Binding ItemSelectedCommand}" 
+                  x:FieldModifier="public" Style="{StaticResource ListViewStyle}" SelectedIndex="{Binding SelectedIndex}" 
+                  SelectedItem="{Binding SelectedItem}" MouseDown="ListViewControl_MouseDown"
+                  ItemsSource="{Binding ListItem}" BorderThickness="0" FontFamily="Verdana" FontSize="10" Foreground="Black">
+            <!--<ListView.View>
+                <GridView x:Name="GrdView" x:FieldModifier="public">
+                    <GridViewColumn CellTemplate="{StaticResource DisplayImage}"></GridViewColumn>
+                    <GridViewColumn CellTemplate="{StaticResource DisplayText}" Width="350"></GridViewColumn>
+                    <GridViewColumn CellTemplate="{StaticResource DisplayTypeText}" />
+                </GridView>
+            </ListView.View>-->
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" x:Name="style1">
+                    <Setter Property="ContextMenu" Value="{StaticResource ListViewItemContextMenu}" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <Border x:Name="Border" Padding="0,2,0,2" SnapsToDevicePixels="true" 
+                                        Background="Transparent" CornerRadius="3" BorderThickness="1" >
+                                    <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Foreground" Value="Black" />
+                                        <Setter TargetName="Border" Property="Background" Value="#C6D3E7">
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Foreground" Value="DarkBlue" />
+                                        <Setter TargetName="Border" Property="Background" Value="#ededed">
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+        </ListView>
+
+    </Grid>
+</UI:ViewUserControl>

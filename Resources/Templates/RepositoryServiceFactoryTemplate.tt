@@ -1,0 +1,81 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ include file="DbmlHelper.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-25
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryServiceFactoryTemplate : Template
+{
+ 	public TableInfo TableInfo;
+    public string    Namespace; 
+
+    public override string TransformText()
+    {
+		string databaseLogicalName = TableInfo.DatabaseLogicalName;
+		string entityName = TableInfo.EntityName; // UpperCamelCase
+#>
+//========================================================================================
+// INFO: This file is generated from t4 template <#= this.GetType().Name #>.tt
+// !!! Any changes made manually will be lost next time this file is generated !!!
+//========================================================================================
+using System;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.ServiceModel.Description;
+using log4net;
+using System.Configuration;
+using System.ServiceModel.Discovery;
+using Pms.Framework.Networking.Wcf;
+using <#= Namespace #>.Repository.Contract.Interfaces;
+
+namespace <#= Namespace #>.Repository
+{
+	public class <#= entityName #>RepositoryServiceHostFactory : System.ServiceModel.Activation.ServiceHostFactory 
+	{ 
+		private readonly ILog _logger;
+		
+		public <#= entityName #>RepositoryServiceHostFactory()
+		{
+			_logger = LogManager.GetLogger(GetType());
+		}
+		
+		protected override ServiceHost CreateServiceHost( System.Type t, Uri[] baseAddresses ) 
+		{ 		
+            Binding binding = BindingFactory.CreateBindingFromConfiguration("<#= databaseLogicalName #>");
+			ServiceHost serviceHost = new ServiceHost(typeof(<#= entityName #>Repository), baseAddresses);
+			serviceHost.AddServiceEndpoint(typeof(I<#= entityName #>Repository), binding, "");
+			// try
+			// {
+			// serviceHost.Description.Behaviors.Add(new ServiceMetadataBehavior{ HttpGetEnabled = true });
+			// }
+			// catch(InvalidOperationException ex)
+			// {
+			// this.LogError(ex, "Unable to enable HttpGet as a metadatabehavoir.");
+			// }			
+			try
+			{
+				AnnouncementEndpoint announcementEndpoint = new AnnouncementEndpoint(new WSHttpBinding(), new EndpointAddress(ConfigurationManager.AppSettings["DiscoveryProxy.Announce"]));
+				ServiceDiscoveryBehavior bhDisco = new ServiceDiscoveryBehavior();
+                bhDisco.AnnouncementEndpoints.Add(announcementEndpoint);
+				serviceHost.Description.Behaviors.Add(bhDisco);
+				serviceHost.AddServiceEndpoint(ServiceMetadataBehavior.MexContractName, MetadataExchangeBindings.CreateMexNamedPipeBinding(), "mex");
+			}
+			catch(InvalidOperationException ex)
+			{
+				_logger.Error("Make sure to enable net.pipe in IIS: Advanced Settings - Behavior - Enabled Protocols", ex);
+				throw;
+			}			
+			// mex binding in repository MUST BE netpipedbinding
+			//serviceHost.AddServiceEndpoint(ServiceMetadataBehavior.MexContractName, MetadataExchangeBindings.CreateMexHttpBinding(), "mex");
+			
+			return serviceHost;
+		}
+	}
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>

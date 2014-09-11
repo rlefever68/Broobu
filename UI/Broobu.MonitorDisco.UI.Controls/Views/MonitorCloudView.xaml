@@ -1,0 +1,113 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+    xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" 
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:domain="clr-namespace:Broobu.MonitorDisco.Contract.Domain;assembly=Broobu.MonitorDisco.Contract"
+    xmlns:converters="clr-namespace:Broobu.MonitorDisco.Contract.Converters;assembly=Broobu.MonitorDisco.Contract"
+    xmlns:viewModels="clr-namespace:Broobu.MonitorDisco.UI.Controls.ViewModels"
+    xmlns:views="clr-namespace:Broobu.Fx.UI.Views;assembly=Broobu.Fx.UI"
+    xmlns:broobu="http://schemas.broobu/ui"
+    x:Class="Broobu.MonitorDisco.UI.Controls.Views.MonitorCloudView" 
+    mc:Ignorable="d" 
+    d:DesignHeight="706.528" d:DesignWidth="420.205"
+    dx:ThemeManager.ThemeName="Office2010Black">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters:StatusToColorConverter x:Key="Sconv"/>
+            <broobu:IsBusyConverter x:Key="IsBusyConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <viewModels:DiscoInfoViewModel x:Name="Vm"/>
+    </UserControl.DataContext>
+    <Grid x:Name="MainGrid">
+        <dxb:BarManager>
+            <dxb:BarManager.Items>
+                <dxb:BarButtonItem x:Name="BiRefresh" Content="Refresh Cloud Info" LargeGlyph="{dx:DXImage Image=Refresh_32x32.png}" Glyph="{dx:DXImage Image=Refresh_16x16.png}" Command="{Binding Refresh}" AllowGlyphTheming="True" RibbonStyle="Default"/>
+                <dxb:BarStaticItem x:Name="BiRequestDuration" Content="{Binding RequestDuration}" />
+                <dxb:BarStaticItem x:Name="BiRequestDurationLabel" Content="Request Duration" />
+                <dxb:BarStaticItem x:Name="BiBusyIndicator" Content="{Binding IsBusy, Converter={StaticResource IsBusyConverter}}"/>
+                <dxb:BarStaticItem x:Name="BiEmptyIndicator" Content="No Data Received" IsVisible="{Binding IsEmpty}"/>
+                <dxb:BarStaticItem x:Name="BiException" Content="{Binding ExceptionMessage}"/>
+            </dxb:BarManager.Items>
+            <DockPanel>
+                <dxr:RibbonControl DockPanel.Dock="Top" RibbonStyle="Office2010" AllowCustomization="False" ToolbarShowMode="Hide" ShowApplicationButton="False" RibbonTitleBarVisibility="Auto" >
+                    <dxr:RibbonControl.ToolbarItemLinks>
+                        <dxb:BarButtonItemLink BarItemName="BiRefresh"/>
+                    </dxr:RibbonControl.ToolbarItemLinks>
+                    <dxr:RibbonDefaultPageCategory>
+                        <dxr:RibbonPage Caption="Home">
+                            <dxr:RibbonPageGroup Caption="View">
+                                <dxb:BarButtonItemLink BarItemName="BiRefresh"/>
+                            </dxr:RibbonPageGroup>
+                        </dxr:RibbonPage>
+                    </dxr:RibbonDefaultPageCategory>
+                </dxr:RibbonControl>
+                <dxr:RibbonStatusBarControl DockPanel.Dock="Bottom">
+                    <dxr:RibbonStatusBarControl.RightItemLinks>
+                        <dxb:BarItemLink BarItemName="BiEmptyIndicator"/>
+                        <dxb:BarItemLink BarItemName="BiBusyIndicator"/>
+                        <dxb:BarItemLink BarItemName="BiRequestDurationLabel"/>
+                        <dxb:BarItemLink BarItemName="BiRequestDuration"/>
+                    </dxr:RibbonStatusBarControl.RightItemLinks>
+                    <dxr:RibbonStatusBarControl.LeftItemLinks>
+                        <dxb:BarItemLink BarItemName="BiException"/>
+                    </dxr:RibbonStatusBarControl.LeftItemLinks>
+
+                </dxr:RibbonStatusBarControl>
+                <Grid>
+                    <views:BusyOverlay IsBusy="{Binding IsBusy}" HasNoData="{Binding IsEmpty}" BorderBrush="Transparent" Background="Transparent">
+                        <dxg:GridControl Name="GrdDisco" DesignTimeDataObjectType="domain:DiscoInfo" DataSource="{Binding Path=DiscoveredServices}" HorizontalAlignment="Stretch" ShowBorder="False">
+                            <dxg:GridControl.Columns>
+                                <dxg:GridColumn FieldName="Status" Name="ColStatus" VisibleIndex="0" SortIndex="0" SortOrder="Ascending">
+                                    <dxg:GridColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border CornerRadius="3,3,3,3" 
+                                                    Margin="2,1,2,1"  
+                                                    HorizontalAlignment="Center">
+                                                <Border.Background>
+                                                    <SolidColorBrush Color="{Binding Value, Converter={StaticResource Sconv}}"/>
+                                                </Border.Background>
+                                                <TextBlock Width="50" FontSize="10" FontWeight="Bold"
+                                               Text="{Binding Value}" 
+                                               TextAlignment="Center" 
+                                               HorizontalAlignment="Center" Margin="10,0,10,0" 
+                                               VerticalAlignment="Center" 
+                                               Height="Auto" Foreground="#FFFFFFFF"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </dxg:GridColumn.CellTemplate>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn FieldName="Application" Name="ColApplication" GroupIndex="1" SortOrder="Ascending" />
+                                <dxg:GridColumn FieldName="Contract" Name="ColContract" VisibleIndex="1" />
+                                <dxg:GridColumn FieldName="Protocol" Name="ColProtocol" VisibleIndex="2">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings HorizontalContentAlignment="Right" />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn FieldName="Host" Name="ColHost" VisibleIndex="3" />
+                                <dxg:GridColumn FieldName="Port" Name="ColPort" VisibleIndex="4">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings HorizontalContentAlignment="Right" />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn FieldName="Layer" Name="ColLayer" VisibleIndex="5" GroupIndex="0" SortOrder="Ascending" />
+                                <dxg:GridColumn FieldName="Service" Name="ColService" VisibleIndex="5" />
+                            </dxg:GridControl.Columns>
+                            <dxg:GridControl.View>
+                            
+                                <dxg:TableView AllowEditing="False" MultiSelectMode="Row" NavigationStyle="Row" ShowHorizontalLines="False" ShowVerticalLines="False" BestFitMode="Smart" AutoWidth="False" UseLayoutRounding="False" ScrollingMode="Normal" x:Name="VwDisco"/>
+                        </dxg:GridControl.View>
+                        </dxg:GridControl>
+                    </views:BusyOverlay>
+                </Grid>
+            </DockPanel>
+        </dxb:BarManager>
+    </Grid>
+</UserControl>

@@ -1,0 +1,89 @@
+﻿<?xml version='1.0'?>
+<TYPES>
+  <ENUMS xmlns='urn:BASE-schema'>
+    <ENUM>
+      <Id>BASE</Id>
+      <TypeId>BASE</TypeId>
+      <Title>Base</Title>
+      <SortOrder>1000</SortOrder>
+    </ENUM>
+    <ENUM>
+      <Id>BASE_TYPE</Id>
+      <TypeId>BASE</TypeId>
+      <Title>Base types</Title>
+      <SortOrder>2000</SortOrder>
+    </ENUM>
+    <ENUM>
+      <Id>BASE_TYPE_ENUM</Id>
+      <TypeId>BASE_TYPE</TypeId>
+      <Title>Enums</Title>
+      <SortOrder>3000</SortOrder>
+    </ENUM>
+    <ENUM>
+      <Id>BASE_TYPE_LANGUAGES</Id>
+      <TypeId>BASE_TYPE</TypeId>
+      <Title>Languages</Title>
+      <SortOrder>4000</SortOrder>
+    </ENUM>
+    <ENUM>
+      <Id>BASE_TYPE_TRANSLATIONS</Id>
+      <TypeId>BASE_TYPE</TypeId>
+      <Title>Base type translations</Title>
+      <SortOrder>5000</SortOrder>
+    </ENUM>
+    <ENUM>
+      <Id>BASE_TYPE_UI</Id>
+      <TypeId>BASE_TYPE</TypeId>
+      <Title>Base UI types</Title>
+      <SortOrder>6000</SortOrder>
+    </ENUM>
+    <ENUM>
+      <Id>BASE_TYPE_UI_TRV</Id>
+      <TypeId>BASE_TYPE_UI</TypeId>
+      <Title>Base UI treeview type</Title>
+      <SortOrder>7000</SortOrder>
+    </ENUM>
+    <ENUM>
+      <Id>BASE_TYPE_UI_TRV_FOLDER</Id>
+      <TypeId>BASE_TYPE_UI_TRV</TypeId>
+      <Title>Base UI treeview folder type</Title>
+      <SortOrder>8000</SortOrder>
+    </ENUM>
+    <ENUM>
+      <Id>BASE_TYPE_UI_TRV_LEAF</Id>
+      <TypeId>BASE_TYPE_UI_TRV</TypeId>
+      <Title>Base UI treeview leaf type</Title>
+      <SortOrder>9000</SortOrder>
+    </ENUM>
+    <ENUM>
+      <Id>BASE_TYPE_UI_TRV_NODE</Id>
+      <TypeId>BASE_TYPE_UI_TRV</TypeId>
+      <Title>Base UI treeview node type</Title>
+      <SortOrder>10000</SortOrder>
+    </ENUM>
+    <ENUM>
+      <Id>BASE_TYPE_WP</Id>
+      <TypeId>BASE_TYPE</TypeId>
+      <Title>Base workspace type</Title>
+      <SortOrder>11000</SortOrder>
+    </ENUM>
+    <ENUM>
+      <Id>BASE_TYPE_WPI</Id>
+      <TypeId>BASE_TYPE_WP</TypeId>
+      <Title>Base workspace item type</Title>
+      <SortOrder>12000</SortOrder>
+    </ENUM>
+    <ENUM>
+      <Id>BASE_TYPE_WPI_DESCRIPTION</Id>
+      <TypeId>BASE_TYPE_WPI</TypeId>
+      <Title>Base workspace item description type</Title>
+      <SortOrder>13000</SortOrder>
+    </ENUM>
+    <ENUM>
+      <Id>BASE_TYPE_WPI_PROPERTY</Id>
+      <TypeId>BASE_TYPE_WPI</TypeId>
+      <Title>Base workspace item property type</Title>
+      <SortOrder>14000</SortOrder>
+    </ENUM>
+  </ENUMS>
+</TYPES>

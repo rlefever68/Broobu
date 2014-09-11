@@ -1,0 +1,243 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ output extension="txt"  #>
+<#@ include file="DbmlHelper.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-17
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryAgentClassTemplate : Template
+{
+ 	public TableInfo TableInfo;
+    public string Namespace; 
+	public bool	HasDynamicSchema;
+	public bool NeedsBulkCrud;
+
+	private StringHelper _strH = new StringHelper();
+
+    public override string TransformText()
+    {
+		string databaseLogicalName = TableInfo.DatabaseLogicalName;
+		string tableName = TableInfo.TableName;
+		string schemaName = (HasDynamicSchema) ? string.Empty : TableInfo.Schema;
+		string entityName = TableInfo.EntityName; // UpperCamelCase
+		string entityNameAsParam = _strH.ToLowerCamelCase(TableInfo.EntityName); // lowerCamelCase
+		string idNameAsParam = _strH.ToLowerCamelCase(TableInfo.IdName); // lowerCamelCase
+		string idLanguageType = TableInfo.IdLanguageType; 
+		string idResultType = TableInfo.IdResultType; 
+		string optionalSingleSchemaParam = (HasDynamicSchema) ? "string schema" : string.Empty;
+		string optionalFirstSchemaParam = (HasDynamicSchema) ? optionalSingleSchemaParam + ", " : string.Empty;
+		string optionalSingleSchemaValue = (HasDynamicSchema) ? "schema" : string.Empty;
+		string optionalFirstSchemaValue = (HasDynamicSchema) ? optionalSingleSchemaValue + ", " : string.Empty;
+#>
+//========================================================================================
+// INFO: This file is generated from t4 template <#= this.GetType().Name #>.tt
+// !!! Any changes made manually will be lost next time this file is generated !!!
+//========================================================================================
+using System;
+using System.ServiceModel;
+using Pms.Framework.Domain;
+using Pms.Framework.Networking.Wcf;
+using <#= Namespace #>.Repository.Contract.Domain;
+using <#= Namespace #>.Repository.Contract.Interfaces;
+
+
+namespace <#= Namespace #>.Repository.Contract.Agent
+{
+
+
+    internal partial class <#= entityName #>RepositoryAgent 
+		: DiscoProxy<I<#= entityName #>Repository>, I<#= entityName #>RepositoryAgent
+
+    {
+        private const string SchemaName = "<#= schemaName #>";
+
+        #region Implementation of I<#= entityName #>RepositoryAgent
+
+
+
+    //    protected override string GetContractType()
+     //   {
+     //       return String.Format("{0}/{1}:{2}", ServiceConst.Namespace,"<#= databaseLogicalName #>", "I<#= entityName #>Repository");
+     //   }
+
+
+
+        /// <summary>
+        /// Gets the name of the table associated with this repository.
+        /// </summary>
+        /// <value>The name of the table.</value>
+        public string TableName
+        {
+            get { return "<#= tableName #>"; } 
+        }
+
+        /// <summary>
+        /// Gets the full name of the table (including the schema name) associated with this repository.
+        /// </summary>
+        /// <value>The full name of the table, including the schema name.</value>
+        public string FullTableName
+        {
+            get { return (string.IsNullOrEmpty(SchemaName) ? TableName : (SchemaName + "." + TableName)); }
+        }
+
+        #endregion
+<#+
+        if (TableInfo.HasCrudFunctions)
+		{
+#>
+
+        #region Implementation of IRepositoryAgent<<#= entityName #>,<#= idLanguageType #>>
+
+        public <#= entityName #>[] SelectAll(<#= optionalSingleSchemaParam #>)
+        {
+		   I<#= entityName #>Repository clt = null;
+		   try
+		   { 
+		       clt = CreateClient();
+			   return clt.SelectAll(<#= optionalSingleSchemaValue #>);
+		   }
+		   finally
+		   {
+		      CloseClient(clt);
+		   }
+        }
+
+
+        public <#= entityName #> SelectById(<#= optionalFirstSchemaParam #><#= idLanguageType #> id)
+        { 
+		   I<#= entityName #>Repository clt = null;
+		   try
+		   { 
+		       clt = CreateClient();
+			   return clt.SelectById(<#= optionalFirstSchemaValue #>id);
+		   }
+		   finally
+		   {
+		      CloseClient(clt);
+		   }
+        }
+
+
+        public Result Update(<#= optionalFirstSchemaParam #><#= entityName #> value)
+        {
+		   I<#= entityName #>Repository clt = null;
+		   try
+		   { 
+		       clt = CreateClient();
+			   return clt.Update(<#= optionalFirstSchemaValue #>value, string.Empty, string.Empty);
+		   }
+		   finally
+		   {
+		      CloseClient(clt);
+		   }
+        }
+
+
+        public Result Delete(<#= optionalFirstSchemaParam #><#= idLanguageType #> id)
+        {
+		   I<#= entityName #>Repository clt = null;
+		   try
+		   { 
+		       clt = CreateClient();
+			   return clt.Delete(<#= optionalFirstSchemaValue #>id, string.Empty, string.Empty);
+		   }
+		   finally
+		   {
+		      CloseClient(clt);
+		   }
+        }
+
+        public <#= idResultType #> Insert(<#= optionalFirstSchemaParam #><#= entityName #> value)
+        {
+		   I<#= entityName #>Repository clt = null;
+		   try
+		   { 
+		       clt = CreateClient();
+			   return clt.Insert(<#= optionalFirstSchemaValue #>value, string.Empty, string.Empty);
+		   }
+		   finally
+		   {
+		      CloseClient(clt);
+		   }
+        }
+
+
+        #endregion
+<#+
+			if (NeedsBulkCrud)
+			{
+#>
+
+        #region Implementation of bulk crud functions <<#= entityName #>,<#= idLanguageType #>>
+
+        public <#= idResultType #>[] BulkInsert(<#= optionalFirstSchemaParam #><#= entityName #>[] values)
+        {
+		   I<#= entityName #>Repository clt = null;
+		   try
+		   { 
+		       clt = CreateClient();
+			   return clt.BulkInsert(<#= optionalFirstSchemaValue #>values, string.Empty, string.Empty);
+		   }
+		   finally
+		   {
+		      CloseClient(clt);
+		   }
+        }
+
+        #endregion
+
+<#+
+			}
+		}
+		
+		if (TableInfo.HasExtraFunctions)
+		{
+#>
+
+        #region Extra Functions (map to handwritten stored procedures)
+<#+
+			foreach(FunctionInfo functionInfo in TableInfo.FunctionInfos)
+			{
+				string methodName = functionInfo.MethodName;
+				string methodDbName = functionInfo.DbName;
+				string paramDeclarationList = functionInfo.ParamDeclarationList;
+				string paramReferenceList = functionInfo.ParamReferenceList;
+				string arraysuffix = functionInfo.ReturnsSingleInstance ? string.Empty : "[]";
+			    string returnValueResultType = functionInfo.ReturnValueResultType;
+				string returnStatement = functionInfo.HasReturnType ? "return " : string.Empty;
+#>
+
+        public <#= returnValueResultType #><#= arraysuffix #> <#= methodName #>(<#= paramDeclarationList #>)
+        { 
+		   I<#= entityName #>Repository clt = null;
+		   try
+		   { 
+		       clt = CreateClient();
+			   <#= returnStatement #>clt.<#= methodName #>(<#= paramReferenceList #>);
+		   }
+		   finally
+		   {
+		      CloseClient(clt);
+		   }
+		    
+		}
+<#+
+			} // End foreach functionInfo
+#>
+
+        #endregion
+<#+
+		}
+#>
+
+       
+
+    }
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>

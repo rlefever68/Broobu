@@ -1,0 +1,501 @@
+\sectionnobreak{MediaWiki API}
+\label{mediawiki}
+
+MediaWiki \cite{mediawiki} is an open source wiki system.
+It is written in the \acs{PHP} programming language and uses a relational database to store its data,
+usually MySQL.
+It is maintained by the Wikimedia Foundation,
+who also runs some of the biggest wiki sites (or “wikis” for short),
+including Wikipedia and Wiktionary.
+It is also used by many others, including Wikia, who runs many small wikis for various interests and
+the unofficial wiki of the Faculty of Mathematics and Physics, $\upomega\upiota\upkappa\upiota$.matfyz.cz.
+
+\paragraph{Acessing MediaWiki}
+
+There are several ways to programmatically access the database of some MediaWiki wiki.
+First, it is possible to directly access the database using \ac{SQL}.
+This usually requires access to the server that runs the database, so it is not available in many cases.
+For Wikimedia wikis, this data is accessible through the Toolserver.
+The Toolserver is a cluster of servers that contains replicated read-only databases of Wikimedia wikis,
+primarily for use by various tools.
+These copies of the databases do not contain article texts.
+The Toolserver is run by Wikimedia Deutschland.
+
+Mostly specific to Wikimedia wikis is also another option: database dumps. These are files that contain
+dumps of some tables of the wikis. Their disadvantages are that the newest dump is usually several days or weeks old
+and that the files can be huge, which is impractical for getting information about a small number of pages.
+
+Last, but not least, is the MediaWiki API \cite{mediawiki-api}.
+It can be used to remotely access any MediaWiki wiki (unless the \ac{API} is disabled in the configuration)
+using \ac{HTTP}.
+
+\paragraph{API request and response}
+
+Parameters for an \ac{API} request are given in the query string of a GET request or in the body of a POST request
+(modules that perform modifications require the use of POST).
+The body of the POST request is usually formatted as \path{application/x-www-form-urlencoded},
+but file uploads require the use of \path{multipart/form-data}.
+
+Some parameters can accept multiple values at once.
+In these cases, the values are separated by a pipe character (\texttt{|}).
+For example, to retrieve information about the articles “LINQ” and “MediaWiki” from some module,
+the parameter would be \texttt{titles=LINQ|MediaWiki}.
+
+There are some parameters that are common to many modules:
+
+\begin{itemize}
+\item The \texttt{prop} parameter is used to determine what properties will be present in the response.
+The values of this parameter don't map directly to the properties of the response,
+so for example specifying \texttt{prop=ids} might cause the property \texttt{pageid} to appear in the result.
+\item The \texttt{sort} parameter decides which property will be used to order the results of the query.
+\item The \texttt{dir} parameter is used to determine the order of the results:
+whether it should be ascending or descending.
+\end{itemize}
+
+The response can be in one of the several available formats, the most widely used ones are \ac{XML} and \ac{JSON}.
+
+The representation of most data types in the response is standard:
+\texttt{string}s are formatted as strings, \texttt{integer}s as decimal numbers,
+\texttt{timestamp}s are formatted according to ISO 8601.
+Only \texttt{boolean}s have an unexpected representation:
+if the property is \texttt{false}, it is not present in the result at all,
+and if its value is \texttt{true}, it is represented as an empty string.
+
+If there is some problem executing a request, for example if a parameter has an invalid value,
+a warning will be returned along with the result of the operation.
+In the case of a fatal problem, such as when the user doesn't have the right to perform an action,
+an error is returned, without any results.
+
+\paragraph{API modules}
+
+The \ac{API} is divided into modules and there are two kinds of modules:
+“normal” modules (called “non-query modules” in this work) and query modules.
+
+Non-query modules are usually used to perform some action.
+For example the \texttt{edit} module can be used to edit a page
+and the \texttt{block} module can be used to block another user (it can be used only by users with sufficient privileges).
+
+Query modules are used for retrieving information about the wiki. There are three types of query modules:
+
+\begin{itemize}
+\item \texttt{list} modules: Return contents of various lists.
+For example the \texttt{all\-categories} module can be used to list all categories on a wiki,
+while the \texttt{categorymembers} module can be used to list members of a certain category.
+\item \texttt{prop} modules: Return information about a set of pages.
+For example, the \texttt{categories} module can be used to retrieve the categories for each page in a given set.
+\item \texttt{meta} modules: Return meta information that are not directly associated with pages.
+For example the \texttt{userinfo} module can be used to retrieve information about the currently logged-in user.
+\end{itemize}
+
+For \texttt{prop} modules, the set of pages they operate on can be specified directly using page titles or page IDs.
+
+Another option is to use some other module (usually a \texttt{list} module) as a so called “generator”.
+This way, one can for example retrieve all categories of pages in a specific category,
+by using the \texttt{categorymembers} module as a generator for the \texttt{categories} module.
+
+Because more than one module can be used in one request,
+the parameters for each module are distinguished by using prefixes.
+For example, the prefix for the \texttt{categorymembers} module is \texttt{cm}.
+So, setting its \texttt{limit} parameter to the value of~5 can be achieved by
+adding \texttt{cmlimit=5} to the query string of a GET request or to the body of a POST request.
+
+The \ac{API} is also extensible: MediaWiki extensions can add their own modules and modify some behavior of existing modules.
+
+Examples of \ac{API} requests and responses are
+in Figures~\ref{API edit example} through \ref{API categories generator example}.
+
+\begin{figure}[p]
+\texttt{POST:}
+\texttt{http://en.wikipedia.org/w/api.php}
+
+\ApiParameter{format}{xml}
+\ApiParameter{action}{edit}
+\ApiParameter{token}{\%2B\%5C}
+\ApiParameter{title}{Wikipedia:Sandbox}
+\ApiParameter{section}{new}
+\ApiParameter{sectiontitle}{Hello}
+\ApiParameter{text}{Hello\%20world!\textasciitilde\textasciitilde\textasciitilde\textasciitilde}
+\ApiParameterNoAmp{summary}{greeting\%20the\%20world}
+
+\begin{lstlisting}[language=xml]
+<?xml version="1.0"?>
+<api>
+  <edit result="Success" pageid="16283969"
+         title="Wikipedia:Sandbox" contentmodel="wikitext"
+         oldrevid="526507943" newrevid="526508868"
+         newtimestamp="2012-12-05T13:10:24Z" />
+</api>
+\end{lstlisting}
+
+\caption[API request to add a new section to a page and its response]{
+\ac{API} request to add a “Hello” section to the page \texttt{Wikipedia:\allowbreak Sandbox}, \\
+using the non-query module \texttt{edit} and its response}
+\label{API edit example}
+\end{figure}
+
+\begin{figure}[p]
+\texttt{GET:}
+\texttt{http://en.wikipedia.org/w/api.php}~\texttt{?}
+\ApiParameter{format}{xml}
+\ApiParameter{action}{query}
+\ApiParameter{list}{categorymembers}
+\ApiParameter{cmtitle}{Category:Query\%20languages}
+\ApiParameter{cmprop}{title}
+\ApiParameter{cmtype}{page}
+\ApiParameter{cmdir}{descending}
+\ApiParameterNoAmp{cmlimit}{5}
+
+\begin{lstlisting}[language=xml]
+<?xml version="1.0"?>
+<api>
+  <query>
+    <categorymembers>
+      <cm ns="0" title="Yahoo! Query Language" />
+      <cm ns="0" title="XQuery" />
+      <cm ns="0" title="XPath" />
+      <cm ns="0" title="XBase++" />
+      <cm ns="0" title="XBase" />
+    </categorymembers>
+  </query>
+  <query-continue>
+    <categorymembers cmcontinue="page|57454220434f5645524147..." />
+  </query-continue>
+</api>
+\end{lstlisting}
+
+\caption[API request to list pages from a category and its response]{
+\ac{API} request to list the last five pages \\
+from the category \texttt{Category:\allowbreak Query languages} \\
+using the \texttt{list} module \lstinline{categorymembers}
+and its response}
+\label{API categorymembers example}
+\end{figure}
+
+\begin{figure}[p]
+\texttt{GET:}
+\texttt{http://en.wikipedia.org/w/api.php}~\texttt{?}
+\ApiParameter{format}{xml}
+\ApiParameter{action}{query}
+\ApiParameter{titles}{LINQ|MediaWiki}
+\ApiParameter{prop}{categories}
+\ApiParameterNoAmp{cllimit}{5}
+
+\begin{lstlisting}[language=xml]
+<?xml version="1.0"?>
+<api>
+  <query>
+    <pages>
+      <page pageid="11904240" ns="0" title="LINQ" />
+      <page pageid="323710" ns="0" title="MediaWiki">
+        <categories>
+          <cl ns="14" title="Category:2002 software" />
+          <cl ns="14" title="Category:All articles with spec..." />
+          <cl ns="14" title="Category:All articles with unso..." />
+          <cl ns="14" title="Category:Articles with specific..." />
+          <cl ns="14" title="Category:Articles with unsource..." />
+        </categories>
+      </page>
+    </pages>
+  </query>
+  <query-continue>
+    <categories clcontinue="323710|Commons_category_template..." />
+  </query-continue>
+</api>
+\end{lstlisting}
+
+\caption[API request to list categories of given pages and its response]{
+API request to list categories of the pages \texttt{LINQ} and \texttt{MediaWiki} \\
+using the \texttt{prop} module \texttt{categories} and its response}
+\label{API categories titles example}
+\end{figure}
+
+\begin{figure}[p]
+\texttt{GET:}
+\texttt{http://en.wikipedia.org/w/api.php}~\texttt{?}
+\ApiParameter{format}{xml}
+\ApiParameter{action}{query}
+\ApiParameter{generator}{categorymembers}
+\ApiParameter{gcmtitle}{Category:Query\%20languages}
+\ApiParameter{gcmtype}{page}
+\ApiParameter{gcmdir}{descending}
+\ApiParameter{gcmlimit}{2}
+\ApiParameter{prop}{categories}
+\ApiParameterNoAmp{cllimit}{5}
+
+\begin{lstlisting}[language=xml]
+<?xml version="1.0"?>
+<api>
+  <query-continue>
+    <categorymembers gcmcontinue="page|58504154480a585041544..." />
+    <categories clcontinue="23742879|Query_languages" />
+  </query-continue>
+  <query>
+    <pages>
+      <page pageid="22672444" ns="0" title="Yahoo! Query Language">
+        <categories>
+          <cl ns="14" title="Category:Query languages" />
+          <cl ns="14" title="Category:World Wide Web stubs" />
+          <cl ns="14" title="Category:Yahoo! Development" />
+        </categories>
+      </page>
+      <page pageid="23742879" ns="0" title="XQuery">
+        <categories>
+          <cl ns="14" title="Category:4GL" />
+          <cl ns="14" title="Category:Functional languages" />
+        </categories>
+      </page>
+    </pages>
+  </query>
+</api>
+\end{lstlisting}
+
+\caption[API request to list categories of pages from a category and its response]{
+\ac{API} request to list categories of pages
+from the end of \texttt{Category:\allowbreak Query languages}
+using the \texttt{list} module \texttt{categorymembers} as a generator
+for the \texttt{prop} module \texttt{categories}
+and its response}
+\label{API categories generator example}
+\end{figure}
+
+\subsection{Paging}
+\label{mw paging}
+
+Because the results of the \ac{API} queries can contain thousands and sometimes even millions of entries,
+the responses are limited.
+For most modules, the default limit (when it is not specified as a parameter) is ten entries per page
+and the default maximum is 500~entries for normal users.
+For users with the \texttt{apihighlimits} right, the limits are raised, usually to 5000~entries per page.
+
+In the \texttt{limit} parameter, one can specify either the exact value,
+or the special value \texttt{max}, which means the maximum allowed for the current user.
+
+To get the data from the following page, one has to use a value specified in the \texttt{query-continue}
+element in the result (see Figure \ref{API categorymembers example} again).
+The value in this element is a transparent identifier of the next page.
+
+The advantage of this system when compared with the conventional paging systems of numbering pages
+or using numeric offsets is that it avoids missing entries and duplicates when the result
+changes while retrieving the pages.
+
+The \ac{API} has no notion of transactions, so it is not possible to get fully consistent results
+that would correspond to an exact moment in time.
+But thanks to this paging system, one can be certain that an entry that should be in the result set
+during retrieving of all of the pages will actually be present in the result set exactly once.
+
+\paragraph{Paging with \texttt{prop} modules}
+
+The situation gets more complicated when using a \texttt{prop} module with another module as a generator
+(see Figure~\ref{API categories generator example} again for an example).
+That is because both modules have their own paging.
+
+When such a request is made, the first response will contain a limited number of items from the generator
+and a limited number of results from the \texttt{prop} module for those items.
+To retrieve the next set of items from the generator, one has to use the \texttt{query-continue} for the generator
+(called “primary paging” in this work).
+To retrieve the next set of results for the items from the first result,
+one has to use the \texttt{query-continue} for the \texttt{prop} module (called “secondary paging” here).
+
+For an example, see Figure \ref{paging}.
+It shows how the paging might work when using the \texttt{allpages} module as a generator,
+together with the \texttt{prop} module \texttt{categories}.
+The \texttt{query-continue} elements in the figure are just examples,
+actual values would be more complicated.
+
+\begin{figure}[tbp]
+\begin{center}
+\begin{tikzpicture}
+\path (0,17) node(11) {
+\begin{adjustbox}{minipage=160pt,fbox}
+\begin{lstlisting}[language=xml]
+<query>
+  <pages>
+    <page title="A" />
+    <page title="B">
+      <categories>
+        <cl title="X" />
+        <cl title="Y" />
+      </categories>
+    </page>
+  </pages>
+  <query-continue>
+    <categorymembers
+      gcmcontinue="A|X" />
+    <allpages
+      apcontinue="C" />
+  </query-continue>
+</query>
+\end{lstlisting}
+\end{adjustbox}
+} (6.9,17) node(12) {
+\begin{adjustbox}{minipage=160pt,fbox}
+\begin{lstlisting}[language=xml]
+<query>
+  <pages>
+    <page title="A">
+      <categories>
+        <cl title="X" />
+        <cl title="Y" />
+      </categories>
+    </page>
+    <page title="B" />
+  </pages>
+  <query-continue>
+    <categorymembers
+      gcmcontinue="A|Z" />
+    <allpages
+      apcontinue="C" />
+  </query-continue>
+</query>
+\end{lstlisting}
+\end{adjustbox}
+} (11,17) node(13) {\dots};
+
+\path (0,6) node(21) {
+\begin{adjustbox}{minipage=160pt,fbox}
+\begin{lstlisting}[language=xml]
+<query>
+  <pages>
+    <page title="C">
+      <categories>
+        <cl title="X" />
+        <cl title="Y" />
+      </categories>
+    </page>
+    <page title="D" />
+  </pages>
+  <query-continue>
+    <categorymembers
+      gcmcontinue="C|Z" />
+    <allpages
+      apcontinue="E" />
+  </query-continue>  
+</query>
+\end{lstlisting}
+\end{adjustbox}
+} (6.9,6) node(22) {
+\begin{adjustbox}{minipage=160pt,fbox}
+\begin{lstlisting}[language=xml]
+<query>
+  <pages>
+    <page title="C">
+      <categories>
+        <cl title="Z" />
+      </categories>
+    </page>
+    <page title="D">
+      <categories>
+        <cl title="X" />
+      </categories>
+    </page>
+  </pages>
+  <query-continue>
+    <allpages
+      apcontinue="E" />
+  </query-continue>  
+</query>
+\end{lstlisting}
+\end{adjustbox}
+};
+
+\path (0,0) node(31) {\dots};
+
+\draw[-triangle 45] (11) -- (12);
+\draw[-triangle 45] (12) -- (13);
+\draw[-triangle 45] (11) -- (21);
+\draw[-triangle 45] (21) -- (22);
+\draw[-triangle 45] (21) -- (31);
+
+\end{tikzpicture}
+\end{center}
+
+\caption{Example of primary and secondary paging}
+\label{paging}
+
+\end{figure}
+
+\paragraph{Paging with the \texttt{revisions} module}
+
+The situation is even more complicated with the \texttt{prop} module \texttt{revisions}.
+It can be used to retrieve information about revisions of pages, including their text
+and it is the only module that can be used to get the text of a set of pages.
+
+For this module, not specifying the \texttt{limit} parameter means that only the most
+recent revision will be shown and no \texttt{query-continue} will be present.
+Also, when \texttt{limit} is specified, the module can operate only on one page at a time,
+so for example one has to set the \texttt{limit} of a module used as a generator to~1.
+
+But for other modules, when no \texttt{limit} parameter is specified, a default value is used (usually 10)
+and a \texttt{query-continue} element is present in the response, to access the remaining items.
+
+\subsection{The \texttt{paraminfo} module}
+\label{paraminfo}
+
+The \texttt{meta} query module \texttt{paraminfo} is of a special importance for this work.
+It can be used to retrieve information about modules,
+which is necessary for generating code to access those modules in a static fashion.
+
+Prior to an improvement implemented in our work,
+the \texttt{paraminfo} module provided only general information about the module
+and, most importantly, for each parameter information about its data type and a short description.
+
+The data type of a parameter is either a simple type (e.g. \texttt{integer} or \texttt{string}),
+or an enumeration of possible values.
+And the description is useful as a documentation for the generated code.
+
+A shortened example of a response from the \texttt{paraminfo} module
+for the \texttt{categorymembers} module is in Figure~\ref{paraminfo sample}.
+
+For code generation in LinqToWiki, another piece of information is necessary:
+knowing the properties of the response and how do they map to the values of the \texttt{prop} parameter
+(which determines what properties are included in the response).
+For information about how we added them, see Chapter~\ref{mw improvements}.
+
+\begin{figure}[p]
+
+\begin{lstlisting}[language=]
+<module name="categorymembers" prefix="cm" querytype="list"
+  generator="" listresult="" description="List all pages in a ...">
+  <parameters>
+    <param name="title" type="string" 
+      description="Which category to enumerate (required). ..." />
+    <param name="pageid" type="integer" 
+      description="Page ID of the category to enumerate. ..." />
+    <param name="prop" default="ids|title" multi=""
+      description="What pieces of information to include ...">
+      <type>
+        <t>ids</t>
+        <t>title</t>
+        <t>sortkey</t>
+        <t>sortkeyprefix</t>
+        <t>type</t>
+        <t>timestamp</t>
+      </type>
+    </param>
+    <param name="namespace" multi="" type="namespace"
+      description="Only include pages in these namespaces" />
+    <param name="continue" type="string"
+      description="For large categories, give the value ..." />
+    <param name="limit" default="10" max="500" type="limit" 
+      description="The maximum number of pages to return." />
+    <param name="sort" default="sortkey"
+      description="Property to sort by">
+      <type>
+        <t>sortkey</t>
+        <t>timestamp</t>
+      </type>
+    </param>
+    <param name="dir" default="ascending"
+      description="In which direction to sort">
+      <type>
+        <t>ascending</t>
+        <t>descending</t>
+      </type>
+    </param>
+  </parameters>
+</module>
+\end{lstlisting}
+
+\caption{Shortened response of the \texttt{paraminfo} module \\ for the \texttt{category\-members} module}
+\label{paraminfo sample}
+\end{figure}

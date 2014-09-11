@@ -1,0 +1,1 @@
+﻿netsh http add sslcert ipport=0.0.0.0:12221 certhash=‎dba866367cc9c0fafe5ee7d64ac48dd1cd70d95d appid={69f4cfa9-cb55-40d0-9b22-3dc5c901cce2} clientcertnegotiation=enable 

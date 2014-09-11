@@ -1,0 +1,9 @@
+﻿<broobu:HostApplication x:Class="Broobu.Boutique.Hub.UI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:broobu="http://schemas.broobu/ui"
+             StartupUri="HubView.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</broobu:HostApplication>

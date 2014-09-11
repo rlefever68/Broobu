@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BroobuCloudMonitor/BroobuCloudMonitor.iml" filepath="$PROJECT_DIR$/BroobuCloudMonitor/BroobuCloudMonitor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BroobuCloudMonitorProject.iml" filepath="$PROJECT_DIR$/BroobuCloudMonitorProject.iml" />
+    </modules>
+  </component>
+</project>
+

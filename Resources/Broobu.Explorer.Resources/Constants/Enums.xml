@@ -1,0 +1,81 @@
+﻿<?xml version='1.0'?>
+<!--
+The title node in this xml file is empty because it is filled in by use of the 
+Pms.Explorer.Contract.Domain.ExplorerDomainGenerator.CreateEnumerationItemsFromCultureInfos()
+-->
+<TYPES>
+  <ENUMS xmlns='urn:BASE_TYPE_LANGUAGES-schema'>
+    <ENUM Culture='nl'>
+      <Id>nl-BE</Id>
+      <TypeId>BASE_TYPE_LANGUAGES</TypeId>
+      <Title></Title>
+      <SortOrder>1</SortOrder>
+    </ENUM>
+    <ENUM Culture='nl'>
+      <Id>nl-NL</Id>
+      <TypeId>BASE_TYPE_LANGUAGES</TypeId>
+      <Title></Title>
+      <SortOrder>2</SortOrder>
+    </ENUM>
+    <ENUM Culture='fr'>
+      <Id>fr-BE</Id>
+      <TypeId>BASE_TYPE_LANGUAGES</TypeId>
+      <Title></Title>
+      <SortOrder>3</SortOrder>
+    </ENUM>
+    <ENUM Culture='fr'>
+      <Id>fr-FR</Id>
+      <TypeId>BASE_TYPE_LANGUAGES</TypeId>
+      <Title></Title>
+      <SortOrder>4</SortOrder>
+    </ENUM>
+    <ENUM Culture='en'>
+      <Id>en-GB</Id>
+      <TypeId>BASE_TYPE_LANGUAGES</TypeId>
+      <Title></Title>
+      <SortOrder>5</SortOrder>
+    </ENUM>
+    <ENUM Culture='en'>
+      <Id>en-PH</Id>
+      <TypeId>BASE_TYPE_LANGUAGES</TypeId>
+      <Title></Title>
+      <SortOrder>6</SortOrder>
+    </ENUM>
+    <ENUM Culture='en'>
+      <Id>en-US</Id>
+      <TypeId>BASE_TYPE_LANGUAGES</TypeId>
+      <Title></Title>
+      <SortOrder>7</SortOrder>
+    </ENUM>
+    <ENUM Culture='en'>
+      <Id>en</Id>
+      <TypeId>BASE_TYPE_LANGUAGES</TypeId>
+      <Title></Title>
+      <SortOrder>8</SortOrder>
+    </ENUM>
+    <ENUM Culture='en'>
+      <Id>en-ZA</Id>
+      <TypeId>BASE_TYPE_LANGUAGES</TypeId>
+      <Title></Title>
+      <SortOrder>9</SortOrder>
+    </ENUM>
+    <ENUM Culture='de'>
+      <Id>de-DE</Id>
+      <TypeId>BASE_TYPE_LANGUAGES</TypeId>
+      <Title></Title>
+      <SortOrder>10</SortOrder>
+    </ENUM>
+    <ENUM Culture='pt'>
+      <Id>pt-BR</Id>
+      <TypeId>BASE_TYPE_LANGUAGES</TypeId>
+      <Title></Title>
+      <SortOrder>11</SortOrder>
+    </ENUM>
+    <ENUM Culture='ru'>
+      <Id>ru-RU</Id>
+      <TypeId>BASE_TYPE_LANGUAGES</TypeId>
+      <Title></Title>
+      <SortOrder>12</SortOrder>
+    </ENUM>
+  </ENUMS>
+</TYPES>

@@ -1,0 +1,89 @@
+\chapwithtoc{Introduction}
+
+Wiki websites running on the MediaWiki software (such as Wikipedia) offer an \ac{API}
+for programmatic access to their database.
+Since MediaWiki contains many functions, the \acs{API} is extensive too:
+the core installation contains over seventy “modules” and more are available through extensions.
+Each module represents a function available from the \acs{API}.
+Modules accept parameters in the form of key-value pairs
+and return a structured response in one of the supported formats, including \acs{XML}.
+
+Because of the size of the API, accessing it from programming languages is not easy.
+Two basic approaches are possible: static and dynamic:
+
+\begin{itemize}
+\item The dynamic approach is to create a thin library around the API modules:
+let the user specify the names of the parameters and their types and return the response
+in a dynamic manner, possibly as an associative array, or something like \acs{XML} \ac{DOM}.
+
+This way, the user is responsible for the correctness of his query and for correct processing
+of the response.
+Also, it is hard to discover what the possible parameters are, what values can they have
+and what form of response to expect.
+This can lead to excessive use of the documentation or a “trial and error” approach.
+
+\item The static approach is to create an extensive (or “thick”) library that contains methods tailored for every module,
+each returning a different statically-typed result.
+
+This way, many of the errors the user could make will result in a compile-time error
+and the development environment can also advise the user what options are available.
+
+But this approach is also inflexible: if the user wants to use something the library
+was not made for, he cannot.
+Differences like this can be caused by different versions of the software,
+different sets of installed extensions, or just by different configuration.
+
+Another question with the static approach is how to represent the parameters in code.
+Most modules have many optional parameters, and so presenting them to the user
+in an understandable manner might be a challenge.
+
+One more problematic part is how to represent choosing which properties to return in the result.
+A list of strings representing the chosen properties might be suitable for the dynamic approach, but not so much for the static one.
+\end{itemize}
+
+\medskip
+
+This work introduces the LinqToWiki library and related tools that try to solve all those problems
+using the C\# language and the .NET platform.
+
+The dynamic vs. static issues are solved by automatically generating statically typed
+code based on the metadata the API provides about itself.
+The code generation is performed using Roslyn,
+which is a new implementation of a compiler for the C\# language written in C\#.
+
+The problems specific to the static approach are solved by using \ac{LINQ}:
+a set of features of the C\# language and the .NET Framework,
+that is useful for representing queries and their translation into another form.
+
+The library also abstracts away some other aspects of the \ac{API}, like paging of the results.
+
+\secwithtoc{Key contributions}
+
+The key characteristics that make the LinqToWiki library novel, when compared with similar querying libraries are:
+
+\begin{itemize}
+\item Using different types in different LINQ operators
+(specifically in \lstinline{select}, \lstinline{where} and \lstinline{orderby})
+\item Allowing different operators for different queries
+(i.e. allowing sorting and generator queries only for some modules and disallowing sorting twice in one query)
+\item Using code generation to achieve statically-typed queries
+\end{itemize}
+
+Another important aspect of this work was creating a patch for MediaWiki to describe results of \ac{API} modules,
+which was accepted by MediaWiki developers and is now running on all Wikimedia wikis, including Wikipedia.
+
+\secwithtoc{Structure of this work}
+Chapter~\ref{goal} explains what is the goal of the LinqToWiki library.
+Chapter~\ref{background} describes libraries and \acp{API}
+that were important for creating this work.
+Specifically, those are the MediaWiki API (Section~\ref{mediawiki}),
+LINQ (Section~\ref{linq}) and Roslyn (Section~\ref{roslyn}).
+Chapter~\ref{mw improvements} talks about changes that were made to MediaWiki,
+to make LinqToWiki possible.
+Chapter~\ref{ltw} describes the library itself, and the projects it consists of.
+Chapter~\ref{future work} mentions some ways in which the library could be further improved.
+Chapter~\ref{related} describes other libraries for accessing MediaWiki API.
+
+\medskip
+
+Appendix~\ref{cd} describes the contents of the enclosed CD.

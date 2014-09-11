@@ -1,0 +1,447 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6DBAD298-4C04-4E60-A8AF-CD6EC63549DE}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Broobu.Fx.UI</RootNamespace>
+    <AssemblyName>Broobu.Fx.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Solutions\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Release\SDK\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\broobu.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v14.1.Core, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Controls.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Docking.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.Grid.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.Grid.v14.1.Core, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.Layout.v14.1.Core, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Mvvm.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Core.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.LayoutControl.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.PropertyGrid.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Ribbon.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.RichEdit.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="NLog, Version=3.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Solutions\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Wulka">
+      <HintPath>..\..\Wulka\SDK\Wulka.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Addin\AddInBase.cs" />
+    <Compile Include="Addin\IAddInControl.cs" />
+    <Compile Include="Fragments\PropertiesFragment.xaml.cs">
+      <DependentUpon>PropertiesFragment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\ExceptionMvvmMsg.cs" />
+    <Compile Include="MVVM\GoBackMvvmMessage.cs" />
+    <Compile Include="MVVM\WaitInfo.cs" />
+    <Compile Include="Addin\Interfaces\IXProcAddIn.cs" />
+    <Compile Include="Addin\Interfaces\IXProcAddInSite.cs" />
+    <Compile Include="Addin\Utils\DispatcherWorkerThread.cs" />
+    <Compile Include="Addin\Utils\IpcUtils.cs" />
+    <Compile Include="Addin\Utils\Win32.cs" />
+    <Compile Include="Addin\XProcAddInHost.cs" />
+    <Compile Include="Addin\XProcAddInSite.cs" />
+    <Compile Include="AppletApplication.cs" />
+    <Compile Include="Controls\BagTreeListView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Deamons\AppletActionEnum.cs" />
+    <Compile Include="Deamons\AppletDeamon.cs" />
+    <Compile Include="AppletWindow.cs" />
+    <Compile Include="ApplicationHelper.cs" />
+    <Compile Include="CommandReference.cs" />
+    <Compile Include="Controls\LinksView.xaml.cs">
+      <DependentUpon>LinksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\ConverterBooleanComparer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Converters\ConverterBooleanVisibility.cs" />
+    <Compile Include="Converters\ConverterDateTimeToTimeSpan.cs" />
+    <Compile Include="Converters\IsBusyConverter.cs" />
+    <Compile Include="Deamons\AppletMvvmMessage.cs" />
+    <Compile Include="Deamons\ComSink.cs" />
+    <Compile Include="Dialogs\PleaseWaitDialog.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Domain\NavigateMvvmMessage.cs" />
+    <Compile Include="Domain\ViewItem.cs" />
+    <Compile Include="Attributes\IgnoreIsDirtyAttribute.cs" />
+    <Compile Include="Domain\ViewNameMessage.cs" />
+    <Compile Include="Fragments\PartsFragment.xaml.cs">
+      <DependentUpon>PartsFragment.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Fragments\TreeFragment.xaml.cs">
+      <DependentUpon>TreeFragment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Deamons\LauncherDeamon.cs" />
+    <Compile Include="Fragments\ExplorerFragment.xaml.cs">
+      <DependentUpon>ExplorerFragment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\IViewModel.cs" />
+    <Compile Include="MVVM\ExceptionViewModel.cs" />
+    <Compile Include="MVVM\IsDirtyObserver.cs" />
+    <Compile Include="Markup\Converter.cs" />
+    <Compile Include="Markup\L.cs" />
+    <Compile Include="MVVM\DocumentListViewModelBase.cs" />
+    <Compile Include="MVVM\DocumentViewModelBase.cs" />
+    <Compile Include="MVVM\DocumentMessage.cs" />
+    <Compile Include="MVVM\DocumentMessageType.cs" />
+    <Compile Include="MVVM\ViewModelBase.cs" />
+    <Compile Include="MVVM\WaitViewModel.cs" />
+    <Compile Include="Properties\AssemblyVersions.cs" />
+    <Compile Include="Controls\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AboutViewModel.cs" />
+    <Compile Include="Controls\PleaseWaitView.xaml.cs">
+      <DependentUpon>PleaseWaitView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PleaseWaitWindow.xaml.cs">
+      <DependentUpon>PleaseWaitWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ReleaseNotesWindow.xaml.cs">
+      <DependentUpon>ReleaseNotesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\ConverterIsEnumSelected.cs" />
+    <Compile Include="Converters\ConverterRevertBoolean.cs" />
+    <Compile Include="Extensions\ListBoxHelper.cs" />
+    <Compile Include="Extensions\TextBoxMask.cs" />
+    <Compile Include="HostApplication.cs" />
+    <Compile Include="Hosts\EnumerationHost.cs" />
+    <Compile Include="Hosts\MediaHost.cs" />
+    <Compile Include="Hosts\MessagingHost.cs" />
+    <Compile Include="InputValidation.cs" />
+    <Compile Include="Interfaces\IHost.cs" />
+    <Compile Include="Interfaces\IPluginForm.cs" />
+    <Compile Include="Interfaces\IPlugin.cs" />
+    <Compile Include="Interfaces\IPluginHost.cs" />
+    <Compile Include="IsDirtyEventArgs.cs" />
+    <Compile Include="Localization\Translations.Designer.cs">
+      <DependentUpon>Translations.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="ModuleEventArgs.cs" />
+    <Compile Include="AppletHost.cs" />
+    <Compile Include="Deamons\ProcessVerbEventArgs.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RefreshableViewModelBase.cs" />
+    <Compile Include="Deamons\AppletEventArgs.cs" />
+    <Compile Include="Deamons\SendShellContextEventArgs.cs" />
+    <Compile Include="StateAwareControl.cs" />
+    <Compile Include="ThemeUtil.cs" />
+    <Compile Include="MVVM\TransitionState.cs" />
+    <Compile Include="UserControls\FilePicker.xaml.cs">
+      <DependentUpon>FilePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\ColorUtils.cs" />
+    <Compile Include="Utils\ImageSourceHelper.cs" />
+    <Compile Include="Utils\ImageUtils.cs" />
+    <Compile Include="ValidationRules\EmailRule.cs" />
+    <Compile Include="ValidationRules\PasswordRule.cs" />
+    <Compile Include="ValidationRules\RequiredRule.cs" />
+    <Compile Include="Verbs\IVerbProcessor.cs" />
+    <Compile Include="Verbs\ResponseInfo.cs" />
+    <Compile Include="Verbs\VerbInfo.cs" />
+    <Compile Include="MVVM\FxViewModelBase.cs" />
+    <Compile Include="ViewStateBase.cs" />
+    <Compile Include="Views\BusyOverlay.xaml.cs">
+      <DependentUpon>BusyOverlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExceptionView.xaml.cs">
+      <DependentUpon>ExceptionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WaitView.xaml.cs">
+      <DependentUpon>WaitView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewUserControl.cs" />
+    <Compile Include="Windows\ExplorerWindow.xaml.cs">
+      <DependentUpon>ExplorerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\DynamicTemplateSelector.cs" />
+    <Compile Include="Wpf\Template.cs" />
+    <Compile Include="Wpf\TemplateCollection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\AboutView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\LinksView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PleaseWaitView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PleaseWaitWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ReleaseNotesWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Fragments\PartsFragment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Fragments\PropertiesFragment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Fragments\TreeFragment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Fragments\ExplorerFragment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\FilePicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BusyOverlay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ExceptionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WaitView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ExplorerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Res\hourglass.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Res\Grid\apply.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Res\Grid\refresh.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Res\Grid\cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Res\Grid\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Res\Grid\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Res\Grid\filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Res\Grid\insertcell.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Res\Add_icon.png" />
+    <Resource Include="Res\Cancel_icon.png" />
+    <Resource Include="Res\Delete_icon.png" />
+    <Resource Include="Res\Edit_icon.png" />
+    <Resource Include="Res\reloader.png" />
+    <Resource Include="Res\Save_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Res\Back.png" />
+    <Resource Include="Res\Forward.png" />
+    <Resource Include="Res\Play.png" />
+    <Resource Include="Res\Rewind.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Configuration.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\login_method2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Method1_login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\applogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\Translations.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Translations.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\broobu.pfx">
+      <Link>broobu.pfx</Link>
+    </None>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Res\hourglass2.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ThemeIcons\DeepBlue_16x16.png" />
+    <Resource Include="Images\ThemeIcons\DeepBlue_48x48.png" />
+    <Resource Include="Images\ThemeIcons\DXStyle.png" />
+    <Resource Include="Images\ThemeIcons\LightGray_16x16.png" />
+    <Resource Include="Images\ThemeIcons\LightGray_48x48.png" />
+    <Resource Include="Images\ThemeIcons\MetropolisDark.png" />
+    <Resource Include="Images\ThemeIcons\MetropolisLight.png" />
+    <Resource Include="Images\ThemeIcons\Office2007Black_16x16.png" />
+    <Resource Include="Images\ThemeIcons\Office2007Black_48x48.png" />
+    <Resource Include="Images\ThemeIcons\Office2007Blue_16x16.png" />
+    <Resource Include="Images\ThemeIcons\Office2007Blue_48x48.png" />
+    <Resource Include="Images\ThemeIcons\Office2007Silver_16x16.png" />
+    <Resource Include="Images\ThemeIcons\Office2007Silver_48x48.png" />
+    <Resource Include="Images\ThemeIcons\Office2010Black_48x48.png" />
+    <Resource Include="Images\ThemeIcons\Office2010Blue_48x48.png" />
+    <Resource Include="Images\ThemeIcons\Office2010Silver_48x48.png" />
+    <Resource Include="Images\ThemeIcons\Office2013_48x48.png" />
+    <Resource Include="Images\ThemeIcons\Seven_48x48.png" />
+    <Resource Include="Images\ThemeIcons\VS2010.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\BroobuZen.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\BroobuZenBanner.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

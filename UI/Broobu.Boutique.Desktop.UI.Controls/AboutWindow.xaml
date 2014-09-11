@@ -1,0 +1,33 @@
+﻿<Window x:Class="Broobu.Desktop.UI.Controls.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:Broobu.Desktop.UI.Controls"
+        Title="About" Name="wndAbout"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" 
+        SizeToContent="WidthAndHeight" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent">
+  
+    <Window.Resources>
+      <controls:AboutViewModel x:Key="vm" />
+    </Window.Resources>
+  
+    <Border BorderThickness="10" CornerRadius="20" Padding="10" BorderBrush="#FF377B9A" Background="#FFE7EEF6">
+
+      <Grid DataContext="{StaticResource vm}">
+
+        <Grid.Background>
+          <ImageBrush ImageSource="Images/iris.ico" Opacity="0.075" TileMode="None" Stretch="UniformToFill" ></ImageBrush>
+        </Grid.Background>
+        
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        
+        <controls:AboutView Grid.Row="0"></controls:AboutView>
+        <Button x:Name="btnCancel" Grid.Row="1" Content="Close" Width="100" Margin="8,5,10,5" IsCancel="True" IsDefault="True" HorizontalAlignment="Center" Click="btnClose_Click" />
+      </Grid>
+    </Border>
+</Window>

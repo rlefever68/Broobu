@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://docs.oasis-open.org/ws-dd/ns/discovery/2009/01" blockDefault="#all" elementFormDefault="qualified" targetNamespace="http://docs.oasis-open.org/ws-dd/ns/discovery/2009/01" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ProbeType">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="tns:Types" />
+      <xs:element minOccurs="0" ref="tns:Scopes" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other" processContents="lax" />
+    </xs:sequence>
+    <xs:anyAttribute namespace="##other" processContents="lax" />
+  </xs:complexType>
+  <xs:simpleType name="QNameListType">
+    <xs:list itemType="xs:QName" />
+  </xs:simpleType>
+  <xs:complexType name="ScopesType">
+    <xs:simpleContent>
+      <xs:extension base="tns:UriListType">
+        <xs:attribute name="MatchBy" type="xs:anyURI" />
+        <xs:anyAttribute namespace="##other" processContents="lax" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="UriListType">
+    <xs:list itemType="xs:anyURI" />
+  </xs:simpleType>
+  <xs:element name="Types" type="tns:QNameListType" />
+  <xs:element name="Scopes" type="tns:ScopesType" />
+  <xs:element name="ProbeType" nillable="true" type="tns:ProbeType" />
+  <xs:element name="Probe" nillable="true" type="tns:ProbeType" />
+  <xs:complexType name="ProbeMatches11">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProbeMatch" nillable="true" type="tns:ProbeMatchType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProbeMatches11" nillable="true" type="tns:ProbeMatches11" />
+  <xs:complexType name="ProbeMatchType">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://www.w3.org/2005/08/addressing" ref="q1:EndpointReference" />
+      <xs:element minOccurs="0" ref="tns:Types" />
+      <xs:element minOccurs="0" ref="tns:Scopes" />
+      <xs:element minOccurs="0" ref="tns:XAddrs" />
+      <xs:element minOccurs="0" ref="tns:MetadataVersion" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other" processContents="lax" />
+    </xs:sequence>
+    <xs:anyAttribute namespace="##other" processContents="lax" />
+  </xs:complexType>
+  <xs:element name="XAddrs" type="tns:UriListType" />
+  <xs:element name="MetadataVersion" type="xs:unsignedInt" />
+  <xs:element name="ProbeMatchType" nillable="true" type="tns:ProbeMatchType" />
+  <xs:element name="ProbeMatches" nillable="true" type="tns:ProbeMatches11" />
+  <xs:complexType name="AppSequenceType">
+    <xs:complexContent mixed="false">
+      <xs:restriction base="xs:anyType">
+        <xs:attribute name="InstanceId" type="xs:unsignedInt" use="required" />
+        <xs:attribute name="SequenceId" type="xs:anyURI" />
+        <xs:attribute name="MessageNumber" type="xs:unsignedInt" use="required" />
+        <xs:anyAttribute namespace="##other" processContents="lax" />
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AppSequenceType" nillable="true" type="tns:AppSequenceType" />
+  <xs:element name="AppSequence" nillable="true" type="tns:AppSequenceType" />
+  <xs:complexType name="ResolveType">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://www.w3.org/2005/08/addressing" ref="q2:EndpointReference" />
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other" processContents="lax" />
+    </xs:sequence>
+    <xs:anyAttribute namespace="##other" processContents="lax" />
+  </xs:complexType>
+  <xs:element name="ResolveType" nillable="true" type="tns:ResolveType" />
+  <xs:element name="Resolve" nillable="true" type="tns:ResolveType" />
+  <xs:complexType name="ResolveMatches11">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ResolveMatch" nillable="true" type="tns:ProbeMatchType">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResolveMatches11" nillable="true" type="tns:ResolveMatches11" />
+  <xs:element name="ResolveMatches" nillable="true" type="tns:ResolveMatches11" />
+  <xs:element name="Hello" nillable="true" type="tns:ProbeMatchType" />
+  <xs:element name="Bye" nillable="true" type="tns:ProbeMatchType" />
+</xs:schema>

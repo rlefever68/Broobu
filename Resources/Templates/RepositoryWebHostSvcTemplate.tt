@@ -1,0 +1,30 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ output extension="txt"  #>
+<#@ include file="DbmlHelper.tt" #>
+<#@ import namespace="System.Linq" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-04
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryWebHostSvcTemplate : Template
+{
+    public TableInfo TableInfo; 
+    public string Namespace; 
+
+	private StringHelper _strH = new StringHelper();
+
+    public override string TransformText()
+    {
+		
+		string entityName = TableInfo.EntityName; // UpperCamelCase
+		
+
+#>
+<%@ ServiceHost Language="C#" Service="<#= Namespace #>.Repository.<#= entityName #>Repository" Factory="Pms.Framework.Networking.Wcf.AnnouncingRepositoryHostFactory" %>
+<#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>

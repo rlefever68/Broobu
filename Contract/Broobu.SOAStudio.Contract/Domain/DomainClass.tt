@@ -1,0 +1,9 @@
+﻿<#@ template language="C#" hostspecific="True" debug="True" #>
+<#@ assembly name="$(ProjectDir)..\..\MobiFxSDK\SDK\Generation\Pms.Contract.Generation.dll" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ import namespace="Pms.Contract.Generation.Generators" #>
+<#@ output extension="txt" #>
+<# 
+DomainClassGenerator generator = new DomainClassGenerator(T4Toolbox.TransformationContext.Host.TemplateFile);
+generator.Run();
+#>

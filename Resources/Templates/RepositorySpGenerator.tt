@@ -1,0 +1,81 @@
+﻿<#@ xsd processor="T4Toolbox.XsdProcessor" 
+    file="%VS100COMNTOOLS%\..\..\Xml\Schemas\DbmlSchema.xsd" #>
+<#@ include file="DbmlHelper.tt" #>
+<#@ include file="RepositorySpTemplateBase.tt" #>
+<#@ include file="RepositorySpSelectByIdTemplate.tt" #>
+<#@ include file="RepositorySpSelectAllTemplate.tt" #>
+<#@ include file="RepositorySpUpdateTemplate.tt" #>
+<#@ include file="RepositorySpInsertTemplate.tt" #>
+<#@ include file="RepositorySpDeleteTemplate.tt" #>
+-----------------------------------------------------------------------------
+-- INFO: Stored procedures for Repository
+-----------------------------------------------------------------------------
+
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-05
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+/*---------------------------------------------------------------------------
+
+This template generates 5 stored procedures
+
+  1) [TableName]_SelectById  	
+  2) [TableName]_SelectAll	
+  3) [TableName]_Update		
+  4) [TableName]_Insert		
+  5) [TableName]_Delete		
+
+---------------------------------------------------------------------------*/
+
+public class RepositorySpGenerator : Generator
+{
+	public string DatabaseDbml;
+	public string TableNamePrefix;
+	public string Namespace;
+	public string ServiceContractName;
+	public string TableSchema;				// If null, use TableInfo.Schema, if empty suppress schema
+	public string StoredProcedureSchema;	// if null or empty, use TableInfo.Schema
+	
+	private RepositorySpSelectByIdTemplate RepositorySpSelectByIdTemplate = new RepositorySpSelectByIdTemplate();  
+	private RepositorySpSelectAllTemplate RepositorySpSelectAllTemplate = new RepositorySpSelectAllTemplate();  
+	private RepositorySpUpdateTemplate RepositorySpUpdateTemplate = new RepositorySpUpdateTemplate();  
+	private RepositorySpInsertTemplate RepositorySpInsertTemplate = new RepositorySpInsertTemplate();  
+	private RepositorySpDeleteTemplate RepositorySpDeleteTemplate = new RepositorySpDeleteTemplate();  
+
+    protected override void RunCore()
+    {
+		DatabaseInfo databaseInfo = new DatabaseInfo(DatabaseDbml, TableNamePrefix);
+	    foreach (TableInfo tableInfo in databaseInfo.TableInfos)
+		{
+  			if (tableInfo.HasCrudFunctions == false)
+			{
+				continue; // Generated script only contains SP's for CRUD functions
+				          // The extra functions are generated from manually written SP's that are dropped
+						  // on the dbml designer surface.
+			}
+	       	RepositorySpSelectByIdTemplate.TableInfo = tableInfo;
+        	RepositorySpSelectByIdTemplate.TableSchema = TableSchema;
+        	RepositorySpSelectByIdTemplate.StoredProcedureSchema = StoredProcedureSchema;
+        	RepositorySpSelectByIdTemplate.Render();
+        	RepositorySpSelectAllTemplate.TableInfo = tableInfo;
+        	RepositorySpSelectAllTemplate.TableSchema = TableSchema;
+        	RepositorySpSelectAllTemplate.StoredProcedureSchema = StoredProcedureSchema;
+        	RepositorySpSelectAllTemplate.Render();
+        	RepositorySpUpdateTemplate.TableInfo = tableInfo;
+        	RepositorySpUpdateTemplate.TableSchema = TableSchema;
+        	RepositorySpUpdateTemplate.StoredProcedureSchema = StoredProcedureSchema;
+        	RepositorySpUpdateTemplate.Render();
+        	RepositorySpInsertTemplate.TableInfo = tableInfo;
+        	RepositorySpInsertTemplate.TableSchema = TableSchema;
+        	RepositorySpInsertTemplate.StoredProcedureSchema = StoredProcedureSchema;
+        	RepositorySpInsertTemplate.Render();
+			RepositorySpDeleteTemplate.TableInfo = tableInfo;
+			RepositorySpDeleteTemplate.TableSchema = TableSchema;
+			RepositorySpDeleteTemplate.StoredProcedureSchema = StoredProcedureSchema;
+			RepositorySpDeleteTemplate.Render();
+        }
+    }
+}
+#>

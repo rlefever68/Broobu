@@ -1,0 +1,2 @@
+﻿<%@ ServiceHost Service="Broobu.Contact.Service.ContactService" Factory="Iris.Fx.Networking.Wcf.AnnouncingServiceHostFactory" %>
+

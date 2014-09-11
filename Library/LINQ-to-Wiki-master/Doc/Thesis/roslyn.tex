@@ -1,0 +1,117 @@
+\section{Roslyn}
+\label{roslyn}
+
+Microsoft Roslyn is a new implementation of the C\# compiler written in C\#
+(and a \ac{VB.NET} compiler written in \ac{VB.NET}) \cite{roslyn}.
+Its main distinguishing characteristic is that it is “open”:
+it can be used for example to convert between text and a syntax tree,
+to manipulate the syntax tree or to retrieve semantic information.
+
+It also integrates itself into the Microsoft Visual Studio \ac{IDE},
+where it can be used to perform
+custom refactoring actions or to produce custom errors and warnings at compile-time.
+
+Roslyn is currently under development and so far it had three public releases.
+All of them were in the form of \ac{CTP},
+the first one from October 2011, the second one from June 2012 and the third one from September 2012.
+
+In the \acp{CTP}, the syntactic part of the library in completely implemented,
+so for example the syntax tree can represent any construct of C\#
+and any syntax tree can be translated to and from source code.
+On the other hand, the semantic part of the library is not fully implemented,
+which means that for example some syntax trees will not successfully compile,
+even if they represent valid C\# code.
+
+Because of its close relation with Visual Studio,
+Roslyn syntax tree is able to represent every feature of C\# with down to character precision.
+This includes “trivia”: parts of code that are not significant for the compiler,
+such as whitespace and comments.
+
+Trivia can also be “structured”, that is, it can form a small syntax tree of its own.
+An example of structured trivia are \ac{XML} documentation comments,
+that can be used to provide documentation for a piece of code,
+which can then be automatically processed.
+
+For an example of a Roslyn syntax tree, see Figure~\ref{Syntax tree}
+
+\begin{figure}[htbp]
+
+\begin{lstlisting}
+public abstract CategoryInfoResult CategoryInfo { get; }
+\end{lstlisting}
+
+\begin{center}
+\Treek[.5]{4}{
+& & & & \K{Property}\Below{Declaration} \B[-5]{dllll} \B[-5]{dll} \B[-5]{d} \B[-5]{drr} \B[-5]{drrrr} \\
+\K{Public}\Below{Keyword} & & \K{Abstract}\Below{Keyword} & & \K{Identifier}\Below{Name} \B[-5]{d} & & \K{Identifier}\Below{Token:}\Below{CategoryInfo} & & \K{Accessor}\Below{List} \B[-5]{dll} \B[-5]{d} \B[-5]{drr} \\
+& & & & \K{Identifier}\Below{Token:}\Below{CategoryInfoResult} & & \K{OpenBrace}\Below{Token} & & \K{GetAccessor}\Below{Declaration} \B[-5]{dl} \B[-5]{dr} & & \K{CloseBrace}\Below{Token} \\
+& & & & & & & \K{Get}\Below{Keyword} & & \K{Semicolon}\Below{Token}
+}
+\end{center}
+
+\caption[Example of piece of C\# code and its Roslyn syntax tree]
+{Example of piece of C\# code and its Roslyn syntax tree \\ (trivia not shown)}
+\label{Syntax tree}
+\end{figure}
+
+Roslyn syntax trees are immutable and can be created using factory methods from the \lstinline{Syntax} class.
+And while not all elements of the syntax tree have to be specified (like braces of a property accessor list),
+creating a syntax tree can be quite cumbersome.
+
+The exact syntax for creating syntax trees changed between the first two \acp{CTP}.
+In the October 2011 \ac{CTP}, methods with many optional parameters were used.
+In the June 2012 \ac{CTP}, the situation somewhat improved:
+the factory method now has parameters only for required children of the created node
+and optional child nodes can be added in a fluent manner using \lstinline{With*} methods.
+The syntax used did not change in the September 2012 \ac{CTP}.
+
+For an example of code to manually create the syntax tree from Figure~\ref{Syntax tree},
+see Figure~\ref{Roslyn code 2011} for the October 2011 \ac{CTP} version and
+Figure~\ref{Roslyn code 2012} for the September 2012 \ac{CTP} version.
+
+\begin{figure}[p]
+
+\begin{lstlisting}
+Syntax.PropertyDeclaration(
+  modifiers:
+    Syntax.TokenList(
+      Syntax.Token(SyntaxKind.PublicKeyword),
+      Syntax.Token(SyntaxKind.AbstractKeyword)),
+  type: Syntax.ParseTypeName("CategoryInfoResult"),
+  identifier: Syntax.Identifier("CategoryInfo"),
+  accessorList:
+    Syntax.AccessorList(
+      accessors:
+        Syntax.List(
+          Syntax.AccessorDeclaration(
+            SyntaxKind.GetAccessorDeclaration,
+            semicolonTokenOpt:
+              Syntax.Token(SyntaxKind.SemicolonToken)))))
+\end{lstlisting}
+
+\caption{Sample code to manually create a Roslyn syntax tree \\ using October 2011 \ac{CTP}}
+\label{Roslyn code 2011}
+\end{figure}
+
+\begin{figure}[p]
+
+\begin{lstlisting}
+Syntax.PropertyDeclaration(
+  Syntax.ParseTypeName("CategoryInfoResult"),
+  "CategoryInfo")
+  .WithModifiers(
+    Syntax.TokenList(
+      Syntax.Token(SyntaxKind.PublicKeyword),
+      Syntax.Token(SyntaxKind.AbstractKeyword)))
+  .WithAccessorList(
+    Syntax.AccessorList(
+      Syntax.List(
+        Syntax.AccessorDeclaration(
+          SyntaxKind.GetAccessorDeclaration)
+          .WithSemicolonToken(
+            Syntax.Token(SyntaxKind.SemicolonToken)))))
+\end{lstlisting}
+
+\caption{Sample code to manually create a Roslyn syntax tree \\ using September 2012 \ac{CTP}}
+\label{Roslyn code 2012}
+\end{figure}

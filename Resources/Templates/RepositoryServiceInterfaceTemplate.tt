@@ -1,0 +1,104 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ output extension="txt"  #>
+<#@ include file="DbmlHelper.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-07
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryServiceInterfaceTemplate : Template
+{
+ 	public TableInfo TableInfo;
+    public string Namespace; 
+	public string ServiceVersion; // The version must be specified in the format YYYY/MM where YYYY is a year and MM is a month, e.g. 2010/05
+	public bool	HasDynamicSchema;
+	public bool NeedsBulkCrud;
+	public bool LimitNumberOfDerivedInterfacesTo1 = true; // Set true to solve an issue in the Agent Proxy which generates dynamically an agent
+														  // class and which has an issue  if the service interface inheritance stack contains more than one
+														  // interface
+
+	private StringHelper _strH = new StringHelper();
+
+    public override string TransformText()
+    {
+		string entityName = TableInfo.EntityName; // UpperCamelCase
+		string entityNameAsParam = _strH.ToLowerCamelCase(TableInfo.EntityName); // lowerCamelCase
+		string idNameAsParam = _strH.ToLowerCamelCase(TableInfo.IdName); // lowerCamelCase
+		string idLanguageType = TableInfo.IdLanguageType;
+		string idResultType = TableInfo.IdResultType;
+		string databaseLogicalName = TableInfo.DatabaseLogicalName;
+		string baseInterfaceDeclaration = string.Empty;
+		string optionalSingleSchemaParam = (HasDynamicSchema) ? "string schema" : string.Empty;
+		string optionalFirstSchemaParam = (HasDynamicSchema) ? optionalSingleSchemaParam + ", " : string.Empty;
+		if (TableInfo.HasCrudFunctions)
+		{
+			if (NeedsBulkCrud && LimitNumberOfDerivedInterfacesTo1)
+			{
+				string crudBaseInterface = (HasDynamicSchema) ? "IDaoCrudWithSchema" : "IDaoCrud";	
+				baseInterfaceDeclaration = " : " + crudBaseInterface + "<" + entityName + ", " + idLanguageType + ", " + idResultType + ">";
+			}
+			else if (NeedsBulkCrud)
+			{
+				string crudBaseInterface = (HasDynamicSchema) ? "IDaoBulkCrudWithSchema" : "IDaoBulkCrud";	
+				baseInterfaceDeclaration = " : " + crudBaseInterface + "<" + entityName + ", " + idLanguageType + ", " + idResultType + ">";
+			}
+			else
+			{
+				string crudBaseInterface = (HasDynamicSchema) ? "IDaoCrudWithSchema" : "IDaoCrud";	
+				baseInterfaceDeclaration = " : " + crudBaseInterface + "<" + entityName + ", " + idLanguageType + ", " + idResultType + ">";
+			}
+		}
+#>
+//========================================================================================
+// INFO: This file is generated from t4 template <#= this.GetType().Name #>.tt
+// !!! Any changes made manually will be lost next time this file is generated !!!
+//========================================================================================
+using System.ServiceModel;
+using <#= Namespace #>.Repository.Contract.Domain;
+using Pms.Framework.Interfaces;
+using Pms.Framework.Domain;
+using System;
+
+namespace <#= Namespace #>.Repository.Contract.Interfaces
+{
+	[ServiceContract(Namespace="http://pms")]
+    public partial interface I<#= entityName #>Repository<#= baseInterfaceDeclaration #>
+    {
+<#+
+        foreach(FunctionInfo functionInfo in TableInfo.FunctionInfos)
+		{
+			string methodName = functionInfo.MethodName;
+			string paramDeclarationList = functionInfo.ParamDeclarationList;
+			string arraysuffix = functionInfo.ReturnsSingleInstance ? string.Empty : "[]";
+			string returnValueResultType = functionInfo.ReturnValueResultType;
+#>
+        [OperationContract]
+		[TransactionFlow(TransactionFlowOption.Allowed)]
+        <#= returnValueResultType #><#= arraysuffix #> <#= methodName #>(<#= paramDeclarationList #>);
+<#+
+		}
+		if (TableInfo.HasCrudFunctions)
+		{
+			if (NeedsBulkCrud && LimitNumberOfDerivedInterfacesTo1)
+			{
+#>
+		#region IDaoBulkCrud declaration (fix for dynamic agent generation issue)
+
+        [OperationContract]
+		[TransactionFlow(TransactionFlowOption.Allowed)]
+        <#= idResultType #>[] BulkInsert(<#= optionalFirstSchemaParam #><#= entityName #>[] values, string username, string applicationCode);
+		
+		#endregion
+		
+<#+
+			}
+		}
+#>
+    }
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>

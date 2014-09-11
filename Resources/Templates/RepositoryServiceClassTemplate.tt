@@ -1,0 +1,247 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ output extension="txt"  #>
+<#@ include file="DbmlHelper.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-07
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryServiceClassTemplate : Template
+{
+ 	public TableInfo TableInfo;
+    public string Namespace; 
+	public bool	HasDynamicSchema;
+	public bool NeedsBulkCrud;
+
+	private StringHelper _strH = new StringHelper();
+
+    public override string TransformText()
+    {
+		string databaseLogicalName = TableInfo.DatabaseLogicalName;
+		string entityName = TableInfo.EntityName; // UpperCamelCase
+		string entityNameAsParam = _strH.ToLowerCamelCase(TableInfo.EntityName); // lowerCamelCase
+		string idNameAsParam = _strH.ToLowerCamelCase(TableInfo.IdName); // lowerCamelCase
+		string idLanguageType = TableInfo.IdLanguageType; 
+		string idResultType = TableInfo.IdResultType;
+		string optionalSingleSchemaParam = (HasDynamicSchema) ? "string schema" : string.Empty;
+		string optionalFirstSchemaParam = (HasDynamicSchema) ? optionalSingleSchemaParam + ", " : string.Empty;
+		string optionalSingleSchemaValue = (HasDynamicSchema) ? "schema" : string.Empty;
+		string optionalFirstSchemaValue = (HasDynamicSchema) ? optionalSingleSchemaValue + ", " : string.Empty;
+		string operationBehaviourAttributeExpression = "[OperationBehavior(TransactionScopeRequired = true)]";
+#>
+//========================================================================================
+// INFO: This file is generated from t4 template <#= this.GetType().Name #>.tt
+// !!! Any changes made manually will be lost next time this file is generated !!!
+//========================================================================================
+using System;
+using System.ServiceModel;
+using System.Linq;
+using log4net;
+using Pms.Framework.Exceptions;
+using Pms.Framework.Networking.Wcf;
+using Pms.Framework.Domain;
+using <#= Namespace #>.Dao;
+using <#= Namespace #>.Repository.Contract.Domain;
+using <#= Namespace #>.Repository.Contract.Interfaces;
+
+namespace <#= Namespace #>.Repository
+{
+
+#if DEBUG
+    [ServiceBehavior(IncludeExceptionDetailInFaults = true, MaxItemsInObjectGraph = 2147483647)]
+#else
+	[ServiceBehavior(IncludeExceptionDetailInFaults = false, MaxItemsInObjectGraph = 2147483647)]
+#endif
+	public partial class <#= entityName #>Repository : ServiceBase, I<#= entityName #>Repository
+    {
+		private readonly ILog _logger;
+	
+        public <#= entityName #>Repository()
+             : base()
+        {
+			_logger = LogManager.GetLogger(GetType());
+        }
+<#+
+        if (TableInfo.HasCrudFunctions)
+		{
+#>
+
+        #region IRepository<<#= entityName #>, <#= idLanguageType #>> Members
+
+     	<#= operationBehaviourAttributeExpression #>
+		public <#= entityName #>[] SelectAll(<#= optionalSingleSchemaParam #>)
+        {
+            try
+            {
+	            return <#= databaseLogicalName #>DaoFactory.Create<#= entityName #>Dao().SelectAll(<#= optionalSingleSchemaValue #>);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Failed to execute service request SelectAll", ex);
+                var returnValue = new <#= entityName #>();
+                returnValue.Errors.Add("Failed to execute service request SelectAll" + " ---> " + ex.GetCombinedMessages());
+                return new []{returnValue};
+            }
+        }
+
+     	<#= operationBehaviourAttributeExpression #>
+        public <#= entityName #> SelectById(<#= optionalFirstSchemaParam #><#= idLanguageType #> id)
+        {
+            try
+            {
+                return <#= databaseLogicalName #>DaoFactory.Create<#= entityName #>Dao().SelectById(<#= optionalFirstSchemaValue #>id);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Failed to execute service request SelectById", ex);
+                var returnValue = new <#= entityName #>();
+                returnValue.Errors.Add("Failed to execute service request SelectById" + " ---> " + ex.GetCombinedMessages());
+                return returnValue;
+            }
+        }
+
+      
+     	<#= operationBehaviourAttributeExpression #>
+        public Result Update(<#= optionalFirstSchemaParam #><#= entityName #> value, string username, string applicationCode)
+        {
+            try
+            {
+            	return <#= databaseLogicalName #>DaoFactory.Create<#= entityName #>Dao().Update(<#= optionalFirstSchemaValue #>value, username, applicationCode);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Failed to execute service request Update", ex);
+                var returnValue = new Result();
+                returnValue.Errors.Add("Failed to execute service request Update" + " ---> " + ex.GetCombinedMessages());
+                return returnValue;
+            }
+        }
+
+       
+     	<#= operationBehaviourAttributeExpression #>
+        public Result Delete(<#= optionalFirstSchemaParam #><#= idLanguageType #> id, string username, string applicationCode)
+        {
+            try
+            {
+            	return <#= databaseLogicalName #>DaoFactory.Create<#= entityName #>Dao().Delete(<#= optionalFirstSchemaValue #>id, username, applicationCode);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Failed to execute service request Delete", ex);
+                var returnValue = new Result();
+                returnValue.Errors.Add("Failed to execute service request Delete" + " ---> " + ex.GetCombinedMessages());
+                return returnValue;
+            }
+        }
+
+     	<#= operationBehaviourAttributeExpression #>
+        public <#= idResultType #> Insert(<#= optionalFirstSchemaParam #><#= entityName #> value, string username, string applicationCode)
+        {
+            try
+            {
+				return <#= databaseLogicalName #>DaoFactory.Create<#= entityName #>Dao().Insert(<#= optionalFirstSchemaValue #>value, username, applicationCode);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Failed to execute service request Insert", ex);
+                var returnValue = new <#= idResultType #>();
+                returnValue.Errors.Add("Failed to execute service request Insert" + " ---> " + ex.GetCombinedMessages());
+                return returnValue;
+            }
+        }
+
+        #endregion
+<#+
+			if (NeedsBulkCrud)
+			{
+#>
+
+        #region Bulk CRUD functions <<#= entityName #>, <#= idLanguageType #>>
+
+     	<#= operationBehaviourAttributeExpression #>
+        public <#= idResultType #>[] BulkInsert(<#= optionalFirstSchemaParam #><#= entityName #>[] values, string username, string applicationCode)
+        {
+            try
+            {
+				return <#= databaseLogicalName #>DaoFactory.Create<#= entityName #>Dao().BulkInsert(<#= optionalFirstSchemaValue #>values, username, applicationCode);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Failed to execute service request BulkInsert", ex);
+                var returnValue = new <#= idResultType #>();
+                returnValue.Errors.Add("Failed to execute service request BulkInsert" + " ---> " + ex.GetCombinedMessages());
+                return new[] { returnValue };
+            }
+        }
+
+        #endregion
+
+<#+
+			}
+		}
+		
+		if (TableInfo.HasExtraFunctions)
+		{
+#>
+
+        #region Extra Functions (map to handwritten stored procedures)
+<#+
+			foreach(FunctionInfo functionInfo in TableInfo.FunctionInfos)
+			{
+				string methodName = functionInfo.MethodName;
+				string returnValue = functionInfo.HasReturnType ? "return" : string.Empty;
+				string methodDbName = functionInfo.DbName;
+				string paramDeclarationList = functionInfo.ParamDeclarationList;
+				string paramReferenceList = functionInfo.ParamReferenceList;
+				string arraysuffix = functionInfo.ReturnsSingleInstance ? string.Empty : "[]";
+			    string returnValueLanguageType = functionInfo.ReturnValueLanguageType;
+			    string returnValueResultType = functionInfo.ReturnValueResultType;
+#>
+
+      
+     	<#= operationBehaviourAttributeExpression #>
+		public <#= returnValueResultType #><#= arraysuffix #> <#= methodName #>(<#= paramDeclarationList #>)
+        {
+            try
+            {
+            	<#= returnValue #> <#= databaseLogicalName #>DaoFactory.Create<#= entityName #>Dao().<#= methodName #>(<#= paramReferenceList #>);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Failed to execute service request <#= methodName #>", ex);
+                var returnValue = new <#= returnValueResultType #>();
+                returnValue.Errors.Add("Failed to execute service request <#= methodName #>" + " ---> " + ex.GetCombinedMessages());
+				<#+
+					bool returnsSingleInstance = functionInfo.ReturnsSingleInstance;
+					if(returnsSingleInstance)
+					{
+				#>
+                return returnValue;
+				<#+
+					}
+					else
+					{
+				#>
+				return new[] { returnValue };
+				<#+
+					}
+				#>
+            }
+        }
+<#+
+			} // End foreach functionInfo
+#>
+
+        #endregion
+<#+
+		}
+#>
+
+    }
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>

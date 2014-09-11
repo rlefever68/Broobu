@@ -1,0 +1,39 @@
+﻿<ribbon:RibbonWindow x:Class="Pms.ManageWorkspaces.UI.Controls.PopUpListView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:ribbon="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon;assembly=ActiproSoftware.Ribbon.Wpf351" 
+        xmlns:Localization="clr-namespace:Pms.ManageWorkspaces.UI.Controls.Localization" xmlns:ViewModel="clr-namespace:Pms.ManageWorkspaces.UI.Controls.ViewModel" xmlns:local="clr-namespace:Pms.ManageWorkspaces.UI.Controls.Behaviour" xmlns:Busyol="clr-namespace:Pms.Framework.UI;assembly=Pms.Framework.UI" Title="PopUpTreeView" Height="400" Width="650"
+        IsMaximizeButtonVisible="False" 
+        IsMinimizeButtonVisible="False" ApplicationName="{x:Static  Localization:Translations.WorkspaceBrowser_PopUpListView_ApplicationName}"  WindowState="Normal" ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" IsGlassEnabled="False">
+    <ribbon:RibbonWindow.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="DisplayImage">
+                <StackPanel Width="20" Height="20">
+                    <Image Source="{Binding ItemImage}" />
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ribbon:RibbonWindow.Resources>
+        <Grid>
+        <Busyol:BusyOverlay Name="overlay"  IsBusy="{Binding IsRefreshing}"
+										    HasNoData="{Binding IsEmpty}"
+										    Grid.Row="2" Grid.ColumnSpan="2"
+										     VerticalAlignment="Stretch" Margin="1,1">
+            <ListView ItemsSource="{Binding ListItem}"  
+                  local:SelectorDoubleClickCommandBehavior.HandleDoubleClick="true" 
+                  local:SelectorDoubleClickCommandBehavior.TheCommandToRun="{Binding Path=DoubleClickCommand}" SelectedItem="{Binding SelectedItem}"
+                  >
+            <ListView.View>
+                <GridView x:Name="GrdView" x:FieldModifier="public">                    
+                        <GridViewColumn Header="Image"  CellTemplate="{StaticResource DisplayImage}"   Width="50" ></GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding ItemTitle}" Header="Title" Width="300"></GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding DateModified}" Header="Date Modified" Width="200"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        </Busyol:BusyOverlay>
+    </Grid>
+
+</ribbon:RibbonWindow>
+  

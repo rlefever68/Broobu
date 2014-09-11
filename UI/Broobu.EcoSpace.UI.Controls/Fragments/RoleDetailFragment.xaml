@@ -1,0 +1,56 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
+    xmlns:fragments="clr-namespace:Broobu.EcoSpace.UI.Controls.Fragments"
+    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+    xmlns:fragments1="clr-namespace:Broobu.Taxonomy.UI.Controls.Fragments;assembly=Broobu.Taxonomy.UI.Controls"
+    xmlns:mvvm="clr-namespace:Broobu.EcoSpace.UI.Controls.Mvvm"
+    x:Class="Broobu.EcoSpace.UI.Controls.Fragments.RoleDetailFragment"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.DataContext>
+        <mvvm:RoleDetailViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <dxlc:LayoutGroup Orientation="Horizontal" View="Group">
+            <dxlc:LayoutItem>
+                <TextBlock Text="{Binding Role.DisplayName}" FontSize="16" />
+            </dxlc:LayoutItem>
+        </dxlc:LayoutGroup>
+        <dxdo:TabbedGroup Grid.Row="1">
+            <dxdo:LayoutPanel Caption="Properties" ShowCloseButton="false" HeaderBarContainerControlAllowDrop="False"
+                              FloatOnDoubleClick="False" AllowFloat="False" AllowHide="False" AllowMaximize="False"
+                              AllowMinimize="False" AllowMove="False" AllowRename="False" AllowRestore="False"
+                              AllowDock="False" AllowDrag="False" AllowContextMenu="False" AllowClose="False">
+                <fragments:RolePropertiesFragment Padding="3"/>
+            </dxdo:LayoutPanel>
+            <dxdo:LayoutPanel Caption="Memberships" ShowCloseButton="false" HeaderBarContainerControlAllowDrop="False"
+                              FloatOnDoubleClick="False" AllowFloat="False" AllowHide="False" AllowMaximize="False"
+                              AllowMinimize="False" AllowMove="False" AllowRename="False" AllowRestore="False"
+                              AllowDock="False" AllowDrag="False" AllowContextMenu="False" AllowClose="False">
+                <fragments:ManageMembershipFragment Padding="3" x:Name="ManageMembershipFragment"/>
+            </dxdo:LayoutPanel>
+            <dxdo:LayoutPanel Caption="Permissions" ShowCloseButton="false" HeaderBarContainerControlAllowDrop="False"
+                              FloatOnDoubleClick="False" AllowFloat="False" AllowHide="False" AllowMaximize="False"
+                              AllowMinimize="False" AllowMove="False" AllowRename="False" AllowRestore="False"
+                              AllowDock="False" AllowDrag="False" AllowContextMenu="False" AllowClose="False">
+                <fragments:PermissionsFragment Padding="3" x:Name="PermissionsFragment" />
+            </dxdo:LayoutPanel>
+            <dxdo:LayoutPanel Caption="Descriptions" ShowCloseButton="false" HeaderBarContainerControlAllowDrop="False"
+                              FloatOnDoubleClick="False" AllowFloat="False" AllowHide="False" AllowMaximize="False"
+                              AllowMinimize="False" AllowMove="False" AllowRename="False" AllowRestore="False"
+                              AllowDock="False" AllowDrag="False" AllowContextMenu="False" AllowClose="False">
+                <fragments1:DescriptionsFragment DataContext="{Binding Hook.Descriptions}" Padding="3"
+                                                 Name="DescriptionsFragment" />
+            </dxdo:LayoutPanel>
+        </dxdo:TabbedGroup>
+    </Grid>
+</UserControl>

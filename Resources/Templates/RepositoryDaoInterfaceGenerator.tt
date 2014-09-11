@@ -1,0 +1,38 @@
+﻿<#@ xsd processor="T4Toolbox.XsdProcessor" 
+    file="%VS100COMNTOOLS%\..\..\Xml\Schemas\DbmlSchema.xsd" #>
+<#@ include file="RepositoryDaoInterfaceTemplate.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-02
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryDaoInterfaceGenerator : Generator
+{
+	public string DatabaseDbml;
+	public string TableNamePrefix;
+	public string Namespace;
+	public bool	HasDynamicSchema;
+	public bool NeedsBulkCrud;
+	public bool PrefixEntityNameWithSchemaName;
+	
+	private RepositoryDaoInterfaceTemplate _template = new RepositoryDaoInterfaceTemplate();  
+
+    protected override void RunCore()
+    {
+		DatabaseInfo databaseInfo = new DatabaseInfo(DatabaseDbml, TableNamePrefix, PrefixEntityNameWithSchemaName);
+	    foreach (TableInfo tableInfo in databaseInfo.TableInfos)
+        {
+  			if (tableInfo.HasFunctions == false)
+			{
+				continue;
+			}
+          	_template.TableInfo = tableInfo;
+            _template.Namespace = Namespace;
+			_template.HasDynamicSchema = HasDynamicSchema;
+            _template.NeedsBulkCrud = NeedsBulkCrud;
+            _template.RenderToFile("I" + tableInfo.EntityName + "Dao.cs");
+        }
+    }
+}
+#>

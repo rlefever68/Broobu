@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostApp", "HostApp\HostApp.csproj", "{F3194B55-D93C-45B9-899B-C6F6C85E0C8B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{17604237-EB73-4DB3-BA14-484537594A20} = {17604237-EB73-4DB3-BA14-484537594A20}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddIn", "AddIn\AddIn.csproj", "{17604237-EB73-4DB3-BA14-484537594A20}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F3194B55-D93C-45B9-899B-C6F6C85E0C8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3194B55-D93C-45B9-899B-C6F6C85E0C8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3194B55-D93C-45B9-899B-C6F6C85E0C8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3194B55-D93C-45B9-899B-C6F6C85E0C8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17604237-EB73-4DB3-BA14-484537594A20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17604237-EB73-4DB3-BA14-484537594A20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17604237-EB73-4DB3-BA14-484537594A20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17604237-EB73-4DB3-BA14-484537594A20}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

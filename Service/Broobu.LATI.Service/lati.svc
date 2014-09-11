@@ -1,0 +1,2 @@
+﻿<%@ ServiceHost Service="Broobu.LATI.Service.LatiSentry" Factory=Wulka.Networking.Wcf.SentryHostFactory%>
+

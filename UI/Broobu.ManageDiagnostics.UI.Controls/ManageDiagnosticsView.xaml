@@ -1,0 +1,179 @@
+﻿<pms:ViewUserControl x:Class="Pms.ManageDiagnostics.UI.Controls.ManageDiagnosticsView"
+             xmlns:editors="clr-namespace:ActiproSoftware.Windows.Controls.Editors;assembly=ActiproSoftware.Editors.Wpf351"   
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:pms="http://schemas.pms/ui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:shared="http://schemas.actiprosoftware.com/winfx/xaml/shared" 
+             xmlns:ribbon="http://schemas.actiprosoftware.com/winfx/xaml/ribbon"
+             xmlns:docking="http://schemas.actiprosoftware.com/winfx/xaml/docking" 
+             mc:Ignorable="d" 
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:contract="clr-namespace:Pms.ManageDiagnostics.Contract.Domain;assembly=Pms.ManageDiagnostics.Contract" 
+             xmlns:conv="clr-namespace:Pms.ManageDiagnostics.UI.Controls">
+    <pms:ViewUserControl.Resources>
+        <ResourceDictionary>
+            <conv:StatusToColorConverter x:Key="sconv"/>
+        </ResourceDictionary>
+    </pms:ViewUserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ribbon:Ribbon>
+            <ribbon:Tab Label="Home">
+                <ribbon:Group Label="Default">
+                    <ribbon:Button Command="{Binding RunDiagnostics}" Label="Run Diagnostics" ImageSourceSmall="/Pms.ManageDiagnostics.UI.Controls;component/Images/98.png"></ribbon:Button>
+                    <ribbon:Button Command="{Binding Refresh}" Label="Reload Diagnostics Report" ImageSourceSmall="/Pms.ManageDiagnostics.UI.Controls;component/Images/Reload.png"></ribbon:Button>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Border x:Name="brdTimer" BorderThickness="3" CornerRadius="3" BorderBrush="#FF486FAA" Margin="8,4,8,4">
+                            <editors:TimeSpanEditBox Value="{Binding RefreshTimeSpan}" Width="Auto" MinWidth="120" HorizontalAlignment="Center"  HorizontalContentAlignment="Center"  SpinnerVisibility="Visible" FontWeight="Bold" FontSize="12" Margin="2,2,2,2" />
+                        </Border>
+                        <Button Grid.Row="1" Content="Adjust Auto Refresh Timer" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8,4,8,4"/>
+                    </Grid>
+
+                </ribbon:Group>
+            </ribbon:Tab>
+        </ribbon:Ribbon>
+        <pms:BusyOverlay IsBusy="{Binding IsBusy}" HasNoData="{Binding IsEmpty}" Grid.Row="1" Grid.ColumnSpan="2">
+
+            <!-- DockSite -->
+        <docking:DockSite x:Name="dockSite">
+
+            <docking:SplitContainer>
+                <docking:ToolWindowContainer>
+                    <docking:ToolWindow x:Name="wndBatches" Title="Diagnostics Batches">
+                        <Grid>
+                            <!--Batches Grid-->
+
+                                <dxg:GridControl Name="grdBatches"  DesignTimeDataObjectType="contract:DiagnosticsBatchViewItem" Margin="2,2,2,2" DataSource="{Binding Batches}" HorizontalAlignment="Stretch">
+                                    <dxg:GridControl.Columns>
+                                        <dxg:GridColumn FieldName="Batch" Name="colBatch" SortOrder="Ascending" VisibleIndex="1"/>
+                                        <dxg:GridColumn FieldName="Status" Name="colBatchStatus" VisibleIndex="2" SortIndex="0" SortOrder="Ascending">
+                                            <dxg:GridColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border CornerRadius="3,3,3,3" 
+                                                        Margin="2,1,2,1"  
+                                                        HorizontalAlignment="Center">
+                                                        <Border.Background>
+                                                            <SolidColorBrush Color="{Binding Path=Value, Converter={StaticResource sconv}}"/>
+                                                        </Border.Background>
+                                                        <TextBlock Width="50" FontSize="10" FontWeight="Bold"
+                                                               Text="{Binding Value}" 
+                                                               TextAlignment="Center" 
+                                                               HorizontalAlignment="Center" Margin="10,0,10,0" 
+                                                               VerticalAlignment="Center" 
+                                                               Height="Auto" Foreground="#FFFFFFFF"/>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </dxg:GridColumn.CellTemplate>
+                                        </dxg:GridColumn>
+
+                                        <dxg:GridColumn FieldName="StartTime" Name="colBatchStartTime" VisibleIndex="3">
+                                            <dxg:GridColumn.EditSettings>
+                                                <dxe:TextEditSettings HorizontalContentAlignment="Right" />
+                                            </dxg:GridColumn.EditSettings>
+                                        </dxg:GridColumn>
+                                        <dxg:GridColumn FieldName="EndTime" Name="colBatchEndTime" VisibleIndex="4">
+                                            <dxg:GridColumn.EditSettings>
+                                                <dxe:TextEditSettings HorizontalContentAlignment="Right" />
+                                            </dxg:GridColumn.EditSettings>
+                                        </dxg:GridColumn>
+
+                                        <dxg:GridColumn FieldName="Description" Name="colBatchDescription" VisibleIndex="5">
+                                            <dxg:GridColumn.EditSettings>
+                                                <dxe:TextEditSettings HorizontalContentAlignment="Left" />
+                                            </dxg:GridColumn.EditSettings>
+                                        </dxg:GridColumn>
+
+                                    </dxg:GridControl.Columns>
+                                    <dxg:GridControl.View>
+                                        <dxg:TableView FocusedRow="{Binding FocusedBatch}" AllowEditing="False" MultiSelectMode="Row" NavigationStyle="Row" ShowHorizontalLines="False" ShowVerticalLines="True" BestFitMode="Smart" AutoWidth="False" UseLayoutRounding="False" ScrollingMode="Normal" Name="vwBatch"/>
+                                    </dxg:GridControl.View>
+                                </dxg:GridControl>
+                        </Grid>
+                    </docking:ToolWindow>
+                </docking:ToolWindowContainer>
+
+                <docking:Workspace>
+
+
+                    <dxg:GridControl Name="grdReport" DesignTimeDataObjectType="contract:DiagnosticsViewItem" Margin="2,2,2,2" DataSource="{Binding Path=DiagnosticsReport}" HorizontalAlignment="Stretch">
+                        <dxg:GridControl.Columns>
+
+                            <dxg:GridColumn FieldName="Contract" Name="colContract" SortOrder="Ascending" VisibleIndex="1"/>
+                            <dxg:GridColumn FieldName="Method" Name="colApplication" SortOrder="Ascending" VisibleIndex="2"/>
+
+                            <dxg:GridColumn FieldName="Status" Name="colStatus" VisibleIndex="3" SortIndex="0" SortOrder="Ascending">
+                                <dxg:GridColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border CornerRadius="3,3,3,3" 
+                                        Margin="2,1,2,1"  
+                                        HorizontalAlignment="Center">
+                                            <Border.Background>
+                                                <SolidColorBrush Color="{Binding Path=Value, Converter={StaticResource sconv}}"/>
+                                            </Border.Background>
+                                            <TextBlock Width="50" FontSize="10" FontWeight="Bold"
+                                               Text="{Binding Value}" 
+                                               TextAlignment="Center" 
+                                               HorizontalAlignment="Center" Margin="10,0,10,0" 
+                                               VerticalAlignment="Center" 
+                                               Height="Auto" Foreground="#FFFFFFFF"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </dxg:GridColumn.CellTemplate>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="StartTime" Name="colStartTime" VisibleIndex="4" />
+                            <dxg:GridColumn FieldName="EndTime" Name="colEndTime" VisibleIndex="5">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings HorizontalContentAlignment="Right" />
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+
+                            <dxg:GridColumn FieldName="Description" Name="colDescription" VisibleIndex="6">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings HorizontalContentAlignment="Left" />
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+
+                        </dxg:GridControl.Columns>
+                        <dxg:GridControl.View>
+                            <dxg:TableView AllowEditing="False" MultiSelectMode="Row" NavigationStyle="Row" ShowHorizontalLines="False" ShowVerticalLines="True" BestFitMode="Smart" AutoWidth="False" UseLayoutRounding="False" ScrollingMode="Normal" Name="vwDisco">
+                            </dxg:TableView>
+                        </dxg:GridControl.View>
+                    </dxg:GridControl>
+
+
+
+
+                </docking:Workspace>
+
+
+            </docking:SplitContainer>
+        </docking:DockSite>
+        </pms:BusyOverlay>
+
+        <StatusBar Grid.Row="2" x:Name="statusBar">
+            <StatusBar.Items>
+                <StatusBarItem HorizontalAlignment="Right">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Request Duration:" Margin="2,2,2,2" HorizontalAlignment="Right"/>
+                        <TextBlock Text="{Binding RequestDuration}" Grid.Column="1" Margin="2,2,2,2"/>
+                    </Grid>
+                </StatusBarItem>
+            </StatusBar.Items>
+        </StatusBar>
+    </Grid>
+</pms:ViewUserControl>

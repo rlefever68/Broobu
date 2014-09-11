@@ -1,0 +1,37 @@
+﻿<broobu:ViewUserControl xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:domain="clr-namespace:Broobu.Taxonomy.Contract.Domain;assembly=Broobu.Taxonomy.Contract"
+             
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:broobu="http://schemas.broobu/ui"
+             x:Class="Broobu.Taxonomy.UI.Controls.Fragments.DescriptionsFragment"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="700">
+    <broobu:ViewUserControl.Resources>
+        <dx:IEnumerableDataSource x:Key="IEnumerableDescriptionType">
+            <dx:DesignDataManager.DesignData>
+                <dx:DesignDataSettings DataObjectType="{x:Type domain:Description}" RowCount="5"/>
+            </dx:DesignDataManager.DesignData>
+        </dx:IEnumerableDataSource>
+    </broobu:ViewUserControl.Resources>
+    <Grid>
+        <dxg:GridControl AutoGenerateColumns="AddNew" 
+			EnableSmartColumnsGeneration="True" 
+			DesignTimeDataObjectType="{x:Type domain:Description}" 
+			DesignTimeDataSourceRowCount="2" Name="GridControl"
+            ItemsSource="{Binding}" ShowBorder="False" AllowLiveDataShaping="True">
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="CultureId" IsSmart="True" VisibleIndex="2"/>
+                <dxg:GridColumn FieldName="DisplayName" IsSmart="True" VisibleIndex="6"/>
+                <dxg:GridColumn FieldName="AdditionalInfoUri" IsSmart="True" VisibleIndex="7"/>
+            </dxg:GridControl.Columns>
+            <dxg:GridControl.View>
+                <dxg:TableView AllowGrouping="False" ShowHorizontalLines="False" ShowGroupPanel="False" ShowVerticalLines="False" BestFitMode="Smart"/>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+
+    </Grid>
+</broobu:ViewUserControl>

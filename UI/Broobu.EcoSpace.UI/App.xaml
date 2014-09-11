@@ -1,0 +1,7 @@
+﻿<broobu:AppletApplication x:Class="Broobu.EcoSpace.UI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:broobu="http://schemas.broobu/ui"
+             StartupUri="ManageEcoSpace.xaml">
+ 
+</broobu:AppletApplication>

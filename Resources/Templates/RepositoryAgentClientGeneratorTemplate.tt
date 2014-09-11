@@ -1,0 +1,80 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ include file="DbmlHelper.tt" #>
+<#+
+// --------------------------------------------------------------------------
+// Initial Release : 2010-05-19
+// Author          : Marnix De Groote
+// --------------------------------------------------------------------------
+
+public class RepositoryAgentClientGeneratorTemplate : Template
+{
+    public DatabaseInfo DatabaseInfo; 
+    public string    	Namespace; 
+	public string 		DomainAssemblyPath;
+	public string       DaoAssemblyPath;
+	public string 		ServiceUrl;
+	public string []	ExternalServices;
+	public bool			ForX64;
+
+    public override string TransformText()
+    {
+		if (DomainAssemblyPath == null)
+		{
+			throw new ApplicationException(@"Please provide DomainAssemblyPath (e.g. generator.DomainAssemblyPath = @""..\..\Domain\Pms.xxxxx.Repository.Domain\bin\Debug\"";");
+		}
+		if (DaoAssemblyPath == null)
+		{
+			throw new ApplicationException(@"Please provide DaoAssemblyPath (e.g. generator.DaoAssemblyPath = @""..\..\Dao\Pms.xxxxx.Dao\bin\Debug\"";");
+		}
+		if (ForX64)
+		{
+#>
+call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86
+<#+
+		}
+		else
+		{
+#>
+call "C:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86
+<#+
+		}
+#>
+
+mkdir ServiceClients
+
+<#+
+		foreach (TableInfo tableInfo in DatabaseInfo.TableInfos)
+		{
+  			if (tableInfo.HasFunctions == false)
+			{
+				continue;
+			}
+			RenderSvcUtilCommand(tableInfo.EntityName);
+		}
+		
+		foreach(string externalService in ExternalServices)
+		{
+			RenderSvcUtilCommand(externalService);
+		}
+#>
+pause
+<#+
+        return this.GenerationEnvironment.ToString();
+    }
+	
+	private void RenderSvcUtilCommand(string entityName)
+	{
+			if (string.IsNullOrEmpty(ServiceUrl))
+			{
+				ServiceUrl = "http://localhost/services/repository/";
+			}
+#>
+svcutil <#= ServiceUrl #><#= entityName #>Repository.svc /async /tcv:Version35 /Directory:ServiceClients /noconfig ^
+    /reference:<#= DomainAssemblyPath #><#= Namespace #>.Repository.Domain.dll ^
+    /reference:<#= DaoAssemblyPath #>Pms.Framework.Dao.dll ^
+	/namespace:*,<#= Namespace #>.Repository.Agent.<#= entityName #>RepositoryServiceReference
+	
+<#+
+	}
+}
+#>

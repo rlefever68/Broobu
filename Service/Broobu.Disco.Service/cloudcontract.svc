@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Service="Broobu.Disco.Service.CloudContractSentry" Factory="Wulka.Networking.Wcf.SentryHostFactory"%>

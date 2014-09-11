@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A7D7A2C0-EB42-42A6-9BD1-653CA05141FB}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Pms.ManageWorkspaces.UI.Controls</RootNamespace>
+    <AssemblyName>Pms.ManageWorkspaces.UI.Controls</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\mobifxsdk.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ActiproSoftware.Docking.Wpf351, Version=10.2.530.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL" />
+    <Reference Include="ActiproSoftware.Navigation.Wpf351, Version=10.2.530.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\Actipro Software\WPFStudio\v10.2.0530\Assemblies\ActiproSoftware.Navigation.Wpf351.dll</HintPath>
+    </Reference>
+    <Reference Include="ActiproSoftware.PropertyGrid.Wpf351, Version=10.2.530.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9" />
+    <Reference Include="ActiproSoftware.Ribbon.Wpf351, Version=10.2.530.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL" />
+    <Reference Include="ActiproSoftware.Shared.Wpf351, Version=10.2.530.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL" />
+    <Reference Include="ActiproSoftware.Wizard.Wpf351, Version=10.2.530.0, Culture=neutral, PublicKeyToken=36ff2196ab5654b9, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v14.1.Core, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Data.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Mvvm.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Core.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v14.1.Core, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    
+    
+    
+    <Reference Include="DevExpress.Xpf.Printing.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\MobiFxSDK\SDK\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Pms.Components.DevExpress">
+      <HintPath>..\..\Release\Launcher\Pms.Components.DevExpress.dll</HintPath>
+    </Reference>
+    <Reference Include="Pms.Framework">
+      <HintPath>..\..\MobiFxSDK\SDK\Pms.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Pms.Framework.UI">
+      <HintPath>..\..\MobiFxSDK\SDK\Pms.Framework.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyVersions.cs">
+      <Link>Properties\AssemblyVersions.cs</Link>
+    </Compile>
+    <Compile Include="ActionQueue\ActionQueue.cs" />
+    <Compile Include="Behaviour\DragDropBehavior.cs" />
+    <Compile Include="Converters\BreadcrumbChildFilter.cs" />
+    <Compile Include="Converters\ResizeImage.cs" />
+    <Compile Include="LanguageItem.cs" />
+    <Compile Include="WorkspaceSearchResultView.xaml.cs">
+      <DependentUpon>WorkspaceSearchResultView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIInputValidations\CurrencyClass.cs" />
+    <Compile Include="UIInputValidations\StringEnumeration.cs" />
+    <Compile Include="UIInputValidations\StringValueAttribute.cs" />
+    <Compile Include="UIInputValidations\InputValidation.cs" />
+    <Compile Include="UIInputValidations\ValidationTypesEnum.cs" />
+    <Compile Include="ViewModel\AddItemViewModel.cs" />
+    <Compile Include="ApplicationEventArgs\LoadDescriptionEventArgs.cs" />
+    <Compile Include="ApplicationEventArgs\LoadDetailViewEventArgs.cs" />
+    <Compile Include="ApplicationEventArgs\LoadPropertiesEventArgs.cs" />
+    <Compile Include="ApplicationEventArgs\LoadWorkspaceItemEventArgs.cs" />
+    <Compile Include="ApplicationEvents.cs" />
+    <Compile Include="Behaviour\SelectionBehavior.cs" />
+    <Compile Include="Behaviour\SelectorDoubleClickCommandBehavior.cs" />
+    <Compile Include="BreadcrumbControl.xaml.cs">
+      <DependentUpon>BreadcrumbControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\BreadCrumbViewModel.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Converters\DxGridRowColorConverter.cs" />
+    <Compile Include="Converters\TreeViewImageConverter.cs" />
+    <Compile Include="Converters\TreeViewFilter.cs" />
+    <Compile Include="Converters\ConvertItemHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PopUpTreeView.xaml.cs">
+      <DependentUpon>PopUpTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\WorkspaceSearchResultViewModel.cs" />
+    <Compile Include="ViewModel\WorkspaceSearchControlViewModel.cs" />
+    <Compile Include="Localization\Translations.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Translations.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\WorkspaceBrowserMainViewViewModel.cs" />
+    <Compile Include="ViewModel\WorkspaceBrowserViewModelBase.cs" />
+    <Compile Include="ViewModel\WorkspaceDescriptionsViewViewModel.cs" />
+    <Compile Include="AddItem.xaml.cs">
+      <DependentUpon>AddItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowManager.cs" />
+    <Compile Include="WorkspaceBrowserMainView.xaml.cs">
+      <DependentUpon>WorkspaceBrowserMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkspaceDescriptionsView.xaml.cs">
+      <DependentUpon>WorkspaceDescriptionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\WorkspaceListViewViewModel.cs" />
+    <Compile Include="ViewModel\WorkspaceNavigatorViewViewModel.cs" />
+    <Compile Include="ViewModel\WorkspacePropertiesViewViewModel.cs" />
+    <Compile Include="WorkspaceSearchControl.xaml.cs">
+      <DependentUpon>WorkspaceSearchControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\WorkspaceTreeViewViewModel.cs" />
+    <Page Include="BreadcrumbControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ControlThemes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ListViewTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\MobiguiderTreeViewTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PopUpTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WorkspaceSearchResultView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkspaceBrowserMainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WorkspaceDescriptionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkspaceListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkspaceNavigatorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkspacePropertiesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkspaceSearchControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkspaceTreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="WorkspaceListView.xaml.cs">
+      <DependentUpon>WorkspaceListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkspaceNavigatorView.xaml.cs">
+      <DependentUpon>WorkspaceNavigatorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkspacePropertiesView.xaml.cs">
+      <DependentUpon>WorkspacePropertiesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkspaceTreeView.xaml.cs">
+      <DependentUpon>WorkspaceTreeView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Localization\Translations.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Translations.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="..\..\mobifxsdk.pfx">
+      <Link>..\..\..\mobifxsdk.pfx</Link>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Contract\Pms.ManageWorkspaces.Contract\Pms.ManageWorkspaces.Contract.csproj">
+      <Project>{1F340381-0F74-48C6-ACB2-1F6345BEC6BA}</Project>
+      <Name>Pms.ManageWorkspaces.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\Pms.ManageWorkspaces.Resources\Pms.ManageWorkspaces.Resources.csproj">
+      <Project>{9B9E035E-8794-4C8F-BD1D-CF0A409BA0D9}</Project>
+      <Name>Pms.ManageWorkspaces.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

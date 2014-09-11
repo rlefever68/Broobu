@@ -1,0 +1,30 @@
+﻿<UserControl xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:mvvm="clr-namespace:Broobu.Fx.UI.MVVM"
+             x:Class="Broobu.Fx.UI.Views.WaitView"
+             mc:Ignorable="d">
+    <UserControl.DataContext>
+        <mvvm:WaitViewModel />
+    </UserControl.DataContext>
+
+    <dxlc:LayoutControl UseLayoutRounding="True" Padding="2">
+        <dxlc:LayoutGroup Orientation="Horizontal" UseLayoutRounding="True" View="Group"
+                          Header="{Binding WaitInfo.Header}">
+            <dxlc:LayoutGroup>
+                <dxlc:LayoutItem Width="40">
+                    <Image Source="{Binding WaitInfo.Image}" Stretch="UniformToFill" />
+                </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutGroup Header="" Orientation="Vertical">
+                <dxlc:LayoutItem Label="{Binding WaitInfo.Title}" />
+                <dxlc:LayoutItem Label="{Binding WaitInfo.Reason}" />
+                <dxlc:LayoutItem Label="{Binding WaitInfo.Description}" />
+            </dxlc:LayoutGroup>
+        </dxlc:LayoutGroup>
+    </dxlc:LayoutControl>
+
+</UserControl>

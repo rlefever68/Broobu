@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="Broobu.UnderConstruction.UI.UnderConstructionView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol">
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
+    <Grid>
+    <dxlc:LayoutControl>
+        <dxlc:LayoutGroup Orientation="Vertical">
+            <dxlc:LayoutItem>
+                <TextBlock Text="We're still working on this one...please come back later." Margin="5"  FontSize="24" Foreground="DarkOrange" HorizontalAlignment="Center"/>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem>
+                <Image Source="/Images/WorkingOnIt.jpg" Stretch="None" Margin="10"/>
+            </dxlc:LayoutItem>
+        </dxlc:LayoutGroup>
+    </dxlc:LayoutControl>
+    </Grid>
+</UserControl>

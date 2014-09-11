@@ -1,0 +1,1150 @@
+<ResourceDictionary 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:systemComponentModel="clr-namespace:System.ComponentModel;assembly=PresentationFramework"
+    xmlns:shared="http://schemas.actiprosoftware.com/winfx/xaml/shared"
+    xmlns:ribbon="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonControls="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Controls;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonControlsPrimitives="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Controls.Primitives;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonInput="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Input;assembly=ActiproSoftware.Ribbon.Wpf351"
+	xmlns:ribbonThemes="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.Themes;assembly=ActiproSoftware.Ribbon.Wpf351"
+    xmlns:ribbonUI="clr-namespace:ActiproSoftware.Windows.Controls.Ribbon.UI;assembly=ActiproSoftware.Ribbon.Wpf351"
+    >
+	<ResourceDictionary.MergedDictionaries>
+		
+		<ResourceDictionary Source="Popup.xaml" />
+		
+	</ResourceDictionary.MergedDictionaries>
+	
+	<!-- PopupButtonLargeTemplate -->
+	<ControlTemplate x:Key="PopupButtonLargeTemplate" TargetType="{x:Type ribbonControls:PopupButton}">
+		<Grid SnapsToDevicePixels="True">
+			<Grid.RowDefinitions>
+				<RowDefinition x:Name="PART_Button" Height="{x:Static ribbonUI:RibbonMeasurements.ButtonBaseLargeIconHeightGridLength}" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+
+			<Popup Name="PART_Popup" Grid.RowSpan="2" AllowsTransparency="True" MinWidth="16" MinHeight="16" StaysOpen="True"
+					IsOpen="{Binding Path=IsPopupOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+					CustomPopupPlacementCallback="{TemplateBinding CustomPopupPlacementCallback}" 
+					HorizontalOffset="{TemplateBinding PopupHorizontalOffset}"
+					Placement="{TemplateBinding PopupPlacement}"
+					PlacementRectangle="{TemplateBinding PopupPlacementRectangle}"
+					PlacementTarget="{TemplateBinding PopupPlacementTarget}"
+					VerticalOffset="{TemplateBinding PopupVerticalOffset}"
+					>
+				<AdornerDecorator SnapsToDevicePixels="True">
+					<shared:DropShadowChrome Name="DropShadow" Color="Transparent">
+						<Border x:Name="PopupOuterBorder" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuOuterBorderBrushKey}}" BorderThickness="1" 
+							Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuBackgroundBrushKey}}" SnapsToDevicePixels="True">
+							<Border x:Name="PopupInnerBorder" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuInnerBorderBrushKey}}" BorderThickness="1" SnapsToDevicePixels="True">
+								<Grid>
+									<Grid.RowDefinitions>
+										<RowDefinition Height="*" />
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+												
+									<ribbonControlsPrimitives:PopupScrollViewer CanContentScroll="True"
+										Style="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=MenuScrollViewer}}">
+										<ribbonControlsPrimitives:PopupContentPresenter Content="{TemplateBinding PopupContent}" 
+											ContentTemplate="{TemplateBinding PopupContentTemplate}" ContentTemplateSelector="{TemplateBinding PopupContentTemplateSelector}" />
+									</ribbonControlsPrimitives:PopupScrollViewer>
+									
+									<Border Name="ResizeGripContainer" Grid.Row="1" BorderThickness="0,1,0,0" CornerRadius="0,0,2,2" Visibility="Collapsed"
+										BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripSeparatorBrushKey}}" SnapsToDevicePixels="True"
+										Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripBackgroundBrushKey}}">
+										<Thumb x:Name="PART_ResizeGrip" Style="{StaticResource BothResizeGripperStyle}"  />
+									</Border>
+								</Grid>
+							</Border>
+						</Border>
+					</shared:DropShadowChrome>
+				</AdornerDecorator>
+			</Popup>
+									
+			<Rectangle x:Name="OuterBorder" Grid.RowSpan="2" Fill="{TemplateBinding Background}" RadiusX="1" RadiusY="1" SnapsToDevicePixels="True" />
+			<Rectangle x:Name="RadialBackground" Grid.RowSpan="2" Fill="Transparent" RadiusX="1" RadiusY="1" SnapsToDevicePixels="True" />
+		
+			<Image x:Name="Image" Margin="3,0,3,0" Width="32" Height="32" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"
+				Source="{TemplateBinding ImageSourceLarge}" SnapsToDevicePixels="True" />
+			<ribbonControlsPrimitives:TwoLineLabel x:Name="Label" Grid.Row="1" Margin="3,0,3,0" IsEnabled="{TemplateBinding IsEnabled}" HorizontalAlignment="Center" VerticalAlignment="Top" 
+				Label="{TemplateBinding Label}" SnapsToDevicePixels="True" />
+			
+			<Rectangle x:Name="InnerBorder" Grid.RowSpan="2" Margin="1" RadiusX="1" RadiusY="1" SnapsToDevicePixels="True" />
+		</Grid>
+
+		<ControlTemplate.Triggers>
+			<Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="True">
+				<Setter TargetName="DropShadow" Property="Margin" Value="0,0,5,5" />
+				<Setter TargetName="DropShadow" Property="Color" Value="#40000000" />
+			</Trigger>
+			<Trigger SourceName="PART_Popup" Property="IsOpen" Value="True">
+				<Setter TargetName="PART_Popup" Property="PopupAnimation" Value="Fade" />
+			</Trigger>
+			<Trigger Property="PopupHasBorder" Value="False">
+				<Setter TargetName="PopupOuterBorder" Property="BorderThickness" Value="0" />
+				<Setter TargetName="PopupOuterBorder" Property="Background" Value="{x:Null}" />
+				<Setter TargetName="PopupInnerBorder" Property="BorderThickness" Value="0" />
+			</Trigger>
+			<Trigger Property="PopupResizeMode" Value="Both">
+				<Setter TargetName="ResizeGripContainer" Property="Visibility" Value="Visible" />
+			</Trigger>
+			<Trigger Property="PopupResizeMode" Value="Vertical">
+				<Setter TargetName="ResizeGripContainer" Property="Visibility" Value="Visible" />
+				<Setter TargetName="PART_ResizeGrip" Property="Style" Value="{StaticResource VerticalResizeGripperStyle}" />
+			</Trigger>
+			
+			<Trigger Property="ImageSourceLarge" Value="{x:Null}">
+				<Setter TargetName="Image" Property="Source" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageSourceSmall}"/>
+			</Trigger>
+			<Trigger Property="IsEnabled" Value="False">
+				<Setter TargetName="Image" Property="Opacity" Value="0.4"/>
+			</Trigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="True" />
+					<Condition Property="IsChecked" Value="False" />
+					<Condition Property="IsMouseOver" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLargeBackgroundHoverBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverBrushKey}}"/>
+				<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderHoverBrushKey}}"/>
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="True" />
+					<Condition Property="IsChecked" Value="False" />
+					<Condition Property="IsKeyboardFocused" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLargeBackgroundHoverBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverBrushKey}}"/>
+				<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderHoverBrushKey}}"/>
+			</MultiTrigger>
+			<Trigger Property="IsChecked" Value="True">
+				<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLargeBackgroundSelectedBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderSelectedBrushKey}}"/>
+			</Trigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="True" />
+					<Condition Property="IsChecked" Value="True" />
+					<Condition Property="IsMouseOver" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLargeBackgroundHoverSelectedBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverSelectedBrushKey}}"/>
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="True" />
+					<Condition Property="IsChecked" Value="True" />
+					<Condition Property="IsKeyboardFocused" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLargeBackgroundHoverSelectedBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverSelectedBrushKey}}"/>
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="True" />
+					<Condition Property="IsPressed" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLargeBackgroundPressedBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderPressedBrushKey}}"/>
+				<Setter TargetName="RadialBackground" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLargeRadialBackgroundPressedBrushKey}}" />
+				<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderPressedBrushKey}}"/>
+			</MultiTrigger>
+			<Trigger Property="IsPopupOpen" Value="True">
+				<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLargeBackgroundPopupOpenBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderPopupOpenBrushKey}}"/>
+				<Setter TargetName="RadialBackground" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLargeRadialBackgroundPopupOpenBrushKey}}" />
+				<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderPopupOpenBrushKey}}"/>
+			</Trigger>
+		</ControlTemplate.Triggers>					
+	</ControlTemplate>
+	
+	<!-- PopupButtonSmallTemplate -->
+	<ControlTemplate x:Key="PopupButtonSmallTemplate" TargetType="{x:Type ribbonControls:PopupButton}">
+		<Grid SnapsToDevicePixels="True">
+
+			<Popup Name="PART_Popup" AllowsTransparency="True" MinWidth="16" MinHeight="16" StaysOpen="True"
+					IsOpen="{Binding Path=IsPopupOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+					CustomPopupPlacementCallback="{TemplateBinding CustomPopupPlacementCallback}" 
+					HorizontalOffset="{TemplateBinding PopupHorizontalOffset}"
+					Placement="{TemplateBinding PopupPlacement}"
+					PlacementRectangle="{TemplateBinding PopupPlacementRectangle}"
+					PlacementTarget="{TemplateBinding PopupPlacementTarget}"
+					VerticalOffset="{TemplateBinding PopupVerticalOffset}"
+					>
+				<AdornerDecorator SnapsToDevicePixels="True">
+					<shared:DropShadowChrome Name="DropShadow" Color="Transparent">
+						<Border x:Name="PopupOuterBorder" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuOuterBorderBrushKey}}" BorderThickness="1" 
+							Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuBackgroundBrushKey}}" SnapsToDevicePixels="True">
+							<Border x:Name="PopupInnerBorder" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuInnerBorderBrushKey}}" BorderThickness="1" SnapsToDevicePixels="True">
+								<Grid>
+									<Grid.RowDefinitions>
+										<RowDefinition Height="*" />
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+
+									<ribbonControlsPrimitives:PopupScrollViewer CanContentScroll="True"
+										Style="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=MenuScrollViewer}}">
+										<ribbonControlsPrimitives:PopupContentPresenter Content="{TemplateBinding PopupContent}" 
+											ContentTemplate="{TemplateBinding PopupContentTemplate}" ContentTemplateSelector="{TemplateBinding PopupContentTemplateSelector}" />
+									</ribbonControlsPrimitives:PopupScrollViewer>
+									
+									<Border Name="ResizeGripContainer" Grid.Row="1" BorderThickness="0,1,0,0" CornerRadius="0,0,2,2" Visibility="Collapsed"
+										BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripSeparatorBrushKey}}" SnapsToDevicePixels="True"
+										Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripBackgroundBrushKey}}">
+										<Thumb x:Name="PART_ResizeGrip" Style="{StaticResource BothResizeGripperStyle}"  />
+									</Border>
+								</Grid>
+							</Border>
+						</Border>
+					</shared:DropShadowChrome>
+				</AdornerDecorator>
+			</Popup>
+							
+			<Rectangle x:Name="OuterBorder" Fill="{TemplateBinding Background}" RadiusX="1" RadiusY="1" SnapsToDevicePixels="True" />
+			<Rectangle x:Name="RadialBackground" Fill="Transparent" RadiusX="1" RadiusY="1" SnapsToDevicePixels="True" />
+			<Rectangle x:Name="InnerBorder" Margin="1" RadiusX="1" RadiusY="1" SnapsToDevicePixels="True" />
+		
+			<StackPanel x:Name="PART_Button" Margin="{TemplateBinding Padding}" Orientation="Horizontal" SnapsToDevicePixels="True" 
+				HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+				<Image x:Name="Image" Margin="1" VerticalAlignment="Center" Stretch="Uniform" 
+					Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageSourceSmallSize.Width}" 
+					Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageSourceSmallSize.Height}" 
+					Source="{TemplateBinding ImageSourceSmall}" SnapsToDevicePixels="True" />
+				<TextBlock x:Name="Label" Margin="3,0,2,0" VerticalAlignment="Center" 
+					Text="{TemplateBinding Label}" SnapsToDevicePixels="True" />
+				<Path x:Name="DropDownArrow" Margin="2,0,3,0" VerticalAlignment="Center" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlDropDownArrowBrushKey}}" 
+					Data="M 0,0 L 2.5,3 L 5,0 Z" SnapsToDevicePixels="True" Visibility="Collapsed" />
+			</StackPanel>
+		</Grid>
+
+		<ControlTemplate.Triggers>
+			<Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="True">
+				<Setter TargetName="DropShadow" Property="Margin" Value="0,0,5,5" />
+				<Setter TargetName="DropShadow" Property="Color" Value="#40000000" />
+			</Trigger>
+			<Trigger SourceName="PART_Popup" Property="IsOpen" Value="True">
+				<Setter TargetName="PART_Popup" Property="PopupAnimation" Value="Fade" />
+			</Trigger>
+			<Trigger Property="PopupHasBorder" Value="False">
+				<Setter TargetName="PopupOuterBorder" Property="BorderThickness" Value="0" />
+				<Setter TargetName="PopupOuterBorder" Property="Background" Value="{x:Null}" />
+				<Setter TargetName="PopupInnerBorder" Property="BorderThickness" Value="0" />
+			</Trigger>
+			<Trigger Property="PopupResizeMode" Value="Both">
+				<Setter TargetName="ResizeGripContainer" Property="Visibility" Value="Visible" />
+			</Trigger>
+			<Trigger Property="PopupResizeMode" Value="Vertical">
+				<Setter TargetName="ResizeGripContainer" Property="Visibility" Value="Visible" />
+				<Setter TargetName="PART_ResizeGrip" Property="Style" Value="{StaticResource VerticalResizeGripperStyle}" />
+			</Trigger>
+			
+			<Trigger Property="HasPopup" Value="True">
+				<Setter TargetName="DropDownArrow" Property="Visibility" Value="Visible" />
+			</Trigger>
+			<Trigger Property="ImageSourceSmall" Value="{x:Null}">
+				<Setter TargetName="Image" Property="Source" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageSourceLarge}"/>
+			</Trigger>
+			<Trigger Property="HasImage" Value="False">
+				<Setter TargetName="Image" Property="Visibility" Value="Collapsed" />
+				<Setter TargetName="Label" Property="Margin" Value="2,0,2,0" />
+			</Trigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="VariantSize" Value="Small" />
+					<Condition Property="HasImage" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="Label" Property="Visibility" Value="Collapsed" />
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="VariantSize" Value="Collapsed" />
+					<Condition Property="HasImage" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="Label" Property="Visibility" Value="Collapsed" />
+			</MultiTrigger>
+			<Trigger Property="HasLabel" Value="False">
+				<Setter TargetName="Label" Property="Visibility" Value="Collapsed" />
+			</Trigger>
+			<Trigger Property="IsEnabled" Value="False">
+				<Setter TargetName="Image" Property="Opacity" Value="0.4"/>
+				<Setter TargetName="Label" Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundDisabledBrushKey}}"/>
+				<Setter TargetName="DropDownArrow" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundDisabledBrushKey}}"/>				
+			</Trigger>
+			
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="True" />
+					<Condition Property="IsChecked" Value="False" />
+					<Condition Property="IsMouseOver" Value="False" />
+					<Condition Property="Context" Value="StatusBarItem" />
+				</MultiTrigger.Conditions>
+		        <Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.TabForegroundHoverBrushKey}}" />
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="True" />
+					<Condition Property="IsChecked" Value="False" />
+					<Condition Property="IsMouseOver" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundHoverBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverBrushKey}}"/>
+				<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderHoverBrushKey}}"/>
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="True" />
+					<Condition Property="IsChecked" Value="False" />
+					<Condition Property="IsKeyboardFocused" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundHoverBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverBrushKey}}"/>
+				<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderHoverBrushKey}}"/>
+			</MultiTrigger>
+			<Trigger Property="IsChecked" Value="True">
+				<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundSelectedBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderSelectedBrushKey}}"/>
+			</Trigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="True" />
+					<Condition Property="IsChecked" Value="True" />
+					<Condition Property="IsMouseOver" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundHoverSelectedBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverSelectedBrushKey}}"/>
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="True" />
+					<Condition Property="IsChecked" Value="True" />
+					<Condition Property="IsKeyboardFocused" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundHoverSelectedBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverSelectedBrushKey}}"/>
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="True" />
+					<Condition Property="IsPressed" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundPressedBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderPressedBrushKey}}"/>
+				<Setter TargetName="RadialBackground" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallRadialBackgroundPressedBrushKey}}" />
+				<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderPressedBrushKey}}"/>
+			</MultiTrigger>
+			<Trigger Property="IsPopupOpen" Value="True">
+				<Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundPopupOpenBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderPopupOpenBrushKey}}"/>
+				<Setter TargetName="RadialBackground" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallRadialBackgroundPopupOpenBrushKey}}" />
+				<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderPopupOpenBrushKey}}"/>
+			</Trigger>
+		</ControlTemplate.Triggers>					
+	</ControlTemplate>
+	
+	<!-- PopupButtonMenuItemLargeTemplate -->
+	<ControlTemplate x:Key="PopupButtonMenuItemLargeTemplate" TargetType="{x:Type ribbonControls:PopupButton}">
+		<Grid SnapsToDevicePixels="True">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="{x:Static ribbonUI:RibbonMeasurements.MenuItemLargeIconColumnWidthGridLength}" SharedSizeGroup="MenuItemIconColumnGroup"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="{x:Static ribbonUI:RibbonMeasurements.MenuItemLargePopupColumnWidthGridLength}"/>
+			</Grid.ColumnDefinitions>
+
+			<Popup Name="PART_Popup" Grid.ColumnSpan="3" AllowsTransparency="True" MinWidth="16" MinHeight="16" StaysOpen="True"
+					IsOpen="{Binding Path=IsPopupOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+					CustomPopupPlacementCallback="{TemplateBinding CustomPopupPlacementCallback}" 
+					HorizontalOffset="{TemplateBinding PopupHorizontalOffset}"
+					Placement="{TemplateBinding PopupPlacement}"
+					PlacementRectangle="{TemplateBinding PopupPlacementRectangle}"
+					PlacementTarget="{TemplateBinding PopupPlacementTarget}"
+					VerticalOffset="{TemplateBinding PopupVerticalOffset}"
+					>
+				<AdornerDecorator SnapsToDevicePixels="True">
+					<shared:DropShadowChrome Name="DropShadow" Color="Transparent">
+						<Border x:Name="PopupOuterBorder" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuOuterBorderBrushKey}}" BorderThickness="1" 
+							Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuBackgroundBrushKey}}" SnapsToDevicePixels="True">
+							<Border x:Name="PopupInnerBorder" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuInnerBorderBrushKey}}" BorderThickness="1" SnapsToDevicePixels="True">
+								<Grid>
+									<Grid.RowDefinitions>
+										<RowDefinition Height="*" />
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+
+									<ribbonControlsPrimitives:PopupScrollViewer CanContentScroll="True"
+										Style="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=MenuScrollViewer}}">
+										<ribbonControlsPrimitives:PopupContentPresenter Content="{TemplateBinding PopupContent}" 
+											ContentTemplate="{TemplateBinding PopupContentTemplate}" ContentTemplateSelector="{TemplateBinding PopupContentTemplateSelector}" />
+									</ribbonControlsPrimitives:PopupScrollViewer>
+									
+									<Border Name="ResizeGripContainer" Grid.Row="1" BorderThickness="0,1,0,0" CornerRadius="0,0,2,2" Visibility="Collapsed"
+										BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripSeparatorBrushKey}}" SnapsToDevicePixels="True"
+										Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripBackgroundBrushKey}}">
+										<Thumb x:Name="PART_ResizeGrip" Style="{StaticResource BothResizeGripperStyle}"  />
+									</Border>
+								</Grid>
+							</Border>
+						</Border>
+					</shared:DropShadowChrome>
+				</AdornerDecorator>
+			</Popup>
+				
+			<Rectangle x:Name="OuterBorder" Grid.ColumnSpan="3" RadiusX="1" RadiusY="1" SnapsToDevicePixels="True" />
+			<Rectangle x:Name="Background" Grid.ColumnSpan="3" Margin="1" Fill="{TemplateBinding Background}" SnapsToDevicePixels="True" />
+			<Rectangle x:Name="InnerBorder" Grid.ColumnSpan="3" Margin="1" RadiusX="1" RadiusY="1" SnapsToDevicePixels="True" />
+			
+			<Border x:Name="ImageBorder" Margin="2,2,0,2" Width="36" Height="36" BorderThickness="1" CornerRadius="2" HorizontalAlignment="Left" VerticalAlignment="Center" SnapsToDevicePixels="True">
+				<Grid>
+					<Image x:Name="Image" Width="32" Height="32" VerticalAlignment="Center"
+						Source="{TemplateBinding ImageSourceLarge}" Stretch="Uniform" />
+					<Path x:Name="Checkmark" Data="M 0,5 L 3.5,10 L 7,0 L 6,0 L 3.5,8 L 1,5 Z" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"
+						Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MenuItemForegroundBrushKey}}" SnapsToDevicePixels="True" />
+				</Grid>
+			</Border>
+			
+			<Grid x:Name="LabelStackPanel" Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Top">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				
+				<ribbonControlsPrimitives:AccessTextBlock x:Name="Label" Margin="0,3,0,0" FontWeight="Bold" 
+						   Label="{TemplateBinding Label}" KeyTipAccessText="{TemplateBinding KeyTipAccessText}" />
+				<TextBlock x:Name="MenuItemDescription" Margin="0,2,0,3" LineHeight="{Binding RelativeSource={RelativeSource Self}, Path=FontSize}" LineStackingStrategy="BlockLineHeight" Grid.Row="1" TextWrapping="Wrap" Text="{TemplateBinding MenuItemDescription}" />
+			</Grid>
+			
+			<Path x:Name="SubmenuArrow" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"
+				Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlRightArrowBrushKey}}" Data="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=MenuItemRightArrow}}" SnapsToDevicePixels="True" />
+		</Grid>
+		
+		<ControlTemplate.Triggers>
+			<Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="True">
+				<Setter TargetName="DropShadow" Property="Margin" Value="0,0,5,5" />
+				<Setter TargetName="DropShadow" Property="Color" Value="#40000000" />
+			</Trigger>
+			<Trigger SourceName="PART_Popup" Property="IsOpen" Value="True">
+				<Setter TargetName="PART_Popup" Property="PopupAnimation" Value="Fade" />
+			</Trigger>
+			<Trigger Property="PopupHasBorder" Value="False">
+				<Setter TargetName="PopupOuterBorder" Property="BorderThickness" Value="0" />
+				<Setter TargetName="PopupOuterBorder" Property="Background" Value="{x:Null}" />
+				<Setter TargetName="PopupInnerBorder" Property="BorderThickness" Value="0" />
+			</Trigger>
+			<Trigger Property="PopupResizeMode" Value="Both">
+				<Setter TargetName="ResizeGripContainer" Property="Visibility" Value="Visible" />
+			</Trigger>
+			<Trigger Property="PopupResizeMode" Value="Vertical">
+				<Setter TargetName="ResizeGripContainer" Property="Visibility" Value="Visible" />
+				<Setter TargetName="PART_ResizeGrip" Property="Style" Value="{StaticResource VerticalResizeGripperStyle}" />
+			</Trigger>
+
+			<Trigger Property="HasPopup" Value="True">
+				<Setter TargetName="SubmenuArrow" Property="Visibility" Value="Visible" />
+			</Trigger>
+			<Trigger Property="ImageSourceLarge" Value="{x:Null}">
+				<Setter TargetName="Image" Property="Source" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageSourceSmall}"/>
+			</Trigger>
+			<Trigger Property="MenuItemDescription" Value="{x:Null}">
+				<Setter TargetName="LabelStackPanel" Property="VerticalAlignment" Value="Center" />
+				<Setter TargetName="Label" Property="Margin" Value="0" />
+				<Setter TargetName="Label" Property="FontWeight" Value="Normal" />
+				<Setter TargetName="MenuItemDescription" Property="Visibility" Value="Collapsed" />
+			</Trigger>
+			<Trigger Property="IsEnabled" Value="False">
+				<Setter TargetName="Label" Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MenuItemForegroundDisabledBrushKey}}"/>
+				<Setter TargetName="MenuItemDescription" Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MenuItemForegroundDisabledBrushKey}}"/>
+				<Setter TargetName="SubmenuArrow" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MenuItemForegroundDisabledBrushKey}}"/>
+				<Setter TargetName="Image" Property="Opacity" Value="0.4"/>
+			</Trigger>						
+			<Trigger Property="IsChecked" Value="True">
+				<Setter TargetName="ImageBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MenuItemCheckBorderBrushKey}}"/>
+				<Setter TargetName="ImageBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MenuItemCheckBackgroundBrushKey}}"/>
+			</Trigger>						
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsChecked" Value="True" />
+					<Condition SourceName="Image" Property="Source" Value="{x:Null}" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="Checkmark" Property="Visibility" Value="Visible" />
+			</MultiTrigger>
+			
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="True" />
+					<Condition Property="IsHighlighted" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="Background" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLargeBackgroundHoverBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverBrushKey}}"/>
+				<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderHoverBrushKey}}"/>
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="False" />
+					<Condition Property="IsHighlighted" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="Background" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLargeBackgroundDisabledBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderDisabledBrushKey}}"/>
+				<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderDisabledBrushKey}}"/>
+			</MultiTrigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+
+	<!-- PopupButtonMenuItemSmallTemplate -->
+	<ControlTemplate x:Key="PopupButtonMenuItemSmallTemplate" TargetType="{x:Type ribbonControls:PopupButton}">
+		<Grid SnapsToDevicePixels="True">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="{x:Static ribbonUI:RibbonMeasurements.MenuItemSmallIconColumnWidthGridLength}" SharedSizeGroup="MenuItemIconColumnGroup"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="{x:Static ribbonUI:RibbonMeasurements.MenuItemSmallPopupColumnWidthGridLength}"/>
+			</Grid.ColumnDefinitions>
+
+			<Popup Name="PART_Popup" Grid.ColumnSpan="3" AllowsTransparency="True" MinWidth="16" MinHeight="16" StaysOpen="True"
+					IsOpen="{Binding Path=IsPopupOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+					CustomPopupPlacementCallback="{TemplateBinding CustomPopupPlacementCallback}" 
+					HorizontalOffset="{TemplateBinding PopupHorizontalOffset}"
+					Placement="{TemplateBinding PopupPlacement}"
+					PlacementRectangle="{TemplateBinding PopupPlacementRectangle}"
+					PlacementTarget="{TemplateBinding PopupPlacementTarget}"
+					VerticalOffset="{TemplateBinding PopupVerticalOffset}"
+					>
+				<AdornerDecorator SnapsToDevicePixels="True">
+					<shared:DropShadowChrome Name="DropShadow" Color="Transparent">
+						<Border x:Name="PopupOuterBorder" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuOuterBorderBrushKey}}" BorderThickness="1" 
+							Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuBackgroundBrushKey}}" SnapsToDevicePixels="True">
+							<Border x:Name="PopupInnerBorder" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuInnerBorderBrushKey}}" BorderThickness="1" SnapsToDevicePixels="True">
+								<Grid>
+									<Grid.RowDefinitions>
+										<RowDefinition Height="*" />
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+
+									<ribbonControlsPrimitives:PopupScrollViewer CanContentScroll="True"
+										Style="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=MenuScrollViewer}}">
+										<ribbonControlsPrimitives:PopupContentPresenter Content="{TemplateBinding PopupContent}" 
+											ContentTemplate="{TemplateBinding PopupContentTemplate}" ContentTemplateSelector="{TemplateBinding PopupContentTemplateSelector}" />
+									</ribbonControlsPrimitives:PopupScrollViewer>
+									
+									<Border Name="ResizeGripContainer" Grid.Row="1" BorderThickness="0,1,0,0" CornerRadius="0,0,2,2" Visibility="Collapsed"
+										BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripSeparatorBrushKey}}" SnapsToDevicePixels="True"
+										Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripBackgroundBrushKey}}">
+										<Thumb x:Name="PART_ResizeGrip" Style="{StaticResource BothResizeGripperStyle}"  />
+									</Border>
+								</Grid>
+							</Border>
+						</Border>
+					</shared:DropShadowChrome>
+				</AdornerDecorator>
+			</Popup>
+				
+			<Border BorderThickness="0,0,1,0" SnapsToDevicePixels="True" 
+				BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MenuSeparatorLightBrushKey}}" 
+				Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MenuItemIconColumnBackgroundBrushKey}}">
+				<Rectangle Margin="0,-1,0,-1" Width="1" HorizontalAlignment="Right" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MenuSeparatorDarkBrushKey}}" SnapsToDevicePixels="True" />
+			</Border>
+			
+			<Rectangle x:Name="OuterBorder" Grid.ColumnSpan="3" RadiusX="1" RadiusY="1" SnapsToDevicePixels="True" />
+			<Rectangle x:Name="Background" Grid.ColumnSpan="3" Margin="1" Fill="{TemplateBinding Background}" SnapsToDevicePixels="True" />
+			<Rectangle x:Name="InnerBorder" Grid.ColumnSpan="3" Margin="1" RadiusX="1" RadiusY="1" SnapsToDevicePixels="True" />
+			
+			<Border x:Name="ImageBorder" Margin="2,2,0,2" Width="20" Height="20" BorderThickness="1" CornerRadius="2" HorizontalAlignment="Left" VerticalAlignment="Center" SnapsToDevicePixels="True">
+				<Grid>
+					<Image x:Name="Image" HorizontalAlignment="Center" VerticalAlignment="Center"
+						Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageSourceSmallSize.Width}" 
+						Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageSourceSmallSize.Height}" 
+						Source="{TemplateBinding ImageSourceSmall}" Stretch="Uniform" />
+					<Path x:Name="Checkmark" Data="M 0,5 L 3.5,10 L 7,0 L 6,0 L 3.5,8 L 1,5 Z" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"
+						Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MenuItemForegroundBrushKey}}" SnapsToDevicePixels="True" />
+				</Grid>
+			</Border>
+			<ribbonControlsPrimitives:AccessTextBlock x:Name="Label" Grid.Column="1" Margin="5,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center" 
+				Label="{TemplateBinding Label}" KeyTipAccessText="{TemplateBinding KeyTipAccessText}" />
+			
+			<Path x:Name="SubmenuArrow" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" 
+				Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlRightArrowBrushKey}}" Data="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=MenuItemRightArrow}}" SnapsToDevicePixels="True" />
+		</Grid>
+		
+		<ControlTemplate.Triggers>
+			<Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="True">
+				<Setter TargetName="DropShadow" Property="Margin" Value="0,0,5,5" />
+				<Setter TargetName="DropShadow" Property="Color" Value="#40000000" />
+			</Trigger>
+			<Trigger SourceName="PART_Popup" Property="IsOpen" Value="True">
+				<Setter TargetName="PART_Popup" Property="PopupAnimation" Value="Fade" />
+			</Trigger>
+			<Trigger Property="PopupHasBorder" Value="False">
+				<Setter TargetName="PopupOuterBorder" Property="BorderThickness" Value="0" />
+				<Setter TargetName="PopupOuterBorder" Property="Background" Value="{x:Null}" />
+				<Setter TargetName="PopupInnerBorder" Property="BorderThickness" Value="0" />
+			</Trigger>
+			<Trigger Property="PopupResizeMode" Value="Both">
+				<Setter TargetName="ResizeGripContainer" Property="Visibility" Value="Visible" />
+			</Trigger>
+			<Trigger Property="PopupResizeMode" Value="Vertical">
+				<Setter TargetName="ResizeGripContainer" Property="Visibility" Value="Visible" />
+				<Setter TargetName="PART_ResizeGrip" Property="Style" Value="{StaticResource VerticalResizeGripperStyle}" />
+			</Trigger>
+			
+			<Trigger Property="HasPopup" Value="True">
+				<Setter TargetName="SubmenuArrow" Property="Visibility" Value="Visible" />
+			</Trigger>
+			<Trigger Property="ImageSourceSmall" Value="{x:Null}">
+				<Setter TargetName="Image" Property="Source" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageSourceLarge}"/>
+			</Trigger>
+			<Trigger Property="IsEnabled" Value="False">
+				<Setter TargetName="Label" Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MenuItemForegroundDisabledBrushKey}}"/>
+				<Setter TargetName="SubmenuArrow" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MenuItemForegroundDisabledBrushKey}}"/>
+				<Setter TargetName="Image" Property="Opacity" Value="0.4"/>
+			</Trigger>						
+			<Trigger Property="IsChecked" Value="True">
+				<Setter TargetName="ImageBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MenuItemCheckBorderBrushKey}}"/>
+				<Setter TargetName="ImageBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MenuItemCheckBackgroundBrushKey}}"/>
+			</Trigger>						
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsChecked" Value="True" />
+					<Condition SourceName="Image" Property="Source" Value="{x:Null}" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="Checkmark" Property="Visibility" Value="Visible" />
+			</MultiTrigger>
+			
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="True" />
+					<Condition Property="IsHighlighted" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="Background" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundHoverBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverBrushKey}}"/>
+				<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderHoverBrushKey}}"/>
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsEnabled" Value="False" />
+					<Condition Property="IsHighlighted" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter TargetName="Background" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundDisabledBrushKey}}" />
+				<Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderDisabledBrushKey}}"/>
+				<Setter TargetName="InnerBorder" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderDisabledBrushKey}}"/>
+			</MultiTrigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+
+	<!-- ribbonControls:PopupButton -->
+	<Style x:Key="{x:Type ribbonControls:PopupButton}" TargetType="{x:Type ribbonControls:PopupButton}">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundBrushKey}}"/>
+		<Setter Property="MinHeight" Value="{x:Static ribbonUI:RibbonMeasurements.RibbonControlSmallHeight}"/>
+		<Setter Property="MinWidth" Value="14"/>
+		<Setter Property="Padding" Value="2"/>
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="Template" Value="{StaticResource PopupButtonSmallTemplate}" />
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		
+		<Style.Triggers>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="HasLabel" Value="False" />
+					<Condition Property="systemComponentModel:DesignerProperties.IsInDesignMode" Value="True" />
+				</MultiTrigger.Conditions>
+				<Setter Property="ImageSourceSmall" Value="/ActiproSoftware.Ribbon.Wpf351;component/Products/Ribbon/Images/ButtonDefault16.png" />
+				<Setter Property="ImageSourceLarge" Value="/ActiproSoftware.Ribbon.Wpf351;component/Products/Ribbon/Images/ButtonDefault32.png" />
+			</MultiTrigger>
+			<Trigger Property="VariantSize" Value="Large">
+				<Setter Property="MinHeight" Value="{x:Static ribbonUI:RibbonMeasurements.RibbonControlLargeHeight}"/>
+				<Setter Property="Template" Value="{StaticResource PopupButtonLargeTemplate}" />
+			</Trigger>
+			<Trigger Property="VariantSize" Value="Collapsed">
+				<Setter Property="MinHeight" Value="0"/>				
+				<Setter Property="MinWidth" Value="0"/>				
+			</Trigger>
+			<Trigger Property="Context" Value="MenuItem">
+				<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+				<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MenuItemForegroundBrushKey}}"/>
+				<Setter Property="KeyboardNavigation.AcceptsReturn" Value="True" />
+				<Setter Property="MinHeight" Value="{x:Static ribbonUI:RibbonMeasurements.MenuItemSmallHeight}"/>
+				<Setter Property="PopupPlacement" Value="Right"/>
+				<Setter Property="Template" Value="{StaticResource PopupButtonMenuItemSmallTemplate}" />
+			</Trigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="Context" Value="MenuItem" />
+					<Condition Property="VariantSize" Value="Large" />
+				</MultiTrigger.Conditions>
+				<Setter Property="MinHeight" Value="{x:Static ribbonUI:RibbonMeasurements.MenuItemLargeHeight}"/>				
+				<Setter Property="Template" Value="{StaticResource PopupButtonMenuItemLargeTemplate}" />
+			</MultiTrigger>
+			<Trigger Property="Context" Value="StatusBarItem">
+				<Setter Property="MinHeight" Value="{x:Static ribbonUI:RibbonMeasurements.StatusBarButtonBaseHeight}"/>				
+				<Setter Property="Padding" Value="0"/>
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+	<!-- RibbonControlsPopupButtonLargeStyle (Used as workaround for VS 2008 Style.Triggers bug) -->
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=RibbonControlsPopupButtonLargeStyle}" TargetType="{x:Type ribbonControlsPrimitives:ButtonBase}">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="MinHeight" Value="{x:Static ribbonUI:RibbonMeasurements.RibbonControlLargeHeight}"/>
+		<Setter Property="Template" Value="{StaticResource PopupButtonLargeTemplate}" />
+	</Style>
+	
+	<!-- RibbonControlsPopupButtonCollapsedStyle (Used as workaround for VS 2008 Style.Triggers bug) -->
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=RibbonControlsPopupButtonCollapsedStyle}" TargetType="{x:Type ribbonControlsPrimitives:ButtonBase}">
+		<Setter Property="MinHeight" Value="0"/>				
+		<Setter Property="MinWidth" Value="0"/>				
+	</Style>
+	
+	<!-- RibbonControlsPopupButtonMenuItemLargeStyle (Used as workaround for VS 2008 Style.Triggers bug) -->
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=RibbonControlsPopupButtonMenuItemLargeStyle}" TargetType="{x:Type ribbonControlsPrimitives:ButtonBase}">
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MenuItemForegroundBrushKey}}"/>
+		<Setter Property="KeyboardNavigation.AcceptsReturn" Value="True" />
+		<Setter Property="MinHeight" Value="{x:Static ribbonUI:RibbonMeasurements.MenuItemLargeHeight}"/>
+		<Setter Property="Template" Value="{StaticResource PopupButtonMenuItemLargeTemplate}" />
+	</Style>
+	
+	<!-- RibbonControlsPopupButtonMenuItemSmallStyle (Used as workaround for VS 2008 Style.Triggers bug) -->
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=RibbonControlsPopupButtonMenuItemSmallStyle}" TargetType="{x:Type ribbonControlsPrimitives:ButtonBase}">
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.MenuItemForegroundBrushKey}}"/>
+		<Setter Property="KeyboardNavigation.AcceptsReturn" Value="True" />
+		<Setter Property="MinHeight" Value="{x:Static ribbonUI:RibbonMeasurements.MenuItemSmallHeight}"/>
+		<Setter Property="Template" Value="{StaticResource PopupButtonMenuItemSmallTemplate}" />
+	</Style>
+	
+	<!-- RibbonControlsPopupButtonStatusBarStyle (Used as workaround for VS 2008 Style.Triggers bug) -->
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=RibbonControlsPopupButtonStatusBarStyle}" TargetType="{x:Type ribbonControlsPrimitives:ButtonBase}">
+		<Setter Property="MinHeight" Value="{x:Static ribbonUI:RibbonMeasurements.StatusBarButtonBaseHeight}"/>				
+		<Setter Property="Padding" Value="0"/>
+	</Style>
+	
+	<!-- ribbonControlsPrimitives:QuickAccessToolBarCustomizeButton -->
+	<Style x:Key="{x:Type ribbonControlsPrimitives:QuickAccessToolBarCustomizeButton}" TargetType="{x:Type ribbonControlsPrimitives:QuickAccessToolBarCustomizeButton}">
+		<Setter Property="AutomationProperties.Name" Value="Customize" />
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundBrushKey}}"/>
+		<Setter Property="MinHeight" Value="{x:Static ribbonUI:RibbonMeasurements.RibbonControlSmallHeight}" />
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="Width" Value="{x:Static ribbonUI:RibbonMeasurements.QuickAccessToolBarSystemButtonWidth}" />
+		
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ribbonControlsPrimitives:QuickAccessToolBarCustomizeButton">
+					<Grid>
+
+						<Popup Name="PART_Popup" AllowsTransparency="True" MinWidth="16" MinHeight="16" StaysOpen="True"
+								IsOpen="{Binding Path=IsPopupOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+								CustomPopupPlacementCallback="{TemplateBinding CustomPopupPlacementCallback}" 
+								HorizontalOffset="{TemplateBinding PopupHorizontalOffset}"
+								Placement="{TemplateBinding PopupPlacement}"
+								PlacementRectangle="{TemplateBinding PopupPlacementRectangle}"
+								PlacementTarget="{TemplateBinding PopupPlacementTarget}"
+								VerticalOffset="{TemplateBinding PopupVerticalOffset}"
+								>
+							<AdornerDecorator SnapsToDevicePixels="True">
+								<shared:DropShadowChrome Name="DropShadow" Color="Transparent">
+									<Border x:Name="PopupOuterBorder" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuOuterBorderBrushKey}}" BorderThickness="1" 
+										Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuBackgroundBrushKey}}" SnapsToDevicePixels="True">
+										<Border x:Name="PopupInnerBorder" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuInnerBorderBrushKey}}" BorderThickness="1" SnapsToDevicePixels="True">
+											<Grid>
+												<Grid.RowDefinitions>
+													<RowDefinition Height="*" />
+													<RowDefinition Height="Auto" />
+												</Grid.RowDefinitions>
+
+												<ribbonControlsPrimitives:PopupScrollViewer CanContentScroll="True"
+													Style="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=MenuScrollViewer}}">
+													<ribbonControlsPrimitives:PopupContentPresenter Content="{TemplateBinding PopupContent}" 
+														ContentTemplate="{TemplateBinding PopupContentTemplate}" ContentTemplateSelector="{TemplateBinding PopupContentTemplateSelector}" />
+												</ribbonControlsPrimitives:PopupScrollViewer>
+												
+												<Border Name="ResizeGripContainer" Grid.Row="1" BorderThickness="0,1,0,0" CornerRadius="0,0,2,2" Visibility="Collapsed"
+													BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripSeparatorBrushKey}}" SnapsToDevicePixels="True"
+													Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripBackgroundBrushKey}}">
+													<Thumb x:Name="PART_ResizeGrip" Style="{StaticResource BothResizeGripperStyle}"  />
+												</Border>
+											</Grid>
+										</Border>
+									</Border>
+								</shared:DropShadowChrome>
+							</AdornerDecorator>
+						</Popup>
+													
+						<Border x:Name="OuterBorder" Background="Transparent" CornerRadius="1" BorderThickness="1" SnapsToDevicePixels="True">
+							<Border x:Name="InnerBorder" CornerRadius="1" BorderThickness="1" SnapsToDevicePixels="True">
+								<Grid SnapsToDevicePixels="True">
+									<Path Margin="0,0,0,3" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="1" Data="M 0,0.5 L 4.5,0.5" Stroke="#FFFFFF" />
+									<Path Margin="0,0,0,5" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="1" Data="M 0,0.5 L 4.5,0.5" Stroke="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundBrushKey}}" />
+									<Path Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0,0 L 2.5,3 L 5,0 Z"  Fill="#FFFFFF" />
+									<Path Margin="0,3,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0,0 L 2.5,3 L 5,0 Z" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundBrushKey}}" />
+								</Grid>
+							</Border>
+						</Border>
+					</Grid>
+					
+					<ControlTemplate.Triggers>
+						<Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="True">
+							<Setter TargetName="DropShadow" Property="Margin" Value="0,0,5,5" />
+							<Setter TargetName="DropShadow" Property="Color" Value="#40000000" />
+						</Trigger>
+						<Trigger SourceName="PART_Popup" Property="IsOpen" Value="True">
+							<Setter TargetName="PART_Popup" Property="PopupAnimation" Value="Fade" />
+						</Trigger>
+						<Trigger Property="PopupHasBorder" Value="False">
+							<Setter TargetName="PopupOuterBorder" Property="BorderThickness" Value="0" />
+							<Setter TargetName="PopupOuterBorder" Property="Background" Value="{x:Null}" />
+							<Setter TargetName="PopupInnerBorder" Property="BorderThickness" Value="0" />
+						</Trigger>
+						<Trigger Property="PopupResizeMode" Value="Both">
+							<Setter TargetName="ResizeGripContainer" Property="Visibility" Value="Visible" />
+						</Trigger>
+						<Trigger Property="PopupResizeMode" Value="Vertical">
+							<Setter TargetName="ResizeGripContainer" Property="Visibility" Value="Visible" />
+							<Setter TargetName="PART_ResizeGrip" Property="Style" Value="{StaticResource VerticalResizeGripperStyle}" />
+						</Trigger>
+						
+						<Trigger Property="IsKeyboardFocused" Value="True">
+							<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundHoverBrushKey}}" />
+							<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderHoverBrushKey}}"/>
+						</Trigger>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundHoverBrushKey}}" />
+							<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderHoverBrushKey}}"/>
+						</Trigger>
+						<Trigger Property="IsPopupOpen" Value="True">
+							<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundPressedBrushKey}}" />
+							<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderPressedBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderPressedBrushKey}}"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<!-- ribbonControlsPrimitives:QuickAccessToolBarOverflowButton -->
+	<Style x:Key="{x:Type ribbonControlsPrimitives:QuickAccessToolBarOverflowButton}" TargetType="{x:Type ribbonControlsPrimitives:QuickAccessToolBarOverflowButton}">
+		<Setter Property="AutomationProperties.Name" Value="Overflow" />
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundBrushKey}}"/>
+		<Setter Property="MinHeight" Value="{x:Static ribbonUI:RibbonMeasurements.RibbonControlSmallHeight}" />
+		<Setter Property="PopupHasBorder" Value="False"/>
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="Width" Value="{x:Static ribbonUI:RibbonMeasurements.QuickAccessToolBarSystemButtonWidth}" />
+		
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ribbonControlsPrimitives:QuickAccessToolBarOverflowButton">
+					<Grid>
+
+						<Popup Name="PART_Popup" AllowsTransparency="True" MinWidth="16" MinHeight="16" StaysOpen="True"
+								IsOpen="{Binding Path=IsPopupOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+								CustomPopupPlacementCallback="{TemplateBinding CustomPopupPlacementCallback}" 
+								HorizontalOffset="{TemplateBinding PopupHorizontalOffset}"
+								Placement="{TemplateBinding PopupPlacement}"
+								PlacementRectangle="{TemplateBinding PopupPlacementRectangle}"
+								PlacementTarget="{TemplateBinding PopupPlacementTarget}"
+								VerticalOffset="{TemplateBinding PopupVerticalOffset}"
+								>
+							<AdornerDecorator SnapsToDevicePixels="True">
+								<shared:DropShadowChrome Name="DropShadow" Color="Transparent">
+									<Border x:Name="PopupOuterBorder" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuOuterBorderBrushKey}}" BorderThickness="1" 
+										Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuBackgroundBrushKey}}" SnapsToDevicePixels="True">
+										<Border x:Name="PopupInnerBorder" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuInnerBorderBrushKey}}" BorderThickness="1" SnapsToDevicePixels="True">
+											<Grid>
+												<Grid.RowDefinitions>
+													<RowDefinition Height="*" />
+													<RowDefinition Height="Auto" />
+												</Grid.RowDefinitions>
+
+												<ribbonControlsPrimitives:PopupScrollViewer CanContentScroll="True"
+													Style="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=MenuScrollViewer}}">
+													<ribbonControlsPrimitives:PopupContentPresenter Content="{TemplateBinding PopupContent}" 
+														ContentTemplate="{TemplateBinding PopupContentTemplate}" ContentTemplateSelector="{TemplateBinding PopupContentTemplateSelector}" />
+												</ribbonControlsPrimitives:PopupScrollViewer>
+												
+												<Border Name="ResizeGripContainer" Grid.Row="1" BorderThickness="0,1,0,0" CornerRadius="0,0,2,2" Visibility="Collapsed"
+													BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripSeparatorBrushKey}}" SnapsToDevicePixels="True"
+													Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripBackgroundBrushKey}}">
+													<Thumb x:Name="PART_ResizeGrip" Style="{StaticResource BothResizeGripperStyle}"  />
+												</Border>
+											</Grid>
+										</Border>
+									</Border>
+								</shared:DropShadowChrome>
+							</AdornerDecorator>
+						</Popup>
+													
+						<Border x:Name="OuterBorder" Background="Transparent" CornerRadius="1" BorderThickness="1" SnapsToDevicePixels="True">
+							<Border x:Name="InnerBorder" CornerRadius="1" BorderThickness="1" SnapsToDevicePixels="True">
+								<Grid SnapsToDevicePixels="True">
+									<Canvas Width="8" Height="5" HorizontalAlignment="Center" VerticalAlignment="Center" SnapsToDevicePixels="True">
+										<Path StrokeThickness="1" Data="M 0.5,0.5 L 3,2.5 L 0.5,4.5 Z  M 5,0.5 L 7.5,2.5 L 5,4.5 Z" Stroke="#FFFFFF" Fill="#FFFFFF" SnapsToDevicePixels="True" />
+										<Path StrokeThickness="1" Data="M 0.5,1.75 L 1.75,2.5 L 0.5,3.25 Z  M 5,1.75 L 6.25,2.5 L 5,3.25 Z" Stroke="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundBrushKey}}" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundBrushKey}}" SnapsToDevicePixels="True" />
+									</Canvas>
+								</Grid>
+							</Border>
+						</Border>
+					</Grid>
+					
+					<ControlTemplate.Triggers>
+						<Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="True">
+							<Setter TargetName="DropShadow" Property="Margin" Value="0,0,5,5" />
+							<Setter TargetName="DropShadow" Property="Color" Value="#40000000" />
+						</Trigger>
+						<Trigger SourceName="PART_Popup" Property="IsOpen" Value="True">
+							<Setter TargetName="PART_Popup" Property="PopupAnimation" Value="Fade" />
+						</Trigger>
+						<Trigger Property="PopupHasBorder" Value="False">
+							<Setter TargetName="PopupOuterBorder" Property="BorderThickness" Value="0" />
+							<Setter TargetName="PopupOuterBorder" Property="Background" Value="{x:Null}" />
+							<Setter TargetName="PopupInnerBorder" Property="BorderThickness" Value="0" />
+						</Trigger>
+						<Trigger Property="PopupResizeMode" Value="Both">
+							<Setter TargetName="ResizeGripContainer" Property="Visibility" Value="Visible" />
+						</Trigger>
+						<Trigger Property="PopupResizeMode" Value="Vertical">
+							<Setter TargetName="ResizeGripContainer" Property="Visibility" Value="Visible" />
+							<Setter TargetName="PART_ResizeGrip" Property="Style" Value="{StaticResource VerticalResizeGripperStyle}" />
+						</Trigger>
+						
+						<Trigger Property="IsKeyboardFocused" Value="True">
+							<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundHoverBrushKey}}" />
+							<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderHoverBrushKey}}"/>
+						</Trigger>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundHoverBrushKey}}" />
+							<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderHoverBrushKey}}"/>
+						</Trigger>
+						<Trigger Property="IsPopupOpen" Value="True">
+							<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundPressedBrushKey}}" />
+							<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderPressedBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderPressedBrushKey}}"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<!-- ribbonControlsPrimitives:PopupGalleryFilterButton -->
+	<Style x:Key="{x:Type ribbonControlsPrimitives:PopupGalleryFilterButton}" TargetType="{x:Type ribbonControlsPrimitives:PopupGalleryFilterButton}">
+		<Setter Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryFilterBackgroundBrushKey}}" />
+		<Setter Property="FocusVisualStyle" Value="{x:Null}" />
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryFilterForegroundNormalBrushKey}}" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ribbonControlsPrimitives:PopupGalleryFilterButton">
+					<Grid>
+
+						<Popup Name="PART_Popup" AllowsTransparency="True" MinWidth="16" MinHeight="16" StaysOpen="True"
+								IsOpen="{Binding Path=IsPopupOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+								CustomPopupPlacementCallback="{TemplateBinding CustomPopupPlacementCallback}" 
+								HorizontalOffset="{TemplateBinding PopupHorizontalOffset}"
+								Placement="{TemplateBinding PopupPlacement}"
+								PlacementRectangle="{TemplateBinding PopupPlacementRectangle}"
+								PlacementTarget="{TemplateBinding PopupPlacementTarget}"
+								VerticalOffset="{TemplateBinding PopupVerticalOffset}"
+								>
+							<AdornerDecorator SnapsToDevicePixels="True">
+								<shared:DropShadowChrome Name="DropShadow" Color="Transparent">
+									<Border x:Name="PopupOuterBorder" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuOuterBorderBrushKey}}" BorderThickness="1" 
+										Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuBackgroundBrushKey}}" SnapsToDevicePixels="True">
+										<Border x:Name="PopupInnerBorder" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuInnerBorderBrushKey}}" BorderThickness="1" SnapsToDevicePixels="True">
+											<Grid>
+												<Grid.RowDefinitions>
+													<RowDefinition Height="*" />
+													<RowDefinition Height="Auto" />
+												</Grid.RowDefinitions>
+
+												<ribbonControlsPrimitives:PopupScrollViewer CanContentScroll="True"
+													Style="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=MenuScrollViewer}}">
+													<ribbonControlsPrimitives:PopupContentPresenter Content="{TemplateBinding PopupContent}" 
+														ContentTemplate="{TemplateBinding PopupContentTemplate}" ContentTemplateSelector="{TemplateBinding PopupContentTemplateSelector}" />
+												</ribbonControlsPrimitives:PopupScrollViewer>
+												
+												<Border Name="ResizeGripContainer" Grid.Row="1" BorderThickness="0,1,0,0" CornerRadius="0,0,2,2" Visibility="Collapsed"
+													BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripSeparatorBrushKey}}" SnapsToDevicePixels="True"
+													Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripBackgroundBrushKey}}">
+													<Thumb x:Name="PART_ResizeGrip" Style="{StaticResource BothResizeGripperStyle}"  />
+												</Border>
+											</Grid>
+										</Border>
+									</Border>
+								</shared:DropShadowChrome>
+							</AdornerDecorator>
+						</Popup>
+														
+						<Border Background="{TemplateBinding Background}">
+							<StackPanel Margin="7,1,7,1" Orientation="Horizontal">
+								<TextBlock Text="{TemplateBinding Label}" />
+								<Path Margin="2,1,0,0" VerticalAlignment="Center" Fill="{TemplateBinding Foreground}" Data="M 0,0 L 3.5,4 L 7,0 Z" SnapsToDevicePixels="True" />
+							</StackPanel>
+						</Border>
+					</Grid>
+					
+					<ControlTemplate.Triggers>
+						<Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="True">
+							<Setter TargetName="DropShadow" Property="Margin" Value="0,0,5,5" />
+							<Setter TargetName="DropShadow" Property="Color" Value="#40000000" />
+						</Trigger>
+						<Trigger SourceName="PART_Popup" Property="IsOpen" Value="True">
+							<Setter TargetName="PART_Popup" Property="PopupAnimation" Value="Fade" />
+						</Trigger>
+						<Trigger Property="PopupHasBorder" Value="False">
+							<Setter TargetName="PopupOuterBorder" Property="BorderThickness" Value="0" />
+							<Setter TargetName="PopupOuterBorder" Property="Background" Value="{x:Null}" />
+							<Setter TargetName="PopupInnerBorder" Property="BorderThickness" Value="0" />
+						</Trigger>
+						<Trigger Property="PopupResizeMode" Value="Both">
+							<Setter TargetName="ResizeGripContainer" Property="Visibility" Value="Visible" />
+						</Trigger>
+						<Trigger Property="PopupResizeMode" Value="Vertical">
+							<Setter TargetName="ResizeGripContainer" Property="Visibility" Value="Visible" />
+							<Setter TargetName="PART_ResizeGrip" Property="Style" Value="{StaticResource VerticalResizeGripperStyle}" />
+						</Trigger>
+						
+						<Trigger Property="IsKeyboardFocused" Value="True">
+							<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryFilterForegroundHoverBrushKey}}" />
+						</Trigger>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryFilterForegroundHoverBrushKey}}" />
+						</Trigger>
+					</ControlTemplate.Triggers>													
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
+	<!-- ribbonControlsPrimitives:RibbonGalleryPopupButton -->
+	<Style x:Key="{x:Type ribbonControlsPrimitives:RibbonGalleryPopupButton}" TargetType="{x:Type ribbonControlsPrimitives:RibbonGalleryPopupButton}">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundBrushKey}}"/>
+		<Setter Property="MinHeight" Value="20"/>
+		<Setter Property="MinWidth" Value="16"/>
+		<Setter Property="Padding" Value="2"/>
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type ribbonControlsPrimitives:RibbonGalleryPopupButton}">
+					<Grid>
+
+						<Popup Name="PART_Popup" AllowsTransparency="True" MinWidth="16" MinHeight="16" StaysOpen="True"
+								IsOpen="{Binding Path=IsPopupOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+								CustomPopupPlacementCallback="{TemplateBinding CustomPopupPlacementCallback}" 
+								HorizontalOffset="{TemplateBinding PopupHorizontalOffset}"
+								Placement="{TemplateBinding PopupPlacement}"
+								PlacementRectangle="{TemplateBinding PopupPlacementRectangle}"
+								PlacementTarget="{TemplateBinding PopupPlacementTarget}"
+								VerticalOffset="{TemplateBinding PopupVerticalOffset}"
+								>
+							<AdornerDecorator SnapsToDevicePixels="True">
+								<shared:DropShadowChrome Name="DropShadow" Color="Transparent">
+									<Border x:Name="PopupOuterBorder" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuOuterBorderBrushKey}}" BorderThickness="1" 
+										Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuBackgroundBrushKey}}" SnapsToDevicePixels="True">
+										<Border x:Name="PopupInnerBorder" BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.ContextMenuInnerBorderBrushKey}}" BorderThickness="1" SnapsToDevicePixels="True">
+											<Grid>
+												<Grid.RowDefinitions>
+													<RowDefinition Height="*" />
+													<RowDefinition Height="Auto" />
+												</Grid.RowDefinitions>
+
+												<ribbonControlsPrimitives:PopupScrollViewer CanContentScroll="True"
+													Style="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type ribbon:Ribbon},ResourceId=MenuScrollViewer}}">
+													<ribbonControlsPrimitives:PopupContentPresenter Content="{TemplateBinding PopupContent}" 
+														ContentTemplate="{TemplateBinding PopupContentTemplate}" ContentTemplateSelector="{TemplateBinding PopupContentTemplateSelector}" />
+												</ribbonControlsPrimitives:PopupScrollViewer>
+												
+												<Border Name="ResizeGripContainer" Grid.Row="1" BorderThickness="0,1,0,0" CornerRadius="0,0,2,2" Visibility="Collapsed"
+													BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripSeparatorBrushKey}}" SnapsToDevicePixels="True"
+													Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.PopupGalleryResizeGripBackgroundBrushKey}}">
+													<Thumb x:Name="PART_ResizeGrip" Style="{StaticResource BothResizeGripperStyle}"  />
+												</Border>
+											</Grid>
+										</Border>
+									</Border>
+								</shared:DropShadowChrome>
+							</AdornerDecorator>
+						</Popup>
+													
+						<Border x:Name="OuterBorder" BorderThickness="1" CornerRadius="0,0,2,0" 
+							BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonGalleryButtonOuterBorderNormalBrushKey}}" 
+							Background="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonGalleryButtonBackgroundNormalBrushKey}}" SnapsToDevicePixels="True">
+							<Border x:Name="InnerBorder" BorderThickness="1" 
+								BorderBrush="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonGalleryButtonInnerBorderNormalBrushKey}}" SnapsToDevicePixels="True">
+								<Canvas Width="7" Height="7" HorizontalAlignment="Center" VerticalAlignment="Center" SnapsToDevicePixels="True">
+									<Path x:Name="GlyphDark" StrokeThickness="1" Stroke="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlDropDownArrowBrushKey}}" Fill="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlDropDownArrowBrushKey}}" SnapsToDevicePixels="True" 
+										Data="M 0.5,0.5 L 6.5,0.5 M 3.5,3.5 L 1.5,3.5 L 3.5,5.5 L 5.5,3.5 Z" />
+									<Path x:Name="GlyphLight" StrokeThickness="1" Stroke="#B0FFFFFF" SnapsToDevicePixels="True" 
+										Data="M 0.5,3.5 L 3.5,6.5 L 6.5,3.5" />
+								</Canvas>
+							</Border>						
+						</Border>
+					</Grid>
+						
+					<ControlTemplate.Triggers>
+						<Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="True">
+							<Setter TargetName="DropShadow" Property="Margin" Value="0,0,5,5" />
+							<Setter TargetName="DropShadow" Property="Color" Value="#40000000" />
+						</Trigger>
+						<Trigger SourceName="PART_Popup" Property="IsOpen" Value="True">
+							<Setter TargetName="PART_Popup" Property="PopupAnimation" Value="Fade" />
+						</Trigger>
+						<Trigger Property="PopupHasBorder" Value="False">
+							<Setter TargetName="PopupOuterBorder" Property="BorderThickness" Value="0" />
+							<Setter TargetName="PopupOuterBorder" Property="Background" Value="{x:Null}" />
+							<Setter TargetName="PopupInnerBorder" Property="BorderThickness" Value="0" />
+						</Trigger>
+						<Trigger Property="PopupResizeMode" Value="Both">
+							<Setter TargetName="ResizeGripContainer" Property="Visibility" Value="Visible" />
+						</Trigger>
+						<Trigger Property="PopupResizeMode" Value="Vertical">
+							<Setter TargetName="ResizeGripContainer" Property="Visibility" Value="Visible" />
+							<Setter TargetName="PART_ResizeGrip" Property="Style" Value="{StaticResource VerticalResizeGripperStyle}" />
+						</Trigger>
+						
+						<Trigger Property="IsKeyboardFocused" Value="True">
+							<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundHoverBrushKey}}" />
+							<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderHoverBrushKey}}"/>
+						</Trigger>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundHoverBrushKey}}" />
+							<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderHoverBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderHoverBrushKey}}"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlSmallBackgroundPressedBrushKey}}" />
+							<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlOuterBorderPressedBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlInnerBorderPressedBrushKey}}"/>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonGalleryButtonBackgroundDisabledBrushKey}}" />
+							<Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonGalleryButtonOuterBorderDisabledBrushKey}}"/>
+							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonGalleryButtonInnerBorderDisabledBrushKey}}"/>
+							<Setter TargetName="GlyphDark" Property="Stroke" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundDisabledBrushKey}}"/>
+							<Setter TargetName="GlyphDark" Property="Fill" Value="{DynamicResource {x:Static ribbonThemes:RibbonCommonDictionary.RibbonControlLabelForegroundDisabledBrushKey}}"/>
+							<Setter TargetName="GlyphLight" Property="Visibility" Value="Collapsed"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>
