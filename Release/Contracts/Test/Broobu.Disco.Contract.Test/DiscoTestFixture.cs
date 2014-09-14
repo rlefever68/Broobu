@@ -91,10 +91,9 @@ namespace Broobu.Disco.Contract.Test
         /// Try_s the get all endpoints.
         /// </summary>
         [TestMethod]
-        public void Try_GetAuthenticationEndpoints()
+        public void Try_GetMonitorDiscoEndpoints()
         {
-            var res = GetEndpoints("http://broobu.com/auth/14/01:IAuthentication");
-            Assert.IsNotNull(res);
+            var res = GetEndpoints("http://broobu.com/monitordisco/14/01:IMonitorDisco");
             foreach (var serializableEndpoint in res)
             {
                 Console.WriteLine(String.Format("Contract: {0}", serializableEndpoint.ContractName));
