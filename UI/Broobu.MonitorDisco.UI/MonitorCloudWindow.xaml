@@ -6,7 +6,8 @@
         xmlns:broobu="http://schemas.broobu/ui"
         x:Class="Broobu.MonitorDisco.UI.MonitorCloudWindow"
         Title="Broobu - Monitor Cloud"
-        dx:ThemeManager.ThemeName="TouchlineDark">
+        dx:ThemeManager.ThemeName="Office2013DarkGray"
+    >
     <Grid>
         <views:MonitorCloudView/>
     </Grid>

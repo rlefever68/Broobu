@@ -81,16 +81,16 @@ namespace Broobu.Fx.UI.Fragments
                 CurrentNode=AddNode(null, brc);
             });
             btnAddChild.Command = new DelegateCommand(() => {
-                if (SelectedItem == null) return;
                 if (CurrentNode == null) return;
+                if (SelectedItem == null) return;
                 var chld = SelectedItem.AddChild();
-                CurrentNode = AddNode(CurrentNode, chld);
+                AddNode(CurrentNode, chld);
             });
             btnAddFolder.Command = new DelegateCommand(() => {
-                if (SelectedItem == null) return;
                 if (CurrentNode == null) return;
+                if (SelectedItem == null) return;
                 var fld = SelectedItem.AddFolder();
-                CurrentNode = AddNode(CurrentNode, fld);
+                AddNode(CurrentNode, fld);
             });
             DataContextChanged += (s, e) =>
             {

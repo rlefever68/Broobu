@@ -123,10 +123,6 @@
       <Project>{F91577DB-89FA-43F7-A08E-3FF227767E9A}</Project>
       <Name>Broobu.MonitorDisco.Contract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Broobu.Authentication.UI.Controls\Broobu.Authentication.UI.Controls.csproj">
-      <Project>{F7757306-F486-4BE3-99D7-80C5B7ED325B}</Project>
-      <Name>Broobu.Authentication.UI.Controls</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Broobu.Fx.UI\Broobu.Fx.UI.csproj">
       <Project>{6dbad298-4c04-4e60-a8af-cd6ec63549de}</Project>
       <Name>Broobu.Fx.UI</Name>

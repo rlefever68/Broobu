@@ -86,6 +86,21 @@ namespace Broobu.Disco.Contract.Test
             }
         }
 
+
+        /// <summary>
+        /// Try_s the get all endpoints.
+        /// </summary>
+        [TestMethod]
+        public void Try_GetAuthenticationEndpoints()
+        {
+            var res = GetEndpoints("http://broobu.com/auth/14/01:IAuthentication");
+            Assert.IsNotNull(res);
+            foreach (var serializableEndpoint in res)
+            {
+                Console.WriteLine(String.Format("Contract: {0}", serializableEndpoint.ContractName));
+            }
+        }
+
         /// <summary>
         /// Gets the endpoints.
         /// </summary>
@@ -95,8 +110,7 @@ namespace Broobu.Disco.Contract.Test
         {
             return DiscoPortal
                 .Disco
-                .GetAllEndpoints();
-
+                .GetEndpoints(contractType);
         }
 
         /// <summary>

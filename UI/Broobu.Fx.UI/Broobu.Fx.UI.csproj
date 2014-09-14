@@ -91,9 +91,6 @@
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Wulka">
-      <HintPath>..\..\Wulka\SDK\Wulka.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Addin\AddInBase.cs" />
@@ -424,6 +421,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\BroobuZenBanner.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Wulka\SDK\Src\Wulka\Wulka.csproj">
+      <Project>{b580a38d-93e1-4c12-8e8b-e9899a60ff29}</Project>
+      <Name>Wulka</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

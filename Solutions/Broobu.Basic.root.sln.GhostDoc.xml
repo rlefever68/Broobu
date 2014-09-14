@@ -20,7 +20,7 @@
     <IncludeScopes>
       <Public>true</Public>
       <Internal>false</Internal>
-      <Protected>false</Protected>
+      <Protected>true</Protected>
       <Private>false</Private>
       <Inherited>true</Inherited>
       <EnableTags>false</EnableTags>
@@ -31,7 +31,6 @@
     <FooterText />
     <SelectedProjects>
       <SelectedProject>Iris.Fx</SelectedProject>
-      <SelectedProject>Broobu.Fx.UI</SelectedProject>
     </SelectedProjects>
   </HelpConfiguration>
 </HelpConfigurations>

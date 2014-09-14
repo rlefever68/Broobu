@@ -19,7 +19,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Broobu.Authentication.UI.Controls;
 using Broobu.Fx.UI.MVVM;
 using Broobu.MonitorDisco.Contract;
 using Broobu.MonitorDisco.Contract.Domain;
@@ -36,7 +35,7 @@ namespace Broobu.MonitorDisco.UI.Controls.ViewModels
     /// Class DiscoViewItemViewModel.
     /// </summary>
     [POCOViewModel]
-    public class DiscoInfoViewModel  : AuthenticatedViewModel
+    public class DiscoInfoViewModel  : FxViewModelBase
     {
 
 

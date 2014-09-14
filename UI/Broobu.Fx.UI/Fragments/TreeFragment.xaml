@@ -34,9 +34,21 @@
                     </dxb:Bar.DockInfo>
                 </dxb:Bar>
                 <dxb:Bar ShowDragWidget="False" UseWholeRow="True" Caption="Actions" AllowCustomizationMenu="False" GlyphSize="Small" AllowQuickCustomization="False" AllowHide="False">
-                    <dxb:BarButtonItem x:Name="btnAddBranch" Content="Add Branch" Command="{Binding AddBranch}"/>
-                    <dxb:BarButtonItem x:Name="btnAddChild" Content="Add Child" Command="{Binding AddChild}"/>
-                    <dxb:BarButtonItem x:Name="btnAddFolder" Content="Add Folder" Command="{Binding AddFolder}"/>
+                    <dxb:BarButtonItem x:Name="btnAddBranch" 
+                                       Content="{Binding SelectedItem.AddBranchCommandDisplayName}" 
+                                       Glyph="{Binding SelectedItem.AddBranchCommandIcon}"
+                                       Command="{Binding AddBranch}"
+                                       IsVisible="{Binding SelectedItem.AddBranchVisible}"/>
+                    <dxb:BarButtonItem x:Name="btnAddChild" 
+                                       Content="{Binding SelectedItem.AddChildCommandDisplayName}" 
+                                       Glyph="{Binding SelectedItem.AddChildCommandIcon}"
+                                       Command="{Binding AddChild}"
+                                       IsVisible="{Binding SelectedItem.AddChildVisible}"/>
+                    <dxb:BarButtonItem x:Name="btnAddFolder" 
+                                       Content="{Binding SelectedItem.AddFolderCommandDisplayName}" 
+                                       Glyph="{Binding SelectedItem.AddFolderCommandIcon}"
+                                       Command="{Binding AddFolder}"
+                                       IsVisible="{Binding SelectedItem.AddFolderVisible}"/>
                 </dxb:Bar>
             </dxb:BarManager.Bars>
             <Grid>

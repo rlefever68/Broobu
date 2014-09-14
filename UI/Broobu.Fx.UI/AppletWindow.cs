@@ -31,6 +31,7 @@ namespace Broobu.Fx.UI
         protected AppletWindow()
         {
             InitializeCommands();
+            IsRibbonCaptionVisible = false;
             WindowState = WindowState.Maximized;
             InputBindings.Add(new InputBinding(ShowReleaseNotesDoc, new KeyGesture(Key.F12)));
             Closed += AppletWindowBaseClosed;
