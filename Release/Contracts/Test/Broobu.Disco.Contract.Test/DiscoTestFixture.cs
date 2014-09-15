@@ -82,7 +82,7 @@ namespace Broobu.Disco.Contract.Test
             Assert.IsNotNull(res);
             foreach (var serializableEndpoint in res)
             {
-                Console.WriteLine(String.Format("Contract: {0}",serializableEndpoint.ContractName));
+                Console.WriteLine(String.Format("Contract: {0}",serializableEndpoint.Address.Uri));
             }
         }
 
