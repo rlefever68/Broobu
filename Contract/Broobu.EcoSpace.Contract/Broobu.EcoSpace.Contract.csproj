@@ -77,9 +77,11 @@
     <Compile Include="Domain\Links\IRoleMenuLink.cs" />
     <Compile Include="Domain\Links\PermissionLink.cs" />
     <Compile Include="Domain\Eco\EcoSpaceMvvmMessage.cs" />
+    <Compile Include="Domain\Roles\RoleFactory.cs" />
     <Compile Include="Domain\Roles\RoleMvvmMessage.cs" />
     <Compile Include="Domain\Roles\Supervisor.cs" />
     <Compile Include="Domain\Roles\Team.cs" />
+    <Compile Include="Domain\Roles\TeamMember.cs" />
     <Compile Include="EcoSpacePortal.cs" />
     <Compile Include="Agents\RoleAgent.cs" />
     <Compile Include="Domain\Account\AdministratorAccountPointer.cs" />
@@ -89,7 +91,7 @@
     <Compile Include="Domain\Account\GuestAccountPointer.cs" />
     <Compile Include="Domain\Account\SystemAccountsFolder.cs" />
     <Compile Include="Domain\Applets\AppletFeature.cs" />
-    <Compile Include="Domain\Applets\AppletFolder.cs" />
+    <Compile Include="Domain\Applets\AppletDomain.cs" />
     <Compile Include="Domain\Applets\BusinessAppletsFolder.cs" />
     <Compile Include="Domain\Applets\CloudApplet.cs" />
     <Compile Include="Domain\Applets\AppletContainer.cs" />
@@ -121,7 +123,7 @@
     <Compile Include="Domain\Roles\DefaultRoleContainer.cs" />
     <Compile Include="Domain\Roles\IRole.cs" />
     <Compile Include="Domain\Eco\EcoSpaceConst.cs" />
-    <Compile Include="Domain\Roles\OrganizationRoleFolder.cs" />
+    <Compile Include="Domain\Roles\OrganizationsFolder.cs" />
     <Compile Include="Domain\Links\MenuAppletLink.cs" />
     <Compile Include="Domain\Menu\Page.cs" />
     <Compile Include="Domain\Menu\PageGroup.cs" />
@@ -162,6 +164,7 @@
     <Content Include="GenerationConfiguration\ContractGenerationConfiguration.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\AppletDomain.ico" />
     <None Include="Resources\Cool.ico" />
     <None Include="Resources\LearnMore.ico" />
     <None Include="Resources\CalculatorOrange.ico" />
@@ -211,6 +214,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Domain\Base\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Broobu.Authentication.Contract\Broobu.Authentication.Contract.csproj">
       <Project>{595D5886-5982-4A51-ABA0-EA661C54D95B}</Project>
       <Name>Broobu.Authentication.Contract</Name>
@@ -219,9 +225,6 @@
       <Project>{B217D6F0-86FD-467A-B978-7E54FE364909}</Project>
       <Name>Broobu.Taxonomy.Contract</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Domain\Base\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

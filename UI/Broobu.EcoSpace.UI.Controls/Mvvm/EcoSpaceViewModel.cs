@@ -43,9 +43,28 @@ namespace Broobu.EcoSpace.UI.Controls.Mvvm
             {
                 if (value == null) return;
                 _ecoSpace = value;
-                Messenger.Default.Send(new EcoSpaceMvvmMessage() { EcoSpaceDocument = _ecoSpace});
+                Messenger.Default.Send(new EcoSpaceMvvmMessage() 
+                { 
+                    EcoSpaceDocument = _ecoSpace
+                });
                 RaisePropertyChanged("EcoSpace");
             }
+        }
+
+
+
+        [Command(Name="SaveDocument", UseCommandManager=true, CanExecuteMethodName="CanSave")]
+        public void SaveDocument()
+        {
+            EcoSpace = EcoSpacePortal
+                .EcoSpace
+                .SaveEcoSpace(EcoSpace as EcoSpaceDocument);
+        }
+
+
+        public bool CanSave()
+        {
+            return EcoSpace != null && EcoSpace.IsDirty;
         }
 
 

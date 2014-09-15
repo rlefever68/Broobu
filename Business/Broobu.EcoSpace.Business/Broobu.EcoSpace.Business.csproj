@@ -81,7 +81,7 @@
       <Name>Broobu.EcoSpace.Contract</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Contract\Broobu.Taxonomy.Contract\Broobu.Taxonomy.Contract.csproj">
-      <Project>{b217d6f0-86fd-467a-b978-7e54fe364909}</Project>
+      <Project>{B217D6F0-86FD-467A-B978-7E54FE364909}</Project>
       <Name>Broobu.Taxonomy.Contract</Name>
     </ProjectReference>
   </ItemGroup>

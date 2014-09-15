@@ -3,7 +3,7 @@
 namespace Broobu.EcoSpace.Contract.Domain.Applets
 {
     [DataContract]
-    public class BusinessAppletsFolder : AppletFolder
+    public class BusinessAppletsFolder : AppletDomain
     {
         public BusinessAppletsFolder()
         {

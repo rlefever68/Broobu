@@ -20,6 +20,7 @@ using Wulka.Agent;
 using Wulka.Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Wulka.Domain.Authentication;
+using Wulka.Test;
 
 namespace Broobu.SessionProxy.Contract.Test
 {
@@ -27,28 +28,16 @@ namespace Broobu.SessionProxy.Contract.Test
     /// Class SessionProxyTest.
     /// </summary>
     [TestClass]
-    public class SessionProxyTest : ISessionProxy, IQuerySession
+    public class SessionProxyTest : ServiceTestFixtureBase, ISessionProxy, IQuerySession
     {
 
 
-
-
         [TestMethod]
-        public void Try_GetIQuerySessionEndpoints()
+        public override void Try_GetServiceEndpoints()
         {
-            var res = GetEndpoints(String.Format("{0}:IQuerySession", SessionServiceConst.Namespace));
-            foreach (var serializableEndpoint in res)
-            {
-                Console.WriteLine("{0}", serializableEndpoint.Address.Uri);
-            }
+            base.Try_GetServiceEndpoints();
         }
 
-        private IEnumerable<SerializableEndpoint> GetEndpoints(string contract)
-        {
-            return DiscoPortal
-                .Disco
-                .GetEndpoints(contract);
-        }
 
 
 
@@ -114,5 +103,9 @@ namespace Broobu.SessionProxy.Contract.Test
                 .EndSession(session);
         }
 
+        protected override string GetContractType()
+        {
+            return String.Format("{0}:IQuerySession", SessionServiceConst.Namespace);
+        }
     }
 }

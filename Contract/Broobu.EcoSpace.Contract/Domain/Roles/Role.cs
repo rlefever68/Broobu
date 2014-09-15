@@ -34,7 +34,7 @@ namespace Broobu.EcoSpace.Contract.Domain.Roles
     /// Class Role.
     /// </summary>
     [DataContract]
-    public class Role : EcoObject<Role>, IRole
+    public class Role : TaxonomyObject<Role>, IRole
     {
 
 

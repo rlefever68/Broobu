@@ -12,11 +12,8 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System;
-using Broobu.Authentication.Contract.Domain;
 using Broobu.EcoSpace.Business.Interfaces;
 using Broobu.EcoSpace.Business.Workers;
-using Broobu.EcoSpace.Contract.Domain.Account;
 
 namespace Broobu.EcoSpace.Business
 {

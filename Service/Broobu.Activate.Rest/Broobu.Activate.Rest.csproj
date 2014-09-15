@@ -77,13 +77,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="act.svc" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\Contract\Broobu.Authentication.Contract\Broobu.Authentication.Contract.csproj">
       <Project>{595D5886-5982-4A51-ABA0-EA661C54D95B}</Project>
       <Name>Broobu.Authentication.Contract</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="act.svc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

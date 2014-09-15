@@ -54,7 +54,7 @@ namespace Broobu.Boutique.Hub.UI.Controls.Mvvm
                     Parameter = button
                 });
             else
-                ComSink.StartApplet(button.LaunchUrl);
+                ComSink.RunApplet(button.LaunchUrl,null);
         }
        
 

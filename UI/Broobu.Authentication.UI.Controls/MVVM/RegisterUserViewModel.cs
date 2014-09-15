@@ -13,10 +13,12 @@
 // ***********************************************************************
 
 using System;
+using System.Threading;
+using System.Windows;
 using Broobu.Authentication.Contract;
 using Broobu.Authentication.Contract.Domain;
-using Broobu.Authentication.UI.Controls.Rules;
 using Broobu.Authentication.UI.Controls.Views;
+using Broobu.Fx.UI;
 using Broobu.Fx.UI.Domain;
 using Broobu.Fx.UI.MVVM;
 using Broobu.Fx.UI.ValidationRules;
@@ -256,6 +258,13 @@ namespace Broobu.Authentication.UI.Controls.Mvvm
             Feedback = !obj.HasErrors 
                 ? String.Format("Your registration is received.\nA confirmation email has been sent to '{0}'.", UserInfo.Email) 
                 : obj.Error;
+            Application.Current.DoEvents();
+            Thread.Sleep(3000);
+            Messenger.Default.Send(new NavigateMvvmMessage()
+            {
+                Header = LoginView.HEADER,
+                ViewName = LoginView.ID
+            });
         }
 
         /// <summary>

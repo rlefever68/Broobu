@@ -52,7 +52,8 @@ namespace Broobu.Fx.UI
         /// <summary>
         ///     The addin
         /// </summary>
-        [Import(typeof (IXProcAddIn))] public IXProcAddIn Addin;
+        [Import(typeof (IXProcAddIn))] 
+        public IXProcAddIn Addin;
 
 
         /// <summary>
@@ -181,51 +182,49 @@ namespace Broobu.Fx.UI
             ComSink.Instance.StartAppletDeamon(AppletName, ID);
             ComSink.Instance.RegisterApplet(Launcher, AppletName, ID);
 
-            if (Current.StartupUri == null)
+            if (Current.StartupUri != null) return;
+            ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            var site = (IXProcAddInSite) Activator.GetObject(typeof (IXProcAddInSite), Ipc);
+            // Register a server channel so that the host can make calls to IXProcAddIn.
+            // (Client channels are generally registere automatically.)
+            Logger.Info("\tRegistering Channel to [{0}]'", Ipc);
+            string procName = Process.GetCurrentProcess().ProcessName;
+            Logger.Info("Registering Applet Process Server Channel '{0}'", procName);
+            IpcUtils.RegisterServerChannel(procName);
+            //IpcUtils.RegisterServerChannel(QueryString);
+            // Set up a watchdog thread to catch abnormal quitting of the host process.
+            // For normal exist, IXProcAddIn.ShutDown() is expected to be called.
+            bool normalExit = false;
+            new Thread(new ThreadStart(delegate
             {
-                ShutdownMode = ShutdownMode.OnExplicitShutdown;
-                var site = (IXProcAddInSite) Activator.GetObject(typeof (IXProcAddInSite), Ipc);
-                // Register a server channel so that the host can make calls to IXProcAddIn.
-                // (Client channels are generally registere automatically.)
-                Logger.Info("\tRegistering Channel to [{0}]'", Ipc);
-                string procName = Process.GetCurrentProcess().ProcessName;
-                Logger.Info("Registering Applet Process Server Channel '{0}'", procName);
-                IpcUtils.RegisterServerChannel(procName);
-                //IpcUtils.RegisterServerChannel(QueryString);
-                // Set up a watchdog thread to catch abnormal quitting of the host process.
-                // For normal exist, IXProcAddIn.ShutDown() is expected to be called.
-                bool normalExit = false;
-                new Thread(new ThreadStart(delegate
+                Thread.CurrentThread.IsBackground = true;
+                Process.GetProcessById(site.HostProcessId).WaitForExit();
+                if (normalExit) return;
+                Logger.Warn("Host process quit unexpectedly.");
+                Environment.Exit(2);
+            })).Start();
+            CompositionHelper.ComposeParts(this, SourceType);
+            if (Addin != null)
+            {
+                Logger.Info("Created Addin [{0}] for site {1}", Addin.GetType().Name, site.HostProcessId);
+                Addin.Site = site;
+                Dispatcher.Run();
+                normalExit = true;
+            }
+            else
+            {
+                Logger.Info("No Addin found in package, shutting down.");
+                if (Current.ShutdownMode == ShutdownMode.OnMainWindowClose)
                 {
-                    Thread.CurrentThread.IsBackground = true;
-                    Process.GetProcessById(site.HostProcessId).WaitForExit();
-                    if (normalExit) return;
-                    Logger.Warn("Host process quit unexpectedly.");
-                    Environment.Exit(2);
-                })).Start();
-                CompositionHelper.ComposeParts(this, SourceType);
-                if (Addin != null)
-                {
-                    Logger.Info("Created Addin [{0}] for site {1}", Addin.GetType().Name, site.HostProcessId);
-                    Addin.Site = site;
-                    Dispatcher.Run();
-                    normalExit = true;
+                    if (Current.MainWindow == null)
+                    {
+                        Current.MainWindow.Close();
+                    }
+                    Current.Shutdown();
                 }
                 else
                 {
-                    Logger.Info("No Addin found in package, shutting down.");
-                    if (Current.ShutdownMode == ShutdownMode.OnMainWindowClose)
-                    {
-                        if (Current.MainWindow == null)
-                        {
-                            Current.MainWindow.Close();
-                        }
-                        Current.Shutdown();
-                    }
-                    else
-                    {
-                        Current.Shutdown();
-                    }
+                    Current.Shutdown();
                 }
             }
         }

@@ -16,7 +16,7 @@
     x:Class="Broobu.MonitorDisco.UI.Controls.Views.MonitorCloudView" 
     mc:Ignorable="d" 
     d:DesignHeight="706.528" d:DesignWidth="420.205"
-    dx:ThemeManager.ThemeName="Office2010Black">
+    >
     <UserControl.Resources>
         <ResourceDictionary>
             <converters:StatusToColorConverter x:Key="Sconv"/>

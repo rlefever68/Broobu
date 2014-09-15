@@ -39,11 +39,11 @@
                 </dxe:PasswordBoxEdit>
             </dxlc:LayoutItem>
             <dxlc:LayoutGroup Orientation="Horizontal" Padding="3">
-                <dxlc:LayoutItem>
+                    <dxlc:LayoutItem>
+                        <Button Content="Register here!" Margin="5" Style="{DynamicResource ButtonStyle}" Command="{Binding Register}"  />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem>
                     <Button Content="Continue as Guest"  Margin="5" x:Name="Cancel" HorizontalAlignment="Stretch" IsCancel="True" IsDefault="False" Style="{DynamicResource ButtonStyle}" Command="{Binding SignonGuest}"/>
-                </dxlc:LayoutItem>
-                <dxlc:LayoutItem>
-                    <Button Content="Register here!" Margin="5" Style="{DynamicResource ButtonStyle}" Command="{Binding Register}"  />
                 </dxlc:LayoutItem>
                 <dxlc:LayoutItem>
                     <Button Content="Reset my password" Margin="5" Style="{DynamicResource ButtonStyle}" Command="{Binding ResetPassword}"/>

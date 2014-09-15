@@ -70,6 +70,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Wulka\SDK\Release\Tests\Wulka.Test\Wulka.Test.csproj">
+      <Project>{A258A938-28F4-45CB-B296-D0799DA4C700}</Project>
+      <Name>Wulka.Test</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Wulka\SDK\Src\Wulka\Wulka.csproj">
       <Project>{B580A38D-93E1-4C12-8E8B-E9899A60FF29}</Project>
       <Name>Wulka</Name>

@@ -4,7 +4,7 @@
 // Created          : 07-19-2014
 //
 // Last Modified By : Rafael Lefever
-// Last Modified On : 07-19-2014
+// Last Modified On : 09-10-2014
 // ***********************************************************************
 // <copyright file="DefaultEcoSpace.cs" company="Broobu">
 //     Copyright (c) Broobu. All rights reserved.
@@ -50,10 +50,13 @@ namespace Broobu.EcoSpace.Contract.Domain.Default
         }
 
 
+        /// <summary>
+        /// The identifier
+        /// </summary>
         public new static string ID = "MASTER_ECOSPACE";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MasterEcoSpace"/> class.
+        /// Initializes a new instance of the <see cref="MasterEcoSpace" /> class.
         /// </summary>
         public MasterEcoSpace()
         {
@@ -67,6 +70,10 @@ namespace Broobu.EcoSpace.Contract.Domain.Default
         }
 
 
+        /// <summary>
+        /// Creates the master menu container.
+        /// </summary>
+        /// <returns>MenuContainer.</returns>
         private static MenuContainer CreateMasterMenuContainer()
         {
             var res = new MenuContainer();
@@ -79,6 +86,10 @@ namespace Broobu.EcoSpace.Contract.Domain.Default
         }
 
 
+        /// <summary>
+        /// Creates the master roles container.
+        /// </summary>
+        /// <returns>RoleContainer.</returns>
         private static RoleContainer CreateMasterRolesContainer()
         {
             var res = new RoleContainer();
@@ -93,7 +104,7 @@ namespace Broobu.EcoSpace.Contract.Domain.Default
                     sf.AddPart(rr);
                 }
                 res.AddPart(sf);
-                var cf = new OrganizationRoleFolder();
+                var cf = new OrganizationsFolder();
                 {
                     var of = new Organization() { DisplayName = "Broobu" };
                     {}
@@ -103,8 +114,12 @@ namespace Broobu.EcoSpace.Contract.Domain.Default
             }
             return res;
         }
-        
-        
+
+
+        /// <summary>
+        /// Creates the master applet container.
+        /// </summary>
+        /// <returns>AppletContainer.</returns>
         private static AppletContainer CreateMasterAppletContainer()
         {
             var res = new AppletContainer();

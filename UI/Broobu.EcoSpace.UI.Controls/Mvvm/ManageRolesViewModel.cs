@@ -12,31 +12,26 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Broobu.EcoSpace.Contract.Domain.Eco;
+
 using Broobu.EcoSpace.Contract.Domain.Roles;
-using Broobu.Fx.UI.MVVM;
-using DevExpress.Mvvm;
-using DevExpress.Mvvm.DataAnnotations;
+using Wulka.Domain.Interfaces;
 
 namespace Broobu.EcoSpace.UI.Controls.Mvvm
 {
     /// <summary>
     /// Class ManageRolesViewModel.
     /// </summary>
-    public class ManageRolesViewModel : FxViewModelBase
+    public class ManageRolesViewModel : EcoSpaceChildViewModel
     {
         /// <summary>
         /// The _roles
         /// </summary>
         private RoleContainer _roles;
-        /// <summary>
-        /// The _eco space document
-        /// </summary>
-        private IEcoSpaceDocument _ecoSpaceDocument;
+        
         /// <summary>
         /// The _selected role
         /// </summary>
-        private IRole _selectedRole;
+        private IComposedObject _selectedRole;
 
 
         /// <summary>
@@ -56,34 +51,11 @@ namespace Broobu.EcoSpace.UI.Controls.Mvvm
 
 
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ManageRolesViewModel"/> class.
-        /// </summary>
-        public ManageRolesViewModel()
-        {
-            Messenger.Default.Register<EcoSpaceMvvmMessage>(this, m => 
-            { 
-                EcoSpace = m.EcoSpaceDocument; 
-            });
-        }
+     
 
-        /// <summary>
-        /// Gets or sets the eco space document.
-        /// </summary>
-        /// <value>The eco space document.</value>
-        public IEcoSpaceDocument EcoSpace
+        protected override void OnEcoSpaceChanged()
         {
-            get 
-            { 
-                return _ecoSpaceDocument; 
-            }
-            set 
-            {
-                if (value == null) return;
-                _ecoSpaceDocument = value;
-                RaisePropertyChanged("EcoSpace");
-                Roles = _ecoSpaceDocument.Roles;
-            }
+            Roles = EcoSpace.Roles;            
         }
 
 
@@ -91,7 +63,7 @@ namespace Broobu.EcoSpace.UI.Controls.Mvvm
         /// Gets or sets the selected role.
         /// </summary>
         /// <value>The selected role.</value>
-        public IRole SelectedRole
+        public IComposedObject SelectedRole
         {
             get 
             {
@@ -117,18 +89,7 @@ namespace Broobu.EcoSpace.UI.Controls.Mvvm
 
 
 
-        [Command(Name="NewRoot", UseCommandManager=true)]
-        public void NewRoot()
-        {
-
-        }
-
-
-        [Command(Name="AddChild", UseCommandManager=true)]
-        public void AddChild()
-        {
-
-        }
+       
         
             
     }

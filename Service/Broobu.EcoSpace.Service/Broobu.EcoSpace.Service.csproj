@@ -84,10 +84,6 @@
       <Project>{2B1E4372-F6D6-4E9B-A7BD-887B10A86CF2}</Project>
       <Name>Broobu.EcoSpace.Contract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Contract\Broobu.Taxonomy.Contract\Broobu.Taxonomy.Contract.csproj">
-      <Project>{B217D6F0-86FD-467A-B978-7E54FE364909}</Project>
-      <Name>Broobu.Taxonomy.Contract</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

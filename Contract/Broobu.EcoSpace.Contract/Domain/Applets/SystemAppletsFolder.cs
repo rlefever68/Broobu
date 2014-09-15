@@ -4,7 +4,7 @@ using Wulka.Interfaces;
 namespace Broobu.EcoSpace.Contract.Domain.Applets
 {
     [DataContract]
-    public sealed class SystemAppletFolder : AppletFolder
+    public sealed class SystemAppletFolder : AppletDomain
     {
         public static string ID = "SYSTEM_APPLETS_FOLDER";
 

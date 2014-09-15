@@ -23,6 +23,7 @@ using Broobu.EcoSpace.Contract.Domain.Account;
 using Broobu.EcoSpace.Contract.Domain.Default;
 using Broobu.EcoSpace.Contract.Domain.Eco;
 using Wulka.Authentication;
+using Wulka.Configuration;
 using Wulka.Core;
 using Wulka.Data;
 using Wulka.Domain;
@@ -318,7 +319,7 @@ namespace Broobu.Boutique.Business.Workers
         public UserEnvironmentInfo GetUserEnvironmentInfo(string userName, string ecoSpaceId=null)
         {
             if (String.IsNullOrWhiteSpace(ecoSpaceId)) 
-                ecoSpaceId = MasterEcoSpace.ID;
+                ecoSpaceId = ConfigurationHelper.DiscoEndpoint;
             Logger.Info("Getting Boutique Menu Info for user '{0}' from EcoSpace '{1}'", userName, ecoSpaceId);
             var acc = GetAccountForUser(userName);
             var userInfo = EcoSpacePortal

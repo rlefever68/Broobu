@@ -1,4 +1,6 @@
-﻿using Broobu.Fx.UI;
+﻿using System;
+using Broobu.EcoSpace.UI.Controls;
+using Broobu.Fx.UI;
 
 namespace Broobu.EcoSpace.UI
 {
@@ -7,6 +9,11 @@ namespace Broobu.EcoSpace.UI
     /// </summary>
     public partial class App 
     {
+
+        protected override Type GetAddInSourceType()
+        {
+            return typeof(EcoSpaceAddIn);
+        }
         
     }
 }

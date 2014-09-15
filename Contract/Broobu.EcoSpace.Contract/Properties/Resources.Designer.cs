@@ -103,6 +103,16 @@ namespace Broobu.EcoSpace.Contract.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
+        internal static System.Drawing.Icon AppletDomain {
+            get {
+                object obj = ResourceManager.GetObject("AppletDomain", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
         internal static System.Drawing.Icon AuthenticatedAccount {
             get {
                 object obj = ResourceManager.GetObject("AuthenticatedAccount", resourceCulture);

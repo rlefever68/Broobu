@@ -60,6 +60,7 @@
     <Reference Include="DevExpress.Xpf.Printing.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Ribbon.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -101,11 +102,17 @@
     <Compile Include="Fragments\RolePropertiesFragment.xaml.cs">
       <DependentUpon>RolePropertiesFragment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EcoSpaceAddIn.cs" />
+    <Compile Include="Mvvm\EcoSpaceChildViewModel.cs" />
+    <Compile Include="Mvvm\ManageAppletsViewModel.cs" />
     <Compile Include="Mvvm\ManageRolesViewModel.cs" />
     <Compile Include="Mvvm\MembershipViewModel.cs" />
     <Compile Include="Mvvm\RoleDetailViewModel.cs" />
     <Compile Include="Mvvm\RolePropertiesViewModel.cs" />
     <Compile Include="Mvvm\RoleViewModelBase.cs" />
+    <Compile Include="Views\ManageAppletsView.xaml.cs">
+      <DependentUpon>ManageAppletsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ManageRolesView.xaml.cs">
       <DependentUpon>ManageRolesView.xaml</DependentUpon>
     </Compile>
@@ -149,16 +156,12 @@
       <Project>{2B1E4372-F6D6-4E9B-A7BD-887B10A86CF2}</Project>
       <Name>Broobu.EcoSpace.Contract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Contract\Broobu.Taxonomy.Contract\Broobu.Taxonomy.Contract.csproj">
-      <Project>{B217D6F0-86FD-467A-B978-7E54FE364909}</Project>
-      <Name>Broobu.Taxonomy.Contract</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Broobu.Authentication.UI.Controls\Broobu.Authentication.UI.Controls.csproj">
-      <Project>{f7757306-f486-4be3-99d7-80c5b7ed325b}</Project>
+      <Project>{F7757306-F486-4BE3-99D7-80C5B7ED325B}</Project>
       <Name>Broobu.Authentication.UI.Controls</Name>
     </ProjectReference>
     <ProjectReference Include="..\Broobu.Fx.UI\Broobu.Fx.UI.csproj">
-      <Project>{6dbad298-4c04-4e60-a8af-cd6ec63549de}</Project>
+      <Project>{6DBAD298-4C04-4E60-A8AF-CD6EC63549DE}</Project>
       <Name>Broobu.Fx.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Broobu.Taxonomy.UI.Controls\Broobu.Taxonomy.UI.Controls.csproj">
@@ -199,6 +202,10 @@
     <Page Include="Fragments\RolePropertiesFragment.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ManageAppletsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ManageRolesView.xaml">
       <SubType>Designer</SubType>

@@ -13,12 +13,6 @@ namespace Broobu.EcoSpace.UI.Controls.Views
             InitializeComponent();
         }
 
-        private void RolesTreeFragment_SelectedItemChanged(object sender, DevExpress.Xpf.Grid.SelectedItemChangedEventArgs e)
-        {
-            e.Handled = true;
-            var role = (IRole)e.NewItem;
-            if (role == null) return;
-            
-        }
+        
     }
 }

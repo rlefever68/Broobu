@@ -15,8 +15,7 @@
                 <fragments:TreeFragment DataContext="{Binding Roles}" 
 					x:Name="RolesTreeFragment" 
 					Margin="2" 
-					SelectedItem="{Binding SelectedRole, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        />
+					SelectedItem="{Binding SelectedRole, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
         </dxb:BarManager>
 

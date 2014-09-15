@@ -19,8 +19,12 @@ namespace Broobu.EcoSpace.Contract.Domain.Roles
 
         protected override IDomainObject CreateChild()
         {
-            return new Team();
+            return RoleFactory.CreateTeam();
         }
+
+        
+
+
 
     }
 }

@@ -93,5 +93,19 @@ namespace Broobu.EcoSpace.Contract.Domain.Applets
         }
 
 
+
+
+        protected override IDomainObject CreateBranch()
+        {
+            return new AppletDomain();
+        }
+
+
+
+
+
+
+
+
     }
 }

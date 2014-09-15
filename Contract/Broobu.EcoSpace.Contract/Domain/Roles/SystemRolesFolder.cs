@@ -15,6 +15,27 @@ namespace Broobu.EcoSpace.Contract.Domain.Roles
             DisplayName = "System Roles";
             SystemId = "Jupiter";
         }
+
+
+
+
+        protected override Wulka.Domain.Interfaces.IDomainObject CreateBranch()
+        {
+            return null;
+        }
+
+        protected override Wulka.Domain.Interfaces.IDomainObject CreateChild()
+        {
+            return null;
+        }
+
+        protected override Wulka.Domain.Interfaces.IDomainObject CreateFolder()
+        {
+            return null;
+        }
+
+
+
     }
 
 }
