@@ -58,9 +58,6 @@
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.ServiceModel.Activation" />
-    <Reference Include="Wulka">
-      <HintPath>..\..\Wulka\SDK\Wulka.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\Contract\Broobu.Authentication.Contract\Properties\AssemblyVersions.cs">
@@ -108,6 +105,10 @@
     <Content Include="Broobu.Authentication.Service.Publish.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Wulka\SDK\Src\Wulka\Wulka.csproj">
+      <Project>{B580A38D-93E1-4C12-8E8B-E9899A60FF29}</Project>
+      <Name>Wulka</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Business\Broobu.Authentication.Business\Broobu.Authentication.Business.csproj">
       <Project>{537E8519-CD44-4CC9-9E29-9D07F6E282CD}</Project>
       <Name>Broobu.Authentication.Business</Name>

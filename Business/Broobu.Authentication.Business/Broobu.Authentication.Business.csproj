@@ -51,9 +51,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.Transactions" />
-    <Reference Include="Wulka">
-      <HintPath>..\..\Wulka\SDK\Wulka.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\Contract\Broobu.Authentication.Contract\Properties\AssemblyVersions.cs">
@@ -65,16 +62,20 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Wulka\SDK\Src\Wulka\Wulka.csproj">
+      <Project>{B580A38D-93E1-4C12-8E8B-E9899A60FF29}</Project>
+      <Name>Wulka</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Contract\Broobu.Authentication.Contract\Broobu.Authentication.Contract.csproj">
       <Project>{595D5886-5982-4A51-ABA0-EA661C54D95B}</Project>
       <Name>Broobu.Authentication.Contract</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Contract\Broobu.Publisher.Contract\Broobu.Publisher.Contract.csproj">
-      <Project>{ba4cc5a9-4253-4a36-a7fe-468c996a4ec8}</Project>
+      <Project>{BA4CC5A9-4253-4A36-A7FE-468C996A4EC8}</Project>
       <Name>Broobu.Publisher.Contract</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Contract\Broobu.SessionProxy.Contract\Broobu.SessionProxy.Contract.csproj">
-      <Project>{1d5e68f4-7de5-4705-bf46-32751d8aaff3}</Project>
+      <Project>{1D5E68F4-7DE5-4705-BF46-32751D8AAFF3}</Project>
       <Name>Broobu.SessionProxy.Contract</Name>
     </ProjectReference>
   </ItemGroup>

@@ -64,10 +64,6 @@
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
-    <Reference Include="Wulka, Version=14.8.26.139, Culture=neutral, PublicKeyToken=01dd9af6e7fa5427, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Wulka\SDK\Wulka.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agent\AccountAgent.cs" />
@@ -112,6 +108,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Wulka\SDK\Src\Wulka\Wulka.csproj">
+      <Project>{B580A38D-93E1-4C12-8E8B-E9899A60FF29}</Project>
+      <Name>Wulka</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Broobu.LATI.Contract\Broobu.LATI.Contract.csproj">
       <Project>{0EE13420-3C93-46BE-B07B-BBCE9D24B9CB}</Project>
       <Name>Broobu.LATI.Contract</Name>

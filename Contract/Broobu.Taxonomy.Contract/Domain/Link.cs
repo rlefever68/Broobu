@@ -29,7 +29,7 @@ namespace Broobu.Taxonomy.Contract.Domain
     /// Class RelationItem.
     /// </summary>
     [DataContract]
-    public class Link : EcoObject<Link>, ILink 
+    public class Link : TaxonomyObject<Link>, ILink 
     {
 
         /// <summary>

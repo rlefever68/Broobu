@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-
 using Broobu.Taxonomy.Contract;
 using Wulka.Domain.Base;
 using Wulka.Validation;
+using Wulka.Utils;
 
 namespace Broobu.Authentication.Contract.Domain
 {

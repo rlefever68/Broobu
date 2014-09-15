@@ -122,7 +122,8 @@ namespace Broobu.Authentication.Contract.Agent
             var clt = CreateClient();
             try
             {
-                return clt.GetAccounts()
+                string[] accs = clt.GetAccounts();
+                return accs
                     .Unzip<Account>()
                     .ToArray();
             }
