@@ -9,17 +9,17 @@
     xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" 
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
     xmlns:domain="clr-namespace:Broobu.MonitorDisco.Contract.Domain;assembly=Broobu.MonitorDisco.Contract"
-    xmlns:converters="clr-namespace:Broobu.MonitorDisco.Contract.Converters;assembly=Broobu.MonitorDisco.Contract"
     xmlns:viewModels="clr-namespace:Broobu.MonitorDisco.UI.Controls.ViewModels"
     xmlns:views="clr-namespace:Broobu.Fx.UI.Views;assembly=Broobu.Fx.UI"
     xmlns:broobu="http://schemas.broobu/ui"
+    xmlns:converters1="clr-namespace:Broobu.MonitorDisco.UI.Controls.Converters"
     x:Class="Broobu.MonitorDisco.UI.Controls.Views.MonitorCloudView" 
     mc:Ignorable="d" 
     d:DesignHeight="706.528" d:DesignWidth="420.205"
     >
     <UserControl.Resources>
         <ResourceDictionary>
-            <converters:StatusToColorConverter x:Key="Sconv"/>
+            <converters1:StatusToColorConverter x:Key="Sconv"/>
             <broobu:IsBusyConverter x:Key="IsBusyConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>

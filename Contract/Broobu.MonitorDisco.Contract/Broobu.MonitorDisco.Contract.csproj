@@ -41,6 +41,15 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\broobu.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Community Release Build|AnyCPU'">
+    <OutputPath>..\..\..\..\Release\Wulka.SDK\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -50,13 +59,13 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
-    <Reference Include="Wulka">
-      <HintPath>..\..\Wulka\SDK\Wulka.dll</HintPath>
+    <Reference Include="Wulka, Version=14.10.9.142, Culture=neutral, PublicKeyToken=01dd9af6e7fa5427, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Release\Wulka.SDK\Wulka.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agent\MonitorDiscoAgent.cs" />
-    <Compile Include="Converters\StatusToColorConverter.cs" />
     <Compile Include="MonitorDiscoPortal.cs" />
     <Compile Include="Interfaces\MonitorDiscoServiceConst.cs" />
     <Compile Include="Properties\AssemblyVersions.cs" />
@@ -72,13 +81,6 @@
     </None>
     <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\..\UI\Broobu.Fx.UI\Broobu.Fx.UI.csproj">
-      <Project>{6DBAD298-4C04-4E60-A8AF-CD6EC63549DE}</Project>
-      <Name>Broobu.Fx.UI</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

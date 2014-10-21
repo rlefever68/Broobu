@@ -29,7 +29,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -43,10 +43,22 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\broobu.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Community Release Build|AnyCPU'">
+    <OutputPath>bin\Community Release Build\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="Wulka, Version=14.10.9.142, Culture=neutral, PublicKeyToken=01dd9af6e7fa5427, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Release\Wulka.SDK\Wulka.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\Business\Broobu.Disco.Business\Properties\AssemblyVersions.cs">
@@ -63,7 +75,6 @@
     </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -80,10 +91,6 @@
     <Content Include="disco.svc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Wulka\SDK\Src\Wulka\Wulka.csproj">
-      <Project>{82A8069D-FD31-4CCA-8096-F93050B0A49D}</Project>
-      <Name>Wulka</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Business\Broobu.Disco.Business\Broobu.Disco.Business.csproj">
       <Project>{0da80387-9ea3-4188-a8e6-e88609a79411}</Project>
       <Name>Broobu.Disco.Business</Name>

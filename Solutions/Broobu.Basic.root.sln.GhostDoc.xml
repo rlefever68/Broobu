@@ -23,6 +23,7 @@
       <Protected>true</Protected>
       <Private>false</Private>
       <Inherited>true</Inherited>
+      <InheritedFromReferences>true</InheritedFromReferences>
       <EnableTags>false</EnableTags>
       <TagList />
     </IncludeScopes>

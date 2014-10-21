@@ -15,9 +15,9 @@ using System.Reflection;
 // associated with an assembly.
 
 [assembly: AssemblyCompany("Broobu Systems Ltd.")]
-[assembly: AssemblyProduct("Broobu Disco Services and Applets")]
+[assembly: AssemblyProduct("Broobu Node Engine and Applets")]
 [assembly: AssemblyCopyright("Copyright © Broobu Systems Ltd. 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("14.05.01.00")]
+[assembly: AssemblyVersion("14.10.06.00")]
 
