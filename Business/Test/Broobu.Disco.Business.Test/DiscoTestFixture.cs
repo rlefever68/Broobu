@@ -1,14 +1,22 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Broobu.Disco.Business;
-using Iris.Fx.Configuration;
-using Iris.Fx.Domain;
-using Iris.Fx.Interfaces;
+﻿// ***********************************************************************
+// Assembly         : Iris.Disco.Business.Test
+// Author           : Rafael Lefever
+// Created          : 09-11-2014
+//
+// Last Modified By : Rafael Lefever
+// Last Modified On : 10-23-2014
+// ***********************************************************************
+// <copyright file="DiscoTestFixture.cs" company="Broobu">
+//     Copyright (c) Broobu. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Wulka.Domain;
+using Wulka.Interfaces;
 
-namespace Iris.Disco.Business.Test
+namespace Broobu.Disco.Business.Test
 {
     /// <summary>
     /// Summary description for UnitTest1
@@ -16,6 +24,9 @@ namespace Iris.Disco.Business.Test
     [TestClass]
     public class DiscoTestFixture : IDisco
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiscoTestFixture"/> class.
+        /// </summary>
         public DiscoTestFixture()
         {
             //
@@ -24,9 +35,10 @@ namespace Iris.Disco.Business.Test
         }
 
         /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
+        /// Gets or sets the test context which provides
+        /// information about and functionality for the current test run.
+        /// </summary>
+        /// <value>The test context.</value>
         public TestContext TestContext { get; set; }
 
         #region Additional test attributes
@@ -51,6 +63,9 @@ namespace Iris.Disco.Business.Test
         //
         #endregion
 
+        /// <summary>
+        /// Try_s the get all endpoints.
+        /// </summary>
         [TestMethod]
         public void Try_GetAllEndpoints()
         {
@@ -61,11 +76,20 @@ namespace Iris.Disco.Business.Test
             }
         }
 
+        /// <summary>
+        /// Gets the endpoints.
+        /// </summary>
+        /// <param name="contractType">Type of the contract.</param>
+        /// <returns>SerializableEndpoint[].</returns>
         public SerializableEndpoint[] GetEndpoints(string contractType)
         {
             return new SerializableEndpoint[] {};
         }
 
+        /// <summary>
+        /// Gets all endpoints.
+        /// </summary>
+        /// <returns>SerializableEndpoint[].</returns>
         public SerializableEndpoint[] GetAllEndpoints()
         {
             return DiscoProvider
@@ -73,6 +97,10 @@ namespace Iris.Disco.Business.Test
                 .GetAllEndpoints();
         }
 
+        /// <summary>
+        /// Gets all endpoint addresses.
+        /// </summary>
+        /// <returns>DiscoItem[].</returns>
         public DiscoItem[] GetAllEndpointAddresses()
         {
             return new DiscoItem[] {};

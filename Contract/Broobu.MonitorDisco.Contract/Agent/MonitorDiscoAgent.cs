@@ -13,6 +13,7 @@
 // ***********************************************************************
 using System;
 using System.ComponentModel;
+using System.Configuration;
 using Broobu.MonitorDisco.Contract.Domain;
 using Broobu.MonitorDisco.Contract.Interfaces;
 using Wulka.Networking.Wcf;
@@ -24,6 +25,7 @@ namespace Broobu.MonitorDisco.Contract.Agent
     /// </summary>
     class MonitorDiscoAgent : DiscoProxy<IMonitorDisco>, IMonitorDiscoAgent
     {
+        
         #region IMonitorDiscoService Members
 
         /// <summary>

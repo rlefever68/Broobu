@@ -29,6 +29,7 @@
     <Grid x:Name="MainGrid">
         <dxb:BarManager>
             <dxb:BarManager.Items>
+                
                 <dxb:BarButtonItem x:Name="BiRefresh" Content="Refresh Cloud Info" LargeGlyph="{dx:DXImage Image=Refresh_32x32.png}" Glyph="{dx:DXImage Image=Refresh_16x16.png}" Command="{Binding Refresh}" AllowGlyphTheming="True" RibbonStyle="Default"/>
                 <dxb:BarStaticItem x:Name="BiRequestDuration" Content="{Binding RequestDuration}" />
                 <dxb:BarStaticItem x:Name="BiRequestDurationLabel" Content="Request Duration" />
@@ -101,9 +102,9 @@
                                 <dxg:GridColumn FieldName="Service" Name="ColService" VisibleIndex="5" />
                             </dxg:GridControl.Columns>
                             <dxg:GridControl.View>
-                            
+
                                 <dxg:TableView AllowEditing="False" MultiSelectMode="Row" NavigationStyle="Row" ShowHorizontalLines="False" ShowVerticalLines="False" BestFitMode="Smart" AutoWidth="False" UseLayoutRounding="False" ScrollingMode="Normal" x:Name="VwDisco"/>
-                        </dxg:GridControl.View>
+                            </dxg:GridControl.View>
                         </dxg:GridControl>
                     </views:BusyOverlay>
                 </Grid>

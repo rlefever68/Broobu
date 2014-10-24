@@ -1,11 +1,9 @@
-﻿using System;
-using Broobu.Disco.Business;
-using Broobu.Disco.Business.Interfaces;
-using Iris.Fx.Data;
-using Iris.Fx.Domain;
+﻿using Broobu.Disco.Business.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Wulka.Data;
+using Wulka.Domain;
 
-namespace Iris.Disco.Business.Test
+namespace Broobu.Disco.Business.Test
 {
     [TestClass]
     public class CloudContractsTestFixture : ICloudContracts
